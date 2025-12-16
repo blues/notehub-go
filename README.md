@@ -33,6 +33,38 @@ To use a proxy, set the environment variable `HTTP_PROXY`:
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
+## Updating the Auto-Generated notehub-go Package
+
+When the openapi.yaml file is updated in the original Notehub repo which this library supports, the updated file is copied over into a new feature branch in this repo through the magic of GitHub Actions.
+
+When this occurs, it's time to regenerate the notehub-go Go package based on the newly updated openapi.yaml.
+
+To regenerate the notehub-go package:
+
+1. Git clone the repo from GitHub.
+
+   ```bash
+   git clone git@github.com:blues/notehub-go.git
+   ```
+
+2. Check out the newly created remote branch from GitHub locally. (It will be named something like feat-XYZ.)
+
+3. At the root of the project, run the following script command from your terminal:
+
+   ```bash
+   ./scripts.sh generate_and_format
+   ```
+
+This command will run the following subcommands:
+
+- **remove_deprecated_parameters** - This makes a copy of the openapi.yaml file named openapi_filtered.yaml which has removed any query parameters marked as deprecated from the openapi.yaml file. Removing these now deprecated params ensures the generated SDK docs and sample code is clear and up to date, and no longer has potentially confusing artifacts to trip up users.
+- **generate_package** - This kicks off the OpenAPI Generator tool to generate a new copy of the library (using the newly updated openapi_filtered.yaml file).
+- **format_code** - This runs gofmt and goimports on the Go files, and Prettier on the markdown docs within the docs/ directory to make them look nice.
+- **init_go_module** - This initializes the Go module if it doesn't exist.
+- **tidy_go_dependencies** - This tidies up the Go module dependencies.
+
+Once all of these steps have successfully run, you'll be ready to merge the change to main and publish a new release.
+
 ## Configuration of Server URL
 
 Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
