@@ -23,10 +23,13 @@
 #!docs/README.md
 
 # Ignore README.md generation
-# README.md
+README.md
 
 # Ignore api directory (not needed, spec copy only)
 api/
 
 # Ignore Travis CI config (using GitHub Actions instead)
 .travis.yml
+
+# Ignore CONTRIBUTING.md (manually maintained)
+CONTRIBUTING.md
