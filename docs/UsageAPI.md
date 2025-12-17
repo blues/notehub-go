@@ -167,7 +167,7 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 
 ## GetRouteLogsUsage
 
-> GetRouteLogsUsage200Response GetRouteLogsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).Execute()
+> GetRouteLogsUsage200Response GetRouteLogsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 
 ### Example
 
@@ -188,10 +188,11 @@ func main() {
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
 	routeUID := []string{"Inner_example"} // []string | A Route UID. (optional)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "route")
+	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).Execute()
+	resp, r, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetRouteLogsUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -220,6 +221,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest s
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
 **routeUID** | **[]string** | A Route UID. |
 **aggregate** | **string** | Aggregation level for results | [default to &quot;route&quot;]
+**skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]
 
 ### Return type
 
