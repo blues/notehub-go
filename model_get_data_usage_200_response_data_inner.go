@@ -25,6 +25,8 @@ type GetDataUsage200ResponseDataInner struct {
 	Data []UsageData `json:"data"`
 	// The device UID this usage data belongs to (only present when aggregate is 'device')
 	Device *string `json:"device,omitempty"`
+	// the number of devices represented by this data point
+	DeviceCount *int32 `json:"device_count,omitempty"`
 	// The fleet UID this usage data belongs to (only present when aggregate is 'fleet')
 	Fleet *string `json:"fleet,omitempty"`
 	// The ICCID of the cellular SIM card (only present when type is 'cellular')
@@ -110,6 +112,38 @@ func (o *GetDataUsage200ResponseDataInner) HasDevice() bool {
 // SetDevice gets a reference to the given string and assigns it to the Device field.
 func (o *GetDataUsage200ResponseDataInner) SetDevice(v string) {
 	o.Device = &v
+}
+
+// GetDeviceCount returns the DeviceCount field value if set, zero value otherwise.
+func (o *GetDataUsage200ResponseDataInner) GetDeviceCount() int32 {
+	if o == nil || IsNil(o.DeviceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.DeviceCount
+}
+
+// GetDeviceCountOk returns a tuple with the DeviceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetDataUsage200ResponseDataInner) GetDeviceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.DeviceCount) {
+		return nil, false
+	}
+	return o.DeviceCount, true
+}
+
+// HasDeviceCount returns a boolean if a field has been set.
+func (o *GetDataUsage200ResponseDataInner) HasDeviceCount() bool {
+	if o != nil && !IsNil(o.DeviceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeviceCount gets a reference to the given int32 and assigns it to the DeviceCount field.
+func (o *GetDataUsage200ResponseDataInner) SetDeviceCount(v int32) {
+	o.DeviceCount = &v
 }
 
 // GetFleet returns the Fleet field value if set, zero value otherwise.
@@ -245,6 +279,9 @@ func (o GetDataUsage200ResponseDataInner) ToMap() (map[string]interface{}, error
 	toSerialize["data"] = o.Data
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
+	}
+	if !IsNil(o.DeviceCount) {
+		toSerialize["device_count"] = o.DeviceCount
 	}
 	if !IsNil(o.Fleet) {
 		toSerialize["fleet"] = o.Fleet

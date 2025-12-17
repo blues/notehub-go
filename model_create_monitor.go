@@ -45,7 +45,7 @@ type CreateMonitor struct {
 	Silenced *bool `json:"silenced,omitempty"`
 	// A valid JSONata expression that selects the value to monitor from the source. | It should return a single, numeric value.
 	SourceSelector *string `json:"source_selector,omitempty"`
-	// The type of source to monitor. Currently only \"event\" is supported.
+	// The type of source to monitor. Supported values are \"event\" and \"heartbeat\".
 	SourceType *string `json:"source_type,omitempty"`
 	// The type of condition to apply to the value selected by the source_selector
 	Threshold *int32  `json:"threshold,omitempty"`

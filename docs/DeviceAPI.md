@@ -173,7 +173,7 @@ Other parameters are passed through a pointer to a apiAddQiNoteRequest struct vi
 
 ## DeleteDevice
 
-> DeleteDevice(ctx, projectOrProductUID, deviceUID).Purge(purge).Execute()
+> DeleteDevice(ctx, projectOrProductUID, deviceUID).Execute()
 
 ### Example
 
@@ -190,11 +190,10 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	purge := true // bool |  (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.DeleteDevice(context.Background(), projectOrProductUID, deviceUID).Purge(purge).Execute()
+	r, err := apiClient.DeviceAPI.DeleteDevice(context.Background(), projectOrProductUID, deviceUID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeleteDevice``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -216,8 +215,6 @@ Other parameters are passed through a pointer to a apiDeleteDeviceRequest struct
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-
-**purge** | **bool** | | [default to false]
 
 ### Return type
 
@@ -950,7 +947,7 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 
 ## GetDeviceEnvironmentVariablesByPin
 
-> GetDeviceEnvironmentVariablesByPin200Response GetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).Execute()
+> GetDeviceEnvironmentVariablesByPin200Response GetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).XAuthToken(xAuthToken).Execute()
 
 ### Example
 
@@ -967,10 +964,11 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
+	xAuthToken := "xAuthToken_example" // string | For accessing endpoints by Device pin.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetDeviceEnvironmentVariablesByPin(context.Background(), productUID, deviceUID).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetDeviceEnvironmentVariablesByPin(context.Background(), productUID, deviceUID).XAuthToken(xAuthToken).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDeviceEnvironmentVariablesByPin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -995,13 +993,15 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
+**xAuthToken** | **string** | For accessing endpoints by Device pin. |
+
 ### Return type
 
 [**GetDeviceEnvironmentVariablesByPin200Response**](GetDeviceEnvironmentVariablesByPin200Response.md)
 
 ### Authorization
 
-[pin](../README.md#pin)
+No authorization required
 
 ### HTTP request headers
 
@@ -1863,7 +1863,7 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 ## SetDeviceEnvironmentVariablesByPin
 
-> EnvironmentVariables SetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).EnvironmentVariables(environmentVariables).Execute()
+> EnvironmentVariables SetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).XAuthToken(xAuthToken).EnvironmentVariables(environmentVariables).Execute()
 
 ### Example
 
@@ -1880,11 +1880,12 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
+	xAuthToken := "xAuthToken_example" // string | For accessing endpoints by Device pin.
 	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | Environment variables to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.SetDeviceEnvironmentVariablesByPin(context.Background(), productUID, deviceUID).EnvironmentVariables(environmentVariables).Execute()
+	resp, r, err := apiClient.DeviceAPI.SetDeviceEnvironmentVariablesByPin(context.Background(), productUID, deviceUID).XAuthToken(xAuthToken).EnvironmentVariables(environmentVariables).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.SetDeviceEnvironmentVariablesByPin``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1909,6 +1910,7 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
+**xAuthToken** | **string** | For accessing endpoints by Device pin. |
 **environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | Environment variables to be added to the device |
 
 ### Return type
@@ -1917,7 +1919,7 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 ### Authorization
 
-[pin](../README.md#pin)
+No authorization required
 
 ### HTTP request headers
 

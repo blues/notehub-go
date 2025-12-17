@@ -289,15 +289,4 @@ model_user_dfu_state_machine_status.go
 model_user_firmware_info.go
 model_webhook_settings.go
 response.go
-test/api_alert_test.go
-test/api_authorization_test.go
-test/api_billing_account_test.go
-test/api_device_test.go
-test/api_event_test.go
-test/api_external_devices_test.go
-test/api_monitor_test.go
-test/api_project_test.go
-test/api_route_test.go
-test/api_usage_test.go
-test/api_webhook_test.go
 utils.go

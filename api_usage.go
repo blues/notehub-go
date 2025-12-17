@@ -465,6 +465,7 @@ type ApiGetRouteLogsUsageRequest struct {
 	endDate             *int32
 	routeUID            *[]string
 	aggregate           *string
+	skipRecentData      *bool
 }
 
 // Period type for aggregation
@@ -494,6 +495,12 @@ func (r ApiGetRouteLogsUsageRequest) RouteUID(routeUID []string) ApiGetRouteLogs
 // Aggregation level for results
 func (r ApiGetRouteLogsUsageRequest) Aggregate(aggregate string) ApiGetRouteLogsUsageRequest {
 	r.aggregate = &aggregate
+	return r
+}
+
+// When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects.
+func (r ApiGetRouteLogsUsageRequest) SkipRecentData(skipRecentData bool) ApiGetRouteLogsUsageRequest {
+	r.skipRecentData = &skipRecentData
 	return r
 }
 
@@ -568,6 +575,13 @@ func (a *UsageAPIService) GetRouteLogsUsageExecute(r ApiGetRouteLogsUsageRequest
 		var defaultValue string = "route"
 		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregate", defaultValue, "form", "")
 		r.aggregate = &defaultValue
+	}
+	if r.skipRecentData != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skipRecentData", r.skipRecentData, "form", "")
+	} else {
+		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "skipRecentData", defaultValue, "form", "")
+		r.skipRecentData = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

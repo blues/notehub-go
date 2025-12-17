@@ -273,12 +273,6 @@ type ApiDeleteDeviceRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	purge               *bool
-}
-
-func (r ApiDeleteDeviceRequest) Purge(purge bool) ApiDeleteDeviceRequest {
-	r.purge = &purge
-	return r
 }
 
 func (r ApiDeleteDeviceRequest) Execute() (*http.Response, error) {
@@ -324,11 +318,7 @@ func (a *DeviceAPIService) DeleteDeviceExecute(r ApiDeleteDeviceRequest) (*http.
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.purge == nil {
-		return nil, reportError("purge is required and must be specified")
-	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "purge", r.purge, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1632,6 +1622,13 @@ type ApiGetDeviceEnvironmentVariablesByPinRequest struct {
 	ApiService *DeviceAPIService
 	productUID string
 	deviceUID  string
+	xAuthToken *string
+}
+
+// For accessing endpoints by Device pin.
+func (r ApiGetDeviceEnvironmentVariablesByPinRequest) XAuthToken(xAuthToken string) ApiGetDeviceEnvironmentVariablesByPinRequest {
+	r.xAuthToken = &xAuthToken
+	return r
 }
 
 func (r ApiGetDeviceEnvironmentVariablesByPinRequest) Execute() (*GetDeviceEnvironmentVariablesByPin200Response, *http.Response, error) {
@@ -1680,6 +1677,9 @@ func (a *DeviceAPIService) GetDeviceEnvironmentVariablesByPinExecute(r ApiGetDev
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.xAuthToken == nil {
+		return localVarReturnValue, nil, reportError("xAuthToken is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1698,20 +1698,7 @@ func (a *DeviceAPIService) GetDeviceEnvironmentVariablesByPinExecute(r ApiGetDev
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["pin"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["X-Auth-Token"] = key
-			}
-		}
-	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Auth-Token", r.xAuthToken, "simple", "")
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3697,7 +3684,14 @@ type ApiSetDeviceEnvironmentVariablesByPinRequest struct {
 	ApiService           *DeviceAPIService
 	productUID           string
 	deviceUID            string
+	xAuthToken           *string
 	environmentVariables *EnvironmentVariables
+}
+
+// For accessing endpoints by Device pin.
+func (r ApiSetDeviceEnvironmentVariablesByPinRequest) XAuthToken(xAuthToken string) ApiSetDeviceEnvironmentVariablesByPinRequest {
+	r.xAuthToken = &xAuthToken
+	return r
 }
 
 // Environment variables to be added to the device
@@ -3752,6 +3746,9 @@ func (a *DeviceAPIService) SetDeviceEnvironmentVariablesByPinExecute(r ApiSetDev
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.xAuthToken == nil {
+		return localVarReturnValue, nil, reportError("xAuthToken is required and must be specified")
+	}
 	if r.environmentVariables == nil {
 		return localVarReturnValue, nil, reportError("environmentVariables is required and must be specified")
 	}
@@ -3773,22 +3770,9 @@ func (a *DeviceAPIService) SetDeviceEnvironmentVariablesByPinExecute(r ApiSetDev
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "X-Auth-Token", r.xAuthToken, "simple", "")
 	// body params
 	localVarPostBody = r.environmentVariables
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["pin"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["X-Auth-Token"] = key
-			}
-		}
-	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

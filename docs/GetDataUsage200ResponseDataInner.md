@@ -2,14 +2,15 @@
 
 ## Properties
 
-| Name       | Type                            | Description                                                                                 | Notes      |
-| ---------- | ------------------------------- | ------------------------------------------------------------------------------------------- | ---------- |
-| **Data**   | [**[]UsageData**](UsageData.md) |                                                                                             |
-| **Device** | Pointer to **string**           | The device UID this usage data belongs to (only present when aggregate is &#39;device&#39;) | [optional] |
-| **Fleet**  | Pointer to **string**           | The fleet UID this usage data belongs to (only present when aggregate is &#39;fleet&#39;)   | [optional] |
-| **Iccid**  | Pointer to **string**           | The ICCID of the cellular SIM card (only present when type is &#39;cellular&#39;)           | [optional] |
-| **Imsi**   | Pointer to **string**           | The IMSI of the satellite device (only present when type is &#39;satellite&#39;)            | [optional] |
-| **Type**   | **string**                      | The type of connectivity                                                                    |
+| Name            | Type                            | Description                                                                                 | Notes      |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------------------------- | ---------- |
+| **Data**        | [**[]UsageData**](UsageData.md) |                                                                                             |
+| **Device**      | Pointer to **string**           | The device UID this usage data belongs to (only present when aggregate is &#39;device&#39;) | [optional] |
+| **DeviceCount** | Pointer to **int32**            | the number of devices represented by this data point                                        | [optional] |
+| **Fleet**       | Pointer to **string**           | The fleet UID this usage data belongs to (only present when aggregate is &#39;fleet&#39;)   | [optional] |
+| **Iccid**       | Pointer to **string**           | The ICCID of the cellular SIM card (only present when type is &#39;cellular&#39;)           | [optional] |
+| **Imsi**        | Pointer to **string**           | The IMSI of the satellite device (only present when type is &#39;satellite&#39;)            | [optional] |
+| **Type**        | **string**                      | The type of connectivity                                                                    |
 
 ## Methods
 
@@ -73,6 +74,31 @@ SetDevice sets Device field to given value.
 `func (o *GetDataUsage200ResponseDataInner) HasDevice() bool`
 
 HasDevice returns a boolean if a field has been set.
+
+### GetDeviceCount
+
+`func (o *GetDataUsage200ResponseDataInner) GetDeviceCount() int32`
+
+GetDeviceCount returns the DeviceCount field if non-nil, zero value otherwise.
+
+### GetDeviceCountOk
+
+`func (o *GetDataUsage200ResponseDataInner) GetDeviceCountOk() (*int32, bool)`
+
+GetDeviceCountOk returns a tuple with the DeviceCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeviceCount
+
+`func (o *GetDataUsage200ResponseDataInner) SetDeviceCount(v int32)`
+
+SetDeviceCount sets DeviceCount field to given value.
+
+### HasDeviceCount
+
+`func (o *GetDataUsage200ResponseDataInner) HasDeviceCount() bool`
+
+HasDeviceCount returns a boolean if a field has been set.
 
 ### GetFleet
 
