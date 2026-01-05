@@ -1,4 +1,4 @@
-# InlineObject1
+# GetRouteLogsUsage200Response
 
 ## Properties
 
@@ -8,39 +8,39 @@
 
 ## Methods
 
-### NewInlineObject1
+### NewGetRouteLogsUsage200Response
 
-`func NewInlineObject1(routeLogs []UsageRouteLogsData, ) *InlineObject1`
+`func NewGetRouteLogsUsage200Response(routeLogs []UsageRouteLogsData, ) *GetRouteLogsUsage200Response`
 
-NewInlineObject1 instantiates a new InlineObject1 object
+NewGetRouteLogsUsage200Response instantiates a new GetRouteLogsUsage200Response object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewInlineObject1WithDefaults
+### NewGetRouteLogsUsage200ResponseWithDefaults
 
-`func NewInlineObject1WithDefaults() *InlineObject1`
+`func NewGetRouteLogsUsage200ResponseWithDefaults() *GetRouteLogsUsage200Response`
 
-NewInlineObject1WithDefaults instantiates a new InlineObject1 object
+NewGetRouteLogsUsage200ResponseWithDefaults instantiates a new GetRouteLogsUsage200Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetRouteLogs
 
-`func (o *InlineObject1) GetRouteLogs() []UsageRouteLogsData`
+`func (o *GetRouteLogsUsage200Response) GetRouteLogs() []UsageRouteLogsData`
 
 GetRouteLogs returns the RouteLogs field if non-nil, zero value otherwise.
 
 ### GetRouteLogsOk
 
-`func (o *InlineObject1) GetRouteLogsOk() (*[]UsageRouteLogsData, bool)`
+`func (o *GetRouteLogsUsage200Response) GetRouteLogsOk() (*[]UsageRouteLogsData, bool)`
 
 GetRouteLogsOk returns a tuple with the RouteLogs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRouteLogs
 
-`func (o *InlineObject1) SetRouteLogs(v []UsageRouteLogsData)`
+`func (o *GetRouteLogsUsage200Response) SetRouteLogs(v []UsageRouteLogsData)`
 
 SetRouteLogs sets RouteLogs field to given value.
 

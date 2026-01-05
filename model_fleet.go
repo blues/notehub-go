@@ -31,7 +31,8 @@ type Fleet struct {
 	// Fleet label
 	Label string `json:"label"`
 	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule *string `json:"smart_rule,omitempty"`
+	SmartRule        *string `json:"smart_rule,omitempty"`
+	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
 	// Fleet UID
 	Uid string `json:"uid"`
 	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
@@ -215,6 +216,38 @@ func (o *Fleet) SetSmartRule(v string) {
 	o.SmartRule = &v
 }
 
+// GetSmartRuleEnabled returns the SmartRuleEnabled field value if set, zero value otherwise.
+func (o *Fleet) GetSmartRuleEnabled() bool {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.SmartRuleEnabled
+}
+
+// GetSmartRuleEnabledOk returns a tuple with the SmartRuleEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Fleet) GetSmartRuleEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		return nil, false
+	}
+	return o.SmartRuleEnabled, true
+}
+
+// HasSmartRuleEnabled returns a boolean if a field has been set.
+func (o *Fleet) HasSmartRuleEnabled() bool {
+	if o != nil && !IsNil(o.SmartRuleEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmartRuleEnabled gets a reference to the given bool and assigns it to the SmartRuleEnabled field.
+func (o *Fleet) SetSmartRuleEnabled(v bool) {
+	o.SmartRuleEnabled = &v
+}
+
 // GetUid returns the Uid field value
 func (o *Fleet) GetUid() string {
 	if o == nil {
@@ -291,6 +324,9 @@ func (o Fleet) ToMap() (map[string]interface{}, error) {
 	toSerialize["label"] = o.Label
 	if !IsNil(o.SmartRule) {
 		toSerialize["smart_rule"] = o.SmartRule
+	}
+	if !IsNil(o.SmartRuleEnabled) {
+		toSerialize["smart_rule_enabled"] = o.SmartRuleEnabled
 	}
 	toSerialize["uid"] = o.Uid
 	if !IsNil(o.WatchdogMins) {

@@ -12,7 +12,9 @@ Contact: engineering@blues.io
 package notehub
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Note type satisfies the MappedNullable interface at compile time
@@ -20,16 +22,33 @@ var _ MappedNullable = &Note{}
 
 // Note struct for Note
 type Note struct {
-	Body    map[string]interface{} `json:"body,omitempty"`
-	Payload *string                `json:"payload,omitempty"`
+	// Arbitrary user-defined JSON for the note.
+	Body map[string]interface{} `json:"body"`
+	// True if originated from an edge source.
+	Edge *bool `json:"edge,omitempty"`
+	// Note name/identifier (e.g., \"1:435\", \"my_note\").
+	Id string `json:"id"`
+	// Optional base64-encoded payload.
+	Payload *string `json:"payload,omitempty"`
+	// True if the note is pending delivery or processing.
+	Pending *bool `json:"pending,omitempty"`
+	// Unix epoch seconds.
+	Time int64 `json:"time"`
+	// Optional location/metadata string.
+	Where *string `json:"where,omitempty"`
 }
+
+type _Note Note
 
 // NewNote instantiates a new Note object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNote() *Note {
+func NewNote(body map[string]interface{}, id string, time int64) *Note {
 	this := Note{}
+	this.Body = body
+	this.Id = id
+	this.Time = time
 	return &this
 }
 
@@ -41,36 +60,84 @@ func NewNoteWithDefaults() *Note {
 	return &this
 }
 
-// GetBody returns the Body field value if set, zero value otherwise.
+// GetBody returns the Body field value
 func (o *Note) GetBody() map[string]interface{} {
-	if o == nil || IsNil(o.Body) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Body
 }
 
-// GetBodyOk returns a tuple with the Body field value if set, nil otherwise
+// GetBodyOk returns a tuple with the Body field value
 // and a boolean to check if the value has been set.
 func (o *Note) GetBodyOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Body) {
+	if o == nil {
 		return map[string]interface{}{}, false
 	}
 	return o.Body, true
 }
 
-// HasBody returns a boolean if a field has been set.
-func (o *Note) HasBody() bool {
-	if o != nil && !IsNil(o.Body) {
+// SetBody sets field value
+func (o *Note) SetBody(v map[string]interface{}) {
+	o.Body = v
+}
+
+// GetEdge returns the Edge field value if set, zero value otherwise.
+func (o *Note) GetEdge() bool {
+	if o == nil || IsNil(o.Edge) {
+		var ret bool
+		return ret
+	}
+	return *o.Edge
+}
+
+// GetEdgeOk returns a tuple with the Edge field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Note) GetEdgeOk() (*bool, bool) {
+	if o == nil || IsNil(o.Edge) {
+		return nil, false
+	}
+	return o.Edge, true
+}
+
+// HasEdge returns a boolean if a field has been set.
+func (o *Note) HasEdge() bool {
+	if o != nil && !IsNil(o.Edge) {
 		return true
 	}
 
 	return false
 }
 
-// SetBody gets a reference to the given map[string]interface{} and assigns it to the Body field.
-func (o *Note) SetBody(v map[string]interface{}) {
-	o.Body = v
+// SetEdge gets a reference to the given bool and assigns it to the Edge field.
+func (o *Note) SetEdge(v bool) {
+	o.Edge = &v
+}
+
+// GetId returns the Id field value
+func (o *Note) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *Note) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *Note) SetId(v string) {
+	o.Id = v
 }
 
 // GetPayload returns the Payload field value if set, zero value otherwise.
@@ -105,6 +172,94 @@ func (o *Note) SetPayload(v string) {
 	o.Payload = &v
 }
 
+// GetPending returns the Pending field value if set, zero value otherwise.
+func (o *Note) GetPending() bool {
+	if o == nil || IsNil(o.Pending) {
+		var ret bool
+		return ret
+	}
+	return *o.Pending
+}
+
+// GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Note) GetPendingOk() (*bool, bool) {
+	if o == nil || IsNil(o.Pending) {
+		return nil, false
+	}
+	return o.Pending, true
+}
+
+// HasPending returns a boolean if a field has been set.
+func (o *Note) HasPending() bool {
+	if o != nil && !IsNil(o.Pending) {
+		return true
+	}
+
+	return false
+}
+
+// SetPending gets a reference to the given bool and assigns it to the Pending field.
+func (o *Note) SetPending(v bool) {
+	o.Pending = &v
+}
+
+// GetTime returns the Time field value
+func (o *Note) GetTime() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.Time
+}
+
+// GetTimeOk returns a tuple with the Time field value
+// and a boolean to check if the value has been set.
+func (o *Note) GetTimeOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Time, true
+}
+
+// SetTime sets field value
+func (o *Note) SetTime(v int64) {
+	o.Time = v
+}
+
+// GetWhere returns the Where field value if set, zero value otherwise.
+func (o *Note) GetWhere() string {
+	if o == nil || IsNil(o.Where) {
+		var ret string
+		return ret
+	}
+	return *o.Where
+}
+
+// GetWhereOk returns a tuple with the Where field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Note) GetWhereOk() (*string, bool) {
+	if o == nil || IsNil(o.Where) {
+		return nil, false
+	}
+	return o.Where, true
+}
+
+// HasWhere returns a boolean if a field has been set.
+func (o *Note) HasWhere() bool {
+	if o != nil && !IsNil(o.Where) {
+		return true
+	}
+
+	return false
+}
+
+// SetWhere gets a reference to the given string and assigns it to the Where field.
+func (o *Note) SetWhere(v string) {
+	o.Where = &v
+}
+
 func (o Note) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -115,13 +270,61 @@ func (o Note) MarshalJSON() ([]byte, error) {
 
 func (o Note) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Body) {
-		toSerialize["body"] = o.Body
+	toSerialize["body"] = o.Body
+	if !IsNil(o.Edge) {
+		toSerialize["edge"] = o.Edge
 	}
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Payload) {
 		toSerialize["payload"] = o.Payload
 	}
+	if !IsNil(o.Pending) {
+		toSerialize["pending"] = o.Pending
+	}
+	toSerialize["time"] = o.Time
+	if !IsNil(o.Where) {
+		toSerialize["where"] = o.Where
+	}
 	return toSerialize, nil
+}
+
+func (o *Note) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"body",
+		"id",
+		"time",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNote := _Note{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNote)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Note(varNote)
+
+	return err
 }
 
 type NullableNote struct {

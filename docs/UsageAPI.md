@@ -2,11 +2,12 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                               | HTTP request                                              | Description |
-| ---------------------------------------------------- | --------------------------------------------------------- | ----------- |
-| [**GetDataUsage**](UsageAPI.md#GetDataUsage)         | **Get** /v1/projects/{projectOrProductUID}/usage/data     |
-| [**GetEventsUsage**](UsageAPI.md#GetEventsUsage)     | **Get** /v1/projects/{projectOrProductUID}/usage/events   |
-| [**GetSessionsUsage**](UsageAPI.md#GetSessionsUsage) | **Get** /v1/projects/{projectOrProductUID}/usage/sessions |
+| Method                                                 | HTTP request                                                | Description |
+| ------------------------------------------------------ | ----------------------------------------------------------- | ----------- |
+| [**GetDataUsage**](UsageAPI.md#GetDataUsage)           | **Get** /v1/projects/{projectOrProductUID}/usage/data       |
+| [**GetEventsUsage**](UsageAPI.md#GetEventsUsage)       | **Get** /v1/projects/{projectOrProductUID}/usage/events     |
+| [**GetRouteLogsUsage**](UsageAPI.md#GetRouteLogsUsage) | **Get** /v1/projects/{projectOrProductUID}/usage/route-logs |
+| [**GetSessionsUsage**](UsageAPI.md#GetSessionsUsage)   | **Get** /v1/projects/{projectOrProductUID}/usage/sessions   |
 
 ## GetDataUsage
 
@@ -150,6 +151,79 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 ### Return type
 
 [**UsageEventsResponse**](UsageEventsResponse.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## GetRouteLogsUsage
+
+> GetRouteLogsUsage200Response GetRouteLogsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	period := "period_example" // string | Period type for aggregation
+	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	routeUID := []string{"Inner_example"} // []string | A Route UID. (optional)
+	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "route")
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetRouteLogsUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRouteLogsUsage`: GetRouteLogsUsage200Response
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetRouteLogsUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**period** | **string** | Period type for aggregation |
+**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**routeUID** | **[]string** | A Route UID. |
+**aggregate** | **string** | Aggregation level for results | [default to &quot;route&quot;]
+
+### Return type
+
+[**GetRouteLogsUsage200Response**](GetRouteLogsUsage200Response.md)
 
 ### Authorization
 

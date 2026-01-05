@@ -31,12 +31,12 @@ type ApiAddDbNoteRequest struct {
 	deviceUID           string
 	notefileID          string
 	noteID              string
-	note                *Note
+	noteInput           *NoteInput
 }
 
 // Body or payload of note to be added to the device
-func (r ApiAddDbNoteRequest) Note(note Note) ApiAddDbNoteRequest {
-	r.note = &note
+func (r ApiAddDbNoteRequest) NoteInput(noteInput NoteInput) ApiAddDbNoteRequest {
+	r.noteInput = &noteInput
 	return r
 }
 
@@ -47,7 +47,7 @@ func (r ApiAddDbNoteRequest) Execute() (*http.Response, error) {
 /*
 AddDbNote Method for AddDbNote
 
-Add a Note to a .db notefile
+Add a Note to a .db notefile.  if noteID is '-' then payload is ignored and empty notefile is created
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -89,8 +89,8 @@ func (a *DeviceAPIService) AddDbNoteExecute(r ApiAddDbNoteRequest) (*http.Respon
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.note == nil {
-		return nil, reportError("note is required and must be specified")
+	if r.noteInput == nil {
+		return nil, reportError("noteInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -111,7 +111,7 @@ func (a *DeviceAPIService) AddDbNoteExecute(r ApiAddDbNoteRequest) (*http.Respon
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.note
+	localVarPostBody = r.noteInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -154,12 +154,12 @@ type ApiAddQiNoteRequest struct {
 	projectOrProductUID string
 	deviceUID           string
 	notefileID          string
-	note                *Note
+	noteInput           *NoteInput
 }
 
 // Body or payload of note to be added to the device
-func (r ApiAddQiNoteRequest) Note(note Note) ApiAddQiNoteRequest {
-	r.note = &note
+func (r ApiAddQiNoteRequest) NoteInput(noteInput NoteInput) ApiAddQiNoteRequest {
+	r.noteInput = &noteInput
 	return r
 }
 
@@ -209,8 +209,8 @@ func (a *DeviceAPIService) AddQiNoteExecute(r ApiAddQiNoteRequest) (*http.Respon
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.note == nil {
-		return nil, reportError("note is required and must be specified")
+	if r.noteInput == nil {
+		return nil, reportError("noteInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -231,119 +231,7 @@ func (a *DeviceAPIService) AddQiNoteExecute(r ApiAddQiNoteRequest) (*http.Respon
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.note
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiDeleteDbNoteRequest struct {
-	ctx                 context.Context
-	ApiService          *DeviceAPIService
-	projectOrProductUID string
-	deviceUID           string
-	notefileID          string
-	noteID              string
-}
-
-func (r ApiDeleteDbNoteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteDbNoteExecute(r)
-}
-
-/*
-DeleteDbNote Method for DeleteDbNote
-
-Delete a note from a .db notefile
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectOrProductUID
-	@param deviceUID
-	@param notefileID
-	@param noteID
-	@return ApiDeleteDbNoteRequest
-*/
-func (a *DeviceAPIService) DeleteDbNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiDeleteDbNoteRequest {
-	return ApiDeleteDbNoteRequest{
-		ApiService:          a,
-		ctx:                 ctx,
-		projectOrProductUID: projectOrProductUID,
-		deviceUID:           deviceUID,
-		notefileID:          notefileID,
-		noteID:              noteID,
-	}
-}
-
-// Execute executes the request
-func (a *DeviceAPIService) DeleteDbNoteExecute(r ApiDeleteDbNoteRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.DeleteDbNote")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"notefileID"+"}", url.PathEscape(parameterValueToString(r.notefileID, "notefileID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"noteID"+"}", url.PathEscape(parameterValueToString(r.noteID, "noteID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
+	localVarPostBody = r.noteInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -612,6 +500,118 @@ func (a *DeviceAPIService) DeleteDeviceEnvironmentVariableExecute(r ApiDeleteDev
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDeleteNoteRequest struct {
+	ctx                 context.Context
+	ApiService          *DeviceAPIService
+	projectOrProductUID string
+	deviceUID           string
+	notefileID          string
+	noteID              string
+}
+
+func (r ApiDeleteNoteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteNoteExecute(r)
+}
+
+/*
+DeleteNote Method for DeleteNote
+
+Delete a note from a .db or .qi notefile
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param deviceUID
+	@param notefileID
+	@param noteID
+	@return ApiDeleteNoteRequest
+*/
+func (a *DeviceAPIService) DeleteNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiDeleteNoteRequest {
+	return ApiDeleteNoteRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		deviceUID:           deviceUID,
+		notefileID:          notefileID,
+		noteID:              noteID,
+	}
+}
+
+// Execute executes the request
+func (a *DeviceAPIService) DeleteNoteExecute(r ApiDeleteNoteRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.DeleteNote")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"notefileID"+"}", url.PathEscape(parameterValueToString(r.notefileID, "notefileID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"noteID"+"}", url.PathEscape(parameterValueToString(r.noteID, "noteID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiDeleteNotefilesRequest struct {
@@ -1175,7 +1175,7 @@ func (r ApiGetDbNoteRequest) Execute() (*GetDbNote200Response, *http.Response, e
 /*
 GetDbNote Method for GetDbNote
 
-Get a note from a .db notefile
+Get a note from a .db or .qi notefile
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3148,35 +3148,14 @@ type ApiGetNotefileRequest struct {
 	projectOrProductUID string
 	deviceUID           string
 	notefileID          string
-	tracker             *string
 	max                 *int32
-	start               *bool
-	stop                *bool
 	deleted             *bool
 	delete              *bool
-}
-
-// The change tracker ID.
-func (r ApiGetNotefileRequest) Tracker(tracker string) ApiGetNotefileRequest {
-	r.tracker = &tracker
-	return r
 }
 
 // The maximum number of Notes to return in the request.
 func (r ApiGetNotefileRequest) Max(max int32) ApiGetNotefileRequest {
 	r.max = &max
-	return r
-}
-
-// true to reset the tracker to the beginning.
-func (r ApiGetNotefileRequest) Start(start bool) ApiGetNotefileRequest {
-	r.start = &start
-	return r
-}
-
-// true to delete the tracker.
-func (r ApiGetNotefileRequest) Stop(stop bool) ApiGetNotefileRequest {
-	r.stop = &stop
 	return r
 }
 
@@ -3233,7 +3212,7 @@ func (a *DeviceAPIService) GetNotefileExecute(r ApiGetNotefileRequest) (*GetNote
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/changes"
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"notefileID"+"}", url.PathEscape(parameterValueToString(r.notefileID, "notefileID")), -1)
@@ -3242,17 +3221,8 @@ func (a *DeviceAPIService) GetNotefileExecute(r ApiGetNotefileRequest) (*GetNote
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.tracker != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tracker", r.tracker, "form", "")
-	}
 	if r.max != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "max", r.max, "form", "")
-	}
-	if r.start != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "start", r.start, "form", "")
-	}
-	if r.stop != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "stop", r.stop, "form", "")
 	}
 	if r.deleted != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "deleted", r.deleted, "form", "")
@@ -3327,14 +3297,8 @@ type ApiListNotefilesRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	tracker             *string
 	files               *[]string
-}
-
-// The change tracker ID.
-func (r ApiListNotefilesRequest) Tracker(tracker string) ApiListNotefilesRequest {
-	r.tracker = &tracker
-	return r
+	pending             *bool
 }
 
 // One or more files to obtain change information from.
@@ -3343,7 +3307,13 @@ func (r ApiListNotefilesRequest) Files(files []string) ApiListNotefilesRequest {
 	return r
 }
 
-func (r ApiListNotefilesRequest) Execute() (*ListNotefiles200Response, *http.Response, error) {
+// show only files that are pending sync to the Notecard
+func (r ApiListNotefilesRequest) Pending(pending bool) ApiListNotefilesRequest {
+	r.pending = &pending
+	return r
+}
+
+func (r ApiListNotefilesRequest) Execute() ([]Notefile, *http.Response, error) {
 	return r.ApiService.ListNotefilesExecute(r)
 }
 
@@ -3368,13 +3338,13 @@ func (a *DeviceAPIService) ListNotefiles(ctx context.Context, projectOrProductUI
 
 // Execute executes the request
 //
-//	@return ListNotefiles200Response
-func (a *DeviceAPIService) ListNotefilesExecute(r ApiListNotefilesRequest) (*ListNotefiles200Response, *http.Response, error) {
+//	@return []Notefile
+func (a *DeviceAPIService) ListNotefilesExecute(r ApiListNotefilesRequest) ([]Notefile, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *ListNotefiles200Response
+		localVarReturnValue []Notefile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.ListNotefiles")
@@ -3382,7 +3352,7 @@ func (a *DeviceAPIService) ListNotefilesExecute(r ApiListNotefilesRequest) (*Lis
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/files/changes"
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/files"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
 
@@ -3390,9 +3360,6 @@ func (a *DeviceAPIService) ListNotefilesExecute(r ApiListNotefilesRequest) (*Lis
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.tracker != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tracker", r.tracker, "form", "")
-	}
 	if r.files != nil {
 		t := *r.files
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
@@ -3404,122 +3371,9 @@ func (a *DeviceAPIService) ListNotefilesExecute(r ApiListNotefilesRequest) (*Lis
 			parameterAddToHeaderOrQuery(localVarQueryParams, "files", t, "form", "multi")
 		}
 	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	if r.pending != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pending", r.pending, "form", "")
 	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListPendingNotefilesRequest struct {
-	ctx                 context.Context
-	ApiService          *DeviceAPIService
-	projectOrProductUID string
-	deviceUID           string
-}
-
-func (r ApiListPendingNotefilesRequest) Execute() (*ListPendingNotefiles200Response, *http.Response, error) {
-	return r.ApiService.ListPendingNotefilesExecute(r)
-}
-
-/*
-ListPendingNotefiles Method for ListPendingNotefiles
-
-Lists .qi and .db files that are pending sync to the Notecard
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectOrProductUID
-	@param deviceUID
-	@return ApiListPendingNotefilesRequest
-*/
-func (a *DeviceAPIService) ListPendingNotefiles(ctx context.Context, projectOrProductUID string, deviceUID string) ApiListPendingNotefilesRequest {
-	return ApiListPendingNotefilesRequest{
-		ApiService:          a,
-		ctx:                 ctx,
-		projectOrProductUID: projectOrProductUID,
-		deviceUID:           deviceUID,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ListPendingNotefiles200Response
-func (a *DeviceAPIService) ListPendingNotefilesExecute(r ApiListPendingNotefilesRequest) (*ListPendingNotefiles200Response, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListPendingNotefiles200Response
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.ListPendingNotefiles")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/files/changes/pending"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -4115,12 +3969,12 @@ type ApiUpdateDbNoteRequest struct {
 	deviceUID           string
 	notefileID          string
 	noteID              string
-	note                *Note
+	noteInput           *NoteInput
 }
 
 // Body or payload of note to be added to the device
-func (r ApiUpdateDbNoteRequest) Note(note Note) ApiUpdateDbNoteRequest {
-	r.note = &note
+func (r ApiUpdateDbNoteRequest) NoteInput(noteInput NoteInput) ApiUpdateDbNoteRequest {
+	r.noteInput = &noteInput
 	return r
 }
 
@@ -4131,7 +3985,7 @@ func (r ApiUpdateDbNoteRequest) Execute() (*http.Response, error) {
 /*
 UpdateDbNote Method for UpdateDbNote
 
-Update a note in a .db notefile
+Update a note in a .db or .qi notefile
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4173,8 +4027,8 @@ func (a *DeviceAPIService) UpdateDbNoteExecute(r ApiUpdateDbNoteRequest) (*http.
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.note == nil {
-		return nil, reportError("note is required and must be specified")
+	if r.noteInput == nil {
+		return nil, reportError("noteInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4195,7 +4049,7 @@ func (a *DeviceAPIService) UpdateDbNoteExecute(r ApiUpdateDbNoteRequest) (*http.
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.note
+	localVarPostBody = r.noteInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

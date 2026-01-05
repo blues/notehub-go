@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name        | Type     | Description                                              | Notes |
-| ----------- | -------- | -------------------------------------------------------- | ----- |
-| **Enabled** | **bool** | Whether Connectivity Assurance is enabled for this fleet |
+| Name        | Type                        | Description                                              | Notes      |
+| ----------- | --------------------------- | -------------------------------------------------------- | ---------- |
+| **Enabled** | Pointer to **NullableBool** | Whether Connectivity Assurance is enabled for this fleet | [optional] |
 
 ## Methods
 
 ### NewFleetConnectivityAssurance
 
-`func NewFleetConnectivityAssurance(enabled bool, ) *FleetConnectivityAssurance`
+`func NewFleetConnectivityAssurance() *FleetConnectivityAssurance`
 
 NewFleetConnectivityAssurance instantiates a new FleetConnectivityAssurance object
 This constructor will assign default values to properties that have it defined,
@@ -43,5 +43,23 @@ and a boolean to check if the value has been set.
 `func (o *FleetConnectivityAssurance) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
+
+### HasEnabled
+
+`func (o *FleetConnectivityAssurance) HasEnabled() bool`
+
+HasEnabled returns a boolean if a field has been set.
+
+### SetEnabledNil
+
+`func (o *FleetConnectivityAssurance) SetEnabledNil(b bool)`
+
+SetEnabledNil sets the value for Enabled to be an explicit nil
+
+### UnsetEnabled
+
+`func (o *FleetConnectivityAssurance) UnsetEnabled()`
+
+UnsetEnabled ensures that no value is present for Enabled, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
