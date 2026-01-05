@@ -4,6 +4,7 @@
 
 | Name                     | Type                                                         | Description | Notes      |
 | ------------------------ | ------------------------------------------------------------ | ----------- | ---------- |
+| **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |             | [optional] |
 | **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |             | [optional] |
 | **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |             | [optional] |
 | **Dfu**                  | Pointer to [**NullableDFUEnv**](DFUEnv.md)                   |             | [optional] |
@@ -42,6 +43,43 @@ will change when the set of required properties is changed
 NewDeviceWithDefaults instantiates a new Device object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBestLocation
+
+`func (o *Device) GetBestLocation() Location`
+
+GetBestLocation returns the BestLocation field if non-nil, zero value otherwise.
+
+### GetBestLocationOk
+
+`func (o *Device) GetBestLocationOk() (*Location, bool)`
+
+GetBestLocationOk returns a tuple with the BestLocation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBestLocation
+
+`func (o *Device) SetBestLocation(v Location)`
+
+SetBestLocation sets BestLocation field to given value.
+
+### HasBestLocation
+
+`func (o *Device) HasBestLocation() bool`
+
+HasBestLocation returns a boolean if a field has been set.
+
+### SetBestLocationNil
+
+`func (o *Device) SetBestLocationNil(b bool)`
+
+SetBestLocationNil sets the value for BestLocation to be an explicit nil
+
+### UnsetBestLocation
+
+`func (o *Device) UnsetBestLocation()`
+
+UnsetBestLocation ensures that no value is present for BestLocation, not even an explicit nil
 
 ### GetCellularUsage
 

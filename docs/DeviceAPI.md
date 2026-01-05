@@ -6,9 +6,9 @@ All URIs are relative to *https://api.notefile.net*
 | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
 | [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             |
-| [**DeleteDbNote**](DeviceAPI.md#DeleteDbNote)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}  |
 | [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                              |
 | [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key}  |
+| [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}  |
 | [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                        |
 | [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                        |
 | [**DisableDeviceConnectivityAssurance**](DeviceAPI.md#DisableDeviceConnectivityAssurance) | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable-connectivity-assurance |
@@ -27,9 +27,8 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                        |
 | [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                             |
 | [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                           |
-| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/changes      |
-| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files/changes                   |
-| [**ListPendingNotefiles**](DeviceAPI.md#ListPendingNotefiles)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files/changes/pending           |
+| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}              |
+| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                           |
 | [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                      |
 | [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables           |
 | [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin           |
@@ -38,7 +37,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## AddDbNote
 
-> AddDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Note(note).Execute()
+> AddDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
 
 ### Example
 
@@ -57,11 +56,11 @@ func main() {
 	deviceUID := "dev:000000000000000" // string |
 	notefileID := "notefileID_example" // string |
 	noteID := "noteID_example" // string |
-	note := *openapiclient.NewNote() // Note | Body or payload of note to be added to the device
+	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.AddDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Note(note).Execute()
+	r, err := apiClient.DeviceAPI.AddDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.AddDbNote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -86,7 +85,7 @@ Other parameters are passed through a pointer to a apiAddDbNoteRequest struct vi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**note** | [**Note**](Note.md) | Body or payload of note to be added to the device |
+**noteInput** | [**NoteInput**](NoteInput.md) | Body or payload of note to be added to the device |
 
 ### Return type
 
@@ -107,7 +106,7 @@ Other parameters are passed through a pointer to a apiAddDbNoteRequest struct vi
 
 ## AddQiNote
 
-> AddQiNote(ctx, projectOrProductUID, deviceUID, notefileID).Note(note).Execute()
+> AddQiNote(ctx, projectOrProductUID, deviceUID, notefileID).NoteInput(noteInput).Execute()
 
 ### Example
 
@@ -125,11 +124,11 @@ func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
 	notefileID := "notefileID_example" // string |
-	note := *openapiclient.NewNote() // Note | Body or payload of note to be added to the device
+	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.AddQiNote(context.Background(), projectOrProductUID, deviceUID, notefileID).Note(note).Execute()
+	r, err := apiClient.DeviceAPI.AddQiNote(context.Background(), projectOrProductUID, deviceUID, notefileID).NoteInput(noteInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.AddQiNote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -153,7 +152,7 @@ Other parameters are passed through a pointer to a apiAddQiNoteRequest struct vi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**note** | [**Note**](Note.md) | Body or payload of note to be added to the device |
+**noteInput** | [**NoteInput**](NoteInput.md) | Body or payload of note to be added to the device |
 
 ### Return type
 
@@ -166,72 +165,6 @@ Other parameters are passed through a pointer to a apiAddQiNoteRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-## DeleteDbNote
-
-> DeleteDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	noteID := "noteID_example" // string |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.DeleteDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeleteDbNote``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
-| **noteID**              | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteDbNoteRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-### Return type
-
-(empty response body)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -355,6 +288,72 @@ Other parameters are passed through a pointer to a apiDeleteDeviceEnvironmentVar
 ### Return type
 
 [**EnvironmentVariables**](EnvironmentVariables.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## DeleteNote
+
+> DeleteNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	deviceUID := "dev:000000000000000" // string |
+	notefileID := "notefileID_example" // string |
+	noteID := "noteID_example" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.DeleteNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DeleteNote``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **deviceUID**           | **string**          |                                                                             |
+| **notefileID**          | **string**          |                                                                             |
+| **noteID**              | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteNoteRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+(empty response body)
 
 ### Authorization
 
@@ -1588,7 +1587,7 @@ Other parameters are passed through a pointer to a apiGetFleetDevicesRequest str
 
 ## GetNotefile
 
-> GetNotefile200Response GetNotefile(ctx, projectOrProductUID, deviceUID, notefileID).Tracker(tracker).Max(max).Start(start).Stop(stop).Deleted(deleted).Delete(delete).Execute()
+> GetNotefile200Response GetNotefile(ctx, projectOrProductUID, deviceUID, notefileID).Max(max).Deleted(deleted).Delete(delete).Execute()
 
 ### Example
 
@@ -1606,16 +1605,13 @@ func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
 	notefileID := "notefileID_example" // string |
-	tracker := "tracker_example" // string | The change tracker ID. (optional)
 	max := int32(56) // int32 | The maximum number of Notes to return in the request. (optional)
-	start := true // bool | true to reset the tracker to the beginning. (optional)
-	stop := true // bool | true to delete the tracker. (optional)
 	deleted := true // bool | true to return deleted notes. (optional)
 	delete := true // bool | true to delete the notes returned by the request. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetNotefile(context.Background(), projectOrProductUID, deviceUID, notefileID).Tracker(tracker).Max(max).Start(start).Stop(stop).Deleted(deleted).Delete(delete).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetNotefile(context.Background(), projectOrProductUID, deviceUID, notefileID).Max(max).Deleted(deleted).Delete(delete).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetNotefile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1641,10 +1637,7 @@ Other parameters are passed through a pointer to a apiGetNotefileRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**tracker** | **string** | The change tracker ID. |
 **max** | **int32** | The maximum number of Notes to return in the request. |
-**start** | **bool** | true to reset the tracker to the beginning. |
-**stop** | **bool** | true to delete the tracker. |
 **deleted** | **bool** | true to return deleted notes. |
 **delete** | **bool** | true to delete the notes returned by the request. |
 
@@ -1667,7 +1660,7 @@ Other parameters are passed through a pointer to a apiGetNotefileRequest struct 
 
 ## ListNotefiles
 
-> ListNotefiles200Response ListNotefiles(ctx, projectOrProductUID, deviceUID).Tracker(tracker).Files(files).Execute()
+> []Notefile ListNotefiles(ctx, projectOrProductUID, deviceUID).Files(files).Pending(pending).Execute()
 
 ### Example
 
@@ -1684,17 +1677,17 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	tracker := "tracker_example" // string | The change tracker ID. (optional)
 	files := []string{"Inner_example"} // []string | One or more files to obtain change information from. (optional)
+	pending := true // bool | show only files that are pending sync to the Notecard (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.ListNotefiles(context.Background(), projectOrProductUID, deviceUID).Tracker(tracker).Files(files).Execute()
+	resp, r, err := apiClient.DeviceAPI.ListNotefiles(context.Background(), projectOrProductUID, deviceUID).Files(files).Pending(pending).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListNotefiles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListNotefiles`: ListNotefiles200Response
+	// response from `ListNotefiles`: []Notefile
 	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListNotefiles`: %v\n", resp)
 }
 ```
@@ -1714,76 +1707,12 @@ Other parameters are passed through a pointer to a apiListNotefilesRequest struc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**tracker** | **string** | The change tracker ID. |
 **files** | **[]string** | One or more files to obtain change information from. |
+**pending** | **bool** | show only files that are pending sync to the Notecard |
 
 ### Return type
 
-[**ListNotefiles200Response**](ListNotefiles200Response.md)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-## ListPendingNotefiles
-
-> ListPendingNotefiles200Response ListPendingNotefiles(ctx, projectOrProductUID, deviceUID).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	deviceUID := "dev:000000000000000" // string |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.ListPendingNotefiles(context.Background(), projectOrProductUID, deviceUID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.ListPendingNotefiles``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ListPendingNotefiles`: ListPendingNotefiles200Response
-	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.ListPendingNotefiles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListPendingNotefilesRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-### Return type
-
-[**ListPendingNotefiles200Response**](ListPendingNotefiles200Response.md)
+[**[]Notefile**](Notefile.md)
 
 ### Authorization
 
@@ -2068,7 +1997,7 @@ Other parameters are passed through a pointer to a apiSignalDeviceRequest struct
 
 ## UpdateDbNote
 
-> UpdateDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Note(note).Execute()
+> UpdateDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
 
 ### Example
 
@@ -2087,11 +2016,11 @@ func main() {
 	deviceUID := "dev:000000000000000" // string |
 	notefileID := "notefileID_example" // string |
 	noteID := "noteID_example" // string |
-	note := *openapiclient.NewNote() // Note | Body or payload of note to be added to the device
+	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.UpdateDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Note(note).Execute()
+	r, err := apiClient.DeviceAPI.UpdateDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.UpdateDbNote``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2116,7 +2045,7 @@ Other parameters are passed through a pointer to a apiUpdateDbNoteRequest struct
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**note** | [**Note**](Note.md) | Body or payload of note to be added to the device |
+**noteInput** | [**NoteInput**](NoteInput.md) | Body or payload of note to be added to the device |
 
 ### Return type
 

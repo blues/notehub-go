@@ -28,7 +28,8 @@ type UpdateFleetRequest struct {
 	// List of DeviceUIDs to remove from fleet
 	RemoveDevices []string `json:"removeDevices,omitempty"`
 	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule *string `json:"smart_rule,omitempty"`
+	SmartRule        *string `json:"smart_rule,omitempty"`
+	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
 	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
 	WatchdogMins *int64 `json:"watchdog_mins,omitempty"`
 }
@@ -221,6 +222,38 @@ func (o *UpdateFleetRequest) SetSmartRule(v string) {
 	o.SmartRule = &v
 }
 
+// GetSmartRuleEnabled returns the SmartRuleEnabled field value if set, zero value otherwise.
+func (o *UpdateFleetRequest) GetSmartRuleEnabled() bool {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.SmartRuleEnabled
+}
+
+// GetSmartRuleEnabledOk returns a tuple with the SmartRuleEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateFleetRequest) GetSmartRuleEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		return nil, false
+	}
+	return o.SmartRuleEnabled, true
+}
+
+// HasSmartRuleEnabled returns a boolean if a field has been set.
+func (o *UpdateFleetRequest) HasSmartRuleEnabled() bool {
+	if o != nil && !IsNil(o.SmartRuleEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmartRuleEnabled gets a reference to the given bool and assigns it to the SmartRuleEnabled field.
+func (o *UpdateFleetRequest) SetSmartRuleEnabled(v bool) {
+	o.SmartRuleEnabled = &v
+}
+
 // GetWatchdogMins returns the WatchdogMins field value if set, zero value otherwise.
 func (o *UpdateFleetRequest) GetWatchdogMins() int64 {
 	if o == nil || IsNil(o.WatchdogMins) {
@@ -277,6 +310,9 @@ func (o UpdateFleetRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmartRule) {
 		toSerialize["smart_rule"] = o.SmartRule
+	}
+	if !IsNil(o.SmartRuleEnabled) {
+		toSerialize["smart_rule_enabled"] = o.SmartRuleEnabled
 	}
 	if !IsNil(o.WatchdogMins) {
 		toSerialize["watchdog_mins"] = o.WatchdogMins

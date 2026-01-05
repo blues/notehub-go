@@ -23,6 +23,7 @@ var _ MappedNullable = &Device{}
 
 // Device struct for Device
 type Device struct {
+	BestLocation         NullableLocation        `json:"best_location,omitempty"`
 	CellularUsage        []SimUsage              `json:"cellular_usage,omitempty"`
 	Contact              NullableContact         `json:"contact,omitempty"`
 	Dfu                  NullableDFUEnv          `json:"dfu,omitempty"`
@@ -67,6 +68,49 @@ func NewDevice(fleetUids []string, productUid string, provisioned time.Time, tem
 func NewDeviceWithDefaults() *Device {
 	this := Device{}
 	return &this
+}
+
+// GetBestLocation returns the BestLocation field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Device) GetBestLocation() Location {
+	if o == nil || IsNil(o.BestLocation.Get()) {
+		var ret Location
+		return ret
+	}
+	return *o.BestLocation.Get()
+}
+
+// GetBestLocationOk returns a tuple with the BestLocation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Device) GetBestLocationOk() (*Location, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BestLocation.Get(), o.BestLocation.IsSet()
+}
+
+// HasBestLocation returns a boolean if a field has been set.
+func (o *Device) HasBestLocation() bool {
+	if o != nil && o.BestLocation.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBestLocation gets a reference to the given NullableLocation and assigns it to the BestLocation field.
+func (o *Device) SetBestLocation(v Location) {
+	o.BestLocation.Set(&v)
+}
+
+// SetBestLocationNil sets the value for BestLocation to be an explicit nil
+func (o *Device) SetBestLocationNil() {
+	o.BestLocation.Set(nil)
+}
+
+// UnsetBestLocation ensures that no value is present for BestLocation, not even an explicit nil
+func (o *Device) UnsetBestLocation() {
+	o.BestLocation.Unset()
 }
 
 // GetCellularUsage returns the CellularUsage field value if set, zero value otherwise.
@@ -716,6 +760,9 @@ func (o Device) MarshalJSON() ([]byte, error) {
 
 func (o Device) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.BestLocation.IsSet() {
+		toSerialize["best_location"] = o.BestLocation.Get()
+	}
 	if !IsNil(o.CellularUsage) {
 		toSerialize["cellular_usage"] = o.CellularUsage
 	}

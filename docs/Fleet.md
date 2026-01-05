@@ -9,6 +9,7 @@
 | **EnvironmentVariables**  | Pointer to **map[string]string**                                                   | The environment variables for this device that have been set using the Notehub API or UI.                                                                                                                                                                          | [optional] |
 | **Label**                 | **string**                                                                         | Fleet label                                                                                                                                                                                                                                                        |
 | **SmartRule**             | Pointer to **string**                                                              | JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged. | [optional] |
+| **SmartRuleEnabled**      | Pointer to **bool**                                                                |                                                                                                                                                                                                                                                                    | [optional] |
 | **Uid**                   | **string**                                                                         | Fleet UID                                                                                                                                                                                                                                                          |
 | **WatchdogMins**          | Pointer to **int64**                                                               | A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog                                                                                                                                                                   | [optional] |
 
@@ -155,6 +156,31 @@ SetSmartRule sets SmartRule field to given value.
 `func (o *Fleet) HasSmartRule() bool`
 
 HasSmartRule returns a boolean if a field has been set.
+
+### GetSmartRuleEnabled
+
+`func (o *Fleet) GetSmartRuleEnabled() bool`
+
+GetSmartRuleEnabled returns the SmartRuleEnabled field if non-nil, zero value otherwise.
+
+### GetSmartRuleEnabledOk
+
+`func (o *Fleet) GetSmartRuleEnabledOk() (*bool, bool)`
+
+GetSmartRuleEnabledOk returns a tuple with the SmartRuleEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSmartRuleEnabled
+
+`func (o *Fleet) SetSmartRuleEnabled(v bool)`
+
+SetSmartRuleEnabled sets SmartRuleEnabled field to given value.
+
+### HasSmartRuleEnabled
+
+`func (o *Fleet) HasSmartRuleEnabled() bool`
+
+HasSmartRuleEnabled returns a boolean if a field has been set.
 
 ### GetUid
 

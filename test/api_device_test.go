@@ -54,22 +54,6 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DeviceAPIService DeleteDbNote", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-		var deviceUID string
-		var notefileID string
-		var noteID string
-
-		httpRes, err := apiClient.DeviceAPI.DeleteDbNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test DeviceAPIService DeleteDevice", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -96,6 +80,22 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DeviceAPIService DeleteNote", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var deviceUID string
+		var notefileID string
+		var noteID string
+
+		httpRes, err := apiClient.DeviceAPI.DeleteNote(context.Background(), projectOrProductUID, deviceUID, notefileID, noteID).Execute()
+
+		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -389,21 +389,6 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 		var deviceUID string
 
 		resp, httpRes, err := apiClient.DeviceAPI.ListNotefiles(context.Background(), projectOrProductUID, deviceUID).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DeviceAPIService ListPendingNotefiles", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-		var deviceUID string
-
-		resp, httpRes, err := apiClient.DeviceAPI.ListPendingNotefiles(context.Background(), projectOrProductUID, deviceUID).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

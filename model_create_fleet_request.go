@@ -24,7 +24,8 @@ type CreateFleetRequest struct {
 	// The label, or name,  for the Fleet.
 	Label *string `json:"label,omitempty"`
 	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule *string `json:"smart_rule,omitempty"`
+	SmartRule        *string `json:"smart_rule,omitempty"`
+	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
 }
 
 // NewCreateFleetRequest instantiates a new CreateFleetRequest object
@@ -151,6 +152,38 @@ func (o *CreateFleetRequest) SetSmartRule(v string) {
 	o.SmartRule = &v
 }
 
+// GetSmartRuleEnabled returns the SmartRuleEnabled field value if set, zero value otherwise.
+func (o *CreateFleetRequest) GetSmartRuleEnabled() bool {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.SmartRuleEnabled
+}
+
+// GetSmartRuleEnabledOk returns a tuple with the SmartRuleEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFleetRequest) GetSmartRuleEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.SmartRuleEnabled) {
+		return nil, false
+	}
+	return o.SmartRuleEnabled, true
+}
+
+// HasSmartRuleEnabled returns a boolean if a field has been set.
+func (o *CreateFleetRequest) HasSmartRuleEnabled() bool {
+	if o != nil && !IsNil(o.SmartRuleEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetSmartRuleEnabled gets a reference to the given bool and assigns it to the SmartRuleEnabled field.
+func (o *CreateFleetRequest) SetSmartRuleEnabled(v bool) {
+	o.SmartRuleEnabled = &v
+}
+
 func (o CreateFleetRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -169,6 +202,9 @@ func (o CreateFleetRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SmartRule) {
 		toSerialize["smart_rule"] = o.SmartRule
+	}
+	if !IsNil(o.SmartRuleEnabled) {
+		toSerialize["smart_rule_enabled"] = o.SmartRuleEnabled
 	}
 	return toSerialize, nil
 }

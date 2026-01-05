@@ -2,19 +2,20 @@
 
 ## Properties
 
-| Name           | Type                  | Description | Notes      |
-| -------------- | --------------------- | ----------- | ---------- |
-| **Device**     | Pointer to **string** |             | [optional] |
-| **Fleet**      | Pointer to **string** |             | [optional] |
-| **Period**     | **time.Time**         |             |
-| **Sessions**   | **int64**             |             |
-| **TotalBytes** | **int64**             |             |
+| Name             | Type                  | Description | Notes      |
+| ---------------- | --------------------- | ----------- | ---------- |
+| **Device**       | Pointer to **string** |             | [optional] |
+| **Fleet**        | Pointer to **string** |             | [optional] |
+| **Period**       | **time.Time**         |             |
+| **Sessions**     | **int64**             |             |
+| **TotalBytes**   | **int64**             |             |
+| **TotalDevices** | **int64**             |             |
 
 ## Methods
 
 ### NewUsageSessionsData
 
-`func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64, ) *UsageSessionsData`
+`func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64, totalDevices int64, ) *UsageSessionsData`
 
 NewUsageSessionsData instantiates a new UsageSessionsData object
 This constructor will assign default values to properties that have it defined,
@@ -135,5 +136,24 @@ and a boolean to check if the value has been set.
 `func (o *UsageSessionsData) SetTotalBytes(v int64)`
 
 SetTotalBytes sets TotalBytes field to given value.
+
+### GetTotalDevices
+
+`func (o *UsageSessionsData) GetTotalDevices() int64`
+
+GetTotalDevices returns the TotalDevices field if non-nil, zero value otherwise.
+
+### GetTotalDevicesOk
+
+`func (o *UsageSessionsData) GetTotalDevicesOk() (*int64, bool)`
+
+GetTotalDevicesOk returns a tuple with the TotalDevices field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalDevices
+
+`func (o *UsageSessionsData) SetTotalDevices(v int64)`
+
+SetTotalDevices sets TotalDevices field to given value.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

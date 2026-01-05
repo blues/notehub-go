@@ -12,9 +12,7 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the FleetConnectivityAssurance type satisfies the MappedNullable interface at compile time
@@ -23,18 +21,15 @@ var _ MappedNullable = &FleetConnectivityAssurance{}
 // FleetConnectivityAssurance struct for FleetConnectivityAssurance
 type FleetConnectivityAssurance struct {
 	// Whether Connectivity Assurance is enabled for this fleet
-	Enabled bool `json:"enabled"`
+	Enabled NullableBool `json:"enabled,omitempty"`
 }
-
-type _FleetConnectivityAssurance FleetConnectivityAssurance
 
 // NewFleetConnectivityAssurance instantiates a new FleetConnectivityAssurance object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFleetConnectivityAssurance(enabled bool) *FleetConnectivityAssurance {
+func NewFleetConnectivityAssurance() *FleetConnectivityAssurance {
 	this := FleetConnectivityAssurance{}
-	this.Enabled = enabled
 	return &this
 }
 
@@ -46,28 +41,47 @@ func NewFleetConnectivityAssuranceWithDefaults() *FleetConnectivityAssurance {
 	return &this
 }
 
-// GetEnabled returns the Enabled field value
+// GetEnabled returns the Enabled field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FleetConnectivityAssurance) GetEnabled() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Enabled.Get()) {
 		var ret bool
 		return ret
 	}
-
-	return o.Enabled
+	return *o.Enabled.Get()
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *FleetConnectivityAssurance) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Enabled, true
+	return o.Enabled.Get(), o.Enabled.IsSet()
 }
 
-// SetEnabled sets field value
+// HasEnabled returns a boolean if a field has been set.
+func (o *FleetConnectivityAssurance) HasEnabled() bool {
+	if o != nil && o.Enabled.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given NullableBool and assigns it to the Enabled field.
 func (o *FleetConnectivityAssurance) SetEnabled(v bool) {
-	o.Enabled = v
+	o.Enabled.Set(&v)
+}
+
+// SetEnabledNil sets the value for Enabled to be an explicit nil
+func (o *FleetConnectivityAssurance) SetEnabledNil() {
+	o.Enabled.Set(nil)
+}
+
+// UnsetEnabled ensures that no value is present for Enabled, not even an explicit nil
+func (o *FleetConnectivityAssurance) UnsetEnabled() {
+	o.Enabled.Unset()
 }
 
 func (o FleetConnectivityAssurance) MarshalJSON() ([]byte, error) {
@@ -80,45 +94,10 @@ func (o FleetConnectivityAssurance) MarshalJSON() ([]byte, error) {
 
 func (o FleetConnectivityAssurance) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["enabled"] = o.Enabled
+	if o.Enabled.IsSet() {
+		toSerialize["enabled"] = o.Enabled.Get()
+	}
 	return toSerialize, nil
-}
-
-func (o *FleetConnectivityAssurance) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"enabled",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varFleetConnectivityAssurance := _FleetConnectivityAssurance{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFleetConnectivityAssurance)
-
-	if err != nil {
-		return err
-	}
-
-	*o = FleetConnectivityAssurance(varFleetConnectivityAssurance)
-
-	return err
 }
 
 type NullableFleetConnectivityAssurance struct {

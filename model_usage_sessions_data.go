@@ -23,11 +23,12 @@ var _ MappedNullable = &UsageSessionsData{}
 
 // UsageSessionsData struct for UsageSessionsData
 type UsageSessionsData struct {
-	Device     *string   `json:"device,omitempty"`
-	Fleet      *string   `json:"fleet,omitempty"`
-	Period     time.Time `json:"period"`
-	Sessions   int64     `json:"sessions"`
-	TotalBytes int64     `json:"total_bytes"`
+	Device       *string   `json:"device,omitempty"`
+	Fleet        *string   `json:"fleet,omitempty"`
+	Period       time.Time `json:"period"`
+	Sessions     int64     `json:"sessions"`
+	TotalBytes   int64     `json:"total_bytes"`
+	TotalDevices int64     `json:"total_devices"`
 }
 
 type _UsageSessionsData UsageSessionsData
@@ -36,11 +37,12 @@ type _UsageSessionsData UsageSessionsData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64) *UsageSessionsData {
+func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64, totalDevices int64) *UsageSessionsData {
 	this := UsageSessionsData{}
 	this.Period = period
 	this.Sessions = sessions
 	this.TotalBytes = totalBytes
+	this.TotalDevices = totalDevices
 	return &this
 }
 
@@ -188,6 +190,30 @@ func (o *UsageSessionsData) SetTotalBytes(v int64) {
 	o.TotalBytes = v
 }
 
+// GetTotalDevices returns the TotalDevices field value
+func (o *UsageSessionsData) GetTotalDevices() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.TotalDevices
+}
+
+// GetTotalDevicesOk returns a tuple with the TotalDevices field value
+// and a boolean to check if the value has been set.
+func (o *UsageSessionsData) GetTotalDevicesOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalDevices, true
+}
+
+// SetTotalDevices sets field value
+func (o *UsageSessionsData) SetTotalDevices(v int64) {
+	o.TotalDevices = v
+}
+
 func (o UsageSessionsData) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -207,6 +233,7 @@ func (o UsageSessionsData) ToMap() (map[string]interface{}, error) {
 	toSerialize["period"] = o.Period
 	toSerialize["sessions"] = o.Sessions
 	toSerialize["total_bytes"] = o.TotalBytes
+	toSerialize["total_devices"] = o.TotalDevices
 	return toSerialize, nil
 }
 
@@ -218,6 +245,7 @@ func (o *UsageSessionsData) UnmarshalJSON(data []byte) (err error) {
 		"period",
 		"sessions",
 		"total_bytes",
+		"total_devices",
 	}
 
 	allProperties := make(map[string]interface{})

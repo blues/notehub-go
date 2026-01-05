@@ -51,6 +51,20 @@ func Test_notehub_UsageAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test UsageAPIService GetRouteLogsUsage", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+
+		resp, httpRes, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test UsageAPIService GetSessionsUsage", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

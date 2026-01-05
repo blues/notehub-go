@@ -17,36 +17,36 @@ import (
 	"fmt"
 )
 
-// checks if the InlineObject1 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &InlineObject1{}
+// checks if the GetRouteLogsUsage200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetRouteLogsUsage200Response{}
 
-// InlineObject1 struct for InlineObject1
-type InlineObject1 struct {
+// GetRouteLogsUsage200Response struct for GetRouteLogsUsage200Response
+type GetRouteLogsUsage200Response struct {
 	RouteLogs []UsageRouteLogsData `json:"route_logs"`
 }
 
-type _InlineObject1 InlineObject1
+type _GetRouteLogsUsage200Response GetRouteLogsUsage200Response
 
-// NewInlineObject1 instantiates a new InlineObject1 object
+// NewGetRouteLogsUsage200Response instantiates a new GetRouteLogsUsage200Response object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInlineObject1(routeLogs []UsageRouteLogsData) *InlineObject1 {
-	this := InlineObject1{}
+func NewGetRouteLogsUsage200Response(routeLogs []UsageRouteLogsData) *GetRouteLogsUsage200Response {
+	this := GetRouteLogsUsage200Response{}
 	this.RouteLogs = routeLogs
 	return &this
 }
 
-// NewInlineObject1WithDefaults instantiates a new InlineObject1 object
+// NewGetRouteLogsUsage200ResponseWithDefaults instantiates a new GetRouteLogsUsage200Response object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewInlineObject1WithDefaults() *InlineObject1 {
-	this := InlineObject1{}
+func NewGetRouteLogsUsage200ResponseWithDefaults() *GetRouteLogsUsage200Response {
+	this := GetRouteLogsUsage200Response{}
 	return &this
 }
 
 // GetRouteLogs returns the RouteLogs field value
-func (o *InlineObject1) GetRouteLogs() []UsageRouteLogsData {
+func (o *GetRouteLogsUsage200Response) GetRouteLogs() []UsageRouteLogsData {
 	if o == nil {
 		var ret []UsageRouteLogsData
 		return ret
@@ -57,7 +57,7 @@ func (o *InlineObject1) GetRouteLogs() []UsageRouteLogsData {
 
 // GetRouteLogsOk returns a tuple with the RouteLogs field value
 // and a boolean to check if the value has been set.
-func (o *InlineObject1) GetRouteLogsOk() ([]UsageRouteLogsData, bool) {
+func (o *GetRouteLogsUsage200Response) GetRouteLogsOk() ([]UsageRouteLogsData, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,11 +65,11 @@ func (o *InlineObject1) GetRouteLogsOk() ([]UsageRouteLogsData, bool) {
 }
 
 // SetRouteLogs sets field value
-func (o *InlineObject1) SetRouteLogs(v []UsageRouteLogsData) {
+func (o *GetRouteLogsUsage200Response) SetRouteLogs(v []UsageRouteLogsData) {
 	o.RouteLogs = v
 }
 
-func (o InlineObject1) MarshalJSON() ([]byte, error) {
+func (o GetRouteLogsUsage200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -77,13 +77,13 @@ func (o InlineObject1) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o InlineObject1) ToMap() (map[string]interface{}, error) {
+func (o GetRouteLogsUsage200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["route_logs"] = o.RouteLogs
 	return toSerialize, nil
 }
 
-func (o *InlineObject1) UnmarshalJSON(data []byte) (err error) {
+func (o *GetRouteLogsUsage200Response) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -105,53 +105,53 @@ func (o *InlineObject1) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varInlineObject1 := _InlineObject1{}
+	varGetRouteLogsUsage200Response := _GetRouteLogsUsage200Response{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varInlineObject1)
+	err = decoder.Decode(&varGetRouteLogsUsage200Response)
 
 	if err != nil {
 		return err
 	}
 
-	*o = InlineObject1(varInlineObject1)
+	*o = GetRouteLogsUsage200Response(varGetRouteLogsUsage200Response)
 
 	return err
 }
 
-type NullableInlineObject1 struct {
-	value *InlineObject1
+type NullableGetRouteLogsUsage200Response struct {
+	value *GetRouteLogsUsage200Response
 	isSet bool
 }
 
-func (v NullableInlineObject1) Get() *InlineObject1 {
+func (v NullableGetRouteLogsUsage200Response) Get() *GetRouteLogsUsage200Response {
 	return v.value
 }
 
-func (v *NullableInlineObject1) Set(val *InlineObject1) {
+func (v *NullableGetRouteLogsUsage200Response) Set(val *GetRouteLogsUsage200Response) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableInlineObject1) IsSet() bool {
+func (v NullableGetRouteLogsUsage200Response) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableInlineObject1) Unset() {
+func (v *NullableGetRouteLogsUsage200Response) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableInlineObject1(val *InlineObject1) *NullableInlineObject1 {
-	return &NullableInlineObject1{value: val, isSet: true}
+func NewNullableGetRouteLogsUsage200Response(val *GetRouteLogsUsage200Response) *NullableGetRouteLogsUsage200Response {
+	return &NullableGetRouteLogsUsage200Response{value: val, isSet: true}
 }
 
-func (v NullableInlineObject1) MarshalJSON() ([]byte, error) {
+func (v NullableGetRouteLogsUsage200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableInlineObject1) UnmarshalJSON(src []byte) error {
+func (v *NullableGetRouteLogsUsage200Response) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
