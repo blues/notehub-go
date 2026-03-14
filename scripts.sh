@@ -53,7 +53,9 @@ generate_package() {
         -o "$output_dir" \
         --git-user-id blues \
         --git-repo-id notehub-go \
-        --package-name notehub; then
+        --package-name notehub \
+        --global-property skipFormModel=false \
+        -p disallowAdditionalPropertiesIfNotPresent=false; then
         print_error "Failed to generate Go package"
         exit 1
     fi
