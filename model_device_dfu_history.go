@@ -22,9 +22,12 @@ var _ MappedNullable = &DeviceDfuHistory{}
 type DeviceDfuHistory struct {
 	Current *DeviceDfuHistoryCurrent `json:"current,omitempty"`
 	// Device UID
-	DeviceUid *string                 `json:"device_uid,omitempty"`
-	History   []DeviceDfuStateMachine `json:"history,omitempty"`
+	DeviceUid            *string                 `json:"device_uid,omitempty"`
+	History              []DeviceDfuStateMachine `json:"history,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceDfuHistory DeviceDfuHistory
 
 // NewDeviceDfuHistory instantiates a new DeviceDfuHistory object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o DeviceDfuHistory) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.History) {
 		toSerialize["history"] = o.History
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceDfuHistory) UnmarshalJSON(data []byte) (err error) {
+	varDeviceDfuHistory := _DeviceDfuHistory{}
+
+	err = json.Unmarshal(data, &varDeviceDfuHistory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceDfuHistory(varDeviceDfuHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current")
+		delete(additionalProperties, "device_uid")
+		delete(additionalProperties, "history")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceDfuHistory struct {

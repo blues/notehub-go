@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -29,6 +28,7 @@ type Project struct {
 	Role                  NullableRole    `json:"role,omitempty"`
 	TechnicalContact      NullableContact `json:"technical_contact,omitempty"`
 	Uid                   string          `json:"uid"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _Project Project
@@ -276,6 +276,11 @@ func (o Project) ToMap() (map[string]interface{}, error) {
 		toSerialize["technical_contact"] = o.TechnicalContact.Get()
 	}
 	toSerialize["uid"] = o.Uid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -305,15 +310,25 @@ func (o *Project) UnmarshalJSON(data []byte) (err error) {
 
 	varProject := _Project{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProject)
+	err = json.Unmarshal(data, &varProject)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Project(varProject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "administrative_contact")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "technical_contact")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -2,22 +2,23 @@
 
 ## Properties
 
-| Name                       | Type                                                               | Description | Notes      |
-| -------------------------- | ------------------------------------------------------------------ | ----------- | ---------- |
-| **AccessKeyId**            | Pointer to **string**                                              |             | [optional] |
-| **AccessKeySecret**        | Pointer to **string**                                              |             | [optional] |
-| **Channel**                | Pointer to **string**                                              |             | [optional] |
-| **DisableHttpHeaders**     | Pointer to **bool**                                                |             | [optional] |
-| **Filter**                 | Pointer to [**Filter**](Filter.md)                                 |             | [optional] |
-| **Fleets**                 | Pointer to **[]string**                                            |             | [optional] |
-| **HttpHeaders**            | Pointer to **map[string]string**                                   |             | [optional] |
-| **MessageDeduplicationId** | Pointer to **string**                                              |             | [optional] |
-| **MessageGroupId**         | Pointer to **string**                                              |             | [optional] |
-| **Region**                 | Pointer to **string**                                              |             | [optional] |
-| **ThrottleMs**             | Pointer to **int32**                                               |             | [optional] |
-| **Timeout**                | Pointer to **int32**                                               |             | [optional] |
-| **Transform**              | Pointer to [**RouteTransformSettings**](RouteTransformSettings.md) |             | [optional] |
-| **Url**                    | Pointer to **string**                                              |             | [optional] |
+| Name                       | Type                                                               | Description                                                   | Notes      |
+| -------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------- | ---------- |
+| **AccessKeyId**            | Pointer to **string**                                              |                                                               | [optional] |
+| **AccessKeySecret**        | Pointer to **string**                                              |                                                               | [optional] |
+| **Channel**                | Pointer to **string**                                              |                                                               | [optional] |
+| **DisableHttpHeaders**     | Pointer to **bool**                                                |                                                               | [optional] |
+| **Filter**                 | Pointer to [**Filter**](Filter.md)                                 |                                                               | [optional] |
+| **Fleets**                 | Pointer to **[]string**                                            |                                                               | [optional] |
+| **HttpHeaders**            | Pointer to **map[string]string**                                   |                                                               | [optional] |
+| **MessageDeduplicationId** | Pointer to **string**                                              |                                                               | [optional] |
+| **MessageGroupId**         | Pointer to **string**                                              |                                                               | [optional] |
+| **Region**                 | Pointer to **string**                                              |                                                               | [optional] |
+| **RoleArn**                | Pointer to **string**                                              | IAM Role ARN for role-based authentication via STS AssumeRole | [optional] |
+| **ThrottleMs**             | Pointer to **int32**                                               |                                                               | [optional] |
+| **Timeout**                | Pointer to **int32**                                               |                                                               | [optional] |
+| **Transform**              | Pointer to [**RouteTransformSettings**](RouteTransformSettings.md) |                                                               | [optional] |
+| **Url**                    | Pointer to **string**                                              |                                                               | [optional] |
 
 ## Methods
 
@@ -287,6 +288,31 @@ SetRegion sets Region field to given value.
 `func (o *AwsRoute) HasRegion() bool`
 
 HasRegion returns a boolean if a field has been set.
+
+### GetRoleArn
+
+`func (o *AwsRoute) GetRoleArn() string`
+
+GetRoleArn returns the RoleArn field if non-nil, zero value otherwise.
+
+### GetRoleArnOk
+
+`func (o *AwsRoute) GetRoleArnOk() (*string, bool)`
+
+GetRoleArnOk returns a tuple with the RoleArn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleArn
+
+`func (o *AwsRoute) SetRoleArn(v string)`
+
+SetRoleArn sets RoleArn field to given value.
+
+### HasRoleArn
+
+`func (o *AwsRoute) HasRoleArn() bool`
+
+HasRoleArn returns a boolean if a field has been set.
 
 ### GetThrottleMs
 

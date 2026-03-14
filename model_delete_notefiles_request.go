@@ -21,8 +21,11 @@ var _ MappedNullable = &DeleteNotefilesRequest{}
 // DeleteNotefilesRequest struct for DeleteNotefilesRequest
 type DeleteNotefilesRequest struct {
 	// Name of notefiles to delete
-	Files []string `json:"files,omitempty"`
+	Files                []string `json:"files,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeleteNotefilesRequest DeleteNotefilesRequest
 
 // NewDeleteNotefilesRequest instantiates a new DeleteNotefilesRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o DeleteNotefilesRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Files) {
 		toSerialize["files"] = o.Files
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeleteNotefilesRequest) UnmarshalJSON(data []byte) (err error) {
+	varDeleteNotefilesRequest := _DeleteNotefilesRequest{}
+
+	err = json.Unmarshal(data, &varDeleteNotefilesRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteNotefilesRequest(varDeleteNotefilesRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "files")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeleteNotefilesRequest struct {

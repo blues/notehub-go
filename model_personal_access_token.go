@@ -35,8 +35,11 @@ type PersonalAccessToken struct {
 	// if true, this token cannot be used
 	Suspended *bool `json:"suspended,omitempty"`
 	// Unique and public identifier
-	Uid *string `json:"uid,omitempty"`
+	Uid                  *string `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PersonalAccessToken PersonalAccessToken
 
 // NewPersonalAccessToken instantiates a new PersonalAccessToken object
 // This constructor will assign default values to properties that have it defined,
@@ -367,7 +370,40 @@ func (o PersonalAccessToken) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PersonalAccessToken) UnmarshalJSON(data []byte) (err error) {
+	varPersonalAccessToken := _PersonalAccessToken{}
+
+	err = json.Unmarshal(data, &varPersonalAccessToken)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PersonalAccessToken(varPersonalAccessToken)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "created_by")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "last_used")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "suspended")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePersonalAccessToken struct {

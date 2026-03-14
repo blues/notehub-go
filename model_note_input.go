@@ -23,8 +23,11 @@ type NoteInput struct {
 	// Arbitrary user-defined JSON for the note.
 	Body map[string]interface{} `json:"body,omitempty"`
 	// Optional base64-encoded payload.
-	Payload *string `json:"payload,omitempty"`
+	Payload              *string `json:"payload,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NoteInput NoteInput
 
 // NewNoteInput instantiates a new NoteInput object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o NoteInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Payload) {
 		toSerialize["payload"] = o.Payload
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NoteInput) UnmarshalJSON(data []byte) (err error) {
+	varNoteInput := _NoteInput{}
+
+	err = json.Unmarshal(data, &varNoteInput)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NoteInput(varNoteInput)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "payload")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNoteInput struct {

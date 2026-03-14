@@ -43,8 +43,11 @@ type FirmwareInfo struct {
 	// The type of firmware.
 	Type *string `json:"type,omitempty"`
 	// The version of the firmware.
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FirmwareInfo FirmwareInfo
 
 // NewFirmwareInfo instantiates a new FirmwareInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -493,7 +496,44 @@ func (o FirmwareInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FirmwareInfo) UnmarshalJSON(data []byte) (err error) {
+	varFirmwareInfo := _FirmwareInfo{}
+
+	err = json.Unmarshal(data, &varFirmwareInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FirmwareInfo(varFirmwareInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "built")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "md5")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "published")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFirmwareInfo struct {

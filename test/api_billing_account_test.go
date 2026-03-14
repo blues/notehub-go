@@ -23,6 +23,34 @@ func Test_notehub_BillingAccountAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test BillingAccountAPIService GetBillingAccount", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var billingAccountUID string
+
+		resp, httpRes, err := apiClient.BillingAccountAPI.GetBillingAccount(context.Background(), billingAccountUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test BillingAccountAPIService GetBillingAccountBalanceHistory", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var billingAccountUID string
+
+		resp, httpRes, err := apiClient.BillingAccountAPI.GetBillingAccountBalanceHistory(context.Background(), billingAccountUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test BillingAccountAPIService GetBillingAccounts", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

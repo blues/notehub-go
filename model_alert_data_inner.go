@@ -31,8 +31,11 @@ type AlertDataInner struct {
 	// The value that triggered the alert
 	Value *float32 `json:"value,omitempty"`
 	// The time the alert was created
-	When *string `json:"when,omitempty"`
+	When                 *string `json:"when,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AlertDataInner AlertDataInner
 
 // NewAlertDataInner instantiates a new AlertDataInner object
 // This constructor will assign default values to properties that have it defined,
@@ -271,7 +274,38 @@ func (o AlertDataInner) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.When) {
 		toSerialize["when"] = o.When
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AlertDataInner) UnmarshalJSON(data []byte) (err error) {
+	varAlertDataInner := _AlertDataInner{}
+
+	err = json.Unmarshal(data, &varAlertDataInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AlertDataInner(varAlertDataInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alert_source")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_type")
+		delete(additionalProperties, "source_uid")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "when")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAlertDataInner struct {

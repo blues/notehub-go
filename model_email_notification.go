@@ -21,8 +21,11 @@ var _ MappedNullable = &EmailNotification{}
 // EmailNotification struct for EmailNotification
 type EmailNotification struct {
 	// Email Address
-	Email *string `json:"email,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EmailNotification EmailNotification
 
 // NewEmailNotification instantiates a new EmailNotification object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o EmailNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EmailNotification) UnmarshalJSON(data []byte) (err error) {
+	varEmailNotification := _EmailNotification{}
+
+	err = json.Unmarshal(data, &varEmailNotification)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EmailNotification(varEmailNotification)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEmailNotification struct {

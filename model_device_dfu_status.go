@@ -24,9 +24,12 @@ type DeviceDfuStatus struct {
 	// Device UID
 	DeviceUid *string `json:"device_uid,omitempty"`
 	// true if there is a DFU currently in progress
-	DfuInProgress *bool                  `json:"dfu_in_progress,omitempty"`
-	Status        *DeviceDfuStateMachine `json:"status,omitempty"`
+	DfuInProgress        *bool                  `json:"dfu_in_progress,omitempty"`
+	Status               *DeviceDfuStateMachine `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceDfuStatus DeviceDfuStatus
 
 // NewDeviceDfuStatus instantiates a new DeviceDfuStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o DeviceDfuStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceDfuStatus) UnmarshalJSON(data []byte) (err error) {
+	varDeviceDfuStatus := _DeviceDfuStatus{}
+
+	err = json.Unmarshal(data, &varDeviceDfuStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceDfuStatus(varDeviceDfuStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current")
+		delete(additionalProperties, "device_uid")
+		delete(additionalProperties, "dfu_in_progress")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceDfuStatus struct {

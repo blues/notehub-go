@@ -21,8 +21,11 @@ var _ MappedNullable = &GetDeviceLatestEvents200Response{}
 // GetDeviceLatestEvents200Response struct for GetDeviceLatestEvents200Response
 type GetDeviceLatestEvents200Response struct {
 	// The set of latest events.  Will always include the current \"session.begin\" event.
-	LatestEvents []Event `json:"latest_events,omitempty"`
+	LatestEvents         []Event `json:"latest_events,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetDeviceLatestEvents200Response GetDeviceLatestEvents200Response
 
 // NewGetDeviceLatestEvents200Response instantiates a new GetDeviceLatestEvents200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o GetDeviceLatestEvents200Response) ToMap() (map[string]interface{}, error
 	if !IsNil(o.LatestEvents) {
 		toSerialize["latest_events"] = o.LatestEvents
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetDeviceLatestEvents200Response) UnmarshalJSON(data []byte) (err error) {
+	varGetDeviceLatestEvents200Response := _GetDeviceLatestEvents200Response{}
+
+	err = json.Unmarshal(data, &varGetDeviceLatestEvents200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetDeviceLatestEvents200Response(varGetDeviceLatestEvents200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "latest_events")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetDeviceLatestEvents200Response struct {

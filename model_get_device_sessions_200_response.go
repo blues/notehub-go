@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &GetDeviceSessions200Response{}
 
 // GetDeviceSessions200Response struct for GetDeviceSessions200Response
 type GetDeviceSessions200Response struct {
-	HasMore  bool            `json:"has_more"`
-	Sessions []DeviceSession `json:"sessions"`
+	HasMore              bool            `json:"has_more"`
+	Sessions             []DeviceSession `json:"sessions"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDeviceSessions200Response GetDeviceSessions200Response
@@ -107,6 +107,11 @@ func (o GetDeviceSessions200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["has_more"] = o.HasMore
 	toSerialize["sessions"] = o.Sessions
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *GetDeviceSessions200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetDeviceSessions200Response := _GetDeviceSessions200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDeviceSessions200Response)
+	err = json.Unmarshal(data, &varGetDeviceSessions200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDeviceSessions200Response(varGetDeviceSessions200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "sessions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

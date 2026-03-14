@@ -20,20 +20,22 @@ var _ MappedNullable = &AwsRoute{}
 
 // AwsRoute struct for AwsRoute
 type AwsRoute struct {
-	AccessKeyId            *string                 `json:"access_key_id,omitempty"`
-	AccessKeySecret        *string                 `json:"access_key_secret,omitempty"`
-	Channel                *string                 `json:"channel,omitempty"`
-	DisableHttpHeaders     *bool                   `json:"disable_http_headers,omitempty"`
-	Filter                 *Filter                 `json:"filter,omitempty"`
-	Fleets                 []string                `json:"fleets,omitempty"`
-	HttpHeaders            *map[string]string      `json:"http_headers,omitempty"`
-	MessageDeduplicationId *string                 `json:"message_deduplication_id,omitempty"`
-	MessageGroupId         *string                 `json:"message_group_id,omitempty"`
-	Region                 *string                 `json:"region,omitempty"`
-	ThrottleMs             *int32                  `json:"throttle_ms,omitempty"`
-	Timeout                *int32                  `json:"timeout,omitempty"`
-	Transform              *RouteTransformSettings `json:"transform,omitempty"`
-	Url                    *string                 `json:"url,omitempty"`
+	AccessKeyId            *string            `json:"access_key_id,omitempty"`
+	AccessKeySecret        *string            `json:"access_key_secret,omitempty"`
+	Channel                *string            `json:"channel,omitempty"`
+	DisableHttpHeaders     *bool              `json:"disable_http_headers,omitempty"`
+	Filter                 *Filter            `json:"filter,omitempty"`
+	Fleets                 []string           `json:"fleets,omitempty"`
+	HttpHeaders            *map[string]string `json:"http_headers,omitempty"`
+	MessageDeduplicationId *string            `json:"message_deduplication_id,omitempty"`
+	MessageGroupId         *string            `json:"message_group_id,omitempty"`
+	Region                 *string            `json:"region,omitempty"`
+	// IAM Role ARN for role-based authentication via STS AssumeRole
+	RoleArn    *string                 `json:"role_arn,omitempty"`
+	ThrottleMs *int32                  `json:"throttle_ms,omitempty"`
+	Timeout    *int32                  `json:"timeout,omitempty"`
+	Transform  *RouteTransformSettings `json:"transform,omitempty"`
+	Url        *string                 `json:"url,omitempty"`
 }
 
 // NewAwsRoute instantiates a new AwsRoute object
@@ -373,6 +375,38 @@ func (o *AwsRoute) SetRegion(v string) {
 	o.Region = &v
 }
 
+// GetRoleArn returns the RoleArn field value if set, zero value otherwise.
+func (o *AwsRoute) GetRoleArn() string {
+	if o == nil || IsNil(o.RoleArn) {
+		var ret string
+		return ret
+	}
+	return *o.RoleArn
+}
+
+// GetRoleArnOk returns a tuple with the RoleArn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AwsRoute) GetRoleArnOk() (*string, bool) {
+	if o == nil || IsNil(o.RoleArn) {
+		return nil, false
+	}
+	return o.RoleArn, true
+}
+
+// HasRoleArn returns a boolean if a field has been set.
+func (o *AwsRoute) HasRoleArn() bool {
+	if o != nil && !IsNil(o.RoleArn) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoleArn gets a reference to the given string and assigns it to the RoleArn field.
+func (o *AwsRoute) SetRoleArn(v string) {
+	o.RoleArn = &v
+}
+
 // GetThrottleMs returns the ThrottleMs field value if set, zero value otherwise.
 func (o *AwsRoute) GetThrottleMs() int32 {
 	if o == nil || IsNil(o.ThrottleMs) {
@@ -540,6 +574,9 @@ func (o AwsRoute) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Region) {
 		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.RoleArn) {
+		toSerialize["role_arn"] = o.RoleArn
 	}
 	if !IsNil(o.ThrottleMs) {
 		toSerialize["throttle_ms"] = o.ThrottleMs

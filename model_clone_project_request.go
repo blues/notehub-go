@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type CloneProjectRequest struct {
 	// Whether to disallow the cloning of the routes from the parent project.  Default is false if not specified.
 	DisableCloneRoutes *bool `json:"disable_clone_routes,omitempty"`
 	// The label for the project.
-	Label string `json:"label"`
+	Label                string `json:"label"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CloneProjectRequest CloneProjectRequest
@@ -183,6 +183,11 @@ func (o CloneProjectRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["disable_clone_routes"] = o.DisableCloneRoutes
 	}
 	toSerialize["label"] = o.Label
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -211,15 +216,23 @@ func (o *CloneProjectRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCloneProjectRequest := _CloneProjectRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCloneProjectRequest)
+	err = json.Unmarshal(data, &varCloneProjectRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CloneProjectRequest(varCloneProjectRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billing_account_uid")
+		delete(additionalProperties, "disable_clone_fleets")
+		delete(additionalProperties, "disable_clone_routes")
+		delete(additionalProperties, "label")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

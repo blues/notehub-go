@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,14 +22,17 @@ var _ MappedNullable = &SatellitePlan{}
 // SatellitePlan struct for SatellitePlan
 type SatellitePlan struct {
 	// Activation date of the satellite plan as Unix timestamp
-	Activated     int64      `json:"activated"`
-	BillableBytes *DataUsage `json:"billable_bytes,omitempty"`
-	// Time this plan information was last updated
-	LastUpdated *int64 `json:"last_updated,omitempty"`
+	Activated int64 `json:"activated"`
+	// When this Starnote last had a session
+	LastSessionAt *int64 `json:"last_session_at,omitempty"`
+	// Minimum billable bytes
+	MinimumBillableBytes *int64 `json:"minimum_billable_bytes,omitempty"`
 	// Non-Terrestrial Network provider name
 	NtnProvider string `json:"ntn_provider"`
 	// Provider-specific identifier for the satellite subscription
-	Psid string `json:"psid"`
+	Psid                 string              `json:"psid"`
+	SatelliteDataUsage   *SatelliteDataUsage `json:"satellite_data_usage,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SatellitePlan SatellitePlan
@@ -79,68 +81,68 @@ func (o *SatellitePlan) SetActivated(v int64) {
 	o.Activated = v
 }
 
-// GetBillableBytes returns the BillableBytes field value if set, zero value otherwise.
-func (o *SatellitePlan) GetBillableBytes() DataUsage {
-	if o == nil || IsNil(o.BillableBytes) {
-		var ret DataUsage
-		return ret
-	}
-	return *o.BillableBytes
-}
-
-// GetBillableBytesOk returns a tuple with the BillableBytes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SatellitePlan) GetBillableBytesOk() (*DataUsage, bool) {
-	if o == nil || IsNil(o.BillableBytes) {
-		return nil, false
-	}
-	return o.BillableBytes, true
-}
-
-// HasBillableBytes returns a boolean if a field has been set.
-func (o *SatellitePlan) HasBillableBytes() bool {
-	if o != nil && !IsNil(o.BillableBytes) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillableBytes gets a reference to the given DataUsage and assigns it to the BillableBytes field.
-func (o *SatellitePlan) SetBillableBytes(v DataUsage) {
-	o.BillableBytes = &v
-}
-
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *SatellitePlan) GetLastUpdated() int64 {
-	if o == nil || IsNil(o.LastUpdated) {
+// GetLastSessionAt returns the LastSessionAt field value if set, zero value otherwise.
+func (o *SatellitePlan) GetLastSessionAt() int64 {
+	if o == nil || IsNil(o.LastSessionAt) {
 		var ret int64
 		return ret
 	}
-	return *o.LastUpdated
+	return *o.LastSessionAt
 }
 
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// GetLastSessionAtOk returns a tuple with the LastSessionAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SatellitePlan) GetLastUpdatedOk() (*int64, bool) {
-	if o == nil || IsNil(o.LastUpdated) {
+func (o *SatellitePlan) GetLastSessionAtOk() (*int64, bool) {
+	if o == nil || IsNil(o.LastSessionAt) {
 		return nil, false
 	}
-	return o.LastUpdated, true
+	return o.LastSessionAt, true
 }
 
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *SatellitePlan) HasLastUpdated() bool {
-	if o != nil && !IsNil(o.LastUpdated) {
+// HasLastSessionAt returns a boolean if a field has been set.
+func (o *SatellitePlan) HasLastSessionAt() bool {
+	if o != nil && !IsNil(o.LastSessionAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given int64 and assigns it to the LastUpdated field.
-func (o *SatellitePlan) SetLastUpdated(v int64) {
-	o.LastUpdated = &v
+// SetLastSessionAt gets a reference to the given int64 and assigns it to the LastSessionAt field.
+func (o *SatellitePlan) SetLastSessionAt(v int64) {
+	o.LastSessionAt = &v
+}
+
+// GetMinimumBillableBytes returns the MinimumBillableBytes field value if set, zero value otherwise.
+func (o *SatellitePlan) GetMinimumBillableBytes() int64 {
+	if o == nil || IsNil(o.MinimumBillableBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.MinimumBillableBytes
+}
+
+// GetMinimumBillableBytesOk returns a tuple with the MinimumBillableBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SatellitePlan) GetMinimumBillableBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.MinimumBillableBytes) {
+		return nil, false
+	}
+	return o.MinimumBillableBytes, true
+}
+
+// HasMinimumBillableBytes returns a boolean if a field has been set.
+func (o *SatellitePlan) HasMinimumBillableBytes() bool {
+	if o != nil && !IsNil(o.MinimumBillableBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinimumBillableBytes gets a reference to the given int64 and assigns it to the MinimumBillableBytes field.
+func (o *SatellitePlan) SetMinimumBillableBytes(v int64) {
+	o.MinimumBillableBytes = &v
 }
 
 // GetNtnProvider returns the NtnProvider field value
@@ -191,6 +193,38 @@ func (o *SatellitePlan) SetPsid(v string) {
 	o.Psid = v
 }
 
+// GetSatelliteDataUsage returns the SatelliteDataUsage field value if set, zero value otherwise.
+func (o *SatellitePlan) GetSatelliteDataUsage() SatelliteDataUsage {
+	if o == nil || IsNil(o.SatelliteDataUsage) {
+		var ret SatelliteDataUsage
+		return ret
+	}
+	return *o.SatelliteDataUsage
+}
+
+// GetSatelliteDataUsageOk returns a tuple with the SatelliteDataUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SatellitePlan) GetSatelliteDataUsageOk() (*SatelliteDataUsage, bool) {
+	if o == nil || IsNil(o.SatelliteDataUsage) {
+		return nil, false
+	}
+	return o.SatelliteDataUsage, true
+}
+
+// HasSatelliteDataUsage returns a boolean if a field has been set.
+func (o *SatellitePlan) HasSatelliteDataUsage() bool {
+	if o != nil && !IsNil(o.SatelliteDataUsage) {
+		return true
+	}
+
+	return false
+}
+
+// SetSatelliteDataUsage gets a reference to the given SatelliteDataUsage and assigns it to the SatelliteDataUsage field.
+func (o *SatellitePlan) SetSatelliteDataUsage(v SatelliteDataUsage) {
+	o.SatelliteDataUsage = &v
+}
+
 func (o SatellitePlan) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -202,14 +236,22 @@ func (o SatellitePlan) MarshalJSON() ([]byte, error) {
 func (o SatellitePlan) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["activated"] = o.Activated
-	if !IsNil(o.BillableBytes) {
-		toSerialize["billable_bytes"] = o.BillableBytes
+	if !IsNil(o.LastSessionAt) {
+		toSerialize["last_session_at"] = o.LastSessionAt
 	}
-	if !IsNil(o.LastUpdated) {
-		toSerialize["last_updated"] = o.LastUpdated
+	if !IsNil(o.MinimumBillableBytes) {
+		toSerialize["minimum_billable_bytes"] = o.MinimumBillableBytes
 	}
 	toSerialize["ntn_provider"] = o.NtnProvider
 	toSerialize["psid"] = o.Psid
+	if !IsNil(o.SatelliteDataUsage) {
+		toSerialize["satellite_data_usage"] = o.SatelliteDataUsage
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -239,15 +281,25 @@ func (o *SatellitePlan) UnmarshalJSON(data []byte) (err error) {
 
 	varSatellitePlan := _SatellitePlan{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSatellitePlan)
+	err = json.Unmarshal(data, &varSatellitePlan)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SatellitePlan(varSatellitePlan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activated")
+		delete(additionalProperties, "last_session_at")
+		delete(additionalProperties, "minimum_billable_bytes")
+		delete(additionalProperties, "ntn_provider")
+		delete(additionalProperties, "psid")
+		delete(additionalProperties, "satellite_data_usage")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

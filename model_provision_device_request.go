@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type ProvisionDeviceRequest struct {
 	// The fleetUIDs to provision the device to.
 	FleetUids []string `json:"fleet_uids,omitempty"`
 	// The ProductUID that the device should use.
-	ProductUid string `json:"product_uid"`
+	ProductUid           string `json:"product_uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProvisionDeviceRequest ProvisionDeviceRequest
@@ -156,6 +156,11 @@ func (o ProvisionDeviceRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["fleet_uids"] = o.FleetUids
 	}
 	toSerialize["product_uid"] = o.ProductUid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -183,15 +188,22 @@ func (o *ProvisionDeviceRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varProvisionDeviceRequest := _ProvisionDeviceRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProvisionDeviceRequest)
+	err = json.Unmarshal(data, &varProvisionDeviceRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProvisionDeviceRequest(varProvisionDeviceRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "device_sn")
+		delete(additionalProperties, "fleet_uids")
+		delete(additionalProperties, "product_uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -27,8 +27,11 @@ type DeviceDfuStateMachineNode struct {
 	// Phase for this step in the firmware update process
 	Phase *string `json:"phase,omitempty"`
 	// Status for this step in the firmware update process
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceDfuStateMachineNode DeviceDfuStateMachineNode
 
 // NewDeviceDfuStateMachineNode instantiates a new DeviceDfuStateMachineNode object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o DeviceDfuStateMachineNode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceDfuStateMachineNode) UnmarshalJSON(data []byte) (err error) {
+	varDeviceDfuStateMachineNode := _DeviceDfuStateMachineNode{}
+
+	err = json.Unmarshal(data, &varDeviceDfuStateMachineNode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceDfuStateMachineNode(varDeviceDfuStateMachineNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "datetime")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "phase")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceDfuStateMachineNode struct {

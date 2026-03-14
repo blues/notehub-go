@@ -31,8 +31,11 @@ type UpdateFleetRequest struct {
 	SmartRule        *string `json:"smart_rule,omitempty"`
 	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
 	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
-	WatchdogMins *int64 `json:"watchdog_mins,omitempty"`
+	WatchdogMins         *int64 `json:"watchdog_mins,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UpdateFleetRequest UpdateFleetRequest
 
 // NewUpdateFleetRequest instantiates a new UpdateFleetRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -317,7 +320,39 @@ func (o UpdateFleetRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WatchdogMins) {
 		toSerialize["watchdog_mins"] = o.WatchdogMins
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UpdateFleetRequest) UnmarshalJSON(data []byte) (err error) {
+	varUpdateFleetRequest := _UpdateFleetRequest{}
+
+	err = json.Unmarshal(data, &varUpdateFleetRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateFleetRequest(varUpdateFleetRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "addDevices")
+		delete(additionalProperties, "connectivity_assurance")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "removeDevices")
+		delete(additionalProperties, "smart_rule")
+		delete(additionalProperties, "smart_rule_enabled")
+		delete(additionalProperties, "watchdog_mins")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUpdateFleetRequest struct {

@@ -20,11 +20,14 @@ var _ MappedNullable = &DeviceTowerInfo{}
 
 // DeviceTowerInfo struct for DeviceTowerInfo
 type DeviceTowerInfo struct {
-	CellId *int32 `json:"cell_id,omitempty"`
-	Lac    *int32 `json:"lac,omitempty"`
-	Mcc    *int32 `json:"mcc,omitempty"`
-	Mnc    *int32 `json:"mnc,omitempty"`
+	CellId               *int32 `json:"cell_id,omitempty"`
+	Lac                  *int32 `json:"lac,omitempty"`
+	Mcc                  *int32 `json:"mcc,omitempty"`
+	Mnc                  *int32 `json:"mnc,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceTowerInfo DeviceTowerInfo
 
 // NewDeviceTowerInfo instantiates a new DeviceTowerInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o DeviceTowerInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mnc) {
 		toSerialize["mnc"] = o.Mnc
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceTowerInfo) UnmarshalJSON(data []byte) (err error) {
+	varDeviceTowerInfo := _DeviceTowerInfo{}
+
+	err = json.Unmarshal(data, &varDeviceTowerInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceTowerInfo(varDeviceTowerInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cell_id")
+		delete(additionalProperties, "lac")
+		delete(additionalProperties, "mcc")
+		delete(additionalProperties, "mnc")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceTowerInfo struct {

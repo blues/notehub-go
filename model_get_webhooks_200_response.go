@@ -20,8 +20,11 @@ var _ MappedNullable = &GetWebhooks200Response{}
 
 // GetWebhooks200Response struct for GetWebhooks200Response
 type GetWebhooks200Response struct {
-	Webhooks []WebhookSettings `json:"webhooks,omitempty"`
+	Webhooks             []WebhookSettings `json:"webhooks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetWebhooks200Response GetWebhooks200Response
 
 // NewGetWebhooks200Response instantiates a new GetWebhooks200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o GetWebhooks200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Webhooks) {
 		toSerialize["webhooks"] = o.Webhooks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetWebhooks200Response) UnmarshalJSON(data []byte) (err error) {
+	varGetWebhooks200Response := _GetWebhooks200Response{}
+
+	err = json.Unmarshal(data, &varGetWebhooks200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetWebhooks200Response(varGetWebhooks200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "webhooks")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetWebhooks200Response struct {

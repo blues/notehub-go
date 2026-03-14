@@ -26,8 +26,11 @@ type PersonalAccessTokenInfo struct {
 	ExpiresAt NullableTime `json:"expires_at,omitempty"`
 	Name      *string      `json:"name,omitempty"`
 	// if true, the token is temporarily suspended
-	Suspended *bool `json:"suspended,omitempty"`
+	Suspended            *bool `json:"suspended,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PersonalAccessTokenInfo PersonalAccessTokenInfo
 
 // NewPersonalAccessTokenInfo instantiates a new PersonalAccessTokenInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -207,7 +210,36 @@ func (o PersonalAccessTokenInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Suspended) {
 		toSerialize["suspended"] = o.Suspended
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PersonalAccessTokenInfo) UnmarshalJSON(data []byte) (err error) {
+	varPersonalAccessTokenInfo := _PersonalAccessTokenInfo{}
+
+	err = json.Unmarshal(data, &varPersonalAccessTokenInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PersonalAccessTokenInfo(varPersonalAccessTokenInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "suspended")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePersonalAccessTokenInfo struct {

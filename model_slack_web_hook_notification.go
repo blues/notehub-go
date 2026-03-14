@@ -25,8 +25,11 @@ type SlackWebHookNotification struct {
 	// The text of the message, or the blocks definition
 	Text *string `json:"text,omitempty"`
 	// The URL of the Slack webhook.
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SlackWebHookNotification SlackWebHookNotification
 
 // NewSlackWebHookNotification instantiates a new SlackWebHookNotification object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o SlackWebHookNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SlackWebHookNotification) UnmarshalJSON(data []byte) (err error) {
+	varSlackWebHookNotification := _SlackWebHookNotification{}
+
+	err = json.Unmarshal(data, &varSlackWebHookNotification)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SlackWebHookNotification(varSlackWebHookNotification)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "message_type")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSlackWebHookNotification struct {

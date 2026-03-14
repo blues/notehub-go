@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -28,6 +27,7 @@ type GetDeviceEnvironmentVariablesByPin200Response struct {
 	EnvironmentVariablesEffective *map[string]string `json:"environment_variables_effective,omitempty"`
 	// The environment variables that have been set using the env.default request through the Notecard API.
 	EnvironmentVariablesEnvDefault map[string]string `json:"environment_variables_env_default"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _GetDeviceEnvironmentVariablesByPin200Response GetDeviceEnvironmentVariablesByPin200Response
@@ -146,6 +146,11 @@ func (o GetDeviceEnvironmentVariablesByPin200Response) ToMap() (map[string]inter
 		toSerialize["environment_variables_effective"] = o.EnvironmentVariablesEffective
 	}
 	toSerialize["environment_variables_env_default"] = o.EnvironmentVariablesEnvDefault
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *GetDeviceEnvironmentVariablesByPin200Response) UnmarshalJSON(data []byt
 
 	varGetDeviceEnvironmentVariablesByPin200Response := _GetDeviceEnvironmentVariablesByPin200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDeviceEnvironmentVariablesByPin200Response)
+	err = json.Unmarshal(data, &varGetDeviceEnvironmentVariablesByPin200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDeviceEnvironmentVariablesByPin200Response(varGetDeviceEnvironmentVariablesByPin200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment_variables")
+		delete(additionalProperties, "environment_variables_effective")
+		delete(additionalProperties, "environment_variables_env_default")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

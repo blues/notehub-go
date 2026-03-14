@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type GetEvents200Response struct {
 	// True if there are more events
 	HasMore bool `json:"has_more"`
 	// The UID of the last event returned
-	Through *string `json:"through,omitempty"`
+	Through              *string `json:"through,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetEvents200Response GetEvents200Response
@@ -145,6 +145,11 @@ func (o GetEvents200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Through) {
 		toSerialize["through"] = o.Through
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -173,15 +178,22 @@ func (o *GetEvents200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetEvents200Response := _GetEvents200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetEvents200Response)
+	err = json.Unmarshal(data, &varGetEvents200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetEvents200Response(varGetEvents200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "through")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

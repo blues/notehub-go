@@ -9,7 +9,7 @@
 | **DeviceCount** | Pointer to **int32**            | the number of devices represented by this data point                                        | [optional] |
 | **Fleet**       | Pointer to **string**           | The fleet UID this usage data belongs to (only present when aggregate is &#39;fleet&#39;)   | [optional] |
 | **Iccid**       | Pointer to **string**           | The ICCID of the cellular SIM card (only present when type is &#39;cellular&#39;)           | [optional] |
-| **Imsi**        | Pointer to **string**           | The IMSI of the satellite device (only present when type is &#39;satellite&#39;)            | [optional] |
+| **Psid**        | Pointer to **string**           | The PSID (Packet Service ID) of the satellite (or other packet-based device)                | [optional] |
 | **Type**        | **string**                      | The type of connectivity                                                                    |
 
 ## Methods
@@ -150,30 +150,30 @@ SetIccid sets Iccid field to given value.
 
 HasIccid returns a boolean if a field has been set.
 
-### GetImsi
+### GetPsid
 
-`func (o *GetDataUsage200ResponseDataInner) GetImsi() string`
+`func (o *GetDataUsage200ResponseDataInner) GetPsid() string`
 
-GetImsi returns the Imsi field if non-nil, zero value otherwise.
+GetPsid returns the Psid field if non-nil, zero value otherwise.
 
-### GetImsiOk
+### GetPsidOk
 
-`func (o *GetDataUsage200ResponseDataInner) GetImsiOk() (*string, bool)`
+`func (o *GetDataUsage200ResponseDataInner) GetPsidOk() (*string, bool)`
 
-GetImsiOk returns a tuple with the Imsi field if it's non-nil, zero value otherwise
+GetPsidOk returns a tuple with the Psid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetImsi
+### SetPsid
 
-`func (o *GetDataUsage200ResponseDataInner) SetImsi(v string)`
+`func (o *GetDataUsage200ResponseDataInner) SetPsid(v string)`
 
-SetImsi sets Imsi field to given value.
+SetPsid sets Psid field to given value.
 
-### HasImsi
+### HasPsid
 
-`func (o *GetDataUsage200ResponseDataInner) HasImsi() bool`
+`func (o *GetDataUsage200ResponseDataInner) HasPsid() bool`
 
-HasImsi returns a boolean if a field has been set.
+HasPsid returns a boolean if a field has been set.
 
 ### GetType
 

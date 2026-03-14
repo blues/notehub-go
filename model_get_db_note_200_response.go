@@ -25,8 +25,11 @@ type GetDbNote200Response struct {
 	// The note payload
 	Payload *string `json:"payload,omitempty"`
 	// The time the Note was added to the Notecard or Notehub
-	Time *int32 `json:"time,omitempty"`
+	Time                 *int32 `json:"time,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetDbNote200Response GetDbNote200Response
 
 // NewGetDbNote200Response instantiates a new GetDbNote200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o GetDbNote200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Time) {
 		toSerialize["time"] = o.Time
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetDbNote200Response) UnmarshalJSON(data []byte) (err error) {
+	varGetDbNote200Response := _GetDbNote200Response{}
+
+	err = json.Unmarshal(data, &varGetDbNote200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetDbNote200Response(varGetDbNote200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "payload")
+		delete(additionalProperties, "time")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetDbNote200Response struct {

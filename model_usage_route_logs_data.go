@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -26,9 +25,10 @@ type UsageRouteLogsData struct {
 	FailedRoutes int64     `json:"failed_routes"`
 	Period       time.Time `json:"period"`
 	// The route UID (only present when aggregate is 'route')
-	Route            *string `json:"route,omitempty"`
-	SuccessfulRoutes int64   `json:"successful_routes"`
-	TotalRoutes      int64   `json:"total_routes"`
+	Route                *string `json:"route,omitempty"`
+	SuccessfulRoutes     int64   `json:"successful_routes"`
+	TotalRoutes          int64   `json:"total_routes"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageRouteLogsData UsageRouteLogsData
@@ -199,6 +199,11 @@ func (o UsageRouteLogsData) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["successful_routes"] = o.SuccessfulRoutes
 	toSerialize["total_routes"] = o.TotalRoutes
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -229,15 +234,24 @@ func (o *UsageRouteLogsData) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageRouteLogsData := _UsageRouteLogsData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageRouteLogsData)
+	err = json.Unmarshal(data, &varUsageRouteLogsData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageRouteLogsData(varUsageRouteLogsData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "failed_routes")
+		delete(additionalProperties, "period")
+		delete(additionalProperties, "route")
+		delete(additionalProperties, "successful_routes")
+		delete(additionalProperties, "total_routes")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

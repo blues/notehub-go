@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,6 +22,9 @@ var _ MappedNullable = &GetRouteLogsUsage200Response{}
 // GetRouteLogsUsage200Response struct for GetRouteLogsUsage200Response
 type GetRouteLogsUsage200Response struct {
 	RouteLogs []UsageRouteLogsData `json:"route_logs"`
+	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	Truncated            *bool `json:"truncated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetRouteLogsUsage200Response GetRouteLogsUsage200Response
@@ -69,6 +71,38 @@ func (o *GetRouteLogsUsage200Response) SetRouteLogs(v []UsageRouteLogsData) {
 	o.RouteLogs = v
 }
 
+// GetTruncated returns the Truncated field value if set, zero value otherwise.
+func (o *GetRouteLogsUsage200Response) GetTruncated() bool {
+	if o == nil || IsNil(o.Truncated) {
+		var ret bool
+		return ret
+	}
+	return *o.Truncated
+}
+
+// GetTruncatedOk returns a tuple with the Truncated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetRouteLogsUsage200Response) GetTruncatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Truncated) {
+		return nil, false
+	}
+	return o.Truncated, true
+}
+
+// HasTruncated returns a boolean if a field has been set.
+func (o *GetRouteLogsUsage200Response) HasTruncated() bool {
+	if o != nil && !IsNil(o.Truncated) {
+		return true
+	}
+
+	return false
+}
+
+// SetTruncated gets a reference to the given bool and assigns it to the Truncated field.
+func (o *GetRouteLogsUsage200Response) SetTruncated(v bool) {
+	o.Truncated = &v
+}
+
 func (o GetRouteLogsUsage200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -80,6 +114,14 @@ func (o GetRouteLogsUsage200Response) MarshalJSON() ([]byte, error) {
 func (o GetRouteLogsUsage200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["route_logs"] = o.RouteLogs
+	if !IsNil(o.Truncated) {
+		toSerialize["truncated"] = o.Truncated
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +149,21 @@ func (o *GetRouteLogsUsage200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetRouteLogsUsage200Response := _GetRouteLogsUsage200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetRouteLogsUsage200Response)
+	err = json.Unmarshal(data, &varGetRouteLogsUsage200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetRouteLogsUsage200Response(varGetRouteLogsUsage200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "route_logs")
+		delete(additionalProperties, "truncated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

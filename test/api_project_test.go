@@ -192,6 +192,22 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ProjectAPIService DownloadFirmware", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var firmwareType string
+		var filename string
+
+		resp, httpRes, err := apiClient.ProjectAPI.DownloadFirmware(context.Background(), projectOrProductUID, firmwareType, filename).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ProjectAPIService EnableGlobalEventTransformation", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -201,6 +217,20 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 		httpRes, err := apiClient.ProjectAPI.EnableGlobalEventTransformation(context.Background(), projectOrProductUID).Execute()
 
 		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ProjectAPIService GetAWSRoleConfig", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+
+		resp, httpRes, err := apiClient.ProjectAPI.GetAWSRoleConfig(context.Background(), projectOrProductUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

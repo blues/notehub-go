@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,9 +22,10 @@ var _ MappedNullable = &Notefile{}
 // Notefile struct for Notefile
 type Notefile struct {
 	// Notefile id (e.g., \"test.qi\", \"config.db\").
-	Id       string  `json:"id"`
-	Notes    []Note  `json:"notes"`
-	Template *string `json:"template,omitempty"`
+	Id                   string  `json:"id"`
+	Notes                []Note  `json:"notes"`
+	Template             *string `json:"template,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Notefile Notefile
@@ -144,6 +144,11 @@ func (o Notefile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Template) {
 		toSerialize["template"] = o.Template
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -172,15 +177,22 @@ func (o *Notefile) UnmarshalJSON(data []byte) (err error) {
 
 	varNotefile := _Notefile{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotefile)
+	err = json.Unmarshal(data, &varNotefile)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Notefile(varNotefile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "notes")
+		delete(additionalProperties, "template")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

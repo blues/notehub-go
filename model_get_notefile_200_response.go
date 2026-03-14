@@ -25,8 +25,11 @@ type GetNotefile200Response struct {
 	// An object with a key for each note and a value object with the body of each Note and the time the Note was added.
 	Notes map[string]interface{} `json:"notes,omitempty"`
 	// The total number of notes.
-	Total *int32 `json:"total,omitempty"`
+	Total                *int32 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetNotefile200Response GetNotefile200Response
 
 // NewGetNotefile200Response instantiates a new GetNotefile200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o GetNotefile200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetNotefile200Response) UnmarshalJSON(data []byte) (err error) {
+	varGetNotefile200Response := _GetNotefile200Response{}
+
+	err = json.Unmarshal(data, &varGetNotefile200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetNotefile200Response(varGetNotefile200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "changes")
+		delete(additionalProperties, "notes")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetNotefile200Response struct {

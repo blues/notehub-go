@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,6 +25,7 @@ type Product struct {
 	DisableDevicesByDefault bool     `json:"disable_devices_by_default"`
 	Label                   string   `json:"label"`
 	Uid                     string   `json:"uid"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _Product Product
@@ -171,6 +171,11 @@ func (o Product) ToMap() (map[string]interface{}, error) {
 	toSerialize["disable_devices_by_default"] = o.DisableDevicesByDefault
 	toSerialize["label"] = o.Label
 	toSerialize["uid"] = o.Uid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -200,15 +205,23 @@ func (o *Product) UnmarshalJSON(data []byte) (err error) {
 
 	varProduct := _Product{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProduct)
+	err = json.Unmarshal(data, &varProduct)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Product(varProduct)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "auto_provision_fleets")
+		delete(additionalProperties, "disable_devices_by_default")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

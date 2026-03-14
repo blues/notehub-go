@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,17 +21,18 @@ var _ MappedNullable = &EnvTreeJsonNode{}
 
 // EnvTreeJsonNode struct for EnvTreeJsonNode
 type EnvTreeJsonNode struct {
-	AppLabel          *string           `json:"app_label,omitempty"`
-	AppUid            *string           `json:"app_uid,omitempty"`
-	Children          []EnvTreeJsonNode `json:"children"`
-	DeviceUid         *string           `json:"device_uid,omitempty"`
-	FleetLabel        *string           `json:"fleet_label,omitempty"`
-	FleetUid          *string           `json:"fleet_uid,omitempty"`
-	InheritedVarCount int32             `json:"inherited_var_count"`
-	Type              string            `json:"type"`
-	Url               *string           `json:"url,omitempty"`
-	VarCount          int32             `json:"var_count"`
-	Variables         []EnvVar          `json:"variables"`
+	AppLabel             *string           `json:"app_label,omitempty"`
+	AppUid               *string           `json:"app_uid,omitempty"`
+	Children             []EnvTreeJsonNode `json:"children"`
+	DeviceUid            *string           `json:"device_uid,omitempty"`
+	FleetLabel           *string           `json:"fleet_label,omitempty"`
+	FleetUid             *string           `json:"fleet_uid,omitempty"`
+	InheritedVarCount    int32             `json:"inherited_var_count"`
+	Type                 string            `json:"type"`
+	Url                  *string           `json:"url,omitempty"`
+	VarCount             int32             `json:"var_count"`
+	Variables            []EnvVar          `json:"variables"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _EnvTreeJsonNode EnvTreeJsonNode
@@ -404,6 +404,11 @@ func (o EnvTreeJsonNode) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["var_count"] = o.VarCount
 	toSerialize["variables"] = o.Variables
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -435,15 +440,30 @@ func (o *EnvTreeJsonNode) UnmarshalJSON(data []byte) (err error) {
 
 	varEnvTreeJsonNode := _EnvTreeJsonNode{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEnvTreeJsonNode)
+	err = json.Unmarshal(data, &varEnvTreeJsonNode)
 
 	if err != nil {
 		return err
 	}
 
 	*o = EnvTreeJsonNode(varEnvTreeJsonNode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app_label")
+		delete(additionalProperties, "app_uid")
+		delete(additionalProperties, "children")
+		delete(additionalProperties, "device_uid")
+		delete(additionalProperties, "fleet_label")
+		delete(additionalProperties, "fleet_uid")
+		delete(additionalProperties, "inherited_var_count")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "var_count")
+		delete(additionalProperties, "variables")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

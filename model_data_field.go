@@ -21,8 +21,11 @@ var _ MappedNullable = &DataField{}
 // DataField struct for DataField
 type DataField struct {
 	// The name of the field
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DataField DataField
 
 // NewDataField instantiates a new DataField object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o DataField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DataField) UnmarshalJSON(data []byte) (err error) {
+	varDataField := _DataField{}
+
+	err = json.Unmarshal(data, &varDataField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DataField(varDataField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDataField struct {

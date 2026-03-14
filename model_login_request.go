@@ -20,9 +20,12 @@ var _ MappedNullable = &LoginRequest{}
 
 // LoginRequest struct for LoginRequest
 type LoginRequest struct {
-	Password *string `json:"password,omitempty"`
-	Username *string `json:"username,omitempty"`
+	Password             *string `json:"password,omitempty"`
+	Username             *string `json:"username,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginRequest LoginRequest
 
 // NewLoginRequest instantiates a new LoginRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o LoginRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginRequest) UnmarshalJSON(data []byte) (err error) {
+	varLoginRequest := _LoginRequest{}
+
+	err = json.Unmarshal(data, &varLoginRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginRequest(varLoginRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "username")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginRequest struct {

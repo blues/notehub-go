@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type CreateProjectRequest struct {
 	// The billing account UID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
 	BillingAccountUid string `json:"billing_account_uid"`
 	// The label for the project.
-	Label string `json:"label"`
+	Label                string `json:"label"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateProjectRequest CreateProjectRequest
@@ -109,6 +109,11 @@ func (o CreateProjectRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["billing_account_uid"] = o.BillingAccountUid
 	toSerialize["label"] = o.Label
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *CreateProjectRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateProjectRequest := _CreateProjectRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateProjectRequest)
+	err = json.Unmarshal(data, &varCreateProjectRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateProjectRequest(varCreateProjectRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billing_account_uid")
+		delete(additionalProperties, "label")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
