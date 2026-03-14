@@ -35,8 +35,11 @@ type RouteLog struct {
 	// The response body of the route.
 	Text *string `json:"text,omitempty"`
 	// The URL of the route.
-	Url *string `json:"url,omitempty"`
+	Url                  *string `json:"url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RouteLog RouteLog
 
 // NewRouteLog instantiates a new RouteLog object
 // This constructor will assign default values to properties that have it defined,
@@ -345,7 +348,40 @@ func (o RouteLog) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RouteLog) UnmarshalJSON(data []byte) (err error) {
+	varRouteLog := _RouteLog{}
+
+	err = json.Unmarshal(data, &varRouteLog)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RouteLog(varRouteLog)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "attn")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "event_uid")
+		delete(additionalProperties, "route_uid")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRouteLog struct {

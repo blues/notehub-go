@@ -12,6 +12,7 @@ api_usage.go
 api_webhook.go
 client.go
 configuration.go
+docs/AWSRoleConfig.md
 docs/AddDeviceToFleetsRequest.md
 docs/Alert.md
 docs/AlertAPI.md
@@ -69,6 +70,10 @@ docs/FirmwareInfo.md
 docs/Fleet.md
 docs/FleetConnectivityAssurance.md
 docs/GetAlerts200Response.md
+docs/GetBillingAccount200Response.md
+docs/GetBillingAccount200ResponsePlan.md
+docs/GetBillingAccountBalanceHistory200Response.md
+docs/GetBillingAccountBalanceHistory200ResponseDataInner.md
 docs/GetBillingAccounts200Response.md
 docs/GetDataUsage200Response.md
 docs/GetDataUsage200ResponseDataInner.md
@@ -109,6 +114,7 @@ docs/Notefile.md
 docs/NotefileSchema.md
 docs/NotehubRoute.md
 docs/NotehubRouteSummary.md
+docs/OAuth2ClientCredentialsRequest.md
 docs/OAuth2Error.md
 docs/OAuth2TokenResponse.md
 docs/PersonalAccessToken.md
@@ -129,6 +135,7 @@ docs/RouteAPI.md
 docs/RouteLog.md
 docs/RouteTransformSettings.md
 docs/S3ArchiveRoute.md
+docs/SatelliteDataUsage.md
 docs/SatellitePlan.md
 docs/SchemaProperty.md
 docs/SignalDevice200Response.md
@@ -161,6 +168,7 @@ model_add_device_to_fleets_request.go
 model_alert.go
 model_alert_data_inner.go
 model_alert_notifications_inner.go
+model_aws_role_config.go
 model_aws_route.go
 model_azure_route.go
 model_billing_account.go
@@ -208,6 +216,10 @@ model_firmware_info.go
 model_fleet.go
 model_fleet_connectivity_assurance.go
 model_get_alerts_200_response.go
+model_get_billing_account_200_response.go
+model_get_billing_account_200_response_plan.go
+model_get_billing_account_balance_history_200_response.go
+model_get_billing_account_balance_history_200_response_data_inner.go
 model_get_billing_accounts_200_response.go
 model_get_data_usage_200_response.go
 model_get_data_usage_200_response_data_inner.go
@@ -247,6 +259,7 @@ model_notefile.go
 model_notefile_schema.go
 model_notehub_route.go
 model_notehub_route_summary.go
+model_o_auth2_client_credentials_request.go
 model_o_auth2_error.go
 model_o_auth2_token_response.go
 model_personal_access_token.go
@@ -265,6 +278,7 @@ model_role.go
 model_route_log.go
 model_route_transform_settings.go
 model_s3_archive_route.go
+model_satellite_data_usage.go
 model_satellite_plan.go
 model_schema_property.go
 model_signal_device_200_response.go
@@ -289,4 +303,15 @@ model_user_dfu_state_machine_status.go
 model_user_firmware_info.go
 model_webhook_settings.go
 response.go
+test/api_alert_test.go
+test/api_authorization_test.go
+test/api_billing_account_test.go
+test/api_device_test.go
+test/api_event_test.go
+test/api_external_devices_test.go
+test/api_monitor_test.go
+test/api_project_test.go
+test/api_route_test.go
+test/api_usage_test.go
+test/api_webhook_test.go
 utils.go

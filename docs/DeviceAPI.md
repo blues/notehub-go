@@ -2,38 +2,37 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                                    | HTTP request                                                                                   | Description                                     |
-| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
-| [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             |
-| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                              |
-| [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key}  |
-| [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}  |
-| [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                        |
-| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                        |
-| [**DisableDeviceConnectivityAssurance**](DeviceAPI.md#DisableDeviceConnectivityAssurance) | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable-connectivity-assurance |
-| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                         |
-| [**EnableDeviceConnectivityAssurance**](DeviceAPI.md#EnableDeviceConnectivityAssurance)   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable-connectivity-assurance  |
-| [**GetDbNote**](DeviceAPI.md#GetDbNote)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}     |
-| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                 |
-| [**GetDeviceEnvironmentHierarchy**](DeviceAPI.md#GetDeviceEnvironmentHierarchy)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_hierarchy           | Get environment variable hierarchy for a device |
-| [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables           |
-| [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin           |
-| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                      |
-| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                          |
-| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                           |
-| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                      |
-| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                 |
-| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                        |
-| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                             |
-| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                           |
-| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}              |
-| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                           |
-| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                      |
-| [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables           |
-| [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin           |
-| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                         |
-| [**UpdateDbNote**](DeviceAPI.md#UpdateDbNote)                                             | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}     |
+| Method                                                                                    | HTTP request                                                                                  | Description                                     |
+| ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}   |
+| [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}            |
+| [**CreateNotefile**](DeviceAPI.md#CreateNotefile)                                         | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notefiles/{notefileID}        |
+| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                             |
+| [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key} |
+| [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID} |
+| [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                       |
+| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                       |
+| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                        |
+| [**GetDbNote**](DeviceAPI.md#GetDbNote)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
+| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                |
+| [**GetDeviceEnvironmentHierarchy**](DeviceAPI.md#GetDeviceEnvironmentHierarchy)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_hierarchy          | Get environment variable hierarchy for a device |
+| [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
+| [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
+| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     |
+| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         |
+| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          |
+| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     |
+| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                |
+| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                       |
+| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            |
+| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          |
+| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             |
+| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                          |
+| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     |
+| [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
+| [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
+| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                        |
+| [**UpdateDbNote**](DeviceAPI.md#UpdateDbNote)                                             | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
 
 ## AddDbNote
 
@@ -165,6 +164,70 @@ Other parameters are passed through a pointer to a apiAddQiNoteRequest struct vi
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## CreateNotefile
+
+> CreateNotefile(ctx, projectOrProductUID, deviceUID, notefileID).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	deviceUID := "dev:000000000000000" // string |
+	notefileID := "notefileID_example" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DeviceAPI.CreateNotefile(context.Background(), projectOrProductUID, deviceUID, notefileID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.CreateNotefile``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **deviceUID**           | **string**          |                                                                             |
+| **notefileID**          | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateNotefileRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+(empty response body)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -492,68 +555,6 @@ Other parameters are passed through a pointer to a apiDisableDeviceRequest struc
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
-## DisableDeviceConnectivityAssurance
-
-> DisableDeviceConnectivityAssurance(ctx, projectOrProductUID, deviceUID).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	deviceUID := "dev:000000000000000" // string |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.DisableDeviceConnectivityAssurance(context.Background(), projectOrProductUID, deviceUID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.DisableDeviceConnectivityAssurance``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDisableDeviceConnectivityAssuranceRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-### Return type
-
-(empty response body)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
 ## EnableDevice
 
 > EnableDevice(ctx, projectOrProductUID, deviceUID).Execute()
@@ -595,68 +596,6 @@ func main() {
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiEnableDeviceRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-### Return type
-
-(empty response body)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-## EnableDeviceConnectivityAssurance
-
-> EnableDeviceConnectivityAssurance(ctx, projectOrProductUID, deviceUID).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	deviceUID := "dev:000000000000000" // string |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.DeviceAPI.EnableDeviceConnectivityAssurance(context.Background(), projectOrProductUID, deviceUID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.EnableDeviceConnectivityAssurance``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiEnableDeviceConnectivityAssuranceRequest struct via the builder pattern
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
@@ -1344,7 +1283,7 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeysRequest
 
 ## GetDeviceSessions
 
-> GetDeviceSessions200Response GetDeviceSessions(ctx, projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).Execute()
+> GetDeviceSessions200Response GetDeviceSessions(ctx, projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
 
 ### Example
 
@@ -1365,10 +1304,11 @@ func main() {
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	firstSync := true // bool | When true, filters results to only show first sync sessions (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetDeviceSessions(context.Background(), projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetDeviceSessions(context.Background(), projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDeviceSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1397,6 +1337,7 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 **pageNum** | **int32** | | [default to 1]
 **startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**firstSync** | **bool** | When true, filters results to only show first sync sessions | [default to false]
 
 ### Return type
 

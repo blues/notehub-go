@@ -34,8 +34,11 @@ type UploadMetadata struct {
 	Tags     *string          `json:"tags,omitempty"`
 	Type     *string          `json:"type,omitempty"`
 	// User-specified version string provided at time of upload
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UploadMetadata UploadMetadata
 
 // NewUploadMetadata instantiates a new UploadMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -565,7 +568,46 @@ func (o UploadMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UploadMetadata) UnmarshalJSON(data []byte) (err error) {
+	varUploadMetadata := _UploadMetadata{}
+
+	err = json.Unmarshal(data, &varUploadMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UploadMetadata(varUploadMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "contains")
+		delete(additionalProperties, "crc32")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "firmware")
+		delete(additionalProperties, "found")
+		delete(additionalProperties, "length")
+		delete(additionalProperties, "md5")
+		delete(additionalProperties, "modified")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "notes")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUploadMetadata struct {

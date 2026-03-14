@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -36,7 +35,8 @@ type Fleet struct {
 	// Fleet UID
 	Uid string `json:"uid"`
 	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
-	WatchdogMins *int64 `json:"watchdog_mins,omitempty"`
+	WatchdogMins         *int64 `json:"watchdog_mins,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Fleet Fleet
@@ -332,6 +332,11 @@ func (o Fleet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WatchdogMins) {
 		toSerialize["watchdog_mins"] = o.WatchdogMins
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -361,15 +366,27 @@ func (o *Fleet) UnmarshalJSON(data []byte) (err error) {
 
 	varFleet := _Fleet{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFleet)
+	err = json.Unmarshal(data, &varFleet)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Fleet(varFleet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "connectivity_assurance")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "environment_variables")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "smart_rule")
+		delete(additionalProperties, "smart_rule_enabled")
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "watchdog_mins")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

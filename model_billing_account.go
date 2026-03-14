@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &BillingAccount{}
 
 // BillingAccount struct for BillingAccount
 type BillingAccount struct {
-	Name string             `json:"name"`
-	Role BillingAccountRole `json:"role"`
-	Uid  string             `json:"uid"`
+	Name                 string             `json:"name"`
+	Role                 BillingAccountRole `json:"role"`
+	Uid                  string             `json:"uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BillingAccount BillingAccount
@@ -134,6 +134,11 @@ func (o BillingAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["role"] = o.Role
 	toSerialize["uid"] = o.Uid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -163,15 +168,22 @@ func (o *BillingAccount) UnmarshalJSON(data []byte) (err error) {
 
 	varBillingAccount := _BillingAccount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBillingAccount)
+	err = json.Unmarshal(data, &varBillingAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BillingAccount(varBillingAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

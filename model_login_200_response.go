@@ -20,8 +20,11 @@ var _ MappedNullable = &Login200Response{}
 
 // Login200Response struct for Login200Response
 type Login200Response struct {
-	SessionToken *string `json:"session_token,omitempty"`
+	SessionToken         *string `json:"session_token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Login200Response Login200Response
 
 // NewLogin200Response instantiates a new Login200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o Login200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionToken) {
 		toSerialize["session_token"] = o.SessionToken
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Login200Response) UnmarshalJSON(data []byte) (err error) {
+	varLogin200Response := _Login200Response{}
+
+	err = json.Unmarshal(data, &varLogin200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Login200Response(varLogin200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "session_token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLogin200Response struct {

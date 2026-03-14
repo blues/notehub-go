@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type GetEventsByCursor200Response struct {
 	// True if there are more events
 	HasMore bool `json:"has_more"`
 	// The cursor value of the next result, which is intended to be used as the \"cursor\" parameter value of the next call to this method. An empty string is returned if there are no more results after this results set.
-	NextCursor string `json:"next_cursor"`
+	NextCursor           string `json:"next_cursor"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetEventsByCursor200Response GetEventsByCursor200Response
@@ -136,6 +136,11 @@ func (o GetEventsByCursor200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize["events"] = o.Events
 	toSerialize["has_more"] = o.HasMore
 	toSerialize["next_cursor"] = o.NextCursor
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -165,15 +170,22 @@ func (o *GetEventsByCursor200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetEventsByCursor200Response := _GetEventsByCursor200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetEventsByCursor200Response)
+	err = json.Unmarshal(data, &varGetEventsByCursor200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetEventsByCursor200Response(varGetEventsByCursor200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

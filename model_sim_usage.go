@@ -29,8 +29,11 @@ type SimUsage struct {
 	// Limit in bytes of the SIMs current data plan
 	Limit *int64 `json:"limit,omitempty"`
 	// Bytes used on the SIMs current data plan
-	Used *int64 `json:"used,omitempty"`
+	Used                 *int64 `json:"used,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SimUsage SimUsage
 
 // NewSimUsage instantiates a new SimUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -234,7 +237,37 @@ func (o SimUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Used) {
 		toSerialize["used"] = o.Used
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SimUsage) UnmarshalJSON(data []byte) (err error) {
+	varSimUsage := _SimUsage{}
+
+	err = json.Unmarshal(data, &varSimUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SimUsage(varSimUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "iccid")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "lifetime_used")
+		delete(additionalProperties, "limit")
+		delete(additionalProperties, "used")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSimUsage struct {

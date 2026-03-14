@@ -47,8 +47,11 @@ type TowerLocation struct {
 	// Timezone ID
 	Z *int32 `json:"z,omitempty"`
 	// Timezone name
-	Zone *string `json:"zone,omitempty"`
+	Zone                 *string `json:"zone,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _TowerLocation TowerLocation
 
 // NewTowerLocation instantiates a new TowerLocation object
 // This constructor will assign default values to properties that have it defined,
@@ -567,7 +570,46 @@ func (o TowerLocation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Zone) {
 		toSerialize["zone"] = o.Zone
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *TowerLocation) UnmarshalJSON(data []byte) (err error) {
+	varTowerLocation := _TowerLocation{}
+
+	err = json.Unmarshal(data, &varTowerLocation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TowerLocation(varTowerLocation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "c")
+		delete(additionalProperties, "cid")
+		delete(additionalProperties, "l")
+		delete(additionalProperties, "lac")
+		delete(additionalProperties, "lat")
+		delete(additionalProperties, "lon")
+		delete(additionalProperties, "mcc")
+		delete(additionalProperties, "mnc")
+		delete(additionalProperties, "n")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "time")
+		delete(additionalProperties, "towers")
+		delete(additionalProperties, "z")
+		delete(additionalProperties, "zone")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableTowerLocation struct {

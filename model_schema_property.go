@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -28,9 +27,10 @@ type SchemaProperty struct {
 	// Name of the field (optional for array/object children)
 	Name *string `json:"name,omitempty"`
 	// Used if type is object
-	Properties []SchemaProperty `json:"properties,omitempty"`
-	Type       string           `json:"type"`
-	UpdatedAt  *time.Time       `json:"updated_at,omitempty"`
+	Properties           []SchemaProperty `json:"properties,omitempty"`
+	Type                 string           `json:"type"`
+	UpdatedAt            *time.Time       `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SchemaProperty SchemaProperty
@@ -228,6 +228,11 @@ func (o SchemaProperty) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -255,15 +260,24 @@ func (o *SchemaProperty) UnmarshalJSON(data []byte) (err error) {
 
 	varSchemaProperty := _SchemaProperty{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSchemaProperty)
+	err = json.Unmarshal(data, &varSchemaProperty)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SchemaProperty(varSchemaProperty)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "properties")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -25,8 +25,11 @@ type DataSetField struct {
 	// the JSONata expression used to populate this field
 	Jsonata *string `json:"jsonata,omitempty"`
 	// The name of the field
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DataSetField DataSetField
 
 // NewDataSetField instantiates a new DataSetField object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o DataSetField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DataSetField) UnmarshalJSON(data []byte) (err error) {
+	varDataSetField := _DataSetField{}
+
+	err = json.Unmarshal(data, &varDataSetField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DataSetField(varDataSetField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "datatype")
+		delete(additionalProperties, "jsonata")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDataSetField struct {

@@ -21,8 +21,11 @@ var _ MappedNullable = &SignalDevice200Response{}
 // SignalDevice200Response struct for SignalDevice200Response
 type SignalDevice200Response struct {
 	// true if the Notecard is connected to Notehub.
-	Connected *bool `json:"connected,omitempty"`
+	Connected            *bool `json:"connected,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SignalDevice200Response SignalDevice200Response
 
 // NewSignalDevice200Response instantiates a new SignalDevice200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o SignalDevice200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Connected) {
 		toSerialize["connected"] = o.Connected
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SignalDevice200Response) UnmarshalJSON(data []byte) (err error) {
+	varSignalDevice200Response := _SignalDevice200Response{}
+
+	err = json.Unmarshal(data, &varSignalDevice200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SignalDevice200Response(varSignalDevice200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "connected")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSignalDevice200Response struct {

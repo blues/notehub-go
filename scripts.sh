@@ -308,6 +308,9 @@ generate_and_format() {
 
     local output_dir="${1:-.}"
 
+    # Remove test files so the generator produces fresh tests matching the current spec
+    rm -rf test/
+
     remove_deprecated_parameters "openapi.yaml" "openapi_filtered.yaml"
     generate_package "openapi_filtered.yaml" "$output_dir"
     format_code

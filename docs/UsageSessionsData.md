@@ -2,20 +2,21 @@
 
 ## Properties
 
-| Name             | Type                  | Description | Notes      |
-| ---------------- | --------------------- | ----------- | ---------- |
-| **Device**       | Pointer to **string** |             | [optional] |
-| **Fleet**        | Pointer to **string** |             | [optional] |
-| **Period**       | **time.Time**         |             |
-| **Sessions**     | **int64**             |             |
-| **TotalBytes**   | **int64**             |             |
-| **TotalDevices** | **int64**             |             |
+| Name                  | Type                  | Description                                  | Notes      |
+| --------------------- | --------------------- | -------------------------------------------- | ---------- |
+| **Device**            | Pointer to **string** |                                              | [optional] |
+| **FirstSyncSessions** | **int64**             | Number of first sync sessions in this period |
+| **Fleet**             | Pointer to **string** |                                              | [optional] |
+| **Period**            | **time.Time**         |                                              |
+| **Sessions**          | **int64**             |                                              |
+| **TotalBytes**        | **int64**             |                                              |
+| **TotalDevices**      | **int64**             |                                              |
 
 ## Methods
 
 ### NewUsageSessionsData
 
-`func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64, totalDevices int64, ) *UsageSessionsData`
+`func NewUsageSessionsData(firstSyncSessions int64, period time.Time, sessions int64, totalBytes int64, totalDevices int64, ) *UsageSessionsData`
 
 NewUsageSessionsData instantiates a new UsageSessionsData object
 This constructor will assign default values to properties that have it defined,
@@ -54,6 +55,25 @@ SetDevice sets Device field to given value.
 `func (o *UsageSessionsData) HasDevice() bool`
 
 HasDevice returns a boolean if a field has been set.
+
+### GetFirstSyncSessions
+
+`func (o *UsageSessionsData) GetFirstSyncSessions() int64`
+
+GetFirstSyncSessions returns the FirstSyncSessions field if non-nil, zero value otherwise.
+
+### GetFirstSyncSessionsOk
+
+`func (o *UsageSessionsData) GetFirstSyncSessionsOk() (*int64, bool)`
+
+GetFirstSyncSessionsOk returns a tuple with the FirstSyncSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirstSyncSessions
+
+`func (o *UsageSessionsData) SetFirstSyncSessions(v int64)`
+
+SetFirstSyncSessions sets FirstSyncSessions field to given value.
 
 ### GetFleet
 

@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type OAuth2Error struct {
 	// RFC 6749 error code.
 	Error string `json:"error"`
 	// Human-readable explanation of the error.
-	ErrorDescription *string `json:"error_description,omitempty"`
+	ErrorDescription     *string `json:"error_description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OAuth2Error OAuth2Error
@@ -118,6 +118,11 @@ func (o OAuth2Error) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ErrorDescription) {
 		toSerialize["error_description"] = o.ErrorDescription
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *OAuth2Error) UnmarshalJSON(data []byte) (err error) {
 
 	varOAuth2Error := _OAuth2Error{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOAuth2Error)
+	err = json.Unmarshal(data, &varOAuth2Error)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OAuth2Error(varOAuth2Error)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "error_description")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

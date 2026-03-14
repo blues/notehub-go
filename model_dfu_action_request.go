@@ -21,8 +21,11 @@ var _ MappedNullable = &DfuActionRequest{}
 // DfuActionRequest struct for DfuActionRequest
 type DfuActionRequest struct {
 	// The name of the firmware file
-	Filename *string `json:"filename,omitempty"`
+	Filename             *string `json:"filename,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DfuActionRequest DfuActionRequest
 
 // NewDfuActionRequest instantiates a new DfuActionRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o DfuActionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filename) {
 		toSerialize["filename"] = o.Filename
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DfuActionRequest) UnmarshalJSON(data []byte) (err error) {
+	varDfuActionRequest := _DfuActionRequest{}
+
+	err = json.Unmarshal(data, &varDfuActionRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DfuActionRequest(varDfuActionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "filename")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDfuActionRequest struct {

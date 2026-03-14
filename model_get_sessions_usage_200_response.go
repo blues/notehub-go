@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,6 +22,9 @@ var _ MappedNullable = &GetSessionsUsage200Response{}
 // GetSessionsUsage200Response struct for GetSessionsUsage200Response
 type GetSessionsUsage200Response struct {
 	Sessions []UsageSessionsData `json:"sessions"`
+	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	Truncated            bool `json:"truncated"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetSessionsUsage200Response GetSessionsUsage200Response
@@ -31,9 +33,10 @@ type _GetSessionsUsage200Response GetSessionsUsage200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetSessionsUsage200Response(sessions []UsageSessionsData) *GetSessionsUsage200Response {
+func NewGetSessionsUsage200Response(sessions []UsageSessionsData, truncated bool) *GetSessionsUsage200Response {
 	this := GetSessionsUsage200Response{}
 	this.Sessions = sessions
+	this.Truncated = truncated
 	return &this
 }
 
@@ -69,6 +72,30 @@ func (o *GetSessionsUsage200Response) SetSessions(v []UsageSessionsData) {
 	o.Sessions = v
 }
 
+// GetTruncated returns the Truncated field value
+func (o *GetSessionsUsage200Response) GetTruncated() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Truncated
+}
+
+// GetTruncatedOk returns a tuple with the Truncated field value
+// and a boolean to check if the value has been set.
+func (o *GetSessionsUsage200Response) GetTruncatedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Truncated, true
+}
+
+// SetTruncated sets field value
+func (o *GetSessionsUsage200Response) SetTruncated(v bool) {
+	o.Truncated = v
+}
+
 func (o GetSessionsUsage200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -80,6 +107,12 @@ func (o GetSessionsUsage200Response) MarshalJSON() ([]byte, error) {
 func (o GetSessionsUsage200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["sessions"] = o.Sessions
+	toSerialize["truncated"] = o.Truncated
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -89,6 +122,7 @@ func (o *GetSessionsUsage200Response) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"sessions",
+		"truncated",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -107,15 +141,21 @@ func (o *GetSessionsUsage200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetSessionsUsage200Response := _GetSessionsUsage200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetSessionsUsage200Response)
+	err = json.Unmarshal(data, &varGetSessionsUsage200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetSessionsUsage200Response(varGetSessionsUsage200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "sessions")
+		delete(additionalProperties, "truncated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

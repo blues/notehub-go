@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,7 +29,8 @@ type Error struct {
 	Err     string  `json:"err"`
 	Request *string `json:"request,omitempty"`
 	// Machine readable representation of the HTTP error code.
-	Status string `json:"status"`
+	Status               string `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Error Error
@@ -245,6 +245,11 @@ func (o Error) ToMap() (map[string]interface{}, error) {
 		toSerialize["request"] = o.Request
 	}
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -274,15 +279,25 @@ func (o *Error) UnmarshalJSON(data []byte) (err error) {
 
 	varError := _Error{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varError)
+	err = json.Unmarshal(data, &varError)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Error(varError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "debug")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "err")
+		delete(additionalProperties, "request")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

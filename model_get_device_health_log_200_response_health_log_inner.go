@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -23,9 +22,10 @@ var _ MappedNullable = &GetDeviceHealthLog200ResponseHealthLogInner{}
 
 // GetDeviceHealthLog200ResponseHealthLogInner struct for GetDeviceHealthLog200ResponseHealthLogInner
 type GetDeviceHealthLog200ResponseHealthLogInner struct {
-	Alert bool      `json:"alert"`
-	Text  string    `json:"text"`
-	When  time.Time `json:"when"`
+	Alert                bool      `json:"alert"`
+	Text                 string    `json:"text"`
+	When                 time.Time `json:"when"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDeviceHealthLog200ResponseHealthLogInner GetDeviceHealthLog200ResponseHealthLogInner
@@ -135,6 +135,11 @@ func (o GetDeviceHealthLog200ResponseHealthLogInner) ToMap() (map[string]interfa
 	toSerialize["alert"] = o.Alert
 	toSerialize["text"] = o.Text
 	toSerialize["when"] = o.When
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -164,15 +169,22 @@ func (o *GetDeviceHealthLog200ResponseHealthLogInner) UnmarshalJSON(data []byte)
 
 	varGetDeviceHealthLog200ResponseHealthLogInner := _GetDeviceHealthLog200ResponseHealthLogInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDeviceHealthLog200ResponseHealthLogInner)
+	err = json.Unmarshal(data, &varGetDeviceHealthLog200ResponseHealthLogInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDeviceHealthLog200ResponseHealthLogInner(varGetDeviceHealthLog200ResponseHealthLogInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alert")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "when")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

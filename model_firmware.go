@@ -20,18 +20,21 @@ var _ MappedNullable = &Firmware{}
 
 // Firmware struct for Firmware
 type Firmware struct {
-	Builder  *string `json:"builder,omitempty"`
-	Built    *string `json:"built,omitempty"`
-	Firmware *string `json:"firmware,omitempty"`
-	Org      *string `json:"org,omitempty"`
-	Product  *string `json:"product,omitempty"`
-	Target   *string `json:"target,omitempty"`
-	VerBuild *int32  `json:"ver_build,omitempty"`
-	VerMajor *int32  `json:"ver_major,omitempty"`
-	VerMinor *int32  `json:"ver_minor,omitempty"`
-	VerPatch *int32  `json:"ver_patch,omitempty"`
-	Version  *string `json:"version,omitempty"`
+	Builder              *string `json:"builder,omitempty"`
+	Built                *string `json:"built,omitempty"`
+	Firmware             *string `json:"firmware,omitempty"`
+	Org                  *string `json:"org,omitempty"`
+	Product              *string `json:"product,omitempty"`
+	Target               *string `json:"target,omitempty"`
+	VerBuild             *int32  `json:"ver_build,omitempty"`
+	VerMajor             *int32  `json:"ver_major,omitempty"`
+	VerMinor             *int32  `json:"ver_minor,omitempty"`
+	VerPatch             *int32  `json:"ver_patch,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Firmware Firmware
 
 // NewFirmware instantiates a new Firmware object
 // This constructor will assign default values to properties that have it defined,
@@ -445,7 +448,43 @@ func (o Firmware) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Firmware) UnmarshalJSON(data []byte) (err error) {
+	varFirmware := _Firmware{}
+
+	err = json.Unmarshal(data, &varFirmware)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Firmware(varFirmware)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "builder")
+		delete(additionalProperties, "built")
+		delete(additionalProperties, "firmware")
+		delete(additionalProperties, "org")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "target")
+		delete(additionalProperties, "ver_build")
+		delete(additionalProperties, "ver_major")
+		delete(additionalProperties, "ver_minor")
+		delete(additionalProperties, "ver_patch")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFirmware struct {

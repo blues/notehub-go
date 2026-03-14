@@ -2,13 +2,14 @@
 
 ## Properties
 
-| Name              | Type                                     | Description                                                 | Notes      |
-| ----------------- | ---------------------------------------- | ----------------------------------------------------------- | ---------- |
-| **Activated**     | **int64**                                | Activation date of the satellite plan as Unix timestamp     |
-| **BillableBytes** | Pointer to [**DataUsage**](DataUsage.md) |                                                             | [optional] |
-| **LastUpdated**   | Pointer to **int64**                     | Time this plan information was last updated                 | [optional] |
-| **NtnProvider**   | **string**                               | Non-Terrestrial Network provider name                       |
-| **Psid**          | **string**                               | Provider-specific identifier for the satellite subscription |
+| Name                     | Type                                                       | Description                                                 | Notes      |
+| ------------------------ | ---------------------------------------------------------- | ----------------------------------------------------------- | ---------- |
+| **Activated**            | **int64**                                                  | Activation date of the satellite plan as Unix timestamp     |
+| **LastSessionAt**        | Pointer to **int64**                                       | When this Starnote last had a session                       | [optional] |
+| **MinimumBillableBytes** | Pointer to **int64**                                       | Minimum billable bytes                                      | [optional] |
+| **NtnProvider**          | **string**                                                 | Non-Terrestrial Network provider name                       |
+| **Psid**                 | **string**                                                 | Provider-specific identifier for the satellite subscription |
+| **SatelliteDataUsage**   | Pointer to [**SatelliteDataUsage**](SatelliteDataUsage.md) |                                                             | [optional] |
 
 ## Methods
 
@@ -48,55 +49,55 @@ and a boolean to check if the value has been set.
 
 SetActivated sets Activated field to given value.
 
-### GetBillableBytes
+### GetLastSessionAt
 
-`func (o *SatellitePlan) GetBillableBytes() DataUsage`
+`func (o *SatellitePlan) GetLastSessionAt() int64`
 
-GetBillableBytes returns the BillableBytes field if non-nil, zero value otherwise.
+GetLastSessionAt returns the LastSessionAt field if non-nil, zero value otherwise.
 
-### GetBillableBytesOk
+### GetLastSessionAtOk
 
-`func (o *SatellitePlan) GetBillableBytesOk() (*DataUsage, bool)`
+`func (o *SatellitePlan) GetLastSessionAtOk() (*int64, bool)`
 
-GetBillableBytesOk returns a tuple with the BillableBytes field if it's non-nil, zero value otherwise
+GetLastSessionAtOk returns a tuple with the LastSessionAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBillableBytes
+### SetLastSessionAt
 
-`func (o *SatellitePlan) SetBillableBytes(v DataUsage)`
+`func (o *SatellitePlan) SetLastSessionAt(v int64)`
 
-SetBillableBytes sets BillableBytes field to given value.
+SetLastSessionAt sets LastSessionAt field to given value.
 
-### HasBillableBytes
+### HasLastSessionAt
 
-`func (o *SatellitePlan) HasBillableBytes() bool`
+`func (o *SatellitePlan) HasLastSessionAt() bool`
 
-HasBillableBytes returns a boolean if a field has been set.
+HasLastSessionAt returns a boolean if a field has been set.
 
-### GetLastUpdated
+### GetMinimumBillableBytes
 
-`func (o *SatellitePlan) GetLastUpdated() int64`
+`func (o *SatellitePlan) GetMinimumBillableBytes() int64`
 
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+GetMinimumBillableBytes returns the MinimumBillableBytes field if non-nil, zero value otherwise.
 
-### GetLastUpdatedOk
+### GetMinimumBillableBytesOk
 
-`func (o *SatellitePlan) GetLastUpdatedOk() (*int64, bool)`
+`func (o *SatellitePlan) GetMinimumBillableBytesOk() (*int64, bool)`
 
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+GetMinimumBillableBytesOk returns a tuple with the MinimumBillableBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastUpdated
+### SetMinimumBillableBytes
 
-`func (o *SatellitePlan) SetLastUpdated(v int64)`
+`func (o *SatellitePlan) SetMinimumBillableBytes(v int64)`
 
-SetLastUpdated sets LastUpdated field to given value.
+SetMinimumBillableBytes sets MinimumBillableBytes field to given value.
 
-### HasLastUpdated
+### HasMinimumBillableBytes
 
-`func (o *SatellitePlan) HasLastUpdated() bool`
+`func (o *SatellitePlan) HasMinimumBillableBytes() bool`
 
-HasLastUpdated returns a boolean if a field has been set.
+HasMinimumBillableBytes returns a boolean if a field has been set.
 
 ### GetNtnProvider
 
@@ -135,5 +136,30 @@ and a boolean to check if the value has been set.
 `func (o *SatellitePlan) SetPsid(v string)`
 
 SetPsid sets Psid field to given value.
+
+### GetSatelliteDataUsage
+
+`func (o *SatellitePlan) GetSatelliteDataUsage() SatelliteDataUsage`
+
+GetSatelliteDataUsage returns the SatelliteDataUsage field if non-nil, zero value otherwise.
+
+### GetSatelliteDataUsageOk
+
+`func (o *SatellitePlan) GetSatelliteDataUsageOk() (*SatelliteDataUsage, bool)`
+
+GetSatelliteDataUsageOk returns a tuple with the SatelliteDataUsage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSatelliteDataUsage
+
+`func (o *SatellitePlan) SetSatelliteDataUsage(v SatelliteDataUsage)`
+
+SetSatelliteDataUsage sets SatelliteDataUsage field to given value.
+
+### HasSatelliteDataUsage
+
+`func (o *SatellitePlan) HasSatelliteDataUsage() bool`
+
+HasSatelliteDataUsage returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

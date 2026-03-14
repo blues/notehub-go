@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &GetDevicePublicKey200Response{}
 
 // GetDevicePublicKey200Response struct for GetDevicePublicKey200Response
 type GetDevicePublicKey200Response struct {
-	Key string `json:"key"`
-	Uid string `json:"uid"`
+	Key                  string `json:"key"`
+	Uid                  string `json:"uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDevicePublicKey200Response GetDevicePublicKey200Response
@@ -107,6 +107,11 @@ func (o GetDevicePublicKey200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["uid"] = o.Uid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *GetDevicePublicKey200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetDevicePublicKey200Response := _GetDevicePublicKey200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDevicePublicKey200Response)
+	err = json.Unmarshal(data, &varGetDevicePublicKey200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDevicePublicKey200Response(varGetDevicePublicKey200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

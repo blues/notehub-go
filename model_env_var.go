@@ -20,11 +20,14 @@ var _ MappedNullable = &EnvVar{}
 
 // EnvVar struct for EnvVar
 type EnvVar struct {
-	Key        *string `json:"key,omitempty"`
-	Precedence *int32  `json:"precedence,omitempty"`
-	Used       *bool   `json:"used,omitempty"`
-	Value      *string `json:"value,omitempty"`
+	Key                  *string `json:"key,omitempty"`
+	Precedence           *int32  `json:"precedence,omitempty"`
+	Used                 *bool   `json:"used,omitempty"`
+	Value                *string `json:"value,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _EnvVar EnvVar
 
 // NewEnvVar instantiates a new EnvVar object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o EnvVar) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *EnvVar) UnmarshalJSON(data []byte) (err error) {
+	varEnvVar := _EnvVar{}
+
+	err = json.Unmarshal(data, &varEnvVar)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EnvVar(varEnvVar)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "precedence")
+		delete(additionalProperties, "used")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEnvVar struct {

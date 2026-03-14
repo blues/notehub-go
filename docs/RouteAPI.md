@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a apiGetRouteRequest struct via
 
 ## GetRouteLogsByRoute
 
-> []RouteLog GetRouteLogsByRoute(ctx, projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).Execute()
+> []RouteLog GetRouteLogsByRoute(ctx, projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
 
 ### Example
 
@@ -231,10 +231,12 @@ func main() {
 	systemFilesOnly := true // bool |  (optional)
 	mostRecentOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
+	routingStatus := []string{"RoutingStatus_example"} // []string |  (optional)
+	responseStatus := []string{"Inner_example"} // []string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouteAPI.GetRouteLogsByRoute(context.Background(), projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).Execute()
+	resp, r, err := apiClient.RouteAPI.GetRouteLogsByRoute(context.Background(), projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.GetRouteLogsByRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,6 +271,8 @@ Other parameters are passed through a pointer to a apiGetRouteLogsByRouteRequest
 **systemFilesOnly** | **bool** | |
 **mostRecentOnly** | **bool** | |
 **files** | **string** | |
+**routingStatus** | **[]string** | |
+**responseStatus** | **[]string** | |
 
 ### Return type
 

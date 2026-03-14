@@ -2,8 +2,8 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                                 | HTTP request                                                                                | Description                                     |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Method                                                                                 | HTTP request                                                                                | Description                                              |
+| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
 | [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           |
 | [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          |
@@ -16,7 +16,9 @@ All URIs are relative to *https://api.notefile.net*
 | [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               |
 | [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   |
 | [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   |
+| [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
 | [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    |
+| [**GetAWSRoleConfig**](ProjectAPI.md#GetAWSRoleConfig)                                 | **Get** /v1/projects/{projectOrProductUID}/aws-role-config                                  | Get AWS role configuration for role-based authentication |
 | [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   |
 | [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    |
 | [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
@@ -24,14 +26,14 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        |
 | [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         |
 | [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
-| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get environment variable hierarchy for a device |
+| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get environment variable hierarchy for a device          |
 | [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
 | [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           |
-| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | Get variable format for a notefile              |
+| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | Get variable format for a notefile                       |
 | [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         |
 | [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  |
 | [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   |
-| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device |
+| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device          |
 | [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            |
 | [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          |
 | [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        |
@@ -803,6 +805,72 @@ Other parameters are passed through a pointer to a apiDisableGlobalEventTransfor
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
+## DownloadFirmware
+
+> \*os.File DownloadFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	firmwareType := "firmwareType_example" // string |
+	filename := "filename_example" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.DownloadFirmware(context.Background(), projectOrProductUID, firmwareType, filename).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DownloadFirmware``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DownloadFirmware`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.DownloadFirmware`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **firmwareType**        | **string**          |                                                                             |
+| **filename**            | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDownloadFirmwareRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+[**\*os.File**](*os.File.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/octet-stream, application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
 ## EnableGlobalEventTransformation
 
 > EnableGlobalEventTransformation(ctx, projectOrProductUID).Execute()
@@ -849,6 +917,70 @@ Other parameters are passed through a pointer to a apiEnableGlobalEventTransform
 ### Return type
 
 (empty response body)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## GetAWSRoleConfig
+
+> AWSRoleConfig GetAWSRoleConfig(ctx, projectOrProductUID).Execute()
+
+Get AWS role configuration for role-based authentication
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.GetAWSRoleConfig(context.Background(), projectOrProductUID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetAWSRoleConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAWSRoleConfig`: AWSRoleConfig
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetAWSRoleConfig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAWSRoleConfigRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+[**AWSRoleConfig**](AWSRoleConfig.md)
 
 ### Authorization
 
@@ -1243,7 +1375,7 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 
 ## GetFirmwareInfo
 
-> []FirmwareInfo GetFirmwareInfo(ctx, projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).Execute()
+> []FirmwareInfo GetFirmwareInfo(ctx, projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).SortBy(sortBy).SortOrder(sortOrder).Execute()
 
 ### Example
 
@@ -1266,10 +1398,12 @@ func main() {
 	filename := "notecard-7.2.2.16518$20240410043100.bin" // string |  (optional)
 	md5 := "md5_example" // string |  (optional)
 	unpublished := true // bool |  (optional)
+	sortBy := "sortBy_example" // string | Field to sort by (optional) (default to "created")
+	sortOrder := "sortOrder_example" // string | Sort order (asc for ascending, desc for descending) (optional) (default to "desc")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetFirmwareInfo(context.Background(), projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetFirmwareInfo(context.Background(), projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).SortBy(sortBy).SortOrder(sortOrder).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetFirmwareInfo``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1300,6 +1434,8 @@ Other parameters are passed through a pointer to a apiGetFirmwareInfoRequest str
 **filename** | **string** | |
 **md5** | **string** | |
 **unpublished** | **bool** | |
+**sortBy** | **string** | Field to sort by | [default to &quot;created&quot;]
+**sortOrder** | **string** | Sort order (asc for ascending, desc for descending) | [default to &quot;desc&quot;]
 
 ### Return type
 

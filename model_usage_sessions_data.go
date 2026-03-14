@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -23,12 +22,15 @@ var _ MappedNullable = &UsageSessionsData{}
 
 // UsageSessionsData struct for UsageSessionsData
 type UsageSessionsData struct {
-	Device       *string   `json:"device,omitempty"`
-	Fleet        *string   `json:"fleet,omitempty"`
-	Period       time.Time `json:"period"`
-	Sessions     int64     `json:"sessions"`
-	TotalBytes   int64     `json:"total_bytes"`
-	TotalDevices int64     `json:"total_devices"`
+	Device *string `json:"device,omitempty"`
+	// Number of first sync sessions in this period
+	FirstSyncSessions    int64     `json:"first_sync_sessions"`
+	Fleet                *string   `json:"fleet,omitempty"`
+	Period               time.Time `json:"period"`
+	Sessions             int64     `json:"sessions"`
+	TotalBytes           int64     `json:"total_bytes"`
+	TotalDevices         int64     `json:"total_devices"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageSessionsData UsageSessionsData
@@ -37,8 +39,9 @@ type _UsageSessionsData UsageSessionsData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsageSessionsData(period time.Time, sessions int64, totalBytes int64, totalDevices int64) *UsageSessionsData {
+func NewUsageSessionsData(firstSyncSessions int64, period time.Time, sessions int64, totalBytes int64, totalDevices int64) *UsageSessionsData {
 	this := UsageSessionsData{}
+	this.FirstSyncSessions = firstSyncSessions
 	this.Period = period
 	this.Sessions = sessions
 	this.TotalBytes = totalBytes
@@ -84,6 +87,30 @@ func (o *UsageSessionsData) HasDevice() bool {
 // SetDevice gets a reference to the given string and assigns it to the Device field.
 func (o *UsageSessionsData) SetDevice(v string) {
 	o.Device = &v
+}
+
+// GetFirstSyncSessions returns the FirstSyncSessions field value
+func (o *UsageSessionsData) GetFirstSyncSessions() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.FirstSyncSessions
+}
+
+// GetFirstSyncSessionsOk returns a tuple with the FirstSyncSessions field value
+// and a boolean to check if the value has been set.
+func (o *UsageSessionsData) GetFirstSyncSessionsOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.FirstSyncSessions, true
+}
+
+// SetFirstSyncSessions sets field value
+func (o *UsageSessionsData) SetFirstSyncSessions(v int64) {
+	o.FirstSyncSessions = v
 }
 
 // GetFleet returns the Fleet field value if set, zero value otherwise.
@@ -227,6 +254,7 @@ func (o UsageSessionsData) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
+	toSerialize["first_sync_sessions"] = o.FirstSyncSessions
 	if !IsNil(o.Fleet) {
 		toSerialize["fleet"] = o.Fleet
 	}
@@ -234,6 +262,11 @@ func (o UsageSessionsData) ToMap() (map[string]interface{}, error) {
 	toSerialize["sessions"] = o.Sessions
 	toSerialize["total_bytes"] = o.TotalBytes
 	toSerialize["total_devices"] = o.TotalDevices
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -242,6 +275,7 @@ func (o *UsageSessionsData) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"first_sync_sessions",
 		"period",
 		"sessions",
 		"total_bytes",
@@ -264,15 +298,26 @@ func (o *UsageSessionsData) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageSessionsData := _UsageSessionsData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageSessionsData)
+	err = json.Unmarshal(data, &varUsageSessionsData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageSessionsData(varUsageSessionsData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "first_sync_sessions")
+		delete(additionalProperties, "fleet")
+		delete(additionalProperties, "period")
+		delete(additionalProperties, "sessions")
+		delete(additionalProperties, "total_bytes")
+		delete(additionalProperties, "total_devices")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

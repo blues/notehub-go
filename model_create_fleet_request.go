@@ -24,9 +24,12 @@ type CreateFleetRequest struct {
 	// The label, or name,  for the Fleet.
 	Label *string `json:"label,omitempty"`
 	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule        *string `json:"smart_rule,omitempty"`
-	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
+	SmartRule            *string `json:"smart_rule,omitempty"`
+	SmartRuleEnabled     *bool   `json:"smart_rule_enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateFleetRequest CreateFleetRequest
 
 // NewCreateFleetRequest instantiates a new CreateFleetRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -206,7 +209,36 @@ func (o CreateFleetRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SmartRuleEnabled) {
 		toSerialize["smart_rule_enabled"] = o.SmartRuleEnabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateFleetRequest) UnmarshalJSON(data []byte) (err error) {
+	varCreateFleetRequest := _CreateFleetRequest{}
+
+	err = json.Unmarshal(data, &varCreateFleetRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateFleetRequest(varCreateFleetRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "connectivity_assurance")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "smart_rule")
+		delete(additionalProperties, "smart_rule_enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateFleetRequest struct {

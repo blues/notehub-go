@@ -2,9 +2,10 @@
 
 ## Properties
 
-| Name          | Type                                              | Description | Notes |
-| ------------- | ------------------------------------------------- | ----------- | ----- |
-| **RouteLogs** | [**[]UsageRouteLogsData**](UsageRouteLogsData.md) |             |
+| Name          | Type                                              | Description                                                                                     | Notes                                                  |
+| ------------- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------ | ---------- |
+| **RouteLogs** | [**[]UsageRouteLogsData**](UsageRouteLogsData.md) |                                                                                                 |
+| **Truncated** | Pointer to **bool**                               | If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure | [optional] |
 
 ## Methods
 
@@ -43,5 +44,30 @@ and a boolean to check if the value has been set.
 `func (o *GetRouteLogsUsage200Response) SetRouteLogs(v []UsageRouteLogsData)`
 
 SetRouteLogs sets RouteLogs field to given value.
+
+### GetTruncated
+
+`func (o *GetRouteLogsUsage200Response) GetTruncated() bool`
+
+GetTruncated returns the Truncated field if non-nil, zero value otherwise.
+
+### GetTruncatedOk
+
+`func (o *GetRouteLogsUsage200Response) GetTruncatedOk() (*bool, bool)`
+
+GetTruncatedOk returns a tuple with the Truncated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTruncated
+
+`func (o *GetRouteLogsUsage200Response) SetTruncated(v bool)`
+
+SetTruncated sets Truncated field to given value.
+
+### HasTruncated
+
+`func (o *GetRouteLogsUsage200Response) HasTruncated() bool`
+
+HasTruncated returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

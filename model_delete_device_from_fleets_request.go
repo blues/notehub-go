@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &DeleteDeviceFromFleetsRequest{}
 // DeleteDeviceFromFleetsRequest struct for DeleteDeviceFromFleetsRequest
 type DeleteDeviceFromFleetsRequest struct {
 	// The fleetUIDs to remove from the device.
-	FleetUids []string `json:"fleet_uids"`
+	FleetUids            []string `json:"fleet_uids"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteDeviceFromFleetsRequest DeleteDeviceFromFleetsRequest
@@ -81,6 +81,11 @@ func (o DeleteDeviceFromFleetsRequest) MarshalJSON() ([]byte, error) {
 func (o DeleteDeviceFromFleetsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fleet_uids"] = o.FleetUids
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *DeleteDeviceFromFleetsRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varDeleteDeviceFromFleetsRequest := _DeleteDeviceFromFleetsRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteDeviceFromFleetsRequest)
+	err = json.Unmarshal(data, &varDeleteDeviceFromFleetsRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteDeviceFromFleetsRequest(varDeleteDeviceFromFleetsRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fleet_uids")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

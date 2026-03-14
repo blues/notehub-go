@@ -20,11 +20,14 @@ var _ MappedNullable = &Contact{}
 
 // Contact struct for Contact
 type Contact struct {
-	Email        *string `json:"email,omitempty"`
-	Name         *string `json:"name,omitempty"`
-	Organization *string `json:"organization,omitempty"`
-	Role         *string `json:"role,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Organization         *string `json:"organization,omitempty"`
+	Role                 *string `json:"role,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Contact Contact
 
 // NewContact instantiates a new Contact object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o Contact) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Role) {
 		toSerialize["role"] = o.Role
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Contact) UnmarshalJSON(data []byte) (err error) {
+	varContact := _Contact{}
+
+	err = json.Unmarshal(data, &varContact)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Contact(varContact)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "organization")
+		delete(additionalProperties, "role")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableContact struct {

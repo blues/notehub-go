@@ -25,8 +25,11 @@ type Filter struct {
 	// Whether system notefiles should be included.
 	SystemNotefiles *bool `json:"system_notefiles,omitempty"`
 	// Type of filter to apply (corresponds to `hublib.NotefileFilterType`).
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Filter Filter
 
 // NewFilter instantiates a new Filter object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o Filter) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Filter) UnmarshalJSON(data []byte) (err error) {
+	varFilter := _Filter{}
+
+	err = json.Unmarshal(data, &varFilter)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Filter(varFilter)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "files")
+		delete(additionalProperties, "system_notefiles")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFilter struct {

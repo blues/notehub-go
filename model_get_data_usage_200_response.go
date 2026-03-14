@@ -21,7 +21,12 @@ var _ MappedNullable = &GetDataUsage200Response{}
 // GetDataUsage200Response struct for GetDataUsage200Response
 type GetDataUsage200Response struct {
 	Data []GetDataUsage200ResponseDataInner `json:"data,omitempty"`
+	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	Truncated            *bool `json:"truncated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetDataUsage200Response GetDataUsage200Response
 
 // NewGetDataUsage200Response instantiates a new GetDataUsage200Response object
 // This constructor will assign default values to properties that have it defined,
@@ -72,6 +77,38 @@ func (o *GetDataUsage200Response) SetData(v []GetDataUsage200ResponseDataInner) 
 	o.Data = v
 }
 
+// GetTruncated returns the Truncated field value if set, zero value otherwise.
+func (o *GetDataUsage200Response) GetTruncated() bool {
+	if o == nil || IsNil(o.Truncated) {
+		var ret bool
+		return ret
+	}
+	return *o.Truncated
+}
+
+// GetTruncatedOk returns a tuple with the Truncated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetDataUsage200Response) GetTruncatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Truncated) {
+		return nil, false
+	}
+	return o.Truncated, true
+}
+
+// HasTruncated returns a boolean if a field has been set.
+func (o *GetDataUsage200Response) HasTruncated() bool {
+	if o != nil && !IsNil(o.Truncated) {
+		return true
+	}
+
+	return false
+}
+
+// SetTruncated gets a reference to the given bool and assigns it to the Truncated field.
+func (o *GetDataUsage200Response) SetTruncated(v bool) {
+	o.Truncated = &v
+}
+
 func (o GetDataUsage200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -85,7 +122,37 @@ func (o GetDataUsage200Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+	if !IsNil(o.Truncated) {
+		toSerialize["truncated"] = o.Truncated
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetDataUsage200Response) UnmarshalJSON(data []byte) (err error) {
+	varGetDataUsage200Response := _GetDataUsage200Response{}
+
+	err = json.Unmarshal(data, &varGetDataUsage200Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetDataUsage200Response(varGetDataUsage200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "truncated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetDataUsage200Response struct {

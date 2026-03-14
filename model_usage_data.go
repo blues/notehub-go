@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -23,10 +22,21 @@ var _ MappedNullable = &UsageData{}
 
 // UsageData struct for UsageData
 type UsageData struct {
-	BytesReceived *int64    `json:"bytes_received,omitempty"`
-	BytesSent     *int64    `json:"bytes_sent,omitempty"`
-	Period        time.Time `json:"period"`
-	TotalBytes    int64     `json:"total_bytes"`
+	// Total billable bytes (only for packet-based protocols)
+	BillableBytesTotal *int64 `json:"billable_bytes_total,omitempty"`
+	DownlinkBytes      *int64 `json:"downlink_bytes,omitempty"`
+	// Billable downlink bytes (only for packet-based protocols)
+	DownlinkBytesBillable *int64 `json:"downlink_bytes_billable,omitempty"`
+	// Downlink packets (only for packet-based protocols)
+	DownlinkPackets *int64    `json:"downlink_packets,omitempty"`
+	Period          time.Time `json:"period"`
+	TotalBytes      int64     `json:"total_bytes"`
+	UplinkBytes     *int64    `json:"uplink_bytes,omitempty"`
+	// Billable uplink bytes (only for packet-based protocols)
+	UplinkBytesBillable *int64 `json:"uplink_bytes_billable,omitempty"`
+	// Uplink packets (only for packet-based protocols)
+	UplinkPackets        *int64 `json:"uplink_packets,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageData UsageData
@@ -50,68 +60,132 @@ func NewUsageDataWithDefaults() *UsageData {
 	return &this
 }
 
-// GetBytesReceived returns the BytesReceived field value if set, zero value otherwise.
-func (o *UsageData) GetBytesReceived() int64 {
-	if o == nil || IsNil(o.BytesReceived) {
+// GetBillableBytesTotal returns the BillableBytesTotal field value if set, zero value otherwise.
+func (o *UsageData) GetBillableBytesTotal() int64 {
+	if o == nil || IsNil(o.BillableBytesTotal) {
 		var ret int64
 		return ret
 	}
-	return *o.BytesReceived
+	return *o.BillableBytesTotal
 }
 
-// GetBytesReceivedOk returns a tuple with the BytesReceived field value if set, nil otherwise
+// GetBillableBytesTotalOk returns a tuple with the BillableBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageData) GetBytesReceivedOk() (*int64, bool) {
-	if o == nil || IsNil(o.BytesReceived) {
+func (o *UsageData) GetBillableBytesTotalOk() (*int64, bool) {
+	if o == nil || IsNil(o.BillableBytesTotal) {
 		return nil, false
 	}
-	return o.BytesReceived, true
+	return o.BillableBytesTotal, true
 }
 
-// HasBytesReceived returns a boolean if a field has been set.
-func (o *UsageData) HasBytesReceived() bool {
-	if o != nil && !IsNil(o.BytesReceived) {
+// HasBillableBytesTotal returns a boolean if a field has been set.
+func (o *UsageData) HasBillableBytesTotal() bool {
+	if o != nil && !IsNil(o.BillableBytesTotal) {
 		return true
 	}
 
 	return false
 }
 
-// SetBytesReceived gets a reference to the given int64 and assigns it to the BytesReceived field.
-func (o *UsageData) SetBytesReceived(v int64) {
-	o.BytesReceived = &v
+// SetBillableBytesTotal gets a reference to the given int64 and assigns it to the BillableBytesTotal field.
+func (o *UsageData) SetBillableBytesTotal(v int64) {
+	o.BillableBytesTotal = &v
 }
 
-// GetBytesSent returns the BytesSent field value if set, zero value otherwise.
-func (o *UsageData) GetBytesSent() int64 {
-	if o == nil || IsNil(o.BytesSent) {
+// GetDownlinkBytes returns the DownlinkBytes field value if set, zero value otherwise.
+func (o *UsageData) GetDownlinkBytes() int64 {
+	if o == nil || IsNil(o.DownlinkBytes) {
 		var ret int64
 		return ret
 	}
-	return *o.BytesSent
+	return *o.DownlinkBytes
 }
 
-// GetBytesSentOk returns a tuple with the BytesSent field value if set, nil otherwise
+// GetDownlinkBytesOk returns a tuple with the DownlinkBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsageData) GetBytesSentOk() (*int64, bool) {
-	if o == nil || IsNil(o.BytesSent) {
+func (o *UsageData) GetDownlinkBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.DownlinkBytes) {
 		return nil, false
 	}
-	return o.BytesSent, true
+	return o.DownlinkBytes, true
 }
 
-// HasBytesSent returns a boolean if a field has been set.
-func (o *UsageData) HasBytesSent() bool {
-	if o != nil && !IsNil(o.BytesSent) {
+// HasDownlinkBytes returns a boolean if a field has been set.
+func (o *UsageData) HasDownlinkBytes() bool {
+	if o != nil && !IsNil(o.DownlinkBytes) {
 		return true
 	}
 
 	return false
 }
 
-// SetBytesSent gets a reference to the given int64 and assigns it to the BytesSent field.
-func (o *UsageData) SetBytesSent(v int64) {
-	o.BytesSent = &v
+// SetDownlinkBytes gets a reference to the given int64 and assigns it to the DownlinkBytes field.
+func (o *UsageData) SetDownlinkBytes(v int64) {
+	o.DownlinkBytes = &v
+}
+
+// GetDownlinkBytesBillable returns the DownlinkBytesBillable field value if set, zero value otherwise.
+func (o *UsageData) GetDownlinkBytesBillable() int64 {
+	if o == nil || IsNil(o.DownlinkBytesBillable) {
+		var ret int64
+		return ret
+	}
+	return *o.DownlinkBytesBillable
+}
+
+// GetDownlinkBytesBillableOk returns a tuple with the DownlinkBytesBillable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageData) GetDownlinkBytesBillableOk() (*int64, bool) {
+	if o == nil || IsNil(o.DownlinkBytesBillable) {
+		return nil, false
+	}
+	return o.DownlinkBytesBillable, true
+}
+
+// HasDownlinkBytesBillable returns a boolean if a field has been set.
+func (o *UsageData) HasDownlinkBytesBillable() bool {
+	if o != nil && !IsNil(o.DownlinkBytesBillable) {
+		return true
+	}
+
+	return false
+}
+
+// SetDownlinkBytesBillable gets a reference to the given int64 and assigns it to the DownlinkBytesBillable field.
+func (o *UsageData) SetDownlinkBytesBillable(v int64) {
+	o.DownlinkBytesBillable = &v
+}
+
+// GetDownlinkPackets returns the DownlinkPackets field value if set, zero value otherwise.
+func (o *UsageData) GetDownlinkPackets() int64 {
+	if o == nil || IsNil(o.DownlinkPackets) {
+		var ret int64
+		return ret
+	}
+	return *o.DownlinkPackets
+}
+
+// GetDownlinkPacketsOk returns a tuple with the DownlinkPackets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageData) GetDownlinkPacketsOk() (*int64, bool) {
+	if o == nil || IsNil(o.DownlinkPackets) {
+		return nil, false
+	}
+	return o.DownlinkPackets, true
+}
+
+// HasDownlinkPackets returns a boolean if a field has been set.
+func (o *UsageData) HasDownlinkPackets() bool {
+	if o != nil && !IsNil(o.DownlinkPackets) {
+		return true
+	}
+
+	return false
+}
+
+// SetDownlinkPackets gets a reference to the given int64 and assigns it to the DownlinkPackets field.
+func (o *UsageData) SetDownlinkPackets(v int64) {
+	o.DownlinkPackets = &v
 }
 
 // GetPeriod returns the Period field value
@@ -162,6 +236,102 @@ func (o *UsageData) SetTotalBytes(v int64) {
 	o.TotalBytes = v
 }
 
+// GetUplinkBytes returns the UplinkBytes field value if set, zero value otherwise.
+func (o *UsageData) GetUplinkBytes() int64 {
+	if o == nil || IsNil(o.UplinkBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.UplinkBytes
+}
+
+// GetUplinkBytesOk returns a tuple with the UplinkBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageData) GetUplinkBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.UplinkBytes) {
+		return nil, false
+	}
+	return o.UplinkBytes, true
+}
+
+// HasUplinkBytes returns a boolean if a field has been set.
+func (o *UsageData) HasUplinkBytes() bool {
+	if o != nil && !IsNil(o.UplinkBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetUplinkBytes gets a reference to the given int64 and assigns it to the UplinkBytes field.
+func (o *UsageData) SetUplinkBytes(v int64) {
+	o.UplinkBytes = &v
+}
+
+// GetUplinkBytesBillable returns the UplinkBytesBillable field value if set, zero value otherwise.
+func (o *UsageData) GetUplinkBytesBillable() int64 {
+	if o == nil || IsNil(o.UplinkBytesBillable) {
+		var ret int64
+		return ret
+	}
+	return *o.UplinkBytesBillable
+}
+
+// GetUplinkBytesBillableOk returns a tuple with the UplinkBytesBillable field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageData) GetUplinkBytesBillableOk() (*int64, bool) {
+	if o == nil || IsNil(o.UplinkBytesBillable) {
+		return nil, false
+	}
+	return o.UplinkBytesBillable, true
+}
+
+// HasUplinkBytesBillable returns a boolean if a field has been set.
+func (o *UsageData) HasUplinkBytesBillable() bool {
+	if o != nil && !IsNil(o.UplinkBytesBillable) {
+		return true
+	}
+
+	return false
+}
+
+// SetUplinkBytesBillable gets a reference to the given int64 and assigns it to the UplinkBytesBillable field.
+func (o *UsageData) SetUplinkBytesBillable(v int64) {
+	o.UplinkBytesBillable = &v
+}
+
+// GetUplinkPackets returns the UplinkPackets field value if set, zero value otherwise.
+func (o *UsageData) GetUplinkPackets() int64 {
+	if o == nil || IsNil(o.UplinkPackets) {
+		var ret int64
+		return ret
+	}
+	return *o.UplinkPackets
+}
+
+// GetUplinkPacketsOk returns a tuple with the UplinkPackets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageData) GetUplinkPacketsOk() (*int64, bool) {
+	if o == nil || IsNil(o.UplinkPackets) {
+		return nil, false
+	}
+	return o.UplinkPackets, true
+}
+
+// HasUplinkPackets returns a boolean if a field has been set.
+func (o *UsageData) HasUplinkPackets() bool {
+	if o != nil && !IsNil(o.UplinkPackets) {
+		return true
+	}
+
+	return false
+}
+
+// SetUplinkPackets gets a reference to the given int64 and assigns it to the UplinkPackets field.
+func (o *UsageData) SetUplinkPackets(v int64) {
+	o.UplinkPackets = &v
+}
+
 func (o UsageData) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -172,14 +342,34 @@ func (o UsageData) MarshalJSON() ([]byte, error) {
 
 func (o UsageData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BytesReceived) {
-		toSerialize["bytes_received"] = o.BytesReceived
+	if !IsNil(o.BillableBytesTotal) {
+		toSerialize["billable_bytes_total"] = o.BillableBytesTotal
 	}
-	if !IsNil(o.BytesSent) {
-		toSerialize["bytes_sent"] = o.BytesSent
+	if !IsNil(o.DownlinkBytes) {
+		toSerialize["downlink_bytes"] = o.DownlinkBytes
+	}
+	if !IsNil(o.DownlinkBytesBillable) {
+		toSerialize["downlink_bytes_billable"] = o.DownlinkBytesBillable
+	}
+	if !IsNil(o.DownlinkPackets) {
+		toSerialize["downlink_packets"] = o.DownlinkPackets
 	}
 	toSerialize["period"] = o.Period
 	toSerialize["total_bytes"] = o.TotalBytes
+	if !IsNil(o.UplinkBytes) {
+		toSerialize["uplink_bytes"] = o.UplinkBytes
+	}
+	if !IsNil(o.UplinkBytesBillable) {
+		toSerialize["uplink_bytes_billable"] = o.UplinkBytesBillable
+	}
+	if !IsNil(o.UplinkPackets) {
+		toSerialize["uplink_packets"] = o.UplinkPackets
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -208,15 +398,28 @@ func (o *UsageData) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageData := _UsageData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageData)
+	err = json.Unmarshal(data, &varUsageData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageData(varUsageData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billable_bytes_total")
+		delete(additionalProperties, "downlink_bytes")
+		delete(additionalProperties, "downlink_bytes_billable")
+		delete(additionalProperties, "downlink_packets")
+		delete(additionalProperties, "period")
+		delete(additionalProperties, "total_bytes")
+		delete(additionalProperties, "uplink_bytes")
+		delete(additionalProperties, "uplink_bytes_billable")
+		delete(additionalProperties, "uplink_packets")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

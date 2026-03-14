@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,12 +21,13 @@ var _ MappedNullable = &Location{}
 
 // Location struct for Location
 type Location struct {
-	Country   string  `json:"country"`
-	Latitude  float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Name      string  `json:"name"`
-	Timezone  string  `json:"timezone"`
-	When      string  `json:"when"`
+	Country              string  `json:"country"`
+	Latitude             float64 `json:"latitude"`
+	Longitude            float64 `json:"longitude"`
+	Name                 string  `json:"name"`
+	Timezone             string  `json:"timezone"`
+	When                 string  `json:"when"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Location Location
@@ -215,6 +215,11 @@ func (o Location) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	toSerialize["timezone"] = o.Timezone
 	toSerialize["when"] = o.When
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -247,15 +252,25 @@ func (o *Location) UnmarshalJSON(data []byte) (err error) {
 
 	varLocation := _Location{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLocation)
+	err = json.Unmarshal(data, &varLocation)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Location(varLocation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "latitude")
+		delete(additionalProperties, "longitude")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "timezone")
+		delete(additionalProperties, "when")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

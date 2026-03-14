@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &GetProjectMembers200Response{}
 
 // GetProjectMembers200Response struct for GetProjectMembers200Response
 type GetProjectMembers200Response struct {
-	Members []ProjectMember `json:"members"`
+	Members              []ProjectMember `json:"members"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetProjectMembers200Response GetProjectMembers200Response
@@ -80,6 +80,11 @@ func (o GetProjectMembers200Response) MarshalJSON() ([]byte, error) {
 func (o GetProjectMembers200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["members"] = o.Members
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *GetProjectMembers200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetProjectMembers200Response := _GetProjectMembers200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetProjectMembers200Response)
+	err = json.Unmarshal(data, &varGetProjectMembers200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetProjectMembers200Response(varGetProjectMembers200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "members")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

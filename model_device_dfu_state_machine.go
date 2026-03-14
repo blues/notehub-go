@@ -25,9 +25,12 @@ type DeviceDfuStateMachine struct {
 	// RFC3339 datetime of when this update was requested
 	Initiated *string `json:"initiated,omitempty"`
 	// Version of the firmware that was requested to be installed
-	RequestedVersion *string                     `json:"requested_version,omitempty"`
-	Updates          []DeviceDfuStateMachineNode `json:"updates,omitempty"`
+	RequestedVersion     *string                     `json:"requested_version,omitempty"`
+	Updates              []DeviceDfuStateMachineNode `json:"updates,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceDfuStateMachine DeviceDfuStateMachine
 
 // NewDeviceDfuStateMachine instantiates a new DeviceDfuStateMachine object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o DeviceDfuStateMachine) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Updates) {
 		toSerialize["updates"] = o.Updates
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceDfuStateMachine) UnmarshalJSON(data []byte) (err error) {
+	varDeviceDfuStateMachine := _DeviceDfuStateMachine{}
+
+	err = json.Unmarshal(data, &varDeviceDfuStateMachine)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceDfuStateMachine(varDeviceDfuStateMachine)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current_version")
+		delete(additionalProperties, "initiated")
+		delete(additionalProperties, "requested_version")
+		delete(additionalProperties, "updates")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceDfuStateMachine struct {

@@ -20,9 +20,12 @@ var _ MappedNullable = &DFUEnv{}
 
 // DFUEnv struct for DFUEnv
 type DFUEnv struct {
-	Card NullableDFUState `json:"card,omitempty"`
-	User NullableDFUState `json:"user,omitempty"`
+	Card                 NullableDFUState `json:"card,omitempty"`
+	User                 NullableDFUState `json:"user,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DFUEnv DFUEnv
 
 // NewDFUEnv instantiates a new DFUEnv object
 // This constructor will assign default values to properties that have it defined,
@@ -143,7 +146,34 @@ func (o DFUEnv) ToMap() (map[string]interface{}, error) {
 	if o.User.IsSet() {
 		toSerialize["user"] = o.User.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DFUEnv) UnmarshalJSON(data []byte) (err error) {
+	varDFUEnv := _DFUEnv{}
+
+	err = json.Unmarshal(data, &varDFUEnv)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DFUEnv(varDFUEnv)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card")
+		delete(additionalProperties, "user")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDFUEnv struct {

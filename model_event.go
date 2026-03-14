@@ -138,8 +138,11 @@ type Event struct {
 	// Timezone
 	WhereTimezone *string `json:"where_timezone,omitempty"`
 	// Unix timestamp
-	WhereWhen *float32 `json:"where_when,omitempty"`
+	WhereWhen            *float32 `json:"where_when,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Event Event
 
 // NewEvent instantiates a new Event object
 // This constructor will assign default values to properties that have it defined,
@@ -2268,7 +2271,92 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.WhereWhen) {
 		toSerialize["where_when"] = o.WhereWhen
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Event) UnmarshalJSON(data []byte) (err error) {
+	varEvent := _Event{}
+
+	err = json.Unmarshal(data, &varEvent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Event(varEvent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app")
+		delete(additionalProperties, "bars")
+		delete(additionalProperties, "best_country")
+		delete(additionalProperties, "best_id")
+		delete(additionalProperties, "best_lat")
+		delete(additionalProperties, "best_location")
+		delete(additionalProperties, "best_location_type")
+		delete(additionalProperties, "best_location_when")
+		delete(additionalProperties, "best_lon")
+		delete(additionalProperties, "best_timezone")
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "bssid")
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "environment")
+		delete(additionalProperties, "event")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "moved")
+		delete(additionalProperties, "note")
+		delete(additionalProperties, "ordering_code")
+		delete(additionalProperties, "orientation")
+		delete(additionalProperties, "payload")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "rat")
+		delete(additionalProperties, "received")
+		delete(additionalProperties, "req")
+		delete(additionalProperties, "rsrp")
+		delete(additionalProperties, "rsrq")
+		delete(additionalProperties, "rssi")
+		delete(additionalProperties, "session")
+		delete(additionalProperties, "sinr")
+		delete(additionalProperties, "sku")
+		delete(additionalProperties, "sn")
+		delete(additionalProperties, "ssid")
+		delete(additionalProperties, "temp")
+		delete(additionalProperties, "tls")
+		delete(additionalProperties, "tower_country")
+		delete(additionalProperties, "tower_id")
+		delete(additionalProperties, "tower_lat")
+		delete(additionalProperties, "tower_location")
+		delete(additionalProperties, "tower_lon")
+		delete(additionalProperties, "tower_timezone")
+		delete(additionalProperties, "tower_when")
+		delete(additionalProperties, "transport")
+		delete(additionalProperties, "tri_country")
+		delete(additionalProperties, "tri_lat")
+		delete(additionalProperties, "tri_location")
+		delete(additionalProperties, "tri_lon")
+		delete(additionalProperties, "tri_points")
+		delete(additionalProperties, "tri_timezone")
+		delete(additionalProperties, "tri_when")
+		delete(additionalProperties, "updates")
+		delete(additionalProperties, "voltage")
+		delete(additionalProperties, "when")
+		delete(additionalProperties, "where_country")
+		delete(additionalProperties, "where_lat")
+		delete(additionalProperties, "where_location")
+		delete(additionalProperties, "where_lon")
+		delete(additionalProperties, "where_olc")
+		delete(additionalProperties, "where_timezone")
+		delete(additionalProperties, "where_when")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableEvent struct {

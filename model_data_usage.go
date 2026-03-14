@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type DataUsage struct {
 	// Total Kilobytes included in the plan
 	KbTotal float64 `json:"kb_total"`
 	// Kilobytes used to date
-	KbUsed float64 `json:"kb_used"`
+	KbUsed               float64 `json:"kb_used"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DataUsage DataUsage
@@ -137,6 +137,11 @@ func (o DataUsage) ToMap() (map[string]interface{}, error) {
 	toSerialize["kb_remaining"] = o.KbRemaining
 	toSerialize["kb_total"] = o.KbTotal
 	toSerialize["kb_used"] = o.KbUsed
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *DataUsage) UnmarshalJSON(data []byte) (err error) {
 
 	varDataUsage := _DataUsage{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDataUsage)
+	err = json.Unmarshal(data, &varDataUsage)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DataUsage(varDataUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "kb_remaining")
+		delete(additionalProperties, "kb_total")
+		delete(additionalProperties, "kb_used")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -11,7 +11,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## GetDataUsage
 
-> GetDataUsage200Response GetDataUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).Execute()
+> GetDataUsage200Response GetDataUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).Execute()
 
 ### Example
 
@@ -32,11 +32,12 @@ func main() {
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.GetDataUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).Execute()
+	resp, r, err := apiClient.UsageAPI.GetDataUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetDataUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,6 +66,7 @@ Other parameters are passed through a pointer to a apiGetDataUsageRequest struct
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
+**limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 
 ### Return type
@@ -86,7 +88,7 @@ Other parameters are passed through a pointer to a apiGetDataUsageRequest struct
 
 ## GetEventsUsage
 
-> UsageEventsResponse GetEventsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).Notefile(notefile).SkipRecentData(skipRecentData).IncludeNotefiles(includeNotefiles).Execute()
+> UsageEventsResponse GetEventsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).Notefile(notefile).SkipRecentData(skipRecentData).IncludeNotefiles(includeNotefiles).Execute()
 
 ### Example
 
@@ -107,6 +109,7 @@ func main() {
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 	notefile := []string{"Inner_example"} // []string | Filter to specific notefiles (optional)
 	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
@@ -114,7 +117,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.GetEventsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).Notefile(notefile).SkipRecentData(skipRecentData).IncludeNotefiles(includeNotefiles).Execute()
+	resp, r, err := apiClient.UsageAPI.GetEventsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).Notefile(notefile).SkipRecentData(skipRecentData).IncludeNotefiles(includeNotefiles).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetEventsUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -143,6 +146,7 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
+**limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 **notefile** | **[]string** | Filter to specific notefiles |
 **skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]
@@ -167,7 +171,7 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 
 ## GetRouteLogsUsage
 
-> GetRouteLogsUsage200Response GetRouteLogsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
+> GetRouteLogsUsage200Response GetRouteLogsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Limit(limit).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 
 ### Example
 
@@ -187,12 +191,13 @@ func main() {
 	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
 	routeUID := []string{"Inner_example"} // []string | A Route UID. (optional)
+	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "route")
 	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
+	resp, r, err := apiClient.UsageAPI.GetRouteLogsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).RouteUID(routeUID).Limit(limit).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetRouteLogsUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -220,6 +225,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest s
 **startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
 **routeUID** | **[]string** | A Route UID. |
+**limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;route&quot;]
 **skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]
 
@@ -242,7 +248,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest s
 
 ## GetSessionsUsage
 
-> GetSessionsUsage200Response GetSessionsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
+> GetSessionsUsage200Response GetSessionsUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 
 ### Example
 
@@ -263,12 +269,13 @@ func main() {
 	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UsageAPI.GetSessionsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
+	resp, r, err := apiClient.UsageAPI.GetSessionsUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).DeviceUID(deviceUID).FleetUID(fleetUID).Limit(limit).Aggregate(aggregate).SkipRecentData(skipRecentData).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetSessionsUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -297,6 +304,7 @@ Other parameters are passed through a pointer to a apiGetSessionsUsageRequest st
 **endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
+**limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 **skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]
 

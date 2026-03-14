@@ -44,8 +44,11 @@ type DFUState struct {
 	// Last updated timestamp
 	Updated *float32 `json:"updated,omitempty"`
 	// Last known version, which is generally a JSON object contained within the firmware image
-	Version *string `json:"version,omitempty"`
+	Version              *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DFUState DFUState
 
 // NewDFUState instantiates a new DFUState object
 // This constructor will assign default values to properties that have it defined,
@@ -529,7 +532,45 @@ func (o DFUState) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DFUState) UnmarshalJSON(data []byte) (err error) {
+	varDFUState := _DFUState{}
+
+	err = json.Unmarshal(data, &varDFUState)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DFUState(varDFUState)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "began")
+		delete(additionalProperties, "crc32")
+		delete(additionalProperties, "errors")
+		delete(additionalProperties, "file")
+		delete(additionalProperties, "length")
+		delete(additionalProperties, "md5")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "read")
+		delete(additionalProperties, "retry")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updated")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDFUState struct {
