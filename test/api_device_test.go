@@ -54,6 +54,21 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test DeviceAPIService CreateNotefile", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var deviceUID string
+		var notefileID string
+
+		httpRes, err := apiClient.DeviceAPI.CreateNotefile(context.Background(), projectOrProductUID, deviceUID, notefileID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DeviceAPIService DeleteDevice", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -128,20 +143,6 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DeviceAPIService DisableDeviceConnectivityAssurance", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-		var deviceUID string
-
-		httpRes, err := apiClient.DeviceAPI.DisableDeviceConnectivityAssurance(context.Background(), projectOrProductUID, deviceUID).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test DeviceAPIService EnableDevice", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -150,20 +151,6 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 		var deviceUID string
 
 		httpRes, err := apiClient.DeviceAPI.EnableDevice(context.Background(), projectOrProductUID, deviceUID).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DeviceAPIService EnableDeviceConnectivityAssurance", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-		var deviceUID string
-
-		httpRes, err := apiClient.DeviceAPI.EnableDeviceConnectivityAssurance(context.Background(), projectOrProductUID, deviceUID).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

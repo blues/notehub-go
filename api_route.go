@@ -383,6 +383,8 @@ type ApiGetRouteLogsByRouteRequest struct {
 	systemFilesOnly     *bool
 	mostRecentOnly      *bool
 	files               *string
+	routingStatus       *[]string
+	responseStatus      *[]string
 }
 
 func (r ApiGetRouteLogsByRouteRequest) PageSize(pageSize int32) ApiGetRouteLogsByRouteRequest {
@@ -435,6 +437,16 @@ func (r ApiGetRouteLogsByRouteRequest) MostRecentOnly(mostRecentOnly bool) ApiGe
 
 func (r ApiGetRouteLogsByRouteRequest) Files(files string) ApiGetRouteLogsByRouteRequest {
 	r.files = &files
+	return r
+}
+
+func (r ApiGetRouteLogsByRouteRequest) RoutingStatus(routingStatus []string) ApiGetRouteLogsByRouteRequest {
+	r.routingStatus = &routingStatus
+	return r
+}
+
+func (r ApiGetRouteLogsByRouteRequest) ResponseStatus(responseStatus []string) ApiGetRouteLogsByRouteRequest {
+	r.responseStatus = &responseStatus
 	return r
 }
 
@@ -538,6 +550,28 @@ func (a *RouteAPIService) GetRouteLogsByRouteExecute(r ApiGetRouteLogsByRouteReq
 	}
 	if r.files != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "files", r.files, "form", "")
+	}
+	if r.routingStatus != nil {
+		t := *r.routingStatus
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "routingStatus", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "routingStatus", t, "form", "multi")
+		}
+	}
+	if r.responseStatus != nil {
+		t := *r.responseStatus
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "responseStatus", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "responseStatus", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

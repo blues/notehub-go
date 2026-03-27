@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,9 +22,10 @@ var _ MappedNullable = &ProjectMember{}
 // ProjectMember struct for ProjectMember
 type ProjectMember struct {
 	// The email address of the project member. This property will only be populated if the viewer is an owner of the project.
-	Email string       `json:"email"`
-	Name  string       `json:"name"`
-	Role  NullableRole `json:"role"`
+	Email                string       `json:"email"`
+	Name                 string       `json:"name"`
+	Role                 NullableRole `json:"role"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ProjectMember ProjectMember
@@ -137,6 +137,11 @@ func (o ProjectMember) ToMap() (map[string]interface{}, error) {
 	toSerialize["email"] = o.Email
 	toSerialize["name"] = o.Name
 	toSerialize["role"] = o.Role.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *ProjectMember) UnmarshalJSON(data []byte) (err error) {
 
 	varProjectMember := _ProjectMember{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varProjectMember)
+	err = json.Unmarshal(data, &varProjectMember)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ProjectMember(varProjectMember)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "role")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

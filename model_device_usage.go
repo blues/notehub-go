@@ -31,8 +31,11 @@ type DeviceUsage struct {
 	SessionsTcp *int64 `json:"sessions_tcp,omitempty"`
 	SessionsTls *int64 `json:"sessions_tls,omitempty"`
 	// Unix timestamp
-	Since *int64 `json:"since,omitempty"`
+	Since                *int64 `json:"since,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceUsage DeviceUsage
 
 // NewDeviceUsage instantiates a new DeviceUsage object
 // This constructor will assign default values to properties that have it defined,
@@ -411,7 +414,42 @@ func (o DeviceUsage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Since) {
 		toSerialize["since"] = o.Since
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceUsage) UnmarshalJSON(data []byte) (err error) {
+	varDeviceUsage := _DeviceUsage{}
+
+	err = json.Unmarshal(data, &varDeviceUsage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceUsage(varDeviceUsage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bytes_rcvd")
+		delete(additionalProperties, "bytes_rcvd_secondary")
+		delete(additionalProperties, "bytes_sent")
+		delete(additionalProperties, "bytes_sent_secondary")
+		delete(additionalProperties, "duration")
+		delete(additionalProperties, "notes_rcvd")
+		delete(additionalProperties, "notes_sent")
+		delete(additionalProperties, "sessions_tcp")
+		delete(additionalProperties, "sessions_tls")
+		delete(additionalProperties, "since")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceUsage struct {

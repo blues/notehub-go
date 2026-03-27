@@ -33,6 +33,7 @@ type ApiGetDataUsageRequest struct {
 	endDate             *int32
 	deviceUID           *[]string
 	fleetUID            *[]string
+	limit               *int32
 	aggregate           *string
 }
 
@@ -63,6 +64,12 @@ func (r ApiGetDataUsageRequest) DeviceUID(deviceUID []string) ApiGetDataUsageReq
 // Filter by Fleet UID
 func (r ApiGetDataUsageRequest) FleetUID(fleetUID []string) ApiGetDataUsageRequest {
 	r.fleetUID = &fleetUID
+	return r
+}
+
+// Limit the number of data points returned
+func (r ApiGetDataUsageRequest) Limit(limit int32) ApiGetDataUsageRequest {
+	r.limit = &limit
 	return r
 }
 
@@ -147,6 +154,13 @@ func (a *UsageAPIService) GetDataUsageExecute(r ApiGetDataUsageRequest) (*GetDat
 			parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", t, "form", "multi")
 		}
 	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 200000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	if r.aggregate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregate", r.aggregate, "form", "")
@@ -226,6 +240,7 @@ type ApiGetEventsUsageRequest struct {
 	endDate             *int32
 	deviceUID           *[]string
 	fleetUID            *[]string
+	limit               *int32
 	aggregate           *string
 	notefile            *[]string
 	skipRecentData      *bool
@@ -259,6 +274,12 @@ func (r ApiGetEventsUsageRequest) DeviceUID(deviceUID []string) ApiGetEventsUsag
 // Filter by Fleet UID
 func (r ApiGetEventsUsageRequest) FleetUID(fleetUID []string) ApiGetEventsUsageRequest {
 	r.fleetUID = &fleetUID
+	return r
+}
+
+// Limit the number of data points returned
+func (r ApiGetEventsUsageRequest) Limit(limit int32) ApiGetEventsUsageRequest {
+	r.limit = &limit
 	return r
 }
 
@@ -360,6 +381,13 @@ func (a *UsageAPIService) GetEventsUsageExecute(r ApiGetEventsUsageRequest) (*Us
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", t, "form", "multi")
 		}
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 200000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	if r.aggregate != nil {
@@ -464,6 +492,7 @@ type ApiGetRouteLogsUsageRequest struct {
 	startDate           *int32
 	endDate             *int32
 	routeUID            *[]string
+	limit               *int32
 	aggregate           *string
 	skipRecentData      *bool
 }
@@ -489,6 +518,12 @@ func (r ApiGetRouteLogsUsageRequest) EndDate(endDate int32) ApiGetRouteLogsUsage
 // A Route UID.
 func (r ApiGetRouteLogsUsageRequest) RouteUID(routeUID []string) ApiGetRouteLogsUsageRequest {
 	r.routeUID = &routeUID
+	return r
+}
+
+// Limit the number of data points returned
+func (r ApiGetRouteLogsUsageRequest) Limit(limit int32) ApiGetRouteLogsUsageRequest {
+	r.limit = &limit
 	return r
 }
 
@@ -567,6 +602,13 @@ func (a *UsageAPIService) GetRouteLogsUsageExecute(r ApiGetRouteLogsUsageRequest
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "routeUID", t, "form", "multi")
 		}
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 200000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	if r.aggregate != nil {
@@ -654,6 +696,7 @@ type ApiGetSessionsUsageRequest struct {
 	endDate             *int32
 	deviceUID           *[]string
 	fleetUID            *[]string
+	limit               *int32
 	aggregate           *string
 	skipRecentData      *bool
 }
@@ -685,6 +728,12 @@ func (r ApiGetSessionsUsageRequest) DeviceUID(deviceUID []string) ApiGetSessions
 // Filter by Fleet UID
 func (r ApiGetSessionsUsageRequest) FleetUID(fleetUID []string) ApiGetSessionsUsageRequest {
 	r.fleetUID = &fleetUID
+	return r
+}
+
+// Limit the number of data points returned
+func (r ApiGetSessionsUsageRequest) Limit(limit int32) ApiGetSessionsUsageRequest {
+	r.limit = &limit
 	return r
 }
 
@@ -774,6 +823,13 @@ func (a *UsageAPIService) GetSessionsUsageExecute(r ApiGetSessionsUsageRequest) 
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", t, "form", "multi")
 		}
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 200000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
 	}
 	parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	if r.aggregate != nil {

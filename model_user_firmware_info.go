@@ -20,9 +20,12 @@ var _ MappedNullable = &UserFirmwareInfo{}
 
 // UserFirmwareInfo struct for UserFirmwareInfo
 type UserFirmwareInfo struct {
-	CurrentFirmware *CurrentFirmware     `json:"current_firmware,omitempty"`
-	FirmwareUpdate  *UserDfuStateMachine `json:"firmware_update,omitempty"`
+	CurrentFirmware      *CurrentFirmware     `json:"current_firmware,omitempty"`
+	FirmwareUpdate       *UserDfuStateMachine `json:"firmware_update,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserFirmwareInfo UserFirmwareInfo
 
 // NewUserFirmwareInfo instantiates a new UserFirmwareInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o UserFirmwareInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FirmwareUpdate) {
 		toSerialize["firmware_update"] = o.FirmwareUpdate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserFirmwareInfo) UnmarshalJSON(data []byte) (err error) {
+	varUserFirmwareInfo := _UserFirmwareInfo{}
+
+	err = json.Unmarshal(data, &varUserFirmwareInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserFirmwareInfo(varUserFirmwareInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current_firmware")
+		delete(additionalProperties, "firmware_update")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserFirmwareInfo struct {

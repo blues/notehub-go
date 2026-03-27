@@ -20,9 +20,12 @@ var _ MappedNullable = &GetDevicePublicKeys200ResponseDevicePublicKeysInner{}
 
 // GetDevicePublicKeys200ResponseDevicePublicKeysInner struct for GetDevicePublicKeys200ResponseDevicePublicKeysInner
 type GetDevicePublicKeys200ResponseDevicePublicKeysInner struct {
-	Key *string `json:"key,omitempty"`
-	Uid *string `json:"uid,omitempty"`
+	Key                  *string `json:"key,omitempty"`
+	Uid                  *string `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetDevicePublicKeys200ResponseDevicePublicKeysInner GetDevicePublicKeys200ResponseDevicePublicKeysInner
 
 // NewGetDevicePublicKeys200ResponseDevicePublicKeysInner instantiates a new GetDevicePublicKeys200ResponseDevicePublicKeysInner object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o GetDevicePublicKeys200ResponseDevicePublicKeysInner) ToMap() (map[string
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) UnmarshalJSON(data []byte) (err error) {
+	varGetDevicePublicKeys200ResponseDevicePublicKeysInner := _GetDevicePublicKeys200ResponseDevicePublicKeysInner{}
+
+	err = json.Unmarshal(data, &varGetDevicePublicKeys200ResponseDevicePublicKeysInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetDevicePublicKeys200ResponseDevicePublicKeysInner(varGetDevicePublicKeys200ResponseDevicePublicKeysInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetDevicePublicKeys200ResponseDevicePublicKeysInner struct {

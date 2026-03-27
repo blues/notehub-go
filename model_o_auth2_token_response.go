@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type OAuth2TokenResponse struct {
 	// Granted scopes (space-delimited).
 	Scope *string `json:"scope,omitempty"`
 	// Usually 'bearer'
-	TokenType string `json:"token_type"`
+	TokenType            string `json:"token_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OAuth2TokenResponse OAuth2TokenResponse
@@ -174,6 +174,11 @@ func (o OAuth2TokenResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["scope"] = o.Scope
 	}
 	toSerialize["token_type"] = o.TokenType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -203,15 +208,23 @@ func (o *OAuth2TokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varOAuth2TokenResponse := _OAuth2TokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOAuth2TokenResponse)
+	err = json.Unmarshal(data, &varOAuth2TokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OAuth2TokenResponse(varOAuth2TokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "token_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

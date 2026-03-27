@@ -20,9 +20,12 @@ var _ MappedNullable = &CurrentFirmware{}
 
 // CurrentFirmware struct for CurrentFirmware
 type CurrentFirmware struct {
-	Metadata NullableFirmware `json:"metadata,omitempty"`
-	Version  *string          `json:"version,omitempty"`
+	Metadata             NullableFirmware `json:"metadata,omitempty"`
+	Version              *string          `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CurrentFirmware CurrentFirmware
 
 // NewCurrentFirmware instantiates a new CurrentFirmware object
 // This constructor will assign default values to properties that have it defined,
@@ -132,7 +135,34 @@ func (o CurrentFirmware) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CurrentFirmware) UnmarshalJSON(data []byte) (err error) {
+	varCurrentFirmware := _CurrentFirmware{}
+
+	err = json.Unmarshal(data, &varCurrentFirmware)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CurrentFirmware(varCurrentFirmware)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCurrentFirmware struct {

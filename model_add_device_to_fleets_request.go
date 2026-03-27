@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &AddDeviceToFleetsRequest{}
 // AddDeviceToFleetsRequest struct for AddDeviceToFleetsRequest
 type AddDeviceToFleetsRequest struct {
 	// The fleetUIDs to add to the device.
-	FleetUids []string `json:"fleet_uids"`
+	FleetUids            []string `json:"fleet_uids"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AddDeviceToFleetsRequest AddDeviceToFleetsRequest
@@ -81,6 +81,11 @@ func (o AddDeviceToFleetsRequest) MarshalJSON() ([]byte, error) {
 func (o AddDeviceToFleetsRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fleet_uids"] = o.FleetUids
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *AddDeviceToFleetsRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varAddDeviceToFleetsRequest := _AddDeviceToFleetsRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAddDeviceToFleetsRequest)
+	err = json.Unmarshal(data, &varAddDeviceToFleetsRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AddDeviceToFleetsRequest(varAddDeviceToFleetsRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fleet_uids")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

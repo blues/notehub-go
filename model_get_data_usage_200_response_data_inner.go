@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,10 +30,11 @@ type GetDataUsage200ResponseDataInner struct {
 	Fleet *string `json:"fleet,omitempty"`
 	// The ICCID of the cellular SIM card (only present when type is 'cellular')
 	Iccid *string `json:"iccid,omitempty"`
-	// The IMSI of the satellite device (only present when type is 'satellite')
-	Imsi *string `json:"imsi,omitempty"`
+	// The PSID (Packet Service ID) of the satellite (or other packet-based device)
+	Psid *string `json:"psid,omitempty"`
 	// The type of connectivity
-	Type string `json:"type"`
+	Type                 string `json:"type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDataUsage200ResponseDataInner GetDataUsage200ResponseDataInner
@@ -210,36 +210,36 @@ func (o *GetDataUsage200ResponseDataInner) SetIccid(v string) {
 	o.Iccid = &v
 }
 
-// GetImsi returns the Imsi field value if set, zero value otherwise.
-func (o *GetDataUsage200ResponseDataInner) GetImsi() string {
-	if o == nil || IsNil(o.Imsi) {
+// GetPsid returns the Psid field value if set, zero value otherwise.
+func (o *GetDataUsage200ResponseDataInner) GetPsid() string {
+	if o == nil || IsNil(o.Psid) {
 		var ret string
 		return ret
 	}
-	return *o.Imsi
+	return *o.Psid
 }
 
-// GetImsiOk returns a tuple with the Imsi field value if set, nil otherwise
+// GetPsidOk returns a tuple with the Psid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetDataUsage200ResponseDataInner) GetImsiOk() (*string, bool) {
-	if o == nil || IsNil(o.Imsi) {
+func (o *GetDataUsage200ResponseDataInner) GetPsidOk() (*string, bool) {
+	if o == nil || IsNil(o.Psid) {
 		return nil, false
 	}
-	return o.Imsi, true
+	return o.Psid, true
 }
 
-// HasImsi returns a boolean if a field has been set.
-func (o *GetDataUsage200ResponseDataInner) HasImsi() bool {
-	if o != nil && !IsNil(o.Imsi) {
+// HasPsid returns a boolean if a field has been set.
+func (o *GetDataUsage200ResponseDataInner) HasPsid() bool {
+	if o != nil && !IsNil(o.Psid) {
 		return true
 	}
 
 	return false
 }
 
-// SetImsi gets a reference to the given string and assigns it to the Imsi field.
-func (o *GetDataUsage200ResponseDataInner) SetImsi(v string) {
-	o.Imsi = &v
+// SetPsid gets a reference to the given string and assigns it to the Psid field.
+func (o *GetDataUsage200ResponseDataInner) SetPsid(v string) {
+	o.Psid = &v
 }
 
 // GetType returns the Type field value
@@ -289,10 +289,15 @@ func (o GetDataUsage200ResponseDataInner) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Iccid) {
 		toSerialize["iccid"] = o.Iccid
 	}
-	if !IsNil(o.Imsi) {
-		toSerialize["imsi"] = o.Imsi
+	if !IsNil(o.Psid) {
+		toSerialize["psid"] = o.Psid
 	}
 	toSerialize["type"] = o.Type
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -321,15 +326,26 @@ func (o *GetDataUsage200ResponseDataInner) UnmarshalJSON(data []byte) (err error
 
 	varGetDataUsage200ResponseDataInner := _GetDataUsage200ResponseDataInner{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDataUsage200ResponseDataInner)
+	err = json.Unmarshal(data, &varGetDataUsage200ResponseDataInner)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDataUsage200ResponseDataInner(varGetDataUsage200ResponseDataInner)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "device_count")
+		delete(additionalProperties, "fleet")
+		delete(additionalProperties, "iccid")
+		delete(additionalProperties, "psid")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

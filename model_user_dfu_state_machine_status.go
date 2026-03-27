@@ -21,11 +21,14 @@ var _ MappedNullable = &UserDfuStateMachineStatus{}
 
 // UserDfuStateMachineStatus struct for UserDfuStateMachineStatus
 type UserDfuStateMachineStatus struct {
-	Date             NullableTime `json:"date,omitempty"`
-	Phase            *string      `json:"phase,omitempty"`
-	PhaseDescription *string      `json:"phase_description,omitempty"`
-	Status           *string      `json:"status,omitempty"`
+	Date                 NullableTime `json:"date,omitempty"`
+	Phase                *string      `json:"phase,omitempty"`
+	PhaseDescription     *string      `json:"phase_description,omitempty"`
+	Status               *string      `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UserDfuStateMachineStatus UserDfuStateMachineStatus
 
 // NewUserDfuStateMachineStatus instantiates a new UserDfuStateMachineStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -205,7 +208,36 @@ func (o UserDfuStateMachineStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UserDfuStateMachineStatus) UnmarshalJSON(data []byte) (err error) {
+	varUserDfuStateMachineStatus := _UserDfuStateMachineStatus{}
+
+	err = json.Unmarshal(data, &varUserDfuStateMachineStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserDfuStateMachineStatus(varUserDfuStateMachineStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "phase")
+		delete(additionalProperties, "phase_description")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUserDfuStateMachineStatus struct {

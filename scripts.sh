@@ -53,7 +53,9 @@ generate_package() {
         -o "$output_dir" \
         --git-user-id blues \
         --git-repo-id notehub-go \
-        --package-name notehub; then
+        --package-name notehub \
+        --global-property skipFormModel=false \
+        -p disallowAdditionalPropertiesIfNotPresent=false; then
         print_error "Failed to generate Go package"
         exit 1
     fi
@@ -305,6 +307,9 @@ generate_and_format() {
     print_info "Starting Go SDK generation workflow..."
 
     local output_dir="${1:-.}"
+
+    # Remove test files so the generator produces fresh tests matching the current spec
+    rm -rf test/
 
     remove_deprecated_parameters "openapi.yaml" "openapi_filtered.yaml"
     generate_package "openapi_filtered.yaml" "$output_dir"

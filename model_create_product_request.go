@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -28,7 +27,8 @@ type CreateProductRequest struct {
 	// The label for the Product.
 	Label string `json:"label"`
 	// The requested uid for the Product. Will be prefixed with the user's reversed email.
-	ProductUid string `json:"product_uid"`
+	ProductUid           string `json:"product_uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateProductRequest CreateProductRequest
@@ -182,6 +182,11 @@ func (o CreateProductRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["label"] = o.Label
 	toSerialize["product_uid"] = o.ProductUid
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -210,15 +215,23 @@ func (o *CreateProductRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateProductRequest := _CreateProductRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateProductRequest)
+	err = json.Unmarshal(data, &varCreateProductRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateProductRequest(varCreateProductRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "auto_provision_fleets")
+		delete(additionalProperties, "disable_devices_by_default")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "product_uid")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,6 +22,9 @@ var _ MappedNullable = &UsageEventsResponse{}
 // UsageEventsResponse struct for UsageEventsResponse
 type UsageEventsResponse struct {
 	Data []UsageEventsData `json:"data"`
+	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	Truncated            *bool `json:"truncated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UsageEventsResponse UsageEventsResponse
@@ -69,6 +71,38 @@ func (o *UsageEventsResponse) SetData(v []UsageEventsData) {
 	o.Data = v
 }
 
+// GetTruncated returns the Truncated field value if set, zero value otherwise.
+func (o *UsageEventsResponse) GetTruncated() bool {
+	if o == nil || IsNil(o.Truncated) {
+		var ret bool
+		return ret
+	}
+	return *o.Truncated
+}
+
+// GetTruncatedOk returns a tuple with the Truncated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageEventsResponse) GetTruncatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Truncated) {
+		return nil, false
+	}
+	return o.Truncated, true
+}
+
+// HasTruncated returns a boolean if a field has been set.
+func (o *UsageEventsResponse) HasTruncated() bool {
+	if o != nil && !IsNil(o.Truncated) {
+		return true
+	}
+
+	return false
+}
+
+// SetTruncated gets a reference to the given bool and assigns it to the Truncated field.
+func (o *UsageEventsResponse) SetTruncated(v bool) {
+	o.Truncated = &v
+}
+
 func (o UsageEventsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -80,6 +114,14 @@ func (o UsageEventsResponse) MarshalJSON() ([]byte, error) {
 func (o UsageEventsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
+	if !IsNil(o.Truncated) {
+		toSerialize["truncated"] = o.Truncated
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +149,21 @@ func (o *UsageEventsResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varUsageEventsResponse := _UsageEventsResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUsageEventsResponse)
+	err = json.Unmarshal(data, &varUsageEventsResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UsageEventsResponse(varUsageEventsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "truncated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

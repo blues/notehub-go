@@ -1417,6 +1417,126 @@ func (a *ProjectAPIService) DisableGlobalEventTransformationExecute(r ApiDisable
 	return localVarHTTPResponse, nil
 }
 
+type ApiDownloadFirmwareRequest struct {
+	ctx                 context.Context
+	ApiService          *ProjectAPIService
+	projectOrProductUID string
+	firmwareType        string
+	filename            string
+}
+
+func (r ApiDownloadFirmwareRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.DownloadFirmwareExecute(r)
+}
+
+/*
+DownloadFirmware Method for DownloadFirmware
+
+Download firmware binary
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param firmwareType
+	@param filename
+	@return ApiDownloadFirmwareRequest
+*/
+func (a *ProjectAPIService) DownloadFirmware(ctx context.Context, projectOrProductUID string, firmwareType string, filename string) ApiDownloadFirmwareRequest {
+	return ApiDownloadFirmwareRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		firmwareType:        firmwareType,
+		filename:            filename,
+	}
+}
+
+// Execute executes the request
+//
+//	@return *os.File
+func (a *ProjectAPIService) DownloadFirmwareExecute(r ApiDownloadFirmwareRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DownloadFirmware")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"firmwareType"+"}", url.PathEscape(parameterValueToString(r.firmwareType, "firmwareType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"filename"+"}", url.PathEscape(parameterValueToString(r.filename, "filename")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/octet-stream", "application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiEnableGlobalEventTransformationRequest struct {
 	ctx                 context.Context
 	ApiService          *ProjectAPIService
@@ -1515,6 +1635,119 @@ func (a *ProjectAPIService) EnableGlobalEventTransformationExecute(r ApiEnableGl
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ApiGetAWSRoleConfigRequest struct {
+	ctx                 context.Context
+	ApiService          *ProjectAPIService
+	projectOrProductUID string
+}
+
+func (r ApiGetAWSRoleConfigRequest) Execute() (*AWSRoleConfig, *http.Response, error) {
+	return r.ApiService.GetAWSRoleConfigExecute(r)
+}
+
+/*
+GetAWSRoleConfig Get AWS role configuration for role-based authentication
+
+Returns the AWS Account ID and External ID needed to configure an IAM role
+trust policy for role-based authentication on AWS routes.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@return ApiGetAWSRoleConfigRequest
+*/
+func (a *ProjectAPIService) GetAWSRoleConfig(ctx context.Context, projectOrProductUID string) ApiGetAWSRoleConfigRequest {
+	return ApiGetAWSRoleConfigRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return AWSRoleConfig
+func (a *ProjectAPIService) GetAWSRoleConfigExecute(r ApiGetAWSRoleConfigRequest) (*AWSRoleConfig, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AWSRoleConfig
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetAWSRoleConfig")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/aws-role-config"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiGetDeviceDfuHistoryRequest struct {
@@ -2524,6 +2757,8 @@ type ApiGetFirmwareInfoRequest struct {
 	filename            *string
 	md5                 *string
 	unpublished         *bool
+	sortBy              *string
+	sortOrder           *string
 }
 
 func (r ApiGetFirmwareInfoRequest) Product(product string) ApiGetFirmwareInfoRequest {
@@ -2558,6 +2793,18 @@ func (r ApiGetFirmwareInfoRequest) Md5(md5 string) ApiGetFirmwareInfoRequest {
 
 func (r ApiGetFirmwareInfoRequest) Unpublished(unpublished bool) ApiGetFirmwareInfoRequest {
 	r.unpublished = &unpublished
+	return r
+}
+
+// Field to sort by
+func (r ApiGetFirmwareInfoRequest) SortBy(sortBy string) ApiGetFirmwareInfoRequest {
+	r.sortBy = &sortBy
+	return r
+}
+
+// Sort order (asc for ascending, desc for descending)
+func (r ApiGetFirmwareInfoRequest) SortOrder(sortOrder string) ApiGetFirmwareInfoRequest {
+	r.sortOrder = &sortOrder
 	return r
 }
 
@@ -2625,6 +2872,20 @@ func (a *ProjectAPIService) GetFirmwareInfoExecute(r ApiGetFirmwareInfoRequest) 
 	}
 	if r.unpublished != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "unpublished", r.unpublished, "form", "")
+	}
+	if r.sortBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
+	} else {
+		var defaultValue string = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", defaultValue, "form", "")
+		r.sortBy = &defaultValue
+	}
+	if r.sortOrder != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", r.sortOrder, "form", "")
+	} else {
+		var defaultValue string = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", defaultValue, "form", "")
+		r.sortOrder = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

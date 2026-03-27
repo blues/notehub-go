@@ -25,8 +25,11 @@ type WebhookSettings struct {
 	// Webhook ID
 	Id *string `json:"id,omitempty"`
 	// Transformation to be applied to the event
-	Transform *string `json:"transform,omitempty"`
+	Transform            *string `json:"transform,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _WebhookSettings WebhookSettings
 
 // NewWebhookSettings instantiates a new WebhookSettings object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o WebhookSettings) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Transform) {
 		toSerialize["transform"] = o.Transform
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *WebhookSettings) UnmarshalJSON(data []byte) (err error) {
+	varWebhookSettings := _WebhookSettings{}
+
+	err = json.Unmarshal(data, &varWebhookSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = WebhookSettings(varWebhookSettings)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "transform")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableWebhookSettings struct {

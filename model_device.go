@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -43,6 +42,7 @@ type Device struct {
 	TriangulatedLocation NullableLocation        `json:"triangulated_location,omitempty"`
 	Uid                  string                  `json:"uid"`
 	Voltage              float64                 `json:"voltage"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Device Device
@@ -808,6 +808,11 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["uid"] = o.Uid
 	toSerialize["voltage"] = o.Voltage
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -840,15 +845,39 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 
 	varDevice := _Device{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDevice)
+	err = json.Unmarshal(data, &varDevice)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Device(varDevice)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "best_location")
+		delete(additionalProperties, "cellular_usage")
+		delete(additionalProperties, "contact")
+		delete(additionalProperties, "dfu")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "firmware_host")
+		delete(additionalProperties, "firmware_notecard")
+		delete(additionalProperties, "fleet_uids")
+		delete(additionalProperties, "gps_location")
+		delete(additionalProperties, "last_activity")
+		delete(additionalProperties, "product_uid")
+		delete(additionalProperties, "provisioned")
+		delete(additionalProperties, "serial_number")
+		delete(additionalProperties, "sku")
+		delete(additionalProperties, "temperature")
+		delete(additionalProperties, "tower_info")
+		delete(additionalProperties, "tower_location")
+		delete(additionalProperties, "triangulated_location")
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "voltage")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

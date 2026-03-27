@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &GetDeviceFleets200Response{}
 
 // GetDeviceFleets200Response struct for GetDeviceFleets200Response
 type GetDeviceFleets200Response struct {
-	Fleets []Fleet `json:"fleets"`
+	Fleets               []Fleet `json:"fleets"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDeviceFleets200Response GetDeviceFleets200Response
@@ -80,6 +80,11 @@ func (o GetDeviceFleets200Response) MarshalJSON() ([]byte, error) {
 func (o GetDeviceFleets200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fleets"] = o.Fleets
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *GetDeviceFleets200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetDeviceFleets200Response := _GetDeviceFleets200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDeviceFleets200Response)
+	err = json.Unmarshal(data, &varGetDeviceFleets200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDeviceFleets200Response(varGetDeviceFleets200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fleets")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

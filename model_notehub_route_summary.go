@@ -21,12 +21,15 @@ var _ MappedNullable = &NotehubRouteSummary{}
 
 // NotehubRouteSummary struct for NotehubRouteSummary
 type NotehubRouteSummary struct {
-	Disabled *bool      `json:"disabled,omitempty"`
-	Label    *string    `json:"label,omitempty"`
-	Modified *time.Time `json:"modified,omitempty"`
-	Type     *string    `json:"type,omitempty"`
-	Uid      *string    `json:"uid,omitempty"`
+	Disabled             *bool      `json:"disabled,omitempty"`
+	Label                *string    `json:"label,omitempty"`
+	Modified             *time.Time `json:"modified,omitempty"`
+	Type                 *string    `json:"type,omitempty"`
+	Uid                  *string    `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotehubRouteSummary NotehubRouteSummary
 
 // NewNotehubRouteSummary instantiates a new NotehubRouteSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -246,7 +249,37 @@ func (o NotehubRouteSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotehubRouteSummary) UnmarshalJSON(data []byte) (err error) {
+	varNotehubRouteSummary := _NotehubRouteSummary{}
+
+	err = json.Unmarshal(data, &varNotehubRouteSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotehubRouteSummary(varNotehubRouteSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "modified")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotehubRouteSummary struct {

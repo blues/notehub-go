@@ -20,9 +20,12 @@ var _ MappedNullable = &DeviceDfuHistoryPage{}
 
 // DeviceDfuHistoryPage struct for DeviceDfuHistoryPage
 type DeviceDfuHistoryPage struct {
-	Devices []DeviceDfuHistory `json:"devices,omitempty"`
-	HasMore *bool              `json:"has_more,omitempty"`
+	Devices              []DeviceDfuHistory `json:"devices,omitempty"`
+	HasMore              *bool              `json:"has_more,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceDfuHistoryPage DeviceDfuHistoryPage
 
 // NewDeviceDfuHistoryPage instantiates a new DeviceDfuHistoryPage object
 // This constructor will assign default values to properties that have it defined,
@@ -125,7 +128,34 @@ func (o DeviceDfuHistoryPage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.HasMore) {
 		toSerialize["has_more"] = o.HasMore
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceDfuHistoryPage) UnmarshalJSON(data []byte) (err error) {
+	varDeviceDfuHistoryPage := _DeviceDfuHistoryPage{}
+
+	err = json.Unmarshal(data, &varDeviceDfuHistoryPage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceDfuHistoryPage(varDeviceDfuHistoryPage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "devices")
+		delete(additionalProperties, "has_more")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceDfuHistoryPage struct {

@@ -27,8 +27,11 @@ type SlackBearerNotification struct {
 	// The text of the message, or the blocks definition
 	Text *string `json:"text,omitempty"`
 	// The bearer token for the Slack app.
-	Token *string `json:"token,omitempty"`
+	Token                *string `json:"token,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SlackBearerNotification SlackBearerNotification
 
 // NewSlackBearerNotification instantiates a new SlackBearerNotification object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o SlackBearerNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Token) {
 		toSerialize["token"] = o.Token
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SlackBearerNotification) UnmarshalJSON(data []byte) (err error) {
+	varSlackBearerNotification := _SlackBearerNotification{}
+
+	err = json.Unmarshal(data, &varSlackBearerNotification)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SlackBearerNotification(varSlackBearerNotification)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "channel")
+		delete(additionalProperties, "message_type")
+		delete(additionalProperties, "text")
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSlackBearerNotification struct {

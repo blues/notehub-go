@@ -33,8 +33,11 @@ type CellularPlan struct {
 	// Total bytes used by this SIM
 	LifetimeUsed *int64 `json:"lifetime_used,omitempty"`
 	// Description of the SIM plan type including data allowance, region, and validity period
-	PlanType *string `json:"plan_type,omitempty"`
+	PlanType             *string `json:"plan_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CellularPlan CellularPlan
 
 // NewCellularPlan instantiates a new CellularPlan object
 // This constructor will assign default values to properties that have it defined,
@@ -343,7 +346,40 @@ func (o CellularPlan) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PlanType) {
 		toSerialize["plan_type"] = o.PlanType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CellularPlan) UnmarshalJSON(data []byte) (err error) {
+	varCellularPlan := _CellularPlan{}
+
+	err = json.Unmarshal(data, &varCellularPlan)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CellularPlan(varCellularPlan)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "activated")
+		delete(additionalProperties, "data_usage")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "iccid")
+		delete(additionalProperties, "imsi")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "lifetime_used")
+		delete(additionalProperties, "plan_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCellularPlan struct {

@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,6 +22,7 @@ var _ MappedNullable = &EnvironmentVariables{}
 // EnvironmentVariables struct for EnvironmentVariables
 type EnvironmentVariables struct {
 	EnvironmentVariables map[string]string `json:"environment_variables"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _EnvironmentVariables EnvironmentVariables
@@ -80,6 +80,11 @@ func (o EnvironmentVariables) MarshalJSON() ([]byte, error) {
 func (o EnvironmentVariables) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["environment_variables"] = o.EnvironmentVariables
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *EnvironmentVariables) UnmarshalJSON(data []byte) (err error) {
 
 	varEnvironmentVariables := _EnvironmentVariables{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEnvironmentVariables)
+	err = json.Unmarshal(data, &varEnvironmentVariables)
 
 	if err != nil {
 		return err
 	}
 
 	*o = EnvironmentVariables(varEnvironmentVariables)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment_variables")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

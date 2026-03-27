@@ -20,10 +20,13 @@ var _ MappedNullable = &CreateUpdateRepository{}
 
 // CreateUpdateRepository struct for CreateUpdateRepository
 type CreateUpdateRepository struct {
-	FleetUids   []string `json:"fleet_uids,omitempty"`
-	Name        *string  `json:"name,omitempty"`
-	ProjectUids []string `json:"project_uids,omitempty"`
+	FleetUids            []string `json:"fleet_uids,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	ProjectUids          []string `json:"project_uids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateUpdateRepository CreateUpdateRepository
 
 // NewCreateUpdateRepository instantiates a new CreateUpdateRepository object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o CreateUpdateRepository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProjectUids) {
 		toSerialize["project_uids"] = o.ProjectUids
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateUpdateRepository) UnmarshalJSON(data []byte) (err error) {
+	varCreateUpdateRepository := _CreateUpdateRepository{}
+
+	err = json.Unmarshal(data, &varCreateUpdateRepository)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateUpdateRepository(varCreateUpdateRepository)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fleet_uids")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "project_uids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateUpdateRepository struct {

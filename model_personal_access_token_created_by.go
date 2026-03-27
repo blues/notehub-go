@@ -20,10 +20,13 @@ var _ MappedNullable = &PersonalAccessTokenCreatedBy{}
 
 // PersonalAccessTokenCreatedBy The user that created this key
 type PersonalAccessTokenCreatedBy struct {
-	Email *string `json:"email,omitempty"`
-	Name  *string `json:"name,omitempty"`
-	Uid   *string `json:"uid,omitempty"`
+	Email                *string `json:"email,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	Uid                  *string `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PersonalAccessTokenCreatedBy PersonalAccessTokenCreatedBy
 
 // NewPersonalAccessTokenCreatedBy instantiates a new PersonalAccessTokenCreatedBy object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o PersonalAccessTokenCreatedBy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PersonalAccessTokenCreatedBy) UnmarshalJSON(data []byte) (err error) {
+	varPersonalAccessTokenCreatedBy := _PersonalAccessTokenCreatedBy{}
+
+	err = json.Unmarshal(data, &varPersonalAccessTokenCreatedBy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PersonalAccessTokenCreatedBy(varPersonalAccessTokenCreatedBy)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePersonalAccessTokenCreatedBy struct {

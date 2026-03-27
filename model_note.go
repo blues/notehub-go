@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -35,7 +34,8 @@ type Note struct {
 	// Unix epoch seconds.
 	Time int64 `json:"time"`
 	// Optional location/metadata string.
-	Where *string `json:"where,omitempty"`
+	Where                *string `json:"where,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Note Note
@@ -285,6 +285,11 @@ func (o Note) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Where) {
 		toSerialize["where"] = o.Where
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -314,15 +319,26 @@ func (o *Note) UnmarshalJSON(data []byte) (err error) {
 
 	varNote := _Note{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNote)
+	err = json.Unmarshal(data, &varNote)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Note(varNote)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "body")
+		delete(additionalProperties, "edge")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "payload")
+		delete(additionalProperties, "pending")
+		delete(additionalProperties, "time")
+		delete(additionalProperties, "where")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

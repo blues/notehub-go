@@ -25,8 +25,11 @@ type RouteTransformSettings struct {
 	// JSONata expression used to transform the data payload (outgoing).
 	Jsonata *string `json:"jsonata,omitempty"`
 	// JSONata expression used to transform the data payload (incoming).
-	JsonataIn *string `json:"jsonata_in,omitempty"`
+	JsonataIn            *string `json:"jsonata_in,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RouteTransformSettings RouteTransformSettings
 
 // NewRouteTransformSettings instantiates a new RouteTransformSettings object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o RouteTransformSettings) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.JsonataIn) {
 		toSerialize["jsonata_in"] = o.JsonataIn
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RouteTransformSettings) UnmarshalJSON(data []byte) (err error) {
+	varRouteTransformSettings := _RouteTransformSettings{}
+
+	err = json.Unmarshal(data, &varRouteTransformSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RouteTransformSettings(varRouteTransformSettings)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "format")
+		delete(additionalProperties, "jsonata")
+		delete(additionalProperties, "jsonata_in")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRouteTransformSettings struct {

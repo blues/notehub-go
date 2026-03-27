@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type GetAlerts200Response struct {
 	// The list of alerts
 	Alerts []Alert `json:"alerts"`
 	// True if there are more alerts
-	HasMore bool `json:"has_more"`
+	HasMore              bool `json:"has_more"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetAlerts200Response GetAlerts200Response
@@ -109,6 +109,11 @@ func (o GetAlerts200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["alerts"] = o.Alerts
 	toSerialize["has_more"] = o.HasMore
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *GetAlerts200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetAlerts200Response := _GetAlerts200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetAlerts200Response)
+	err = json.Unmarshal(data, &varGetAlerts200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetAlerts200Response(varGetAlerts200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alerts")
+		delete(additionalProperties, "has_more")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

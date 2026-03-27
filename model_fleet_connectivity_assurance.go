@@ -21,8 +21,11 @@ var _ MappedNullable = &FleetConnectivityAssurance{}
 // FleetConnectivityAssurance struct for FleetConnectivityAssurance
 type FleetConnectivityAssurance struct {
 	// Whether Connectivity Assurance is enabled for this fleet
-	Enabled NullableBool `json:"enabled,omitempty"`
+	Enabled              NullableBool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FleetConnectivityAssurance FleetConnectivityAssurance
 
 // NewFleetConnectivityAssurance instantiates a new FleetConnectivityAssurance object
 // This constructor will assign default values to properties that have it defined,
@@ -97,7 +100,33 @@ func (o FleetConnectivityAssurance) ToMap() (map[string]interface{}, error) {
 	if o.Enabled.IsSet() {
 		toSerialize["enabled"] = o.Enabled.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FleetConnectivityAssurance) UnmarshalJSON(data []byte) (err error) {
+	varFleetConnectivityAssurance := _FleetConnectivityAssurance{}
+
+	err = json.Unmarshal(data, &varFleetConnectivityAssurance)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FleetConnectivityAssurance(varFleetConnectivityAssurance)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFleetConnectivityAssurance struct {

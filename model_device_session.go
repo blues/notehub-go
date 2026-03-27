@@ -97,8 +97,11 @@ type DeviceSession struct {
 	// Reason for session opening
 	WhySessionOpened *string `json:"why_session_opened,omitempty"`
 	// Unix timestamp of the last time work was done for this session
-	Work *int64 `json:"work,omitempty"`
+	Work                 *int64 `json:"work,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeviceSession DeviceSession
 
 // NewDeviceSession instantiates a new DeviceSession object
 // This constructor will assign default values to properties that have it defined,
@@ -2122,7 +2125,89 @@ func (o DeviceSession) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Work) {
 		toSerialize["work"] = o.Work
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeviceSession) UnmarshalJSON(data []byte) (err error) {
+	varDeviceSession := _DeviceSession{}
+
+	err = json.Unmarshal(data, &varDeviceSession)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeviceSession(varDeviceSession)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apn")
+		delete(additionalProperties, "bars")
+		delete(additionalProperties, "bearer")
+		delete(additionalProperties, "bssid")
+		delete(additionalProperties, "cell")
+		delete(additionalProperties, "continuous")
+		delete(additionalProperties, "device")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "failed_connects")
+		delete(additionalProperties, "fleets")
+		delete(additionalProperties, "hp_cycles_data")
+		delete(additionalProperties, "hp_cycles_gps")
+		delete(additionalProperties, "hp_cycles_total")
+		delete(additionalProperties, "hp_secs_data")
+		delete(additionalProperties, "hp_secs_gps")
+		delete(additionalProperties, "hp_secs_total")
+		delete(additionalProperties, "iccid")
+		delete(additionalProperties, "ip")
+		delete(additionalProperties, "moved")
+		delete(additionalProperties, "orientation")
+		delete(additionalProperties, "penalty_secs")
+		delete(additionalProperties, "period")
+		delete(additionalProperties, "power_charging")
+		delete(additionalProperties, "power_mah")
+		delete(additionalProperties, "power_primary")
+		delete(additionalProperties, "power_usb")
+		delete(additionalProperties, "product")
+		delete(additionalProperties, "rat")
+		delete(additionalProperties, "rsrp")
+		delete(additionalProperties, "rsrq")
+		delete(additionalProperties, "rssi")
+		delete(additionalProperties, "scan")
+		delete(additionalProperties, "session")
+		delete(additionalProperties, "session_began")
+		delete(additionalProperties, "session_ended")
+		delete(additionalProperties, "sinr")
+		delete(additionalProperties, "sn")
+		delete(additionalProperties, "ssid")
+		delete(additionalProperties, "temp")
+		delete(additionalProperties, "tls")
+		delete(additionalProperties, "tower")
+		delete(additionalProperties, "transport")
+		delete(additionalProperties, "tri")
+		delete(additionalProperties, "triangulate")
+		delete(additionalProperties, "usage_actual")
+		delete(additionalProperties, "voltage")
+		delete(additionalProperties, "when")
+		delete(additionalProperties, "where")
+		delete(additionalProperties, "where_country")
+		delete(additionalProperties, "where_lat")
+		delete(additionalProperties, "where_location")
+		delete(additionalProperties, "where_lon")
+		delete(additionalProperties, "where_timezone")
+		delete(additionalProperties, "where_when")
+		delete(additionalProperties, "why_session_closed")
+		delete(additionalProperties, "why_session_opened")
+		delete(additionalProperties, "work")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeviceSession struct {

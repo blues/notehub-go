@@ -25,8 +25,11 @@ type Repository struct {
 	Name        *string  `json:"name,omitempty"`
 	ProjectUids []string `json:"project_uids,omitempty"`
 	// The unique identifier for the data repository
-	Uid *string `json:"uid,omitempty"`
+	Uid                  *string `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Repository Repository
 
 // NewRepository instantiates a new Repository object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o Repository) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Repository) UnmarshalJSON(data []byte) (err error) {
+	varRepository := _Repository{}
+
+	err = json.Unmarshal(data, &varRepository)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Repository(varRepository)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fleet_uids")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "project_uids")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRepository struct {

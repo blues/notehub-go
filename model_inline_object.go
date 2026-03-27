@@ -23,8 +23,11 @@ type InlineObject struct {
 	// true when a template is active on the Notefile.
 	Template *bool `json:"template,omitempty"`
 	// The total number of notes active on the Notefile.
-	Total *int32 `json:"total,omitempty"`
+	Total                *int32 `json:"total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InlineObject InlineObject
 
 // NewInlineObject instantiates a new InlineObject object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o InlineObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InlineObject) UnmarshalJSON(data []byte) (err error) {
+	varInlineObject := _InlineObject{}
+
+	err = json.Unmarshal(data, &varInlineObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InlineObject(varInlineObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "template")
+		delete(additionalProperties, "total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInlineObject struct {

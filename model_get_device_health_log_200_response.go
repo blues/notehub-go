@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &GetDeviceHealthLog200Response{}
 
 // GetDeviceHealthLog200Response struct for GetDeviceHealthLog200Response
 type GetDeviceHealthLog200Response struct {
-	HealthLog []GetDeviceHealthLog200ResponseHealthLogInner `json:"health_log"`
+	HealthLog            []GetDeviceHealthLog200ResponseHealthLogInner `json:"health_log"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetDeviceHealthLog200Response GetDeviceHealthLog200Response
@@ -80,6 +80,11 @@ func (o GetDeviceHealthLog200Response) MarshalJSON() ([]byte, error) {
 func (o GetDeviceHealthLog200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["health_log"] = o.HealthLog
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *GetDeviceHealthLog200Response) UnmarshalJSON(data []byte) (err error) {
 
 	varGetDeviceHealthLog200Response := _GetDeviceHealthLog200Response{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetDeviceHealthLog200Response)
+	err = json.Unmarshal(data, &varGetDeviceHealthLog200Response)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetDeviceHealthLog200Response(varGetDeviceHealthLog200Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "health_log")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

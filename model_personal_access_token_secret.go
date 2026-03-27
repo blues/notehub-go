@@ -23,8 +23,11 @@ type PersonalAccessTokenSecret struct {
 	// The secret
 	Secret *string `json:"secret,omitempty"`
 	// Unique and public identifier
-	Uid *string `json:"uid,omitempty"`
+	Uid                  *string `json:"uid,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PersonalAccessTokenSecret PersonalAccessTokenSecret
 
 // NewPersonalAccessTokenSecret instantiates a new PersonalAccessTokenSecret object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o PersonalAccessTokenSecret) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PersonalAccessTokenSecret) UnmarshalJSON(data []byte) (err error) {
+	varPersonalAccessTokenSecret := _PersonalAccessTokenSecret{}
+
+	err = json.Unmarshal(data, &varPersonalAccessTokenSecret)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PersonalAccessTokenSecret(varPersonalAccessTokenSecret)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "secret")
+		delete(additionalProperties, "uid")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePersonalAccessTokenSecret struct {

@@ -45,8 +45,11 @@ type Alert struct {
 	// The value that triggered the alert
 	Value *float32 `json:"value,omitempty"`
 	// The version of the alert
-	Version *int32 `json:"version,omitempty"`
+	Version              *int32 `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Alert Alert
 
 // NewAlert instantiates a new Alert object
 // This constructor will assign default values to properties that have it defined,
@@ -565,7 +568,46 @@ func (o Alert) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Alert) UnmarshalJSON(data []byte) (err error) {
+	varAlert := _Alert{}
+
+	err = json.Unmarshal(data, &varAlert)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Alert(varAlert)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alert_source")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "data")
+		delete(additionalProperties, "device_uid")
+		delete(additionalProperties, "field_name")
+		delete(additionalProperties, "monitor_name")
+		delete(additionalProperties, "monitor_type")
+		delete(additionalProperties, "monitor_uid")
+		delete(additionalProperties, "notifications")
+		delete(additionalProperties, "resolved")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAlert struct {
