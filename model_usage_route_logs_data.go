@@ -22,8 +22,10 @@ var _ MappedNullable = &UsageRouteLogsData{}
 
 // UsageRouteLogsData struct for UsageRouteLogsData
 type UsageRouteLogsData struct {
-	FailedRoutes int64     `json:"failed_routes"`
-	Period       time.Time `json:"period"`
+	// Average routing latency in milliseconds for route logs with recorded duration
+	AvgLatencyMs NullableFloat64 `json:"avg_latency_ms,omitempty"`
+	FailedRoutes int64           `json:"failed_routes"`
+	Period       time.Time       `json:"period"`
 	// The route UID (only present when aggregate is 'route')
 	Route                *string `json:"route,omitempty"`
 	SuccessfulRoutes     int64   `json:"successful_routes"`
@@ -52,6 +54,49 @@ func NewUsageRouteLogsData(failedRoutes int64, period time.Time, successfulRoute
 func NewUsageRouteLogsDataWithDefaults() *UsageRouteLogsData {
 	this := UsageRouteLogsData{}
 	return &this
+}
+
+// GetAvgLatencyMs returns the AvgLatencyMs field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageRouteLogsData) GetAvgLatencyMs() float64 {
+	if o == nil || IsNil(o.AvgLatencyMs.Get()) {
+		var ret float64
+		return ret
+	}
+	return *o.AvgLatencyMs.Get()
+}
+
+// GetAvgLatencyMsOk returns a tuple with the AvgLatencyMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageRouteLogsData) GetAvgLatencyMsOk() (*float64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AvgLatencyMs.Get(), o.AvgLatencyMs.IsSet()
+}
+
+// HasAvgLatencyMs returns a boolean if a field has been set.
+func (o *UsageRouteLogsData) HasAvgLatencyMs() bool {
+	if o != nil && o.AvgLatencyMs.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAvgLatencyMs gets a reference to the given NullableFloat64 and assigns it to the AvgLatencyMs field.
+func (o *UsageRouteLogsData) SetAvgLatencyMs(v float64) {
+	o.AvgLatencyMs.Set(&v)
+}
+
+// SetAvgLatencyMsNil sets the value for AvgLatencyMs to be an explicit nil
+func (o *UsageRouteLogsData) SetAvgLatencyMsNil() {
+	o.AvgLatencyMs.Set(nil)
+}
+
+// UnsetAvgLatencyMs ensures that no value is present for AvgLatencyMs, not even an explicit nil
+func (o *UsageRouteLogsData) UnsetAvgLatencyMs() {
+	o.AvgLatencyMs.Unset()
 }
 
 // GetFailedRoutes returns the FailedRoutes field value
@@ -192,6 +237,9 @@ func (o UsageRouteLogsData) MarshalJSON() ([]byte, error) {
 
 func (o UsageRouteLogsData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AvgLatencyMs.IsSet() {
+		toSerialize["avg_latency_ms"] = o.AvgLatencyMs.Get()
+	}
 	toSerialize["failed_routes"] = o.FailedRoutes
 	toSerialize["period"] = o.Period
 	if !IsNil(o.Route) {
@@ -245,6 +293,7 @@ func (o *UsageRouteLogsData) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "avg_latency_ms")
 		delete(additionalProperties, "failed_routes")
 		delete(additionalProperties, "period")
 		delete(additionalProperties, "route")

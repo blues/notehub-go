@@ -2,20 +2,22 @@
 
 ## Properties
 
-| Name             | Type                  | Description                                  | Notes      |
-| ---------------- | --------------------- | -------------------------------------------- | ---------- |
-| **Built**        | Pointer to **string** | The date the firmware was built.             | [optional] |
-| **Created**      | Pointer to **string** | The date the firmware was created.           | [optional] |
-| **Description**  | Pointer to **string** | A description of the firmware.               | [optional] |
-| **Filename**     | Pointer to **string** | The name of the firmware file.               | [optional] |
-| **Md5**          | Pointer to **string** | The MD5 hash of the firmware file.           | [optional] |
-| **Organization** | Pointer to **string** | The organization that owns the firmware.     | [optional] |
-| **Product**      | Pointer to **string** | The product that the firmware is for.        | [optional] |
-| **Published**    | Pointer to **bool**   | True if the firmware is published.           | [optional] |
-| **Tags**         | Pointer to **string** | A list of tags associated with the firmware. | [optional] |
-| **Target**       | Pointer to **string** | The target device for the firmware.          | [optional] |
-| **Type**         | Pointer to **string** | The type of firmware.                        | [optional] |
-| **Version**      | Pointer to **string** | The version of the firmware.                 | [optional] |
+| Name             | Type                                  | Description                                  | Notes      |
+| ---------------- | ------------------------------------- | -------------------------------------------- | ---------- |
+| **Built**        | Pointer to **string**                 | The date the firmware was built.             | [optional] |
+| **Created**      | Pointer to **string**                 | The date the firmware was created.           | [optional] |
+| **Description**  | Pointer to **string**                 | A description of the firmware.               | [optional] |
+| **Filename**     | Pointer to **string**                 | The name of the firmware file.               | [optional] |
+| **Info**         | Pointer to **map[string]interface{}** | User-defined metadata                        | [optional] |
+| **Md5**          | Pointer to **string**                 | The MD5 hash of the firmware file.           | [optional] |
+| **Notes**        | Pointer to **string**                 | User-defined notes                           | [optional] |
+| **Organization** | Pointer to **string**                 | The organization that owns the firmware.     | [optional] |
+| **Product**      | Pointer to **string**                 | The product that the firmware is for.        | [optional] |
+| **Published**    | Pointer to **bool**                   | True if the firmware is published.           | [optional] |
+| **Tags**         | Pointer to **string**                 | A list of tags associated with the firmware. | [optional] |
+| **Target**       | Pointer to **string**                 | The target device for the firmware.          | [optional] |
+| **Type**         | Pointer to **string**                 | The type of firmware.                        | [optional] |
+| **Version**      | Pointer to **string**                 | The version of the firmware.                 | [optional] |
 
 ## Methods
 
@@ -136,6 +138,31 @@ SetFilename sets Filename field to given value.
 
 HasFilename returns a boolean if a field has been set.
 
+### GetInfo
+
+`func (o *FirmwareInfo) GetInfo() map[string]interface{}`
+
+GetInfo returns the Info field if non-nil, zero value otherwise.
+
+### GetInfoOk
+
+`func (o *FirmwareInfo) GetInfoOk() (*map[string]interface{}, bool)`
+
+GetInfoOk returns a tuple with the Info field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInfo
+
+`func (o *FirmwareInfo) SetInfo(v map[string]interface{})`
+
+SetInfo sets Info field to given value.
+
+### HasInfo
+
+`func (o *FirmwareInfo) HasInfo() bool`
+
+HasInfo returns a boolean if a field has been set.
+
 ### GetMd5
 
 `func (o *FirmwareInfo) GetMd5() string`
@@ -160,6 +187,31 @@ SetMd5 sets Md5 field to given value.
 `func (o *FirmwareInfo) HasMd5() bool`
 
 HasMd5 returns a boolean if a field has been set.
+
+### GetNotes
+
+`func (o *FirmwareInfo) GetNotes() string`
+
+GetNotes returns the Notes field if non-nil, zero value otherwise.
+
+### GetNotesOk
+
+`func (o *FirmwareInfo) GetNotesOk() (*string, bool)`
+
+GetNotesOk returns a tuple with the Notes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotes
+
+`func (o *FirmwareInfo) SetNotes(v string)`
+
+SetNotes sets Notes field to given value.
+
+### HasNotes
+
+`func (o *FirmwareInfo) HasNotes() bool`
+
+HasNotes returns a boolean if a field has been set.
 
 ### GetOrganization
 

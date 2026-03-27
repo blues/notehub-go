@@ -2,15 +2,17 @@
 
 ## Properties
 
-| Name                  | Type                  | Description                                  | Notes      |
-| --------------------- | --------------------- | -------------------------------------------- | ---------- |
-| **Device**            | Pointer to **string** |                                              | [optional] |
-| **FirstSyncSessions** | **int64**             | Number of first sync sessions in this period |
-| **Fleet**             | Pointer to **string** |                                              | [optional] |
-| **Period**            | **time.Time**         |                                              |
-| **Sessions**          | **int64**             |                                              |
-| **TotalBytes**        | **int64**             |                                              |
-| **TotalDevices**      | **int64**             |                                              |
+| Name                    | Type                            | Description                                                                        | Notes      |
+| ----------------------- | ------------------------------- | ---------------------------------------------------------------------------------- | ---------- |
+| **Device**              | Pointer to **string**           |                                                                                    | [optional] |
+| **FirstSyncSessions**   | **int64**                       | Number of first sync sessions in this period                                       |
+| **Fleet**               | Pointer to **string**           |                                                                                    | [optional] |
+| **Period**              | **time.Time**                   |                                                                                    |
+| **Sessions**            | **int64**                       |                                                                                    |
+| **SessionsByTransport** | Pointer to **map[string]int64** | Count of sessions grouped by transport type prefix (e.g. cell, wifi, ntn, lorawan) | [optional] |
+| **TlsSessions**         | Pointer to **NullableInt64**    | Number of TLS sessions in this period                                              | [optional] |
+| **TotalBytes**          | **int64**                       |                                                                                    |
+| **TotalDevices**        | **int64**                       |                                                                                    |
 
 ## Methods
 
@@ -137,6 +139,68 @@ and a boolean to check if the value has been set.
 `func (o *UsageSessionsData) SetSessions(v int64)`
 
 SetSessions sets Sessions field to given value.
+
+### GetSessionsByTransport
+
+`func (o *UsageSessionsData) GetSessionsByTransport() map[string]int64`
+
+GetSessionsByTransport returns the SessionsByTransport field if non-nil, zero value otherwise.
+
+### GetSessionsByTransportOk
+
+`func (o *UsageSessionsData) GetSessionsByTransportOk() (*map[string]int64, bool)`
+
+GetSessionsByTransportOk returns a tuple with the SessionsByTransport field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSessionsByTransport
+
+`func (o *UsageSessionsData) SetSessionsByTransport(v map[string]int64)`
+
+SetSessionsByTransport sets SessionsByTransport field to given value.
+
+### HasSessionsByTransport
+
+`func (o *UsageSessionsData) HasSessionsByTransport() bool`
+
+HasSessionsByTransport returns a boolean if a field has been set.
+
+### GetTlsSessions
+
+`func (o *UsageSessionsData) GetTlsSessions() int64`
+
+GetTlsSessions returns the TlsSessions field if non-nil, zero value otherwise.
+
+### GetTlsSessionsOk
+
+`func (o *UsageSessionsData) GetTlsSessionsOk() (*int64, bool)`
+
+GetTlsSessionsOk returns a tuple with the TlsSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTlsSessions
+
+`func (o *UsageSessionsData) SetTlsSessions(v int64)`
+
+SetTlsSessions sets TlsSessions field to given value.
+
+### HasTlsSessions
+
+`func (o *UsageSessionsData) HasTlsSessions() bool`
+
+HasTlsSessions returns a boolean if a field has been set.
+
+### SetTlsSessionsNil
+
+`func (o *UsageSessionsData) SetTlsSessionsNil(b bool)`
+
+SetTlsSessionsNil sets the value for TlsSessions to be an explicit nil
+
+### UnsetTlsSessions
+
+`func (o *UsageSessionsData) UnsetTlsSessions()`
+
+UnsetTlsSessions ensures that no value is present for TlsSessions, not even an explicit nil
 
 ### GetTotalBytes
 
