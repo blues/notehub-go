@@ -28,8 +28,12 @@ type FirmwareInfo struct {
 	Description *string `json:"description,omitempty"`
 	// The name of the firmware file.
 	Filename *string `json:"filename,omitempty"`
+	// User-defined metadata
+	Info map[string]interface{} `json:"info,omitempty"`
 	// The MD5 hash of the firmware file.
 	Md5 *string `json:"md5,omitempty"`
+	// User-defined notes
+	Notes *string `json:"notes,omitempty"`
 	// The organization that owns the firmware.
 	Organization *string `json:"organization,omitempty"`
 	// The product that the firmware is for.
@@ -194,6 +198,38 @@ func (o *FirmwareInfo) SetFilename(v string) {
 	o.Filename = &v
 }
 
+// GetInfo returns the Info field value if set, zero value otherwise.
+func (o *FirmwareInfo) GetInfo() map[string]interface{} {
+	if o == nil || IsNil(o.Info) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Info
+}
+
+// GetInfoOk returns a tuple with the Info field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FirmwareInfo) GetInfoOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Info) {
+		return map[string]interface{}{}, false
+	}
+	return o.Info, true
+}
+
+// HasInfo returns a boolean if a field has been set.
+func (o *FirmwareInfo) HasInfo() bool {
+	if o != nil && !IsNil(o.Info) {
+		return true
+	}
+
+	return false
+}
+
+// SetInfo gets a reference to the given map[string]interface{} and assigns it to the Info field.
+func (o *FirmwareInfo) SetInfo(v map[string]interface{}) {
+	o.Info = v
+}
+
 // GetMd5 returns the Md5 field value if set, zero value otherwise.
 func (o *FirmwareInfo) GetMd5() string {
 	if o == nil || IsNil(o.Md5) {
@@ -224,6 +260,38 @@ func (o *FirmwareInfo) HasMd5() bool {
 // SetMd5 gets a reference to the given string and assigns it to the Md5 field.
 func (o *FirmwareInfo) SetMd5(v string) {
 	o.Md5 = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *FirmwareInfo) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FirmwareInfo) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *FirmwareInfo) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *FirmwareInfo) SetNotes(v string) {
+	o.Notes = &v
 }
 
 // GetOrganization returns the Organization field value if set, zero value otherwise.
@@ -472,8 +540,14 @@ func (o FirmwareInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Filename) {
 		toSerialize["filename"] = o.Filename
 	}
+	if !IsNil(o.Info) {
+		toSerialize["info"] = o.Info
+	}
 	if !IsNil(o.Md5) {
 		toSerialize["md5"] = o.Md5
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
 	}
 	if !IsNil(o.Organization) {
 		toSerialize["organization"] = o.Organization
@@ -522,7 +596,9 @@ func (o *FirmwareInfo) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "filename")
+		delete(additionalProperties, "info")
 		delete(additionalProperties, "md5")
+		delete(additionalProperties, "notes")
 		delete(additionalProperties, "organization")
 		delete(additionalProperties, "product")
 		delete(additionalProperties, "published")

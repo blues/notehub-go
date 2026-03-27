@@ -2,13 +2,14 @@
 
 ## Properties
 
-| Name                 | Type                  | Description                                                    | Notes      |
-| -------------------- | --------------------- | -------------------------------------------------------------- | ---------- |
-| **FailedRoutes**     | **int64**             |                                                                |
-| **Period**           | **time.Time**         |                                                                |
-| **Route**            | Pointer to **string** | The route UID (only present when aggregate is &#39;route&#39;) | [optional] |
-| **SuccessfulRoutes** | **int64**             |                                                                |
-| **TotalRoutes**      | **int64**             |                                                                |
+| Name                 | Type                           | Description                                                                   | Notes      |
+| -------------------- | ------------------------------ | ----------------------------------------------------------------------------- | ---------- |
+| **AvgLatencyMs**     | Pointer to **NullableFloat64** | Average routing latency in milliseconds for route logs with recorded duration | [optional] |
+| **FailedRoutes**     | **int64**                      |                                                                               |
+| **Period**           | **time.Time**                  |                                                                               |
+| **Route**            | Pointer to **string**          | The route UID (only present when aggregate is &#39;route&#39;)                | [optional] |
+| **SuccessfulRoutes** | **int64**                      |                                                                               |
+| **TotalRoutes**      | **int64**                      |                                                                               |
 
 ## Methods
 
@@ -28,6 +29,43 @@ will change when the set of required properties is changed
 NewUsageRouteLogsDataWithDefaults instantiates a new UsageRouteLogsData object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAvgLatencyMs
+
+`func (o *UsageRouteLogsData) GetAvgLatencyMs() float64`
+
+GetAvgLatencyMs returns the AvgLatencyMs field if non-nil, zero value otherwise.
+
+### GetAvgLatencyMsOk
+
+`func (o *UsageRouteLogsData) GetAvgLatencyMsOk() (*float64, bool)`
+
+GetAvgLatencyMsOk returns a tuple with the AvgLatencyMs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvgLatencyMs
+
+`func (o *UsageRouteLogsData) SetAvgLatencyMs(v float64)`
+
+SetAvgLatencyMs sets AvgLatencyMs field to given value.
+
+### HasAvgLatencyMs
+
+`func (o *UsageRouteLogsData) HasAvgLatencyMs() bool`
+
+HasAvgLatencyMs returns a boolean if a field has been set.
+
+### SetAvgLatencyMsNil
+
+`func (o *UsageRouteLogsData) SetAvgLatencyMsNil(b bool)`
+
+SetAvgLatencyMsNil sets the value for AvgLatencyMs to be an explicit nil
+
+### UnsetAvgLatencyMs
+
+`func (o *UsageRouteLogsData) UnsetAvgLatencyMs()`
+
+UnsetAvgLatencyMs ensures that no value is present for AvgLatencyMs, not even an explicit nil
 
 ### GetFailedRoutes
 

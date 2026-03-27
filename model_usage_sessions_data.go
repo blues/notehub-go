@@ -24,12 +24,16 @@ var _ MappedNullable = &UsageSessionsData{}
 type UsageSessionsData struct {
 	Device *string `json:"device,omitempty"`
 	// Number of first sync sessions in this period
-	FirstSyncSessions    int64     `json:"first_sync_sessions"`
-	Fleet                *string   `json:"fleet,omitempty"`
-	Period               time.Time `json:"period"`
-	Sessions             int64     `json:"sessions"`
-	TotalBytes           int64     `json:"total_bytes"`
-	TotalDevices         int64     `json:"total_devices"`
+	FirstSyncSessions int64     `json:"first_sync_sessions"`
+	Fleet             *string   `json:"fleet,omitempty"`
+	Period            time.Time `json:"period"`
+	Sessions          int64     `json:"sessions"`
+	// Count of sessions grouped by transport type prefix (e.g. cell, wifi, ntn, lorawan)
+	SessionsByTransport *map[string]int64 `json:"sessions_by_transport,omitempty"`
+	// Number of TLS sessions in this period
+	TlsSessions          NullableInt64 `json:"tls_sessions,omitempty"`
+	TotalBytes           int64         `json:"total_bytes"`
+	TotalDevices         int64         `json:"total_devices"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -193,6 +197,81 @@ func (o *UsageSessionsData) SetSessions(v int64) {
 	o.Sessions = v
 }
 
+// GetSessionsByTransport returns the SessionsByTransport field value if set, zero value otherwise.
+func (o *UsageSessionsData) GetSessionsByTransport() map[string]int64 {
+	if o == nil || IsNil(o.SessionsByTransport) {
+		var ret map[string]int64
+		return ret
+	}
+	return *o.SessionsByTransport
+}
+
+// GetSessionsByTransportOk returns a tuple with the SessionsByTransport field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSessionsData) GetSessionsByTransportOk() (*map[string]int64, bool) {
+	if o == nil || IsNil(o.SessionsByTransport) {
+		return nil, false
+	}
+	return o.SessionsByTransport, true
+}
+
+// HasSessionsByTransport returns a boolean if a field has been set.
+func (o *UsageSessionsData) HasSessionsByTransport() bool {
+	if o != nil && !IsNil(o.SessionsByTransport) {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionsByTransport gets a reference to the given map[string]int64 and assigns it to the SessionsByTransport field.
+func (o *UsageSessionsData) SetSessionsByTransport(v map[string]int64) {
+	o.SessionsByTransport = &v
+}
+
+// GetTlsSessions returns the TlsSessions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UsageSessionsData) GetTlsSessions() int64 {
+	if o == nil || IsNil(o.TlsSessions.Get()) {
+		var ret int64
+		return ret
+	}
+	return *o.TlsSessions.Get()
+}
+
+// GetTlsSessionsOk returns a tuple with the TlsSessions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UsageSessionsData) GetTlsSessionsOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TlsSessions.Get(), o.TlsSessions.IsSet()
+}
+
+// HasTlsSessions returns a boolean if a field has been set.
+func (o *UsageSessionsData) HasTlsSessions() bool {
+	if o != nil && o.TlsSessions.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTlsSessions gets a reference to the given NullableInt64 and assigns it to the TlsSessions field.
+func (o *UsageSessionsData) SetTlsSessions(v int64) {
+	o.TlsSessions.Set(&v)
+}
+
+// SetTlsSessionsNil sets the value for TlsSessions to be an explicit nil
+func (o *UsageSessionsData) SetTlsSessionsNil() {
+	o.TlsSessions.Set(nil)
+}
+
+// UnsetTlsSessions ensures that no value is present for TlsSessions, not even an explicit nil
+func (o *UsageSessionsData) UnsetTlsSessions() {
+	o.TlsSessions.Unset()
+}
+
 // GetTotalBytes returns the TotalBytes field value
 func (o *UsageSessionsData) GetTotalBytes() int64 {
 	if o == nil {
@@ -260,6 +339,12 @@ func (o UsageSessionsData) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["period"] = o.Period
 	toSerialize["sessions"] = o.Sessions
+	if !IsNil(o.SessionsByTransport) {
+		toSerialize["sessions_by_transport"] = o.SessionsByTransport
+	}
+	if o.TlsSessions.IsSet() {
+		toSerialize["tls_sessions"] = o.TlsSessions.Get()
+	}
 	toSerialize["total_bytes"] = o.TotalBytes
 	toSerialize["total_devices"] = o.TotalDevices
 
@@ -314,6 +399,8 @@ func (o *UsageSessionsData) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fleet")
 		delete(additionalProperties, "period")
 		delete(additionalProperties, "sessions")
+		delete(additionalProperties, "sessions_by_transport")
+		delete(additionalProperties, "tls_sessions")
 		delete(additionalProperties, "total_bytes")
 		delete(additionalProperties, "total_devices")
 		o.AdditionalProperties = additionalProperties
