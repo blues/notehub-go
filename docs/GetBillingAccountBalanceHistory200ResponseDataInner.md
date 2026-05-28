@@ -6,12 +6,13 @@
 | -------------------------- | ------------- | ----------- | ----- |
 | **Period**                 | **time.Time** |             |
 | **RemainingEventCapacity** | **int64**     |             |
+| **TotalEventCapacityUsed** | **int64**     |             |
 
 ## Methods
 
 ### NewGetBillingAccountBalanceHistory200ResponseDataInner
 
-`func NewGetBillingAccountBalanceHistory200ResponseDataInner(period time.Time, remainingEventCapacity int64, ) *GetBillingAccountBalanceHistory200ResponseDataInner`
+`func NewGetBillingAccountBalanceHistory200ResponseDataInner(period time.Time, remainingEventCapacity int64, totalEventCapacityUsed int64, ) *GetBillingAccountBalanceHistory200ResponseDataInner`
 
 NewGetBillingAccountBalanceHistory200ResponseDataInner instantiates a new GetBillingAccountBalanceHistory200ResponseDataInner object
 This constructor will assign default values to properties that have it defined,
@@ -63,5 +64,24 @@ and a boolean to check if the value has been set.
 `func (o *GetBillingAccountBalanceHistory200ResponseDataInner) SetRemainingEventCapacity(v int64)`
 
 SetRemainingEventCapacity sets RemainingEventCapacity field to given value.
+
+### GetTotalEventCapacityUsed
+
+`func (o *GetBillingAccountBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsed() int64`
+
+GetTotalEventCapacityUsed returns the TotalEventCapacityUsed field if non-nil, zero value otherwise.
+
+### GetTotalEventCapacityUsedOk
+
+`func (o *GetBillingAccountBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsedOk() (*int64, bool)`
+
+GetTotalEventCapacityUsedOk returns a tuple with the TotalEventCapacityUsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalEventCapacityUsed
+
+`func (o *GetBillingAccountBalanceHistory200ResponseDataInner) SetTotalEventCapacityUsed(v int64)`
+
+SetTotalEventCapacityUsed sets TotalEventCapacityUsed field to given value.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
