@@ -23,6 +23,20 @@ func Test_notehub_WebhookAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test WebhookAPIService CreateLegacyWebhookEvent", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var deviceUID string
+
+		httpRes, err := apiClient.WebhookAPI.CreateLegacyWebhookEvent(context.Background(), productUID, deviceUID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test WebhookAPIService CreateWebhook", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -31,6 +45,35 @@ func Test_notehub_WebhookAPIService(t *testing.T) {
 		var webhookUID string
 
 		httpRes, err := apiClient.WebhookAPI.CreateWebhook(context.Background(), projectOrProductUID, webhookUID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test WebhookAPIService CreateWebhookDeviceEventByProduct", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var webhookUID string
+		var deviceUID string
+
+		httpRes, err := apiClient.WebhookAPI.CreateWebhookDeviceEventByProduct(context.Background(), productUID, webhookUID, deviceUID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test WebhookAPIService CreateWebhookEventByProduct", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var webhookUID string
+
+		httpRes, err := apiClient.WebhookAPI.CreateWebhookEventByProduct(context.Background(), productUID, webhookUID).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -66,6 +109,21 @@ func Test_notehub_WebhookAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test WebhookAPIService GetWebhookSettingsByProduct", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var webhookUID string
+
+		resp, httpRes, err := apiClient.WebhookAPI.GetWebhookSettingsByProduct(context.Background(), productUID, webhookUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test WebhookAPIService GetWebhooks", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -80,6 +138,20 @@ func Test_notehub_WebhookAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test WebhookAPIService UpdateLegacyWebhookSession", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var deviceUID string
+
+		httpRes, err := apiClient.WebhookAPI.UpdateLegacyWebhookSession(context.Background(), productUID, deviceUID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test WebhookAPIService UpdateWebhook", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -88,6 +160,20 @@ func Test_notehub_WebhookAPIService(t *testing.T) {
 		var webhookUID string
 
 		httpRes, err := apiClient.WebhookAPI.UpdateWebhook(context.Background(), projectOrProductUID, webhookUID).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test WebhookAPIService UpdateWebhookSettingsByProduct", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var productUID string
+		var webhookUID string
+
+		httpRes, err := apiClient.WebhookAPI.UpdateWebhookSettingsByProduct(context.Background(), productUID, webhookUID).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)

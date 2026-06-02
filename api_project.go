@@ -645,6 +645,151 @@ func (a *ProjectAPIService) CreateProjectExecute(r ApiCreateProjectRequest) (*Pr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiCreateProjectSecretRequest struct {
+	ctx                        context.Context
+	ApiService                 *ProjectAPIService
+	projectOrProductUID        string
+	createProjectSecretRequest *CreateProjectSecretRequest
+}
+
+func (r ApiCreateProjectSecretRequest) CreateProjectSecretRequest(createProjectSecretRequest CreateProjectSecretRequest) ApiCreateProjectSecretRequest {
+	r.createProjectSecretRequest = &createProjectSecretRequest
+	return r
+}
+
+func (r ApiCreateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response, error) {
+	return r.ApiService.CreateProjectSecretExecute(r)
+}
+
+/*
+CreateProjectSecret Method for CreateProjectSecret
+
+Create a new project secret
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@return ApiCreateProjectSecretRequest
+*/
+func (a *ProjectAPIService) CreateProjectSecret(ctx context.Context, projectOrProductUID string) ApiCreateProjectSecretRequest {
+	return ApiCreateProjectSecretRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProjectSecret
+func (a *ProjectAPIService) CreateProjectSecretExecute(r ApiCreateProjectSecretRequest) (*ProjectSecret, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProjectSecret
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.CreateProjectSecret")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/secrets"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createProjectSecretRequest == nil {
+		return localVarReturnValue, nil, reportError("createProjectSecretRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createProjectSecretRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiDeleteDeviceFromFleetsRequest struct {
 	ctx                           context.Context
 	ApiService                    *ProjectAPIService
@@ -771,6 +916,114 @@ func (a *ProjectAPIService) DeleteDeviceFromFleetsExecute(r ApiDeleteDeviceFromF
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDeleteFirmwareRequest struct {
+	ctx                 context.Context
+	ApiService          *ProjectAPIService
+	projectOrProductUID string
+	firmwareType        string
+	filename            string
+}
+
+func (r ApiDeleteFirmwareRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteFirmwareExecute(r)
+}
+
+/*
+DeleteFirmware Method for DeleteFirmware
+
+Delete a host firmware binary. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param firmwareType
+	@param filename
+	@return ApiDeleteFirmwareRequest
+*/
+func (a *ProjectAPIService) DeleteFirmware(ctx context.Context, projectOrProductUID string, firmwareType string, filename string) ApiDeleteFirmwareRequest {
+	return ApiDeleteFirmwareRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		firmwareType:        firmwareType,
+		filename:            filename,
+	}
+}
+
+// Execute executes the request
+func (a *ProjectAPIService) DeleteFirmwareExecute(r ApiDeleteFirmwareRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DeleteFirmware")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"firmwareType"+"}", url.PathEscape(parameterValueToString(r.firmwareType, "firmwareType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"filename"+"}", url.PathEscape(parameterValueToString(r.filename, "filename")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiDeleteFleetRequest struct {
@@ -1315,6 +1568,121 @@ func (a *ProjectAPIService) DeleteProjectEnvironmentVariableExecute(r ApiDeleteP
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDeleteProjectSecretRequest struct {
+	ctx                 context.Context
+	ApiService          *ProjectAPIService
+	projectOrProductUID string
+	secretName          string
+}
+
+func (r ApiDeleteProjectSecretRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteProjectSecretExecute(r)
+}
+
+/*
+DeleteProjectSecret Method for DeleteProjectSecret
+
+Delete a project secret by name
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param secretName The name of the secret.
+	@return ApiDeleteProjectSecretRequest
+*/
+func (a *ProjectAPIService) DeleteProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiDeleteProjectSecretRequest {
+	return ApiDeleteProjectSecretRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		secretName:          secretName,
+	}
+}
+
+// Execute executes the request
+func (a *ProjectAPIService) DeleteProjectSecretExecute(r ApiDeleteProjectSecretRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.DeleteProjectSecret")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/secrets/{secretName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"secretName"+"}", url.PathEscape(parameterValueToString(r.secretName, "secretName")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiDisableGlobalEventTransformationRequest struct {
@@ -4155,6 +4523,118 @@ func (a *ProjectAPIService) GetProjectMembersExecute(r ApiGetProjectMembersReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetProjectSecretsRequest struct {
+	ctx                 context.Context
+	ApiService          *ProjectAPIService
+	projectOrProductUID string
+}
+
+func (r ApiGetProjectSecretsRequest) Execute() (*GetProjectSecretsResponse, *http.Response, error) {
+	return r.ApiService.GetProjectSecretsExecute(r)
+}
+
+/*
+GetProjectSecrets Method for GetProjectSecrets
+
+Get all secrets for a project (metadata only, values are never returned)
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@return ApiGetProjectSecretsRequest
+*/
+func (a *ProjectAPIService) GetProjectSecrets(ctx context.Context, projectOrProductUID string) ApiGetProjectSecretsRequest {
+	return ApiGetProjectSecretsRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetProjectSecretsResponse
+func (a *ProjectAPIService) GetProjectSecretsExecute(r ApiGetProjectSecretsRequest) (*GetProjectSecretsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetProjectSecretsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.GetProjectSecrets")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/secrets"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetProjectsRequest struct {
 	ctx        context.Context
 	ApiService *ProjectAPIService
@@ -4664,11 +5144,11 @@ type ApiSetGlobalEventTransformationRequest struct {
 	ctx                 context.Context
 	ApiService          *ProjectAPIService
 	projectOrProductUID string
-	body                *map[string]interface{}
+	body                *string
 }
 
 // JSONata expression which will be applied to each event before it is persisted and routed
-func (r ApiSetGlobalEventTransformationRequest) Body(body map[string]interface{}) ApiSetGlobalEventTransformationRequest {
+func (r ApiSetGlobalEventTransformationRequest) Body(body string) ApiSetGlobalEventTransformationRequest {
 	r.body = &body
 	return r
 }
@@ -4718,7 +5198,7 @@ func (a *ProjectAPIService) SetGlobalEventTransformationExecute(r ApiSetGlobalEv
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{"text/plain"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4892,6 +5372,138 @@ func (a *ProjectAPIService) SetProjectEnvironmentVariablesExecute(r ApiSetProjec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiUpdateFirmwareRequest struct {
+	ctx                       context.Context
+	ApiService                *ProjectAPIService
+	projectOrProductUID       string
+	firmwareType              string
+	filename                  string
+	updateHostFirmwareRequest *UpdateHostFirmwareRequest
+}
+
+// Firmware metadata fields to update. All fields are optional; only provided fields will be updated.
+func (r ApiUpdateFirmwareRequest) UpdateHostFirmwareRequest(updateHostFirmwareRequest UpdateHostFirmwareRequest) ApiUpdateFirmwareRequest {
+	r.updateHostFirmwareRequest = &updateHostFirmwareRequest
+	return r
+}
+
+func (r ApiUpdateFirmwareRequest) Execute() (*FirmwareInfo, *http.Response, error) {
+	return r.ApiService.UpdateFirmwareExecute(r)
+}
+
+/*
+UpdateFirmware Method for UpdateFirmware
+
+Update the metadata of an existing host firmware entry. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param firmwareType
+	@param filename
+	@return ApiUpdateFirmwareRequest
+*/
+func (a *ProjectAPIService) UpdateFirmware(ctx context.Context, projectOrProductUID string, firmwareType string, filename string) ApiUpdateFirmwareRequest {
+	return ApiUpdateFirmwareRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		firmwareType:        firmwareType,
+		filename:            filename,
+	}
+}
+
+// Execute executes the request
+//
+//	@return FirmwareInfo
+func (a *ProjectAPIService) UpdateFirmwareExecute(r ApiUpdateFirmwareRequest) (*FirmwareInfo, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *FirmwareInfo
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.UpdateFirmware")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"firmwareType"+"}", url.PathEscape(parameterValueToString(r.firmwareType, "firmwareType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"filename"+"}", url.PathEscape(parameterValueToString(r.filename, "filename")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateHostFirmwareRequest == nil {
+		return localVarReturnValue, nil, reportError("updateHostFirmwareRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateHostFirmwareRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiUpdateFleetRequest struct {
 	ctx                 context.Context
 	ApiService          *ProjectAPIService
@@ -4996,6 +5608,144 @@ func (a *ProjectAPIService) UpdateFleetExecute(r ApiUpdateFleetRequest) (*Fleet,
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateProjectSecretRequest struct {
+	ctx                        context.Context
+	ApiService                 *ProjectAPIService
+	projectOrProductUID        string
+	secretName                 string
+	updateProjectSecretRequest *UpdateProjectSecretRequest
+}
+
+func (r ApiUpdateProjectSecretRequest) UpdateProjectSecretRequest(updateProjectSecretRequest UpdateProjectSecretRequest) ApiUpdateProjectSecretRequest {
+	r.updateProjectSecretRequest = &updateProjectSecretRequest
+	return r
+}
+
+func (r ApiUpdateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response, error) {
+	return r.ApiService.UpdateProjectSecretExecute(r)
+}
+
+/*
+UpdateProjectSecret Method for UpdateProjectSecret
+
+Update the value of an existing project secret
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param secretName The name of the secret.
+	@return ApiUpdateProjectSecretRequest
+*/
+func (a *ProjectAPIService) UpdateProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiUpdateProjectSecretRequest {
+	return ApiUpdateProjectSecretRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		secretName:          secretName,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ProjectSecret
+func (a *ProjectAPIService) UpdateProjectSecretExecute(r ApiUpdateProjectSecretRequest) (*ProjectSecret, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPut
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ProjectSecret
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ProjectAPIService.UpdateProjectSecret")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/secrets/{secretName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"secretName"+"}", url.PathEscape(parameterValueToString(r.secretName, "secretName")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateProjectSecretRequest == nil {
+		return localVarReturnValue, nil, reportError("updateProjectSecretRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateProjectSecretRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		var v Error
 		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))

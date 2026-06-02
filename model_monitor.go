@@ -48,8 +48,14 @@ type Monitor struct {
 	// The type of source to monitor. Supported values are \"event\" and \"heartbeat\".
 	SourceType *string `json:"source_type,omitempty"`
 	// The type of condition to apply to the value selected by the source_selector
-	Threshold            *int32  `json:"threshold,omitempty"`
-	Uid                  *string `json:"uid,omitempty"`
+	Threshold *int32  `json:"threshold,omitempty"`
+	Uid       *string `json:"uid,omitempty"`
+	// For usage monitors: the scope of aggregation. Supported values are \"device\" and \"fleet\".
+	UsageScope *string `json:"usage_scope,omitempty"`
+	// For usage monitors: the type of data usage to monitor. Supported values are \"cellular\" and \"satellite\".
+	UsageType *string `json:"usage_type,omitempty"`
+	// For usage monitors: the rolling time window in days to sum usage over (e.g. 30 for 30 days).
+	UsageWindow          *int32 `json:"usage_window,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -648,6 +654,102 @@ func (o *Monitor) SetUid(v string) {
 	o.Uid = &v
 }
 
+// GetUsageScope returns the UsageScope field value if set, zero value otherwise.
+func (o *Monitor) GetUsageScope() string {
+	if o == nil || IsNil(o.UsageScope) {
+		var ret string
+		return ret
+	}
+	return *o.UsageScope
+}
+
+// GetUsageScopeOk returns a tuple with the UsageScope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetUsageScopeOk() (*string, bool) {
+	if o == nil || IsNil(o.UsageScope) {
+		return nil, false
+	}
+	return o.UsageScope, true
+}
+
+// HasUsageScope returns a boolean if a field has been set.
+func (o *Monitor) HasUsageScope() bool {
+	if o != nil && !IsNil(o.UsageScope) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageScope gets a reference to the given string and assigns it to the UsageScope field.
+func (o *Monitor) SetUsageScope(v string) {
+	o.UsageScope = &v
+}
+
+// GetUsageType returns the UsageType field value if set, zero value otherwise.
+func (o *Monitor) GetUsageType() string {
+	if o == nil || IsNil(o.UsageType) {
+		var ret string
+		return ret
+	}
+	return *o.UsageType
+}
+
+// GetUsageTypeOk returns a tuple with the UsageType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetUsageTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.UsageType) {
+		return nil, false
+	}
+	return o.UsageType, true
+}
+
+// HasUsageType returns a boolean if a field has been set.
+func (o *Monitor) HasUsageType() bool {
+	if o != nil && !IsNil(o.UsageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageType gets a reference to the given string and assigns it to the UsageType field.
+func (o *Monitor) SetUsageType(v string) {
+	o.UsageType = &v
+}
+
+// GetUsageWindow returns the UsageWindow field value if set, zero value otherwise.
+func (o *Monitor) GetUsageWindow() int32 {
+	if o == nil || IsNil(o.UsageWindow) {
+		var ret int32
+		return ret
+	}
+	return *o.UsageWindow
+}
+
+// GetUsageWindowOk returns a tuple with the UsageWindow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Monitor) GetUsageWindowOk() (*int32, bool) {
+	if o == nil || IsNil(o.UsageWindow) {
+		return nil, false
+	}
+	return o.UsageWindow, true
+}
+
+// HasUsageWindow returns a boolean if a field has been set.
+func (o *Monitor) HasUsageWindow() bool {
+	if o != nil && !IsNil(o.UsageWindow) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsageWindow gets a reference to the given int32 and assigns it to the UsageWindow field.
+func (o *Monitor) SetUsageWindow(v int32) {
+	o.UsageWindow = &v
+}
+
 func (o Monitor) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -712,6 +814,15 @@ func (o Monitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
+	if !IsNil(o.UsageScope) {
+		toSerialize["usage_scope"] = o.UsageScope
+	}
+	if !IsNil(o.UsageType) {
+		toSerialize["usage_type"] = o.UsageType
+	}
+	if !IsNil(o.UsageWindow) {
+		toSerialize["usage_window"] = o.UsageWindow
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -752,6 +863,9 @@ func (o *Monitor) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "source_type")
 		delete(additionalProperties, "threshold")
 		delete(additionalProperties, "uid")
+		delete(additionalProperties, "usage_scope")
+		delete(additionalProperties, "usage_type")
+		delete(additionalProperties, "usage_window")
 		o.AdditionalProperties = additionalProperties
 	}
 

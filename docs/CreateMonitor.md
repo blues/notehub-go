@@ -22,6 +22,9 @@
 | **SourceType**            | Pointer to **string**                                                  | The type of source to monitor. Supported values are \&quot;event\&quot; and \&quot;heartbeat\&quot;.                                                                            | [optional]                                                                                                      |
 | **Threshold**             | Pointer to **int32**                                                   | The type of condition to apply to the value selected by the source_selector                                                                                                     | [optional]                                                                                                      |
 | **Uid**                   | Pointer to **string**                                                  |                                                                                                                                                                                 | [optional]                                                                                                      |
+| **UsageScope**            | Pointer to **string**                                                  | For usage monitors: the scope of aggregation. Supported values are \&quot;device\&quot; and \&quot;fleet\&quot;.                                                                | [optional]                                                                                                      |
+| **UsageType**             | Pointer to **string**                                                  | For usage monitors: the type of data usage to monitor. Supported values are \&quot;cellular\&quot; and \&quot;satellite\&quot;.                                                 | [optional]                                                                                                      |
+| **UsageWindow**           | Pointer to **int32**                                                   | For usage monitors: the rolling time window in days to sum usage over (e.g. 30 for 30 days).                                                                                    | [optional]                                                                                                      |
 
 ## Methods
 
@@ -491,5 +494,80 @@ SetUid sets Uid field to given value.
 `func (o *CreateMonitor) HasUid() bool`
 
 HasUid returns a boolean if a field has been set.
+
+### GetUsageScope
+
+`func (o *CreateMonitor) GetUsageScope() string`
+
+GetUsageScope returns the UsageScope field if non-nil, zero value otherwise.
+
+### GetUsageScopeOk
+
+`func (o *CreateMonitor) GetUsageScopeOk() (*string, bool)`
+
+GetUsageScopeOk returns a tuple with the UsageScope field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsageScope
+
+`func (o *CreateMonitor) SetUsageScope(v string)`
+
+SetUsageScope sets UsageScope field to given value.
+
+### HasUsageScope
+
+`func (o *CreateMonitor) HasUsageScope() bool`
+
+HasUsageScope returns a boolean if a field has been set.
+
+### GetUsageType
+
+`func (o *CreateMonitor) GetUsageType() string`
+
+GetUsageType returns the UsageType field if non-nil, zero value otherwise.
+
+### GetUsageTypeOk
+
+`func (o *CreateMonitor) GetUsageTypeOk() (*string, bool)`
+
+GetUsageTypeOk returns a tuple with the UsageType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsageType
+
+`func (o *CreateMonitor) SetUsageType(v string)`
+
+SetUsageType sets UsageType field to given value.
+
+### HasUsageType
+
+`func (o *CreateMonitor) HasUsageType() bool`
+
+HasUsageType returns a boolean if a field has been set.
+
+### GetUsageWindow
+
+`func (o *CreateMonitor) GetUsageWindow() int32`
+
+GetUsageWindow returns the UsageWindow field if non-nil, zero value otherwise.
+
+### GetUsageWindowOk
+
+`func (o *CreateMonitor) GetUsageWindowOk() (*int32, bool)`
+
+GetUsageWindowOk returns a tuple with the UsageWindow field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsageWindow
+
+`func (o *CreateMonitor) SetUsageWindow(v int32)`
+
+SetUsageWindow sets UsageWindow field to given value.
+
+### HasUsageWindow
+
+`func (o *CreateMonitor) HasUsageWindow() bool`
+
+HasUsageWindow returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

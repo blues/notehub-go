@@ -19,6 +19,8 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
 | [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
 | [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     |
+| [**GetDeviceJourney**](DeviceAPI.md#GetDeviceJourney)                                     | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}           |
+| [**GetDeviceJourneys**](DeviceAPI.md#GetDeviceJourneys)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys                       |
 | [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         |
 | [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          |
 | [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     |
@@ -940,7 +942,7 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 
 ### Authorization
 
-No authorization required
+[personalAccessToken](../README.md#personalAccessToken)
 
 ### HTTP request headers
 
@@ -1008,6 +1010,146 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 ### Return type
 
 [**GetDeviceHealthLog200Response**](GetDeviceHealthLog200Response.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## GetDeviceJourney
+
+> GetDeviceJourney200Response GetDeviceJourney(ctx, projectOrProductUID, deviceUID, journeyID).PageSize(pageSize).PageNum(pageNum).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	deviceUID := "dev:000000000000000" // string |
+	journeyID := int64(789) // int64 | Identifier of the journey, taken from the `journey` field on `_track.qo` events (a Unix timestamp marking the start of the journey).
+	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageNum := int32(56) // int32 |  (optional) (default to 1)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.GetDeviceJourney(context.Background(), projectOrProductUID, deviceUID, journeyID).PageSize(pageSize).PageNum(pageNum).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDeviceJourney``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeviceJourney`: GetDeviceJourney200Response
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.GetDeviceJourney`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                                                                                               | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                                               |
+| **projectOrProductUID** | **string**          |                                                                                                                                                           |
+| **deviceUID**           | **string**          |                                                                                                                                                           |
+| **journeyID**           | **int64**           | Identifier of the journey, taken from the &#x60;journey&#x60; field on &#x60;\_track.qo&#x60; events (a Unix timestamp marking the start of the journey). |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDeviceJourneyRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**pageSize** | **int32** | | [default to 50]
+**pageNum** | **int32** | | [default to 1]
+
+### Return type
+
+[**GetDeviceJourney200Response**](GetDeviceJourney200Response.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## GetDeviceJourneys
+
+> GetDeviceJourneys200Response GetDeviceJourneys(ctx, projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	deviceUID := "dev:000000000000000" // string |
+	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.GetDeviceJourneys(context.Background(), projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDeviceJourneys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeviceJourneys`: GetDeviceJourneys200Response
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.GetDeviceJourneys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **deviceUID**           | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDeviceJourneysRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+
+### Return type
+
+[**GetDeviceJourneys200Response**](GetDeviceJourneys200Response.md)
 
 ### Authorization
 
@@ -1860,7 +2002,7 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 ### Authorization
 
-No authorization required
+[personalAccessToken](../README.md#personalAccessToken)
 
 ### HTTP request headers
 

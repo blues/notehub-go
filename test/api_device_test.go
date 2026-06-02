@@ -249,6 +249,37 @@ func Test_notehub_DeviceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test DeviceAPIService GetDeviceJourney", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var deviceUID string
+		var journeyID int64
+
+		resp, httpRes, err := apiClient.DeviceAPI.GetDeviceJourney(context.Background(), projectOrProductUID, deviceUID, journeyID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DeviceAPIService GetDeviceJourneys", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var deviceUID string
+
+		resp, httpRes, err := apiClient.DeviceAPI.GetDeviceJourneys(context.Background(), projectOrProductUID, deviceUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DeviceAPIService GetDeviceLatestEvents", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

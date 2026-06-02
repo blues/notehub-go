@@ -24,6 +24,7 @@ var _ MappedNullable = &GetBillingAccountBalanceHistory200ResponseDataInner{}
 type GetBillingAccountBalanceHistory200ResponseDataInner struct {
 	Period                 time.Time `json:"period"`
 	RemainingEventCapacity int64     `json:"remaining_event_capacity"`
+	TotalEventCapacityUsed int64     `json:"total_event_capacity_used"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -33,10 +34,11 @@ type _GetBillingAccountBalanceHistory200ResponseDataInner GetBillingAccountBalan
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillingAccountBalanceHistory200ResponseDataInner(period time.Time, remainingEventCapacity int64) *GetBillingAccountBalanceHistory200ResponseDataInner {
+func NewGetBillingAccountBalanceHistory200ResponseDataInner(period time.Time, remainingEventCapacity int64, totalEventCapacityUsed int64) *GetBillingAccountBalanceHistory200ResponseDataInner {
 	this := GetBillingAccountBalanceHistory200ResponseDataInner{}
 	this.Period = period
 	this.RemainingEventCapacity = remainingEventCapacity
+	this.TotalEventCapacityUsed = totalEventCapacityUsed
 	return &this
 }
 
@@ -96,6 +98,30 @@ func (o *GetBillingAccountBalanceHistory200ResponseDataInner) SetRemainingEventC
 	o.RemainingEventCapacity = v
 }
 
+// GetTotalEventCapacityUsed returns the TotalEventCapacityUsed field value
+func (o *GetBillingAccountBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsed() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.TotalEventCapacityUsed
+}
+
+// GetTotalEventCapacityUsedOk returns a tuple with the TotalEventCapacityUsed field value
+// and a boolean to check if the value has been set.
+func (o *GetBillingAccountBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsedOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalEventCapacityUsed, true
+}
+
+// SetTotalEventCapacityUsed sets field value
+func (o *GetBillingAccountBalanceHistory200ResponseDataInner) SetTotalEventCapacityUsed(v int64) {
+	o.TotalEventCapacityUsed = v
+}
+
 func (o GetBillingAccountBalanceHistory200ResponseDataInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -108,6 +134,7 @@ func (o GetBillingAccountBalanceHistory200ResponseDataInner) ToMap() (map[string
 	toSerialize := map[string]interface{}{}
 	toSerialize["period"] = o.Period
 	toSerialize["remaining_event_capacity"] = o.RemainingEventCapacity
+	toSerialize["total_event_capacity_used"] = o.TotalEventCapacityUsed
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -123,6 +150,7 @@ func (o *GetBillingAccountBalanceHistory200ResponseDataInner) UnmarshalJSON(data
 	requiredProperties := []string{
 		"period",
 		"remaining_event_capacity",
+		"total_event_capacity_used",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -154,6 +182,7 @@ func (o *GetBillingAccountBalanceHistory200ResponseDataInner) UnmarshalJSON(data
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "period")
 		delete(additionalProperties, "remaining_event_capacity")
+		delete(additionalProperties, "total_event_capacity_used")
 		o.AdditionalProperties = additionalProperties
 	}
 

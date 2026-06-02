@@ -162,7 +162,7 @@ func (r ApiGetBillingAccountBalanceHistoryRequest) Execute() (*GetBillingAccount
 /*
 GetBillingAccountBalanceHistory Method for GetBillingAccountBalanceHistory
 
-Get Billing Account Balance history, only enterprise supported
+Get Billing Account Balance history
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param billingAccountUID

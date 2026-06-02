@@ -9,12 +9,15 @@ All URIs are relative to *https://api.notefile.net*
 | [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          |
 | [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        |
 | [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       |
+| [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         |
 | [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    |
+| [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            |
 | [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             |
 | [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} |
 | [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         |
 | [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               |
 | [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   |
+| [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          |
 | [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   |
 | [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
 | [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    |
@@ -36,12 +39,15 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device          |
 | [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            |
 | [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          |
+| [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          |
 | [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        |
 | [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     |
 | [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
 | [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           |
 | [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            |
+| [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              |
 | [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
+| [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             |
 | [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
 
 ## AddDeviceToFleets
@@ -364,6 +370,71 @@ Other parameters are passed through a pointer to a apiCreateProjectRequest struc
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
+## CreateProjectSecret
+
+> ProjectSecret CreateProjectSecret(ctx, projectOrProductUID).CreateProjectSecretRequest(createProjectSecretRequest).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	createProjectSecretRequest := *openapiclient.NewCreateProjectSecretRequest("Name_example", "Value_example") // CreateProjectSecretRequest |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.CreateProjectSecret(context.Background(), projectOrProductUID).CreateProjectSecretRequest(createProjectSecretRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.CreateProjectSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateProjectSecret`: ProjectSecret
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.CreateProjectSecret`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateProjectSecretRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**createProjectSecretRequest** | [**CreateProjectSecretRequest**](CreateProjectSecretRequest.md) | |
+
+### Return type
+
+[**ProjectSecret**](ProjectSecret.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
 ## DeleteDeviceFromFleets
 
 > GetDeviceFleets200Response DeleteDeviceFromFleets(ctx, projectOrProductUID, deviceUID).DeleteDeviceFromFleetsRequest(deleteDeviceFromFleetsRequest).Execute()
@@ -425,6 +496,70 @@ Other parameters are passed through a pointer to a apiDeleteDeviceFromFleetsRequ
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## DeleteFirmware
+
+> DeleteFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	firmwareType := "firmwareType_example" // string |
+	filename := "filename_example" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProjectAPI.DeleteFirmware(context.Background(), projectOrProductUID, firmwareType, filename).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DeleteFirmware``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **firmwareType**        | **string**          |                                                                             |
+| **filename**            | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteFirmwareRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+(empty response body)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -731,6 +866,68 @@ Other parameters are passed through a pointer to a apiDeleteProjectEnvironmentVa
 ### Return type
 
 [**EnvironmentVariables**](EnvironmentVariables.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## DeleteProjectSecret
+
+> DeleteProjectSecret(ctx, projectOrProductUID, secretName).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	secretName := "secretName_example" // string | The name of the secret.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProjectAPI.DeleteProjectSecret(context.Background(), projectOrProductUID, secretName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.DeleteProjectSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **secretName**          | **string**          | The name of the secret.                                                     |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteProjectSecretRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+(empty response body)
 
 ### Authorization
 
@@ -1763,7 +1960,7 @@ Other parameters are passed through a pointer to a apiGetNotefileSchemasRequest 
 
 ### Authorization
 
-No authorization required
+[personalAccessToken](../README.md#personalAccessToken)
 
 ### HTTP request headers
 
@@ -2148,6 +2345,68 @@ Other parameters are passed through a pointer to a apiGetProjectMembersRequest s
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
+## GetProjectSecrets
+
+> GetProjectSecretsResponse GetProjectSecrets(ctx, projectOrProductUID).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.GetProjectSecrets(context.Background(), projectOrProductUID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetProjectSecrets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjectSecrets`: GetProjectSecretsResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.GetProjectSecrets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectSecretsRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+### Return type
+
+[**GetProjectSecretsResponse**](GetProjectSecretsResponse.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
 ## GetProjects
 
 > GetProjects200Response GetProjects(ctx).Execute()
@@ -2373,7 +2632,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	body := map[string]interface{}{ ... } // map[string]interface{} | JSONata expression which will be applied to each event before it is persisted and routed
+	body := "body_example" // string | JSONata expression which will be applied to each event before it is persisted and routed
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2399,7 +2658,7 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | **map[string]interface{}** | JSONata expression which will be applied to each event before it is persisted and routed |
+**body** | **string** | JSONata expression which will be applied to each event before it is persisted and routed |
 
 ### Return type
 
@@ -2411,7 +2670,7 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: text/plain
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -2483,6 +2742,75 @@ Other parameters are passed through a pointer to a apiSetProjectEnvironmentVaria
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
+## UpdateFirmware
+
+> FirmwareInfo UpdateFirmware(ctx, projectOrProductUID, firmwareType, filename).UpdateHostFirmwareRequest(updateHostFirmwareRequest).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	firmwareType := "firmwareType_example" // string |
+	filename := "filename_example" // string |
+	updateHostFirmwareRequest := *openapiclient.NewUpdateHostFirmwareRequest() // UpdateHostFirmwareRequest | Firmware metadata fields to update. All fields are optional; only provided fields will be updated.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.UpdateFirmware(context.Background(), projectOrProductUID, firmwareType, filename).UpdateHostFirmwareRequest(updateHostFirmwareRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.UpdateFirmware``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateFirmware`: FirmwareInfo
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.UpdateFirmware`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **firmwareType**        | **string**          |                                                                             |
+| **filename**            | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateFirmwareRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**updateHostFirmwareRequest** | [**UpdateHostFirmwareRequest**](UpdateHostFirmwareRequest.md) | Firmware metadata fields to update. All fields are optional; only provided fields will be updated. |
+
+### Return type
+
+[**FirmwareInfo**](FirmwareInfo.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
 ## UpdateFleet
 
 > Fleet UpdateFleet(ctx, projectOrProductUID, fleetUID).UpdateFleetRequest(updateFleetRequest).Execute()
@@ -2536,6 +2864,73 @@ Other parameters are passed through a pointer to a apiUpdateFleetRequest struct 
 ### Return type
 
 [**Fleet**](Fleet.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## UpdateProjectSecret
+
+> ProjectSecret UpdateProjectSecret(ctx, projectOrProductUID, secretName).UpdateProjectSecretRequest(updateProjectSecretRequest).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	secretName := "secretName_example" // string | The name of the secret.
+	updateProjectSecretRequest := *openapiclient.NewUpdateProjectSecretRequest("Value_example") // UpdateProjectSecretRequest |
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectAPI.UpdateProjectSecret(context.Background(), projectOrProductUID, secretName).UpdateProjectSecretRequest(updateProjectSecretRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.UpdateProjectSecret``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateProjectSecret`: ProjectSecret
+	fmt.Fprintf(os.Stdout, "Response from `ProjectAPI.UpdateProjectSecret`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+| **secretName**          | **string**          | The name of the secret.                                                     |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateProjectSecretRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**updateProjectSecretRequest** | [**UpdateProjectSecretRequest**](UpdateProjectSecretRequest.md) | |
+
+### Return type
+
+[**ProjectSecret**](ProjectSecret.md)
 
 ### Authorization
 

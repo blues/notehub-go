@@ -24,6 +24,7 @@ const (
 	BILLING_ADMIN   BillingAccountRole = "billing_admin"
 	BILLING_MANAGER BillingAccountRole = "billing_manager"
 	PROJECT_CREATOR BillingAccountRole = "project_creator"
+	BILLING_MEMBER  BillingAccountRole = "billing_member"
 )
 
 // All allowed values of BillingAccountRole enum
@@ -31,6 +32,7 @@ var AllowedBillingAccountRoleEnumValues = []BillingAccountRole{
 	"billing_admin",
 	"billing_manager",
 	"project_creator",
+	"billing_member",
 }
 
 func (v *BillingAccountRole) UnmarshalJSON(src []byte) error {
