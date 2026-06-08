@@ -65,6 +65,8 @@ type APIClient struct {
 
 	MonitorAPI *MonitorAPIService
 
+	OrganizationAPI *OrganizationAPIService
+
 	ProjectAPI *ProjectAPIService
 
 	RouteAPI *RouteAPIService
@@ -98,6 +100,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ExternalDevicesAPI = (*ExternalDevicesAPIService)(&c.common)
 	c.JobsAPI = (*JobsAPIService)(&c.common)
 	c.MonitorAPI = (*MonitorAPIService)(&c.common)
+	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ProjectAPI = (*ProjectAPIService)(&c.common)
 	c.RouteAPI = (*RouteAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)

@@ -21,16 +21,18 @@ var _ MappedNullable = &NotehubRoute{}
 
 // NotehubRoute Route resource as stored/returned by the server.
 type NotehubRoute struct {
-	Aws               *AwsRoute               `json:"aws,omitempty"`
-	Azure             *AzureRoute             `json:"azure,omitempty"`
-	Blynk             *BlynkRoute             `json:"blynk,omitempty"`
-	Datacake          *DatacakeRoute          `json:"datacake,omitempty"`
-	Disabled          *bool                   `json:"disabled,omitempty"`
-	Google            *GoogleRoute            `json:"google,omitempty"`
-	Http              *HttpRoute              `json:"http,omitempty"`
-	Label             *string                 `json:"label,omitempty"`
-	Modified          *time.Time              `json:"modified,omitempty"`
-	Mqtt              *MqttRoute              `json:"mqtt,omitempty"`
+	Aws      *AwsRoute      `json:"aws,omitempty"`
+	Azure    *AzureRoute    `json:"azure,omitempty"`
+	Blynk    *BlynkRoute    `json:"blynk,omitempty"`
+	Datacake *DatacakeRoute `json:"datacake,omitempty"`
+	Disabled *bool          `json:"disabled,omitempty"`
+	Google   *GoogleRoute   `json:"google,omitempty"`
+	Http     *HttpRoute     `json:"http,omitempty"`
+	Label    *string        `json:"label,omitempty"`
+	Modified *time.Time     `json:"modified,omitempty"`
+	Mqtt     *MqttRoute     `json:"mqtt,omitempty"`
+	// Optional free-form text for annotating the route.
+	Notes             *string                 `json:"notes,omitempty"`
 	Proxy             *ProxyRoute             `json:"proxy,omitempty"`
 	Qubitro           *QubitroRoute           `json:"qubitro,omitempty"`
 	Radnote           *RadRoute               `json:"radnote,omitempty"`
@@ -384,6 +386,38 @@ func (o *NotehubRoute) HasMqtt() bool {
 // SetMqtt gets a reference to the given MqttRoute and assigns it to the Mqtt field.
 func (o *NotehubRoute) SetMqtt(v MqttRoute) {
 	o.Mqtt = &v
+}
+
+// GetNotes returns the Notes field value if set, zero value otherwise.
+func (o *NotehubRoute) GetNotes() string {
+	if o == nil || IsNil(o.Notes) {
+		var ret string
+		return ret
+	}
+	return *o.Notes
+}
+
+// GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NotehubRoute) GetNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.Notes) {
+		return nil, false
+	}
+	return o.Notes, true
+}
+
+// HasNotes returns a boolean if a field has been set.
+func (o *NotehubRoute) HasNotes() bool {
+	if o != nil && !IsNil(o.Notes) {
+		return true
+	}
+
+	return false
+}
+
+// SetNotes gets a reference to the given string and assigns it to the Notes field.
+func (o *NotehubRoute) SetNotes(v string) {
+	o.Notes = &v
 }
 
 // GetProxy returns the Proxy field value if set, zero value otherwise.
@@ -777,6 +811,9 @@ func (o NotehubRoute) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Mqtt) {
 		toSerialize["mqtt"] = o.Mqtt
+	}
+	if !IsNil(o.Notes) {
+		toSerialize["notes"] = o.Notes
 	}
 	if !IsNil(o.Proxy) {
 		toSerialize["proxy"] = o.Proxy

@@ -7,6 +7,7 @@
 | **Broker**          | Pointer to **string**                                              |             | [optional] |
 | **Certificate**     | Pointer to **string**                                              |             | [optional] |
 | **CertificateName** | Pointer to **string**                                              |             | [optional] |
+| **ClientId**        | Pointer to **string**                                              |             | [optional] |
 | **Filter**          | Pointer to [**Filter**](Filter.md)                                 |             | [optional] |
 | **Fleets**          | Pointer to **[]string**                                            |             | [optional] |
 | **Key**             | Pointer to **string**                                              |             | [optional] |
@@ -112,6 +113,31 @@ SetCertificateName sets CertificateName field to given value.
 `func (o *MqttRoute) HasCertificateName() bool`
 
 HasCertificateName returns a boolean if a field has been set.
+
+### GetClientId
+
+`func (o *MqttRoute) GetClientId() string`
+
+GetClientId returns the ClientId field if non-nil, zero value otherwise.
+
+### GetClientIdOk
+
+`func (o *MqttRoute) GetClientIdOk() (*string, bool)`
+
+GetClientIdOk returns a tuple with the ClientId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientId
+
+`func (o *MqttRoute) SetClientId(v string)`
+
+SetClientId sets ClientId field to given value.
+
+### HasClientId
+
+`func (o *MqttRoute) HasClientId() bool`
+
+HasClientId returns a boolean if a field has been set.
 
 ### GetFilter
 

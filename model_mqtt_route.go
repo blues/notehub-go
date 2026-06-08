@@ -23,6 +23,7 @@ type MqttRoute struct {
 	Broker          *string                 `json:"broker,omitempty"`
 	Certificate     *string                 `json:"certificate,omitempty"`
 	CertificateName *string                 `json:"certificate_name,omitempty"`
+	ClientId        *string                 `json:"client_id,omitempty"`
 	Filter          *Filter                 `json:"filter,omitempty"`
 	Fleets          []string                `json:"fleets,omitempty"`
 	Key             *string                 `json:"key,omitempty"`
@@ -147,6 +148,38 @@ func (o *MqttRoute) HasCertificateName() bool {
 // SetCertificateName gets a reference to the given string and assigns it to the CertificateName field.
 func (o *MqttRoute) SetCertificateName(v string) {
 	o.CertificateName = &v
+}
+
+// GetClientId returns the ClientId field value if set, zero value otherwise.
+func (o *MqttRoute) GetClientId() string {
+	if o == nil || IsNil(o.ClientId) {
+		var ret string
+		return ret
+	}
+	return *o.ClientId
+}
+
+// GetClientIdOk returns a tuple with the ClientId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MqttRoute) GetClientIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ClientId) {
+		return nil, false
+	}
+	return o.ClientId, true
+}
+
+// HasClientId returns a boolean if a field has been set.
+func (o *MqttRoute) HasClientId() bool {
+	if o != nil && !IsNil(o.ClientId) {
+		return true
+	}
+
+	return false
+}
+
+// SetClientId gets a reference to the given string and assigns it to the ClientId field.
+func (o *MqttRoute) SetClientId(v string) {
+	o.ClientId = &v
 }
 
 // GetFilter returns the Filter field value if set, zero value otherwise.
@@ -519,6 +552,9 @@ func (o MqttRoute) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CertificateName) {
 		toSerialize["certificate_name"] = o.CertificateName
+	}
+	if !IsNil(o.ClientId) {
+		toSerialize["client_id"] = o.ClientId
 	}
 	if !IsNil(o.Filter) {
 		toSerialize["filter"] = o.Filter

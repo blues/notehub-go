@@ -18,7 +18,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## CreateLegacyWebhookEvent
 
-> CreateLegacyWebhookEvent(ctx, productUID, deviceUID).CreateLegacyWebhookEventRequest(createLegacyWebhookEventRequest).Execute()
+> CreateLegacyWebhookEvent(ctx, productUID, deviceUID).RequestBody(requestBody).Execute()
 
 ### Example
 
@@ -35,11 +35,11 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	createLegacyWebhookEventRequest := *openapiclient.NewCreateLegacyWebhookEventRequest() // CreateLegacyWebhookEventRequest | A Note-shaped event with notefile name, JSON body, and optional base64-encoded payload.
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | A Note-shaped event. Typically contains the notefile name (file), a JSON body, and an optional base64-encoded payload, but any additional Note fields (e.g. when, sn, where_lat, where_lon) are accepted and honored.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.WebhookAPI.CreateLegacyWebhookEvent(context.Background(), productUID, deviceUID).CreateLegacyWebhookEventRequest(createLegacyWebhookEventRequest).Execute()
+	r, err := apiClient.WebhookAPI.CreateLegacyWebhookEvent(context.Background(), productUID, deviceUID).RequestBody(requestBody).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.CreateLegacyWebhookEvent``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -62,7 +62,7 @@ Other parameters are passed through a pointer to a apiCreateLegacyWebhookEventRe
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**createLegacyWebhookEventRequest** | [**CreateLegacyWebhookEventRequest**](CreateLegacyWebhookEventRequest.md) | A Note-shaped event with notefile name, JSON body, and optional base64-encoded payload. |
+**requestBody** | **map[string]interface{}** | A Note-shaped event. Typically contains the notefile name (file), a JSON body, and an optional base64-encoded payload, but any additional Note fields (e.g. when, sn, where_lat, where_lon) are accepted and honored. |
 
 ### Return type
 
