@@ -24,16 +24,16 @@ import (
 type WebhookAPIService service
 
 type ApiCreateLegacyWebhookEventRequest struct {
-	ctx                             context.Context
-	ApiService                      *WebhookAPIService
-	productUID                      string
-	deviceUID                       string
-	createLegacyWebhookEventRequest *CreateLegacyWebhookEventRequest
+	ctx         context.Context
+	ApiService  *WebhookAPIService
+	productUID  string
+	deviceUID   string
+	requestBody *map[string]interface{}
 }
 
-// A Note-shaped event with notefile name, JSON body, and optional base64-encoded payload.
-func (r ApiCreateLegacyWebhookEventRequest) CreateLegacyWebhookEventRequest(createLegacyWebhookEventRequest CreateLegacyWebhookEventRequest) ApiCreateLegacyWebhookEventRequest {
-	r.createLegacyWebhookEventRequest = &createLegacyWebhookEventRequest
+// A Note-shaped event. Typically contains the notefile name (file), a JSON body, and an optional base64-encoded payload, but any additional Note fields (e.g. when, sn, where_lat, where_lon) are accepted and honored.
+func (r ApiCreateLegacyWebhookEventRequest) RequestBody(requestBody map[string]interface{}) ApiCreateLegacyWebhookEventRequest {
+	r.requestBody = &requestBody
 	return r
 }
 
@@ -80,8 +80,8 @@ func (a *WebhookAPIService) CreateLegacyWebhookEventExecute(r ApiCreateLegacyWeb
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createLegacyWebhookEventRequest == nil {
-		return nil, reportError("createLegacyWebhookEventRequest is required and must be specified")
+	if r.requestBody == nil {
+		return nil, reportError("requestBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -102,7 +102,7 @@ func (a *WebhookAPIService) CreateLegacyWebhookEventExecute(r ApiCreateLegacyWeb
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createLegacyWebhookEventRequest
+	localVarPostBody = r.requestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err

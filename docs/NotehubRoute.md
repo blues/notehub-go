@@ -2,29 +2,30 @@
 
 ## Properties
 
-| Name                  | Type                                                               | Description               | Notes                         |
-| --------------------- | ------------------------------------------------------------------ | ------------------------- | ----------------------------- |
-| **Aws**               | Pointer to [**AwsRoute**](AwsRoute.md)                             |                           | [optional]                    |
-| **Azure**             | Pointer to [**AzureRoute**](AzureRoute.md)                         |                           | [optional]                    |
-| **Blynk**             | Pointer to [**BlynkRoute**](BlynkRoute.md)                         |                           | [optional]                    |
-| **Datacake**          | Pointer to [**DatacakeRoute**](DatacakeRoute.md)                   |                           | [optional]                    |
-| **Disabled**          | Pointer to **bool**                                                |                           | [optional] [default to false] |
-| **Google**            | Pointer to [**GoogleRoute**](GoogleRoute.md)                       |                           | [optional]                    |
-| **Http**              | Pointer to [**HttpRoute**](HttpRoute.md)                           |                           | [optional]                    |
-| **Label**             | Pointer to **string**                                              |                           | [optional]                    |
-| **Modified**          | Pointer to **time.Time**                                           |                           | [optional] [readonly]         |
-| **Mqtt**              | Pointer to [**MqttRoute**](MqttRoute.md)                           |                           | [optional]                    |
-| **Proxy**             | Pointer to [**ProxyRoute**](ProxyRoute.md)                         |                           | [optional]                    |
-| **Qubitro**           | Pointer to [**QubitroRoute**](QubitroRoute.md)                     |                           | [optional]                    |
-| **Radnote**           | Pointer to [**RadRoute**](RadRoute.md)                             |                           | [optional]                    |
-| **S3archive**         | Pointer to [**S3ArchiveRoute**](S3ArchiveRoute.md)                 |                           | [optional]                    |
-| **Slack**             | Pointer to [**SlackRoute**](SlackRoute.md)                         |                           | [optional]                    |
-| **Snowflake**         | Pointer to [**SnowflakeRoute**](SnowflakeRoute.md)                 |                           | [optional]                    |
-| **SnowpipeStreaming** | Pointer to [**SnowpipeStreamingRoute**](SnowpipeStreamingRoute.md) |                           | [optional]                    |
-| **Thingworx**         | Pointer to [**ThingworxRoute**](ThingworxRoute.md)                 |                           | [optional]                    |
-| **Twilio**            | Pointer to [**TwilioRoute**](TwilioRoute.md)                       |                           | [optional]                    |
-| **Type**              | Pointer to **string**                                              | Mirrors hublib.RouteType. | [optional]                    |
-| **Uid**               | Pointer to **string**                                              |                           | [optional] [readonly]         |
+| Name                  | Type                                                               | Description                                       | Notes                         |
+| --------------------- | ------------------------------------------------------------------ | ------------------------------------------------- | ----------------------------- |
+| **Aws**               | Pointer to [**AwsRoute**](AwsRoute.md)                             |                                                   | [optional]                    |
+| **Azure**             | Pointer to [**AzureRoute**](AzureRoute.md)                         |                                                   | [optional]                    |
+| **Blynk**             | Pointer to [**BlynkRoute**](BlynkRoute.md)                         |                                                   | [optional]                    |
+| **Datacake**          | Pointer to [**DatacakeRoute**](DatacakeRoute.md)                   |                                                   | [optional]                    |
+| **Disabled**          | Pointer to **bool**                                                |                                                   | [optional] [default to false] |
+| **Google**            | Pointer to [**GoogleRoute**](GoogleRoute.md)                       |                                                   | [optional]                    |
+| **Http**              | Pointer to [**HttpRoute**](HttpRoute.md)                           |                                                   | [optional]                    |
+| **Label**             | Pointer to **string**                                              |                                                   | [optional]                    |
+| **Modified**          | Pointer to **time.Time**                                           |                                                   | [optional] [readonly]         |
+| **Mqtt**              | Pointer to [**MqttRoute**](MqttRoute.md)                           |                                                   | [optional]                    |
+| **Notes**             | Pointer to **string**                                              | Optional free-form text for annotating the route. | [optional]                    |
+| **Proxy**             | Pointer to [**ProxyRoute**](ProxyRoute.md)                         |                                                   | [optional]                    |
+| **Qubitro**           | Pointer to [**QubitroRoute**](QubitroRoute.md)                     |                                                   | [optional]                    |
+| **Radnote**           | Pointer to [**RadRoute**](RadRoute.md)                             |                                                   | [optional]                    |
+| **S3archive**         | Pointer to [**S3ArchiveRoute**](S3ArchiveRoute.md)                 |                                                   | [optional]                    |
+| **Slack**             | Pointer to [**SlackRoute**](SlackRoute.md)                         |                                                   | [optional]                    |
+| **Snowflake**         | Pointer to [**SnowflakeRoute**](SnowflakeRoute.md)                 |                                                   | [optional]                    |
+| **SnowpipeStreaming** | Pointer to [**SnowpipeStreamingRoute**](SnowpipeStreamingRoute.md) |                                                   | [optional]                    |
+| **Thingworx**         | Pointer to [**ThingworxRoute**](ThingworxRoute.md)                 |                                                   | [optional]                    |
+| **Twilio**            | Pointer to [**TwilioRoute**](TwilioRoute.md)                       |                                                   | [optional]                    |
+| **Type**              | Pointer to **string**                                              | Mirrors hublib.RouteType.                         | [optional]                    |
+| **Uid**               | Pointer to **string**                                              |                                                   | [optional] [readonly]         |
 
 ## Methods
 
@@ -294,6 +295,31 @@ SetMqtt sets Mqtt field to given value.
 `func (o *NotehubRoute) HasMqtt() bool`
 
 HasMqtt returns a boolean if a field has been set.
+
+### GetNotes
+
+`func (o *NotehubRoute) GetNotes() string`
+
+GetNotes returns the Notes field if non-nil, zero value otherwise.
+
+### GetNotesOk
+
+`func (o *NotehubRoute) GetNotesOk() (*string, bool)`
+
+GetNotesOk returns a tuple with the Notes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotes
+
+`func (o *NotehubRoute) SetNotes(v string)`
+
+SetNotes sets Notes field to given value.
+
+### HasNotes
+
+`func (o *NotehubRoute) HasNotes() bool`
+
+HasNotes returns a boolean if a field has been set.
 
 ### GetProxy
 

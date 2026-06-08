@@ -7,6 +7,7 @@ api_event.go
 api_external_devices.go
 api_jobs.go
 api_monitor.go
+api_organization.go
 api_project.go
 api_route.go
 api_usage.go
@@ -34,12 +35,12 @@ docs/CloneProjectRequest.md
 docs/Contact.md
 docs/CreateFleetRequest.md
 docs/CreateJob201Response.md
-docs/CreateLegacyWebhookEventRequest.md
 docs/CreateMonitor.md
 docs/CreateProductRequest.md
 docs/CreateProjectRequest.md
 docs/CreateProjectSecretRequest.md
 docs/CreateUpdateRepository.md
+docs/CreatedRepository.md
 docs/CurrentFirmware.md
 docs/DFUEnv.md
 docs/DFUState.md
@@ -105,6 +106,7 @@ docs/GetEventsByCursor200Response.md
 docs/GetJobRuns200Response.md
 docs/GetJobs200Response.md
 docs/GetNotefile200Response.md
+docs/GetOrganizations200Response.md
 docs/GetProducts200Response.md
 docs/GetProjectMembers200Response.md
 docs/GetProjectSecretsResponse.md
@@ -138,6 +140,9 @@ docs/NotehubRouteSummary.md
 docs/OAuth2ClientCredentialsRequest.md
 docs/OAuth2Error.md
 docs/OAuth2TokenResponse.md
+docs/Organization.md
+docs/OrganizationAPI.md
+docs/OrganizationRole.md
 docs/PersonalAccessToken.md
 docs/PersonalAccessTokenCreatedBy.md
 docs/PersonalAccessTokenInfo.md
@@ -210,12 +215,12 @@ model_clone_project_request.go
 model_contact.go
 model_create_fleet_request.go
 model_create_job_201_response.go
-model_create_legacy_webhook_event_request.go
 model_create_monitor.go
 model_create_product_request.go
 model_create_project_request.go
 model_create_project_secret_request.go
 model_create_update_repository.go
+model_created_repository.go
 model_current_firmware.go
 model_data_field.go
 model_data_set_field.go
@@ -278,6 +283,7 @@ model_get_events_by_cursor_200_response.go
 model_get_job_runs_200_response.go
 model_get_jobs_200_response.go
 model_get_notefile_200_response.go
+model_get_organizations_200_response.go
 model_get_products_200_response.go
 model_get_project_members_200_response.go
 model_get_project_secrets_response.go
@@ -309,6 +315,8 @@ model_notehub_route_summary.go
 model_o_auth2_client_credentials_request.go
 model_o_auth2_error.go
 model_o_auth2_token_response.go
+model_organization.go
+model_organization_role.go
 model_personal_access_token.go
 model_personal_access_token_created_by.go
 model_personal_access_token_info.go
@@ -365,6 +373,7 @@ test/api_event_test.go
 test/api_external_devices_test.go
 test/api_jobs_test.go
 test/api_monitor_test.go
+test/api_organization_test.go
 test/api_project_test.go
 test/api_route_test.go
 test/api_usage_test.go

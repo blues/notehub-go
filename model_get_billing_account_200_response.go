@@ -20,6 +20,8 @@ var _ MappedNullable = &GetBillingAccount200Response{}
 
 // GetBillingAccount200Response struct for GetBillingAccount200Response
 type GetBillingAccount200Response struct {
+	ContactUid           *string                           `json:"contact_uid,omitempty"`
+	Email                *string                           `json:"email,omitempty"`
 	Name                 *string                           `json:"name,omitempty"`
 	Owner                *string                           `json:"owner,omitempty"`
 	Plan                 *GetBillingAccount200ResponsePlan `json:"plan,omitempty"`
@@ -45,6 +47,70 @@ func NewGetBillingAccount200Response() *GetBillingAccount200Response {
 func NewGetBillingAccount200ResponseWithDefaults() *GetBillingAccount200Response {
 	this := GetBillingAccount200Response{}
 	return &this
+}
+
+// GetContactUid returns the ContactUid field value if set, zero value otherwise.
+func (o *GetBillingAccount200Response) GetContactUid() string {
+	if o == nil || IsNil(o.ContactUid) {
+		var ret string
+		return ret
+	}
+	return *o.ContactUid
+}
+
+// GetContactUidOk returns a tuple with the ContactUid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetBillingAccount200Response) GetContactUidOk() (*string, bool) {
+	if o == nil || IsNil(o.ContactUid) {
+		return nil, false
+	}
+	return o.ContactUid, true
+}
+
+// HasContactUid returns a boolean if a field has been set.
+func (o *GetBillingAccount200Response) HasContactUid() bool {
+	if o != nil && !IsNil(o.ContactUid) {
+		return true
+	}
+
+	return false
+}
+
+// SetContactUid gets a reference to the given string and assigns it to the ContactUid field.
+func (o *GetBillingAccount200Response) SetContactUid(v string) {
+	o.ContactUid = &v
+}
+
+// GetEmail returns the Email field value if set, zero value otherwise.
+func (o *GetBillingAccount200Response) GetEmail() string {
+	if o == nil || IsNil(o.Email) {
+		var ret string
+		return ret
+	}
+	return *o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetBillingAccount200Response) GetEmailOk() (*string, bool) {
+	if o == nil || IsNil(o.Email) {
+		return nil, false
+	}
+	return o.Email, true
+}
+
+// HasEmail returns a boolean if a field has been set.
+func (o *GetBillingAccount200Response) HasEmail() bool {
+	if o != nil && !IsNil(o.Email) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail gets a reference to the given string and assigns it to the Email field.
+func (o *GetBillingAccount200Response) SetEmail(v string) {
+	o.Email = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -217,6 +283,12 @@ func (o GetBillingAccount200Response) MarshalJSON() ([]byte, error) {
 
 func (o GetBillingAccount200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ContactUid) {
+		toSerialize["contact_uid"] = o.ContactUid
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
@@ -254,6 +326,8 @@ func (o *GetBillingAccount200Response) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "contact_uid")
+		delete(additionalProperties, "email")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "owner")
 		delete(additionalProperties, "plan")

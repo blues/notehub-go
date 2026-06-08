@@ -20,44 +20,40 @@ import (
 	"strings"
 )
 
-// BillingAccountAPIService BillingAccountAPI service
-type BillingAccountAPIService service
+// OrganizationAPIService OrganizationAPI service
+type OrganizationAPIService service
 
-type ApiGetBillingAccountRequest struct {
-	ctx               context.Context
-	ApiService        *BillingAccountAPIService
-	billingAccountUID string
+type ApiGetOrganizationRequest struct {
+	ctx             context.Context
+	ApiService      *OrganizationAPIService
+	organizationUID string
 }
 
-func (r ApiGetBillingAccountRequest) Execute() (*GetBillingAccount200Response, *http.Response, error) {
-	return r.ApiService.GetBillingAccountExecute(r)
+func (r ApiGetOrganizationRequest) Execute() (*GetBillingAccount200Response, *http.Response, error) {
+	return r.ApiService.GetOrganizationExecute(r)
 }
 
 /*
-GetBillingAccount Method for GetBillingAccount
+GetOrganization Method for GetOrganization
 
-Get Billing Account Information
+Get Organization Information
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param billingAccountUID
-	@return ApiGetBillingAccountRequest
-
-Deprecated
+	@param organizationUID
+	@return ApiGetOrganizationRequest
 */
-func (a *BillingAccountAPIService) GetBillingAccount(ctx context.Context, billingAccountUID string) ApiGetBillingAccountRequest {
-	return ApiGetBillingAccountRequest{
-		ApiService:        a,
-		ctx:               ctx,
-		billingAccountUID: billingAccountUID,
+func (a *OrganizationAPIService) GetOrganization(ctx context.Context, organizationUID string) ApiGetOrganizationRequest {
+	return ApiGetOrganizationRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		organizationUID: organizationUID,
 	}
 }
 
 // Execute executes the request
 //
 //	@return GetBillingAccount200Response
-//
-// Deprecated
-func (a *BillingAccountAPIService) GetBillingAccountExecute(r ApiGetBillingAccountRequest) (*GetBillingAccount200Response, *http.Response, error) {
+func (a *OrganizationAPIService) GetOrganizationExecute(r ApiGetOrganizationRequest) (*GetBillingAccount200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -65,13 +61,13 @@ func (a *BillingAccountAPIService) GetBillingAccountExecute(r ApiGetBillingAccou
 		localVarReturnValue *GetBillingAccount200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAccountAPIService.GetBillingAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationAPIService.GetOrganization")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/billing-accounts/{billingAccountUID}"
-	localVarPath = strings.Replace(localVarPath, "{"+"billingAccountUID"+"}", url.PathEscape(parameterValueToString(r.billingAccountUID, "billingAccountUID")), -1)
+	localVarPath := localBasePath + "/v1/organizations/{organizationUID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"organizationUID"+"}", url.PathEscape(parameterValueToString(r.organizationUID, "organizationUID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -139,55 +135,51 @@ func (a *BillingAccountAPIService) GetBillingAccountExecute(r ApiGetBillingAccou
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetBillingAccountBalanceHistoryRequest struct {
-	ctx               context.Context
-	ApiService        *BillingAccountAPIService
-	billingAccountUID string
-	startDate         *int32
-	endDate           *int32
+type ApiGetOrganizationBalanceHistoryRequest struct {
+	ctx             context.Context
+	ApiService      *OrganizationAPIService
+	organizationUID string
+	startDate       *int32
+	endDate         *int32
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetBillingAccountBalanceHistoryRequest) StartDate(startDate int32) ApiGetBillingAccountBalanceHistoryRequest {
+func (r ApiGetOrganizationBalanceHistoryRequest) StartDate(startDate int32) ApiGetOrganizationBalanceHistoryRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetBillingAccountBalanceHistoryRequest) EndDate(endDate int32) ApiGetBillingAccountBalanceHistoryRequest {
+func (r ApiGetOrganizationBalanceHistoryRequest) EndDate(endDate int32) ApiGetOrganizationBalanceHistoryRequest {
 	r.endDate = &endDate
 	return r
 }
 
-func (r ApiGetBillingAccountBalanceHistoryRequest) Execute() (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
-	return r.ApiService.GetBillingAccountBalanceHistoryExecute(r)
+func (r ApiGetOrganizationBalanceHistoryRequest) Execute() (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
+	return r.ApiService.GetOrganizationBalanceHistoryExecute(r)
 }
 
 /*
-GetBillingAccountBalanceHistory Method for GetBillingAccountBalanceHistory
+GetOrganizationBalanceHistory Method for GetOrganizationBalanceHistory
 
-Get Billing Account Balance history
+Get Organization Balance history
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param billingAccountUID
-	@return ApiGetBillingAccountBalanceHistoryRequest
-
-Deprecated
+	@param organizationUID
+	@return ApiGetOrganizationBalanceHistoryRequest
 */
-func (a *BillingAccountAPIService) GetBillingAccountBalanceHistory(ctx context.Context, billingAccountUID string) ApiGetBillingAccountBalanceHistoryRequest {
-	return ApiGetBillingAccountBalanceHistoryRequest{
-		ApiService:        a,
-		ctx:               ctx,
-		billingAccountUID: billingAccountUID,
+func (a *OrganizationAPIService) GetOrganizationBalanceHistory(ctx context.Context, organizationUID string) ApiGetOrganizationBalanceHistoryRequest {
+	return ApiGetOrganizationBalanceHistoryRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		organizationUID: organizationUID,
 	}
 }
 
 // Execute executes the request
 //
 //	@return GetBillingAccountBalanceHistory200Response
-//
-// Deprecated
-func (a *BillingAccountAPIService) GetBillingAccountBalanceHistoryExecute(r ApiGetBillingAccountBalanceHistoryRequest) (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
+func (a *OrganizationAPIService) GetOrganizationBalanceHistoryExecute(r ApiGetOrganizationBalanceHistoryRequest) (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -195,13 +187,13 @@ func (a *BillingAccountAPIService) GetBillingAccountBalanceHistoryExecute(r ApiG
 		localVarReturnValue *GetBillingAccountBalanceHistory200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAccountAPIService.GetBillingAccountBalanceHistory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationAPIService.GetOrganizationBalanceHistory")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/billing-accounts/{billingAccountUID}/balance-history"
-	localVarPath = strings.Replace(localVarPath, "{"+"billingAccountUID"+"}", url.PathEscape(parameterValueToString(r.billingAccountUID, "billingAccountUID")), -1)
+	localVarPath := localBasePath + "/v1/organizations/{organizationUID}/balance-history"
+	localVarPath = strings.Replace(localVarPath, "{"+"organizationUID"+"}", url.PathEscape(parameterValueToString(r.organizationUID, "organizationUID")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -275,27 +267,25 @@ func (a *BillingAccountAPIService) GetBillingAccountBalanceHistoryExecute(r ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetBillingAccountsRequest struct {
+type ApiGetOrganizationsRequest struct {
 	ctx        context.Context
-	ApiService *BillingAccountAPIService
+	ApiService *OrganizationAPIService
 }
 
-func (r ApiGetBillingAccountsRequest) Execute() (*GetBillingAccounts200Response, *http.Response, error) {
-	return r.ApiService.GetBillingAccountsExecute(r)
+func (r ApiGetOrganizationsRequest) Execute() (*GetOrganizations200Response, *http.Response, error) {
+	return r.ApiService.GetOrganizationsExecute(r)
 }
 
 /*
-GetBillingAccounts Method for GetBillingAccounts
+GetOrganizations Method for GetOrganizations
 
-Get Billing Accounts accessible by the api_key
+Get Organizations accessible by the api_key
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetBillingAccountsRequest
-
-Deprecated
+	@return ApiGetOrganizationsRequest
 */
-func (a *BillingAccountAPIService) GetBillingAccounts(ctx context.Context) ApiGetBillingAccountsRequest {
-	return ApiGetBillingAccountsRequest{
+func (a *OrganizationAPIService) GetOrganizations(ctx context.Context) ApiGetOrganizationsRequest {
+	return ApiGetOrganizationsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -303,23 +293,21 @@ func (a *BillingAccountAPIService) GetBillingAccounts(ctx context.Context) ApiGe
 
 // Execute executes the request
 //
-//	@return GetBillingAccounts200Response
-//
-// Deprecated
-func (a *BillingAccountAPIService) GetBillingAccountsExecute(r ApiGetBillingAccountsRequest) (*GetBillingAccounts200Response, *http.Response, error) {
+//	@return GetOrganizations200Response
+func (a *OrganizationAPIService) GetOrganizationsExecute(r ApiGetOrganizationsRequest) (*GetOrganizations200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetBillingAccounts200Response
+		localVarReturnValue *GetOrganizations200Response
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BillingAccountAPIService.GetBillingAccounts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationAPIService.GetOrganizations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/billing-accounts"
+	localVarPath := localBasePath + "/v1/organizations"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -2,13 +2,15 @@
 
 ## Properties
 
-| Name          | Type                                                                                   | Description | Notes      |
-| ------------- | -------------------------------------------------------------------------------------- | ----------- | ---------- |
-| **Name**      | Pointer to **string**                                                                  |             | [optional] |
-| **Owner**     | Pointer to **string**                                                                  |             | [optional] |
-| **Plan**      | Pointer to [**GetBillingAccount200ResponsePlan**](GetBillingAccount200ResponsePlan.md) |             | [optional] |
-| **Suspended** | Pointer to **bool**                                                                    |             | [optional] |
-| **Uid**       | Pointer to **string**                                                                  |             | [optional] |
+| Name           | Type                                                                                   | Description | Notes      |
+| -------------- | -------------------------------------------------------------------------------------- | ----------- | ---------- |
+| **ContactUid** | Pointer to **string**                                                                  |             | [optional] |
+| **Email**      | Pointer to **string**                                                                  |             | [optional] |
+| **Name**       | Pointer to **string**                                                                  |             | [optional] |
+| **Owner**      | Pointer to **string**                                                                  |             | [optional] |
+| **Plan**       | Pointer to [**GetBillingAccount200ResponsePlan**](GetBillingAccount200ResponsePlan.md) |             | [optional] |
+| **Suspended**  | Pointer to **bool**                                                                    |             | [optional] |
+| **Uid**        | Pointer to **string**                                                                  |             | [optional] |
 
 ## Methods
 
@@ -28,6 +30,56 @@ will change when the set of required properties is changed
 NewGetBillingAccount200ResponseWithDefaults instantiates a new GetBillingAccount200Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetContactUid
+
+`func (o *GetBillingAccount200Response) GetContactUid() string`
+
+GetContactUid returns the ContactUid field if non-nil, zero value otherwise.
+
+### GetContactUidOk
+
+`func (o *GetBillingAccount200Response) GetContactUidOk() (*string, bool)`
+
+GetContactUidOk returns a tuple with the ContactUid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContactUid
+
+`func (o *GetBillingAccount200Response) SetContactUid(v string)`
+
+SetContactUid sets ContactUid field to given value.
+
+### HasContactUid
+
+`func (o *GetBillingAccount200Response) HasContactUid() bool`
+
+HasContactUid returns a boolean if a field has been set.
+
+### GetEmail
+
+`func (o *GetBillingAccount200Response) GetEmail() string`
+
+GetEmail returns the Email field if non-nil, zero value otherwise.
+
+### GetEmailOk
+
+`func (o *GetBillingAccount200Response) GetEmailOk() (*string, bool)`
+
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmail
+
+`func (o *GetBillingAccount200Response) SetEmail(v string)`
+
+SetEmail sets Email field to given value.
+
+### HasEmail
+
+`func (o *GetBillingAccount200Response) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
 
 ### GetName
 
