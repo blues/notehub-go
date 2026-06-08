@@ -23,6 +23,122 @@ import (
 // WebhookAPIService WebhookAPI service
 type WebhookAPIService service
 
+type ApiCreateLegacyWebhookEventRequest struct {
+	ctx                             context.Context
+	ApiService                      *WebhookAPIService
+	productUID                      string
+	deviceUID                       string
+	createLegacyWebhookEventRequest *CreateLegacyWebhookEventRequest
+}
+
+// A Note-shaped event with notefile name, JSON body, and optional base64-encoded payload.
+func (r ApiCreateLegacyWebhookEventRequest) CreateLegacyWebhookEventRequest(createLegacyWebhookEventRequest CreateLegacyWebhookEventRequest) ApiCreateLegacyWebhookEventRequest {
+	r.createLegacyWebhookEventRequest = &createLegacyWebhookEventRequest
+	return r
+}
+
+func (r ApiCreateLegacyWebhookEventRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CreateLegacyWebhookEventExecute(r)
+}
+
+/*
+CreateLegacyWebhookEvent Method for CreateLegacyWebhookEvent
+
+Legacy endpoint for sending an event from a webhook, associated with the given device (provisioning it if necessary). The request body is a Note-shaped object containing the notefile name, body, and optional payload.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param deviceUID
+	@return ApiCreateLegacyWebhookEventRequest
+*/
+func (a *WebhookAPIService) CreateLegacyWebhookEvent(ctx context.Context, productUID string, deviceUID string) ApiCreateLegacyWebhookEventRequest {
+	return ApiCreateLegacyWebhookEventRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		deviceUID:  deviceUID,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) CreateLegacyWebhookEventExecute(r ApiCreateLegacyWebhookEventRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.CreateLegacyWebhookEvent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/devices/{deviceUID}/webhook-event"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createLegacyWebhookEventRequest == nil {
+		return nil, reportError("createLegacyWebhookEventRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createLegacyWebhookEventRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiCreateWebhookRequest struct {
 	ctx                 context.Context
 	ApiService          *WebhookAPIService
@@ -102,6 +218,242 @@ func (a *WebhookAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*ht
 	}
 	// body params
 	localVarPostBody = r.webhookSettings
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiCreateWebhookDeviceEventByProductRequest struct {
+	ctx         context.Context
+	ApiService  *WebhookAPIService
+	productUID  string
+	webhookUID  string
+	deviceUID   string
+	requestBody *map[string]interface{}
+}
+
+// The event body (arbitrary JSON)
+func (r ApiCreateWebhookDeviceEventByProductRequest) RequestBody(requestBody map[string]interface{}) ApiCreateWebhookDeviceEventByProductRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r ApiCreateWebhookDeviceEventByProductRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CreateWebhookDeviceEventByProductExecute(r)
+}
+
+/*
+CreateWebhookDeviceEventByProduct Method for CreateWebhookDeviceEventByProduct
+
+Sends an event to be processed by the specified webhook, addressed by productUID, associated with the given device (provisioning it if necessary). The entire request body becomes the event body. The webhook's configured JSONata transform, if any, is applied before routing.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param webhookUID Webhook UID
+	@param deviceUID
+	@return ApiCreateWebhookDeviceEventByProductRequest
+*/
+func (a *WebhookAPIService) CreateWebhookDeviceEventByProduct(ctx context.Context, productUID string, webhookUID string, deviceUID string) ApiCreateWebhookDeviceEventByProductRequest {
+	return ApiCreateWebhookDeviceEventByProductRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		webhookUID: webhookUID,
+		deviceUID:  deviceUID,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) CreateWebhookDeviceEventByProductExecute(r ApiCreateWebhookDeviceEventByProductRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.CreateWebhookDeviceEventByProduct")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/webhooks/{webhookUID}/devices/{deviceUID}/event"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhookUID"+"}", url.PathEscape(parameterValueToString(r.webhookUID, "webhookUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.requestBody == nil {
+		return nil, reportError("requestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.requestBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiCreateWebhookEventByProductRequest struct {
+	ctx         context.Context
+	ApiService  *WebhookAPIService
+	productUID  string
+	webhookUID  string
+	requestBody *map[string]interface{}
+}
+
+// The event body (arbitrary JSON)
+func (r ApiCreateWebhookEventByProductRequest) RequestBody(requestBody map[string]interface{}) ApiCreateWebhookEventByProductRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r ApiCreateWebhookEventByProductRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CreateWebhookEventByProductExecute(r)
+}
+
+/*
+CreateWebhookEventByProduct Method for CreateWebhookEventByProduct
+
+Sends an event to be processed by the specified webhook, addressed by productUID. The entire request body becomes the event body. The webhook's configured JSONata transform, if any, is applied before routing. The event is not associated with a specific device.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param webhookUID Webhook UID
+	@return ApiCreateWebhookEventByProductRequest
+*/
+func (a *WebhookAPIService) CreateWebhookEventByProduct(ctx context.Context, productUID string, webhookUID string) ApiCreateWebhookEventByProductRequest {
+	return ApiCreateWebhookEventByProductRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		webhookUID: webhookUID,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) CreateWebhookEventByProductExecute(r ApiCreateWebhookEventByProductRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.CreateWebhookEventByProduct")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/webhooks/{webhookUID}/event"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhookUID"+"}", url.PathEscape(parameterValueToString(r.webhookUID, "webhookUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.requestBody == nil {
+		return nil, reportError("requestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.requestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -358,6 +710,122 @@ func (a *WebhookAPIService) GetWebhookExecute(r ApiGetWebhookRequest) (*WebhookS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetWebhookSettingsByProductRequest struct {
+	ctx        context.Context
+	ApiService *WebhookAPIService
+	productUID string
+	webhookUID string
+}
+
+func (r ApiGetWebhookSettingsByProductRequest) Execute() (*WebhookSettings, *http.Response, error) {
+	return r.ApiService.GetWebhookSettingsByProductExecute(r)
+}
+
+/*
+GetWebhookSettingsByProduct Method for GetWebhookSettingsByProduct
+
+Retrieves the configuration settings for the specified webhook, addressed by productUID.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param webhookUID Webhook UID
+	@return ApiGetWebhookSettingsByProductRequest
+*/
+func (a *WebhookAPIService) GetWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiGetWebhookSettingsByProductRequest {
+	return ApiGetWebhookSettingsByProductRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		webhookUID: webhookUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return WebhookSettings
+func (a *WebhookAPIService) GetWebhookSettingsByProductExecute(r ApiGetWebhookSettingsByProductRequest) (*WebhookSettings, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *WebhookSettings
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.GetWebhookSettingsByProduct")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/webhooks/{webhookUID}/settings"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhookUID"+"}", url.PathEscape(parameterValueToString(r.webhookUID, "webhookUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetWebhooksRequest struct {
 	ctx                 context.Context
 	ApiService          *WebhookAPIService
@@ -470,6 +938,119 @@ func (a *WebhookAPIService) GetWebhooksExecute(r ApiGetWebhooksRequest) (*GetWeb
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiUpdateLegacyWebhookSessionRequest struct {
+	ctx         context.Context
+	ApiService  *WebhookAPIService
+	productUID  string
+	deviceUID   string
+	requestBody *map[string]interface{}
+}
+
+// Optional session metadata.
+func (r ApiUpdateLegacyWebhookSessionRequest) RequestBody(requestBody map[string]interface{}) ApiUpdateLegacyWebhookSessionRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r ApiUpdateLegacyWebhookSessionRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateLegacyWebhookSessionExecute(r)
+}
+
+/*
+UpdateLegacyWebhookSession Method for UpdateLegacyWebhookSession
+
+Legacy endpoint for opening or updating a webhook session for the given device (provisioning the device if necessary). Used by external services that need to maintain a callable session against a device behind a webhook.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param deviceUID
+	@return ApiUpdateLegacyWebhookSessionRequest
+*/
+func (a *WebhookAPIService) UpdateLegacyWebhookSession(ctx context.Context, productUID string, deviceUID string) ApiUpdateLegacyWebhookSessionRequest {
+	return ApiUpdateLegacyWebhookSessionRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		deviceUID:  deviceUID,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) UpdateLegacyWebhookSessionExecute(r ApiUpdateLegacyWebhookSessionRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.UpdateLegacyWebhookSession")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/devices/{deviceUID}/webhook-session"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.requestBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiUpdateWebhookRequest struct {
 	ctx                 context.Context
 	ApiService          *WebhookAPIService
@@ -521,6 +1102,121 @@ func (a *WebhookAPIService) UpdateWebhookExecute(r ApiUpdateWebhookRequest) (*ht
 
 	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/webhooks/{webhookUID}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhookUID"+"}", url.PathEscape(parameterValueToString(r.webhookUID, "webhookUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.webhookSettings == nil {
+		return nil, reportError("webhookSettings is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.webhookSettings
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiUpdateWebhookSettingsByProductRequest struct {
+	ctx             context.Context
+	ApiService      *WebhookAPIService
+	productUID      string
+	webhookUID      string
+	webhookSettings *WebhookSettings
+}
+
+func (r ApiUpdateWebhookSettingsByProductRequest) WebhookSettings(webhookSettings WebhookSettings) ApiUpdateWebhookSettingsByProductRequest {
+	r.webhookSettings = &webhookSettings
+	return r
+}
+
+func (r ApiUpdateWebhookSettingsByProductRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UpdateWebhookSettingsByProductExecute(r)
+}
+
+/*
+UpdateWebhookSettingsByProduct Method for UpdateWebhookSettingsByProduct
+
+Updates the configuration settings for the specified webhook, addressed by productUID. Update body will completely replace the existing settings.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param productUID
+	@param webhookUID Webhook UID
+	@return ApiUpdateWebhookSettingsByProductRequest
+*/
+func (a *WebhookAPIService) UpdateWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiUpdateWebhookSettingsByProductRequest {
+	return ApiUpdateWebhookSettingsByProductRequest{
+		ApiService: a,
+		ctx:        ctx,
+		productUID: productUID,
+		webhookUID: webhookUID,
+	}
+}
+
+// Execute executes the request
+func (a *WebhookAPIService) UpdateWebhookSettingsByProductExecute(r ApiUpdateWebhookSettingsByProductRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPut
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhookAPIService.UpdateWebhookSettingsByProduct")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/products/{productUID}/webhooks/{webhookUID}/settings"
+	localVarPath = strings.Replace(localVarPath, "{"+"productUID"+"}", url.PathEscape(parameterValueToString(r.productUID, "productUID")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"webhookUID"+"}", url.PathEscape(parameterValueToString(r.webhookUID, "webhookUID")), -1)
 
 	localVarHeaderParams := make(map[string]string)

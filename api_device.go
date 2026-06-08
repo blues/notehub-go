@@ -1798,6 +1798,288 @@ func (a *DeviceAPIService) GetDeviceHealthLogExecute(r ApiGetDeviceHealthLogRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetDeviceJourneyRequest struct {
+	ctx                 context.Context
+	ApiService          *DeviceAPIService
+	projectOrProductUID string
+	deviceUID           string
+	journeyID           int64
+	pageSize            *int32
+	pageNum             *int32
+}
+
+func (r ApiGetDeviceJourneyRequest) PageSize(pageSize int32) ApiGetDeviceJourneyRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+func (r ApiGetDeviceJourneyRequest) PageNum(pageNum int32) ApiGetDeviceJourneyRequest {
+	r.pageNum = &pageNum
+	return r
+}
+
+func (r ApiGetDeviceJourneyRequest) Execute() (*GetDeviceJourney200Response, *http.Response, error) {
+	return r.ApiService.GetDeviceJourneyExecute(r)
+}
+
+/*
+GetDeviceJourney Method for GetDeviceJourney
+
+Get a single journey for a device along with its `_track.qo` events. The events array is paginated via `pageSize` / `pageNum`; use `journey.has_more` to detect additional pages.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param deviceUID
+	@param journeyID Identifier of the journey, taken from the `journey` field on `_track.qo` events (a Unix timestamp marking the start of the journey).
+	@return ApiGetDeviceJourneyRequest
+*/
+func (a *DeviceAPIService) GetDeviceJourney(ctx context.Context, projectOrProductUID string, deviceUID string, journeyID int64) ApiGetDeviceJourneyRequest {
+	return ApiGetDeviceJourneyRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		deviceUID:           deviceUID,
+		journeyID:           journeyID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetDeviceJourney200Response
+func (a *DeviceAPIService) GetDeviceJourneyExecute(r ApiGetDeviceJourneyRequest) (*GetDeviceJourney200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetDeviceJourney200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.GetDeviceJourney")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"journeyID"+"}", url.PathEscape(parameterValueToString(r.journeyID, "journeyID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.pageSize != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
+	} else {
+		var defaultValue int32 = 50
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
+		r.pageSize = &defaultValue
+	}
+	if r.pageNum != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", r.pageNum, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
+		r.pageNum = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetDeviceJourneysRequest struct {
+	ctx                 context.Context
+	ApiService          *DeviceAPIService
+	projectOrProductUID string
+	deviceUID           string
+	startDate           *int32
+	endDate             *int32
+}
+
+// Start date for filtering results, specified as a Unix timestamp
+func (r ApiGetDeviceJourneysRequest) StartDate(startDate int32) ApiGetDeviceJourneysRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// End date for filtering results, specified as a Unix timestamp
+func (r ApiGetDeviceJourneysRequest) EndDate(endDate int32) ApiGetDeviceJourneysRequest {
+	r.endDate = &endDate
+	return r
+}
+
+func (r ApiGetDeviceJourneysRequest) Execute() (*GetDeviceJourneys200Response, *http.Response, error) {
+	return r.ApiService.GetDeviceJourneysExecute(r)
+}
+
+/*
+GetDeviceJourneys Method for GetDeviceJourneys
+
+Get the list of journeys for a device, derived from `_track.qo` events. Returns journey metadata only (no event payloads). Capped at 100 most recent journeys; `has_more` is true when the cap is hit.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@param deviceUID
+	@return ApiGetDeviceJourneysRequest
+*/
+func (a *DeviceAPIService) GetDeviceJourneys(ctx context.Context, projectOrProductUID string, deviceUID string) ApiGetDeviceJourneysRequest {
+	return ApiGetDeviceJourneysRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+		deviceUID:           deviceUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetDeviceJourneys200Response
+func (a *DeviceAPIService) GetDeviceJourneysExecute(r ApiGetDeviceJourneysRequest) (*GetDeviceJourneys200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetDeviceJourneys200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.GetDeviceJourneys")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"deviceUID"+"}", url.PathEscape(parameterValueToString(r.deviceUID, "deviceUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.startDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
+	}
+	if r.endDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetDeviceLatestEventsRequest struct {
 	ctx                 context.Context
 	ApiService          *DeviceAPIService

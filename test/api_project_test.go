@@ -92,6 +92,20 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ProjectAPIService CreateProjectSecret", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+
+		resp, httpRes, err := apiClient.ProjectAPI.CreateProjectSecret(context.Background(), projectOrProductUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ProjectAPIService DeleteDeviceFromFleets", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -103,6 +117,21 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ProjectAPIService DeleteFirmware", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var firmwareType string
+		var filename string
+
+		httpRes, err := apiClient.ProjectAPI.DeleteFirmware(context.Background(), projectOrProductUID, firmwareType, filename).Execute()
+
+		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -175,6 +204,20 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ProjectAPIService DeleteProjectSecret", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var secretName string
+
+		httpRes, err := apiClient.ProjectAPI.DeleteProjectSecret(context.Background(), projectOrProductUID, secretName).Execute()
+
+		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -483,6 +526,20 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ProjectAPIService GetProjectSecrets", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+
+		resp, httpRes, err := apiClient.ProjectAPI.GetProjectSecrets(context.Background(), projectOrProductUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ProjectAPIService GetProjects", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -552,6 +609,22 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ProjectAPIService UpdateFirmware", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var firmwareType string
+		var filename string
+
+		resp, httpRes, err := apiClient.ProjectAPI.UpdateFirmware(context.Background(), projectOrProductUID, firmwareType, filename).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ProjectAPIService UpdateFleet", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -560,6 +633,21 @@ func Test_notehub_ProjectAPIService(t *testing.T) {
 		var fleetUID string
 
 		resp, httpRes, err := apiClient.ProjectAPI.UpdateFleet(context.Background(), projectOrProductUID, fleetUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ProjectAPIService UpdateProjectSecret", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+		var secretName string
+
+		resp, httpRes, err := apiClient.ProjectAPI.UpdateProjectSecret(context.Background(), projectOrProductUID, secretName).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
