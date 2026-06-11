@@ -19,7 +19,7 @@ import (
 // checks if the GetDeviceJourney200ResponseJourney type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GetDeviceJourney200ResponseJourney{}
 
-// GetDeviceJourney200ResponseJourney Paginated `_track.qo` events for the journey.
+// GetDeviceJourney200ResponseJourney Paginated events for the journey.
 type GetDeviceJourney200ResponseJourney struct {
 	Events               []Event `json:"events"`
 	HasMore              bool    `json:"has_more"`
