@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat-openapi-update]
   pull_request:
     branches: [main]
 
@@ -42,7 +42,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
