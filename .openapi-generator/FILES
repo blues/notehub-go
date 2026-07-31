@@ -2,6 +2,7 @@
 api_alert.go
 api_authorization.go
 api_billing_account.go
+api_description.go
 api_device.go
 api_event.go
 api_external_devices.go
@@ -20,6 +21,7 @@ docs/Alert.md
 docs/AlertAPI.md
 docs/AlertDataInner.md
 docs/AlertNotificationsInner.md
+docs/ArchiveStats.md
 docs/AuthorizationAPI.md
 docs/AwsRoute.md
 docs/AzureRoute.md
@@ -45,12 +47,17 @@ docs/CurrentFirmware.md
 docs/DFUEnv.md
 docs/DFUState.md
 docs/DataField.md
+docs/DataSet.md
 docs/DataSetField.md
 docs/DataUsage.md
 docs/DatacakeRoute.md
+docs/DatasetReloadProgress.md
 docs/DeleteDeviceFromFleetsRequest.md
 docs/DeleteJob200Response.md
 docs/DeleteNotefilesRequest.md
+docs/DescriptionAPI.md
+docs/DescriptionRecord.md
+docs/DescriptionRecordList.md
 docs/Device.md
 docs/DeviceAPI.md
 docs/DeviceDfuHistory.md
@@ -201,6 +208,7 @@ model_add_device_to_fleets_request.go
 model_alert.go
 model_alert_data_inner.go
 model_alert_notifications_inner.go
+model_archive_stats.go
 model_aws_role_config.go
 model_aws_route.go
 model_azure_route.go
@@ -223,12 +231,16 @@ model_create_update_repository.go
 model_created_repository.go
 model_current_firmware.go
 model_data_field.go
+model_data_set.go
 model_data_set_field.go
 model_data_usage.go
 model_datacake_route.go
+model_dataset_reload_progress.go
 model_delete_device_from_fleets_request.go
 model_delete_job_200_response.go
 model_delete_notefiles_request.go
+model_description_record.go
+model_description_record_list.go
 model_device.go
 model_device_dfu_history.go
 model_device_dfu_history_current.go
@@ -368,6 +380,7 @@ response.go
 test/api_alert_test.go
 test/api_authorization_test.go
 test/api_billing_account_test.go
+test/api_description_test.go
 test/api_device_test.go
 test/api_event_test.go
 test/api_external_devices_test.go

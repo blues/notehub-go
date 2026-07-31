@@ -2,68 +2,70 @@
 
 ## Properties
 
-| Name                 | Type                                  | Description                                                                                                                                            | Notes      |
-| -------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
-| **App**              | Pointer to **string**                 | App UID (globally unique)                                                                                                                              | [optional] |
-| **Bars**             | Pointer to **float32**                | Bars. Only available on \_session.qo events.                                                                                                           | [optional] |
-| **BestCountry**      | Pointer to **string**                 | Country                                                                                                                                                | [optional] |
-| **BestId**           | Pointer to **string**                 | The device serial number, or the DeviceUID if the serial number is not set                                                                             | [optional] |
-| **BestLat**          | Pointer to **float64**                | Latitude                                                                                                                                               | [optional] |
-| **BestLocation**     | Pointer to **string**                 | Location                                                                                                                                               | [optional] |
-| **BestLocationType** | Pointer to **string**                 | One of \&quot;gps\&quot;, \&quot;triangulated\&quot;, or \&quot;tower\&quot;                                                                           | [optional] |
-| **BestLocationWhen** | Pointer to **float32**                | Unix timestamp                                                                                                                                         | [optional] |
-| **BestLon**          | Pointer to **float64**                | Longitude                                                                                                                                              | [optional] |
-| **BestTimezone**     | Pointer to **string**                 | Timezone                                                                                                                                               | [optional] |
-| **Body**             | Pointer to **map[string]interface{}** | A JSON object containing event details                                                                                                                 | [optional] |
-| **Bssid**            | Pointer to **string**                 | BSSID. Only available on \_session.qo events.                                                                                                          | [optional] |
-| **Device**           | Pointer to **string**                 | Device UID (globally unique)                                                                                                                           | [optional] |
-| **Environment**      | Pointer to **map[string]interface{}** | Routed environment variables beginning with \&quot;$\&quot;. Only available on \_session.qo events.                                                    | [optional] |
-| **Event**            | Pointer to **string**                 | Event UID (globally unique)                                                                                                                            | [optional] |
-| **File**             | Pointer to **string**                 | The notefile associated with this event                                                                                                                | [optional] |
-| **Moved**            | Pointer to **float32**                | The number of times the device was sensed to have moved between the last session and this session. Only available on \_session.qo events.              | [optional] |
-| **Note**             | Pointer to **string**                 | The note ID in the notefile                                                                                                                            | [optional] |
-| **OrderingCode**     | Pointer to **string**                 | Ordering code. Only available on \_session.qo events.                                                                                                  | [optional] |
-| **Orientation**      | Pointer to **string**                 | The orientation of the device. Only available on \_session.qo events.                                                                                  | [optional] |
-| **Payload**          | Pointer to **string**                 | A base64-encoded binary payload                                                                                                                        | [optional] |
-| **Product**          | Pointer to **string**                 | Product UID (globally unique)                                                                                                                          | [optional] |
-| **Rat**              | Pointer to **string**                 | Rat. Only available on \_session.qo events.                                                                                                            | [optional] |
-| **Received**         | Pointer to **float64**                | The unix timestamp when the event was received                                                                                                         | [optional] |
-| **Req**              | Pointer to **string**                 | The notecard request                                                                                                                                   | [optional] |
-| **Rsrp**             | Pointer to **float32**                | RSRP. Only available on \_session.qo events.                                                                                                           | [optional] |
-| **Rsrq**             | Pointer to **float32**                | RSRQ. Only available on \_session.qo events.                                                                                                           | [optional] |
-| **Rssi**             | Pointer to **float32**                | Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on \_session.qo events. | [optional] |
-| **Session**          | Pointer to **string**                 | Session UID (globally unique)                                                                                                                          | [optional] |
-| **Sinr**             | Pointer to **float32**                | SINR. Only available on \_session.qo events.                                                                                                           | [optional] |
-| **Sku**              | Pointer to **string**                 | SKU. Only available on \_session.qo events.                                                                                                            | [optional] |
-| **Sn**               | Pointer to **string**                 | The device serial number                                                                                                                               | [optional] |
-| **Ssid**             | Pointer to **string**                 | SSID. Only available on \_session.qo events.                                                                                                           | [optional] |
-| **Temp**             | Pointer to **float64**                | Device temperature. Only available on \_session.qo events.                                                                                             | [optional] |
-| **Tls**              | Pointer to **bool**                   | Whether TLS was used on the connection between the device and notehub. Only available on \_session.qo events.                                          | [optional] |
-| **TowerCountry**     | Pointer to **string**                 | Country                                                                                                                                                | [optional] |
-| **TowerId**          | Pointer to **string**                 | Tower ID                                                                                                                                               | [optional] |
-| **TowerLat**         | Pointer to **float64**                | Latitude                                                                                                                                               | [optional] |
-| **TowerLocation**    | Pointer to **string**                 | Location                                                                                                                                               | [optional] |
-| **TowerLon**         | Pointer to **float64**                | Longitude                                                                                                                                              | [optional] |
-| **TowerTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                               | [optional] |
-| **TowerWhen**        | Pointer to **float32**                | Unix timestamp                                                                                                                                         | [optional] |
-| **Transport**        | Pointer to **string**                 | The transport used for this event, e.g., \&quot;cellular\&quot;, \&quot;wifi\&quot;, \&quot;, etc.                                                     | [optional] |
-| **TriCountry**       | Pointer to **string**                 | Country                                                                                                                                                | [optional] |
-| **TriLat**           | Pointer to **float64**                | Latitude                                                                                                                                               | [optional] |
-| **TriLocation**      | Pointer to **string**                 | Location                                                                                                                                               | [optional] |
-| **TriLon**           | Pointer to **float64**                | Longitude                                                                                                                                              | [optional] |
-| **TriPoints**        | Pointer to **float32**                | Triangulation points                                                                                                                                   | [optional] |
-| **TriTimezone**      | Pointer to **string**                 | Timezone                                                                                                                                               | [optional] |
-| **TriWhen**          | Pointer to **float32**                | Unix timestamp                                                                                                                                         | [optional] |
-| **Updates**          | Pointer to **float32**                |                                                                                                                                                        | [optional] |
-| **Voltage**          | Pointer to **float64**                | Device voltage. Only available on \_session.qo events.                                                                                                 | [optional] |
-| **When**             | Pointer to **float32**                | When the event was captured on the device                                                                                                              | [optional] |
-| **WhereCountry**     | Pointer to **string**                 | Country                                                                                                                                                | [optional] |
-| **WhereLat**         | Pointer to **float64**                | Latitude                                                                                                                                               | [optional] |
-| **WhereLocation**    | Pointer to **string**                 | Location                                                                                                                                               | [optional] |
-| **WhereLon**         | Pointer to **float64**                | Longitude                                                                                                                                              | [optional] |
-| **WhereOlc**         | Pointer to **string**                 | Open Location Code                                                                                                                                     | [optional] |
-| **WhereTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                               | [optional] |
-| **WhereWhen**        | Pointer to **float32**                | Unix timestamp                                                                                                                                         | [optional] |
+| Name                 | Type                                  | Description                                                                                                                                           | Notes      |
+| -------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **App**              | Pointer to **string**                 | App UID (globally unique)                                                                                                                             | [optional] |
+| **Bars**             | Pointer to **int32**                  | Bars. Only available on _session.qo events.                                                                                                           | [optional] |
+| **BestCountry**      | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
+| **BestId**           | Pointer to **string**                 | The device serial number, or the DeviceUID if the serial number is not set                                                                            | [optional] |
+| **BestLat**          | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
+| **BestLocation**     | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
+| **BestLocationType** | Pointer to **string**                 | One of \&quot;gps\&quot;, \&quot;triangulated\&quot;, or \&quot;tower\&quot;                                                                          | [optional] |
+| **BestLocationWhen** | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
+| **BestLon**          | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
+| **BestTimezone**     | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
+| **Body**             | Pointer to **map[string]interface{}** | A JSON object containing event details                                                                                                                | [optional] |
+| **Bssid**            | Pointer to **string**                 | BSSID. Only available on _session.qo events.                                                                                                          | [optional] |
+| **Device**           | Pointer to **string**                 | Device UID (globally unique)                                                                                                                          | [optional] |
+| **Environment**      | Pointer to **map[string]interface{}** | Routed environment variables beginning with \&quot;$\&quot;. Only available on _session.qo events.                                                    | [optional] |
+| **Event**            | Pointer to **string**                 | Event UID (globally unique)                                                                                                                           | [optional] |
+| **File**             | Pointer to **string**                 | The notefile associated with this event                                                                                                               | [optional] |
+| **Moved**            | Pointer to **int64**                  | The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.              | [optional] |
+| **Note**             | Pointer to **string**                 | The note ID in the notefile                                                                                                                           | [optional] |
+| **OrderingCode**     | Pointer to **string**                 | Ordering code. Only available on _session.qo events.                                                                                                  | [optional] |
+| **Orientation**      | Pointer to **string**                 | The orientation of the device. Only available on _session.qo events.                                                                                  | [optional] |
+| **Payload**          | Pointer to **string**                 | A base64-encoded binary payload                                                                                                                       | [optional] |
+| **Product**          | Pointer to **string**                 | Product UID (globally unique)                                                                                                                         | [optional] |
+| **Rat**              | Pointer to **string**                 | Rat. Only available on _session.qo events.                                                                                                            | [optional] |
+| **Received**         | Pointer to **float64**                | The unix timestamp when the event was received                                                                                                        | [optional] |
+| **Req**              | Pointer to **string**                 | The notecard request                                                                                                                                  | [optional] |
+| **Rsrp**             | Pointer to **int32**                  | RSRP. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Rsrq**             | Pointer to **int32**                  | RSRQ. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Rssi**             | Pointer to **int32**                  | Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events. | [optional] |
+| **Sensor**           | Pointer to **string**                 | Sensor UID, for events originating from a sensor attached to the device                                                                               | [optional] |
+| **Session**          | Pointer to **string**                 | Session UID (globally unique)                                                                                                                         | [optional] |
+| **Sinr**             | Pointer to **int32**                  | SINR. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Sku**              | Pointer to **string**                 | SKU. Only available on _session.qo events.                                                                                                            | [optional] |
+| **Sn**               | Pointer to **string**                 | The device serial number                                                                                                                              | [optional] |
+| **Ssid**             | Pointer to **string**                 | SSID. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Temp**             | Pointer to **float64**                | Device temperature. Only available on _session.qo events.                                                                                             | [optional] |
+| **Tls**              | Pointer to **bool**                   | Whether TLS was used on the connection between the device and notehub. Only available on _session.qo events.                                          | [optional] |
+| **TowerCountry**     | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
+| **TowerId**          | Pointer to **string**                 | Tower ID                                                                                                                                              | [optional] |
+| **TowerLat**         | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
+| **TowerLocation**    | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
+| **TowerLon**         | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
+| **TowerTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
+| **TowerWhen**        | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
+| **Transport**        | Pointer to **string**                 | The transport used for this event, e.g., \&quot;cellular\&quot;, \&quot;wifi\&quot;, \&quot;, etc.                                                    | [optional] |
+| **TriCountry**       | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
+| **TriLat**           | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
+| **TriLocation**      | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
+| **TriLon**           | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
+| **TriPoints**        | Pointer to **int32**                  | Triangulation points                                                                                                                                  | [optional] |
+| **TriTimezone**      | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
+| **TriWhen**          | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
+| **Updates**          | Pointer to **int32**                  |                                                                                                                                                       | [optional] |
+| **Voltage**          | Pointer to **float64**                | Device voltage. Only available on _session.qo events.                                                                                                 | [optional] |
+| **When**             | Pointer to **int64**                  | When the event was captured on the device                                                                                                             | [optional] |
+| **WhenMs**           | Pointer to **int64**                  | Millisecond-accurate Unix epoch timestamp for when the event was captured on the device                                                               | [optional] |
+| **WhereCountry**     | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
+| **WhereLat**         | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
+| **WhereLocation**    | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
+| **WhereLon**         | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
+| **WhereOlc**         | Pointer to **string**                 | Open Location Code                                                                                                                                    | [optional] |
+| **WhereTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
+| **WhereWhen**        | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
 
 ## Methods
 
@@ -111,20 +113,20 @@ HasApp returns a boolean if a field has been set.
 
 ### GetBars
 
-`func (o *Event) GetBars() float32`
+`func (o *Event) GetBars() int32`
 
 GetBars returns the Bars field if non-nil, zero value otherwise.
 
 ### GetBarsOk
 
-`func (o *Event) GetBarsOk() (*float32, bool)`
+`func (o *Event) GetBarsOk() (*int32, bool)`
 
 GetBarsOk returns a tuple with the Bars field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBars
 
-`func (o *Event) SetBars(v float32)`
+`func (o *Event) SetBars(v int32)`
 
 SetBars sets Bars field to given value.
 
@@ -261,20 +263,20 @@ HasBestLocationType returns a boolean if a field has been set.
 
 ### GetBestLocationWhen
 
-`func (o *Event) GetBestLocationWhen() float32`
+`func (o *Event) GetBestLocationWhen() int64`
 
 GetBestLocationWhen returns the BestLocationWhen field if non-nil, zero value otherwise.
 
 ### GetBestLocationWhenOk
 
-`func (o *Event) GetBestLocationWhenOk() (*float32, bool)`
+`func (o *Event) GetBestLocationWhenOk() (*int64, bool)`
 
 GetBestLocationWhenOk returns a tuple with the BestLocationWhen field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBestLocationWhen
 
-`func (o *Event) SetBestLocationWhen(v float32)`
+`func (o *Event) SetBestLocationWhen(v int64)`
 
 SetBestLocationWhen sets BestLocationWhen field to given value.
 
@@ -486,20 +488,20 @@ HasFile returns a boolean if a field has been set.
 
 ### GetMoved
 
-`func (o *Event) GetMoved() float32`
+`func (o *Event) GetMoved() int64`
 
 GetMoved returns the Moved field if non-nil, zero value otherwise.
 
 ### GetMovedOk
 
-`func (o *Event) GetMovedOk() (*float32, bool)`
+`func (o *Event) GetMovedOk() (*int64, bool)`
 
 GetMovedOk returns a tuple with the Moved field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMoved
 
-`func (o *Event) SetMoved(v float32)`
+`func (o *Event) SetMoved(v int64)`
 
 SetMoved sets Moved field to given value.
 
@@ -711,20 +713,20 @@ HasReq returns a boolean if a field has been set.
 
 ### GetRsrp
 
-`func (o *Event) GetRsrp() float32`
+`func (o *Event) GetRsrp() int32`
 
 GetRsrp returns the Rsrp field if non-nil, zero value otherwise.
 
 ### GetRsrpOk
 
-`func (o *Event) GetRsrpOk() (*float32, bool)`
+`func (o *Event) GetRsrpOk() (*int32, bool)`
 
 GetRsrpOk returns a tuple with the Rsrp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRsrp
 
-`func (o *Event) SetRsrp(v float32)`
+`func (o *Event) SetRsrp(v int32)`
 
 SetRsrp sets Rsrp field to given value.
 
@@ -736,20 +738,20 @@ HasRsrp returns a boolean if a field has been set.
 
 ### GetRsrq
 
-`func (o *Event) GetRsrq() float32`
+`func (o *Event) GetRsrq() int32`
 
 GetRsrq returns the Rsrq field if non-nil, zero value otherwise.
 
 ### GetRsrqOk
 
-`func (o *Event) GetRsrqOk() (*float32, bool)`
+`func (o *Event) GetRsrqOk() (*int32, bool)`
 
 GetRsrqOk returns a tuple with the Rsrq field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRsrq
 
-`func (o *Event) SetRsrq(v float32)`
+`func (o *Event) SetRsrq(v int32)`
 
 SetRsrq sets Rsrq field to given value.
 
@@ -761,20 +763,20 @@ HasRsrq returns a boolean if a field has been set.
 
 ### GetRssi
 
-`func (o *Event) GetRssi() float32`
+`func (o *Event) GetRssi() int32`
 
 GetRssi returns the Rssi field if non-nil, zero value otherwise.
 
 ### GetRssiOk
 
-`func (o *Event) GetRssiOk() (*float32, bool)`
+`func (o *Event) GetRssiOk() (*int32, bool)`
 
 GetRssiOk returns a tuple with the Rssi field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRssi
 
-`func (o *Event) SetRssi(v float32)`
+`func (o *Event) SetRssi(v int32)`
 
 SetRssi sets Rssi field to given value.
 
@@ -783,6 +785,31 @@ SetRssi sets Rssi field to given value.
 `func (o *Event) HasRssi() bool`
 
 HasRssi returns a boolean if a field has been set.
+
+### GetSensor
+
+`func (o *Event) GetSensor() string`
+
+GetSensor returns the Sensor field if non-nil, zero value otherwise.
+
+### GetSensorOk
+
+`func (o *Event) GetSensorOk() (*string, bool)`
+
+GetSensorOk returns a tuple with the Sensor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSensor
+
+`func (o *Event) SetSensor(v string)`
+
+SetSensor sets Sensor field to given value.
+
+### HasSensor
+
+`func (o *Event) HasSensor() bool`
+
+HasSensor returns a boolean if a field has been set.
 
 ### GetSession
 
@@ -811,20 +838,20 @@ HasSession returns a boolean if a field has been set.
 
 ### GetSinr
 
-`func (o *Event) GetSinr() float32`
+`func (o *Event) GetSinr() int32`
 
 GetSinr returns the Sinr field if non-nil, zero value otherwise.
 
 ### GetSinrOk
 
-`func (o *Event) GetSinrOk() (*float32, bool)`
+`func (o *Event) GetSinrOk() (*int32, bool)`
 
 GetSinrOk returns a tuple with the Sinr field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSinr
 
-`func (o *Event) SetSinr(v float32)`
+`func (o *Event) SetSinr(v int32)`
 
 SetSinr sets Sinr field to given value.
 
@@ -1111,20 +1138,20 @@ HasTowerTimezone returns a boolean if a field has been set.
 
 ### GetTowerWhen
 
-`func (o *Event) GetTowerWhen() float32`
+`func (o *Event) GetTowerWhen() int64`
 
 GetTowerWhen returns the TowerWhen field if non-nil, zero value otherwise.
 
 ### GetTowerWhenOk
 
-`func (o *Event) GetTowerWhenOk() (*float32, bool)`
+`func (o *Event) GetTowerWhenOk() (*int64, bool)`
 
 GetTowerWhenOk returns a tuple with the TowerWhen field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTowerWhen
 
-`func (o *Event) SetTowerWhen(v float32)`
+`func (o *Event) SetTowerWhen(v int64)`
 
 SetTowerWhen sets TowerWhen field to given value.
 
@@ -1261,20 +1288,20 @@ HasTriLon returns a boolean if a field has been set.
 
 ### GetTriPoints
 
-`func (o *Event) GetTriPoints() float32`
+`func (o *Event) GetTriPoints() int32`
 
 GetTriPoints returns the TriPoints field if non-nil, zero value otherwise.
 
 ### GetTriPointsOk
 
-`func (o *Event) GetTriPointsOk() (*float32, bool)`
+`func (o *Event) GetTriPointsOk() (*int32, bool)`
 
 GetTriPointsOk returns a tuple with the TriPoints field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTriPoints
 
-`func (o *Event) SetTriPoints(v float32)`
+`func (o *Event) SetTriPoints(v int32)`
 
 SetTriPoints sets TriPoints field to given value.
 
@@ -1311,20 +1338,20 @@ HasTriTimezone returns a boolean if a field has been set.
 
 ### GetTriWhen
 
-`func (o *Event) GetTriWhen() float32`
+`func (o *Event) GetTriWhen() int64`
 
 GetTriWhen returns the TriWhen field if non-nil, zero value otherwise.
 
 ### GetTriWhenOk
 
-`func (o *Event) GetTriWhenOk() (*float32, bool)`
+`func (o *Event) GetTriWhenOk() (*int64, bool)`
 
 GetTriWhenOk returns a tuple with the TriWhen field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTriWhen
 
-`func (o *Event) SetTriWhen(v float32)`
+`func (o *Event) SetTriWhen(v int64)`
 
 SetTriWhen sets TriWhen field to given value.
 
@@ -1336,20 +1363,20 @@ HasTriWhen returns a boolean if a field has been set.
 
 ### GetUpdates
 
-`func (o *Event) GetUpdates() float32`
+`func (o *Event) GetUpdates() int32`
 
 GetUpdates returns the Updates field if non-nil, zero value otherwise.
 
 ### GetUpdatesOk
 
-`func (o *Event) GetUpdatesOk() (*float32, bool)`
+`func (o *Event) GetUpdatesOk() (*int32, bool)`
 
 GetUpdatesOk returns a tuple with the Updates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdates
 
-`func (o *Event) SetUpdates(v float32)`
+`func (o *Event) SetUpdates(v int32)`
 
 SetUpdates sets Updates field to given value.
 
@@ -1386,20 +1413,20 @@ HasVoltage returns a boolean if a field has been set.
 
 ### GetWhen
 
-`func (o *Event) GetWhen() float32`
+`func (o *Event) GetWhen() int64`
 
 GetWhen returns the When field if non-nil, zero value otherwise.
 
 ### GetWhenOk
 
-`func (o *Event) GetWhenOk() (*float32, bool)`
+`func (o *Event) GetWhenOk() (*int64, bool)`
 
 GetWhenOk returns a tuple with the When field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWhen
 
-`func (o *Event) SetWhen(v float32)`
+`func (o *Event) SetWhen(v int64)`
 
 SetWhen sets When field to given value.
 
@@ -1408,6 +1435,31 @@ SetWhen sets When field to given value.
 `func (o *Event) HasWhen() bool`
 
 HasWhen returns a boolean if a field has been set.
+
+### GetWhenMs
+
+`func (o *Event) GetWhenMs() int64`
+
+GetWhenMs returns the WhenMs field if non-nil, zero value otherwise.
+
+### GetWhenMsOk
+
+`func (o *Event) GetWhenMsOk() (*int64, bool)`
+
+GetWhenMsOk returns a tuple with the WhenMs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWhenMs
+
+`func (o *Event) SetWhenMs(v int64)`
+
+SetWhenMs sets WhenMs field to given value.
+
+### HasWhenMs
+
+`func (o *Event) HasWhenMs() bool`
+
+HasWhenMs returns a boolean if a field has been set.
 
 ### GetWhereCountry
 
@@ -1561,20 +1613,20 @@ HasWhereTimezone returns a boolean if a field has been set.
 
 ### GetWhereWhen
 
-`func (o *Event) GetWhereWhen() float32`
+`func (o *Event) GetWhereWhen() int64`
 
 GetWhereWhen returns the WhereWhen field if non-nil, zero value otherwise.
 
 ### GetWhereWhenOk
 
-`func (o *Event) GetWhereWhenOk() (*float32, bool)`
+`func (o *Event) GetWhereWhenOk() (*int64, bool)`
 
 GetWhereWhenOk returns a tuple with the WhereWhen field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWhereWhen
 
-`func (o *Event) SetWhereWhen(v float32)`
+`func (o *Event) SetWhereWhen(v int64)`
 
 SetWhereWhen sets WhereWhen field to given value.
 

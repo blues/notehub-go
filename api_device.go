@@ -1649,19 +1649,19 @@ type ApiGetDeviceHealthLogRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	logType             *[]string
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceHealthLogRequest) StartDate(startDate int32) ApiGetDeviceHealthLogRequest {
+func (r ApiGetDeviceHealthLogRequest) StartDate(startDate int64) ApiGetDeviceHealthLogRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceHealthLogRequest) EndDate(endDate int32) ApiGetDeviceHealthLogRequest {
+func (r ApiGetDeviceHealthLogRequest) EndDate(endDate int64) ApiGetDeviceHealthLogRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -1825,12 +1825,12 @@ func (r ApiGetDeviceJourneyRequest) Execute() (*GetDeviceJourney200Response, *ht
 /*
 GetDeviceJourney Method for GetDeviceJourney
 
-Get a single journey for a device along with its `_track.qo` events. The events array is paginated via `pageSize` / `pageNum`; use `journey.has_more` to detect additional pages.
+Get a single journey for a device along with its events. The events array is paginated via `pageSize` / `pageNum`; use `journey.has_more` to detect additional pages.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param journeyID Identifier of the journey, taken from the `journey` field on `_track.qo` events (a Unix timestamp marking the start of the journey).
+	@param journeyID Identifier of the journey, taken from the numeric `journey` field in the event body (a Unix timestamp marking the start of the journey).
 	@return ApiGetDeviceJourneyRequest
 */
 func (a *DeviceAPIService) GetDeviceJourney(ctx context.Context, projectOrProductUID string, deviceUID string, journeyID int64) ApiGetDeviceJourneyRequest {
@@ -1949,18 +1949,18 @@ type ApiGetDeviceJourneysRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceJourneysRequest) StartDate(startDate int32) ApiGetDeviceJourneysRequest {
+func (r ApiGetDeviceJourneysRequest) StartDate(startDate int64) ApiGetDeviceJourneysRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceJourneysRequest) EndDate(endDate int32) ApiGetDeviceJourneysRequest {
+func (r ApiGetDeviceJourneysRequest) EndDate(endDate int64) ApiGetDeviceJourneysRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -1972,7 +1972,7 @@ func (r ApiGetDeviceJourneysRequest) Execute() (*GetDeviceJourneys200Response, *
 /*
 GetDeviceJourneys Method for GetDeviceJourneys
 
-Get the list of journeys for a device, derived from `_track.qo` events. Returns journey metadata only (no event payloads). Capped at 100 most recent journeys; `has_more` is true when the cap is hit.
+Get the list of journeys for a device, derived from events whose body contains `journey` and `jcount` fields. Returns journey metadata only (no event payloads). Capped at 100 most recent journeys; `has_more` is true when the cap is hit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2573,8 +2573,8 @@ type ApiGetDeviceSessionsRequest struct {
 	deviceUID           string
 	pageSize            *int32
 	pageNum             *int32
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	firstSync           *bool
 }
 
@@ -2589,13 +2589,13 @@ func (r ApiGetDeviceSessionsRequest) PageNum(pageNum int32) ApiGetDeviceSessions
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceSessionsRequest) StartDate(startDate int32) ApiGetDeviceSessionsRequest {
+func (r ApiGetDeviceSessionsRequest) StartDate(startDate int64) ApiGetDeviceSessionsRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceSessionsRequest) EndDate(endDate int32) ApiGetDeviceSessionsRequest {
+func (r ApiGetDeviceSessionsRequest) EndDate(endDate int64) ApiGetDeviceSessionsRequest {
 	r.endDate = &endDate
 	return r
 }

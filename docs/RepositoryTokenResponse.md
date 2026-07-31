@@ -9,7 +9,7 @@
 | **Host**      | **string**    | Storage service hostname the caller should connect to                                                                        |
 | **Password**  | **string**    | Ephemeral password. Returned once; not stored by Notehub. Hold this in memory only and discard after &#x60;expires_at&#x60;. |
 | **Port**      | **int32**     | Storage service port                                                                                                         |
-| **Username**  | **string**    | Ephemeral storage service username (prefixed with &#x60;u\_&#x60;)                                                           |
+| **Username**  | **string**    | Ephemeral storage service username (prefixed with &#x60;u_&#x60;)                                                            |
 
 ## Methods
 

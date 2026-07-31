@@ -55,8 +55,11 @@ type CreateMonitor struct {
 	// For usage monitors: the type of data usage to monitor. Supported values are \"cellular\" and \"satellite\".
 	UsageType *string `json:"usage_type,omitempty"`
 	// For usage monitors: the rolling time window in days to sum usage over (e.g. 30 for 30 days).
-	UsageWindow *int32 `json:"usage_window,omitempty"`
+	UsageWindow          *int32 `json:"usage_window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateMonitor CreateMonitor
 
 // NewCreateMonitor instantiates a new CreateMonitor object
 // This constructor will assign default values to properties that have it defined,
@@ -820,7 +823,53 @@ func (o CreateMonitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UsageWindow) {
 		toSerialize["usage_window"] = o.UsageWindow
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateMonitor) UnmarshalJSON(data []byte) (err error) {
+	varCreateMonitor := _CreateMonitor{}
+
+	err = json.Unmarshal(data, &varCreateMonitor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateMonitor(varCreateMonitor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregate_function")
+		delete(additionalProperties, "aggregate_window")
+		delete(additionalProperties, "alert")
+		delete(additionalProperties, "alert_routes")
+		delete(additionalProperties, "condition_type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "fleet_filter")
+		delete(additionalProperties, "last_routed_at")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "notefile_filter")
+		delete(additionalProperties, "per_device")
+		delete(additionalProperties, "routing_cooldown_period")
+		delete(additionalProperties, "silenced")
+		delete(additionalProperties, "source_selector")
+		delete(additionalProperties, "source_type")
+		delete(additionalProperties, "threshold")
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "usage_scope")
+		delete(additionalProperties, "usage_type")
+		delete(additionalProperties, "usage_window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateMonitor struct {

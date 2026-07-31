@@ -21,8 +21,10 @@ var _ MappedNullable = &EnvironmentVariables{}
 
 // EnvironmentVariables struct for EnvironmentVariables
 type EnvironmentVariables struct {
-	EnvironmentVariables map[string]string `json:"environment_variables"`
-	AdditionalProperties map[string]interface{}
+	// Optional per-variable annotations, keyed by variable name. Setting a key to an empty string removes its note. A 400 error is returned for any key that does not already exist as a stored variable and is not included in environment_variables in the same request.
+	EnvironmentVariableNotes *map[string]string `json:"environment_variable_notes,omitempty"`
+	EnvironmentVariables     map[string]string  `json:"environment_variables"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _EnvironmentVariables EnvironmentVariables
@@ -43,6 +45,38 @@ func NewEnvironmentVariables(environmentVariables map[string]string) *Environmen
 func NewEnvironmentVariablesWithDefaults() *EnvironmentVariables {
 	this := EnvironmentVariables{}
 	return &this
+}
+
+// GetEnvironmentVariableNotes returns the EnvironmentVariableNotes field value if set, zero value otherwise.
+func (o *EnvironmentVariables) GetEnvironmentVariableNotes() map[string]string {
+	if o == nil || IsNil(o.EnvironmentVariableNotes) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.EnvironmentVariableNotes
+}
+
+// GetEnvironmentVariableNotesOk returns a tuple with the EnvironmentVariableNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentVariables) GetEnvironmentVariableNotesOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.EnvironmentVariableNotes) {
+		return nil, false
+	}
+	return o.EnvironmentVariableNotes, true
+}
+
+// HasEnvironmentVariableNotes returns a boolean if a field has been set.
+func (o *EnvironmentVariables) HasEnvironmentVariableNotes() bool {
+	if o != nil && !IsNil(o.EnvironmentVariableNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironmentVariableNotes gets a reference to the given map[string]string and assigns it to the EnvironmentVariableNotes field.
+func (o *EnvironmentVariables) SetEnvironmentVariableNotes(v map[string]string) {
+	o.EnvironmentVariableNotes = &v
 }
 
 // GetEnvironmentVariables returns the EnvironmentVariables field value
@@ -79,6 +113,9 @@ func (o EnvironmentVariables) MarshalJSON() ([]byte, error) {
 
 func (o EnvironmentVariables) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EnvironmentVariableNotes) {
+		toSerialize["environment_variable_notes"] = o.EnvironmentVariableNotes
+	}
 	toSerialize["environment_variables"] = o.EnvironmentVariables
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +160,7 @@ func (o *EnvironmentVariables) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment_variable_notes")
 		delete(additionalProperties, "environment_variables")
 		o.AdditionalProperties = additionalProperties
 	}

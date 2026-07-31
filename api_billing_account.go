@@ -143,18 +143,18 @@ type ApiGetBillingAccountBalanceHistoryRequest struct {
 	ctx               context.Context
 	ApiService        *BillingAccountAPIService
 	billingAccountUID string
-	startDate         *int32
-	endDate           *int32
+	startDate         *int64
+	endDate           *int64
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetBillingAccountBalanceHistoryRequest) StartDate(startDate int32) ApiGetBillingAccountBalanceHistoryRequest {
+func (r ApiGetBillingAccountBalanceHistoryRequest) StartDate(startDate int64) ApiGetBillingAccountBalanceHistoryRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetBillingAccountBalanceHistoryRequest) EndDate(endDate int32) ApiGetBillingAccountBalanceHistoryRequest {
+func (r ApiGetBillingAccountBalanceHistoryRequest) EndDate(endDate int64) ApiGetBillingAccountBalanceHistoryRequest {
 	r.endDate = &endDate
 	return r
 }

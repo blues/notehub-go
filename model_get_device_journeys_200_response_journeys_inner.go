@@ -24,11 +24,11 @@ var _ MappedNullable = &GetDeviceJourneys200ResponseJourneysInner{}
 type GetDeviceJourneys200ResponseJourneysInner struct {
 	// Latest event time within the journey.
 	EndDate time.Time `json:"end_date"`
-	// Identifier of the journey, taken from the `journey` field on `_track.qo` events. This value is itself a Unix timestamp marking the start of the journey.
+	// Identifier of the journey, taken from the numeric `journey` field in the event body. This value is itself a Unix timestamp marking the start of the journey.
 	JourneyId int64 `json:"journey_id"`
 	// Earliest event time within the journey.
 	StartDate time.Time `json:"start_date"`
-	// The number of _track.qo events in the journey.
+	// The number of events in the journey.
 	TotalEvents          int64 `json:"total_events"`
 	AdditionalProperties map[string]interface{}
 }

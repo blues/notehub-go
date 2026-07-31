@@ -2,28 +2,29 @@
 
 ## Properties
 
-| Name                     | Type                                                         | Description | Notes      |
-| ------------------------ | ------------------------------------------------------------ | ----------- | ---------- |
-| **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |             | [optional] |
-| **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |             | [optional] |
-| **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |             | [optional] |
-| **Dfu**                  | Pointer to [**NullableDFUEnv**](DFUEnv.md)                   |             | [optional] |
-| **Disabled**             | Pointer to **bool**                                          |             | [optional] |
-| **FirmwareHost**         | Pointer to **string**                                        |             | [optional] |
-| **FirmwareNotecard**     | Pointer to **string**                                        |             | [optional] |
-| **FleetUids**            | **[]string**                                                 |             |
-| **GpsLocation**          | Pointer to [**NullableLocation**](Location.md)               |             | [optional] |
-| **LastActivity**         | Pointer to **NullableTime**                                  |             | [optional] |
-| **ProductUid**           | **string**                                                   |             |
-| **Provisioned**          | **time.Time**                                                |             |
-| **SerialNumber**         | Pointer to **string**                                        |             | [optional] |
-| **Sku**                  | Pointer to **string**                                        |             | [optional] |
-| **Temperature**          | **float64**                                                  |             |
-| **TowerInfo**            | Pointer to [**NullableDeviceTowerInfo**](DeviceTowerInfo.md) |             | [optional] |
-| **TowerLocation**        | Pointer to [**NullableLocation**](Location.md)               |             | [optional] |
-| **TriangulatedLocation** | Pointer to [**NullableLocation**](Location.md)               |             | [optional] |
-| **Uid**                  | **string**                                                   |             |
-| **Voltage**              | **float64**                                                  |             |
+| Name                     | Type                                                         | Description                                                                  | Notes      |
+| ------------------------ | ------------------------------------------------------------ | ---------------------------------------------------------------------------- | ---------- |
+| **BestId**               | Pointer to **string**                                        | The best ID for the device, preference for the serial number over device UID | [optional] |
+| **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
+| **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |                                                                              | [optional] |
+| **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |                                                                              | [optional] |
+| **Dfu**                  | Pointer to [**NullableDFUEnv**](DFUEnv.md)                   |                                                                              | [optional] |
+| **Disabled**             | Pointer to **bool**                                          |                                                                              | [optional] |
+| **FirmwareHost**         | Pointer to **string**                                        |                                                                              | [optional] |
+| **FirmwareNotecard**     | Pointer to **string**                                        |                                                                              | [optional] |
+| **FleetUids**            | **[]string**                                                 |                                                                              |
+| **GpsLocation**          | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
+| **LastActivity**         | Pointer to **NullableTime**                                  |                                                                              | [optional] |
+| **ProductUid**           | **string**                                                   |                                                                              |
+| **Provisioned**          | **time.Time**                                                |                                                                              |
+| **SerialNumber**         | Pointer to **string**                                        |                                                                              | [optional] |
+| **Sku**                  | Pointer to **string**                                        |                                                                              | [optional] |
+| **Temperature**          | **float64**                                                  |                                                                              |
+| **TowerInfo**            | Pointer to [**NullableDeviceTowerInfo**](DeviceTowerInfo.md) |                                                                              | [optional] |
+| **TowerLocation**        | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
+| **TriangulatedLocation** | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
+| **Uid**                  | **string**                                                   |                                                                              |
+| **Voltage**              | **float64**                                                  |                                                                              |
 
 ## Methods
 
@@ -43,6 +44,31 @@ will change when the set of required properties is changed
 NewDeviceWithDefaults instantiates a new Device object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetBestId
+
+`func (o *Device) GetBestId() string`
+
+GetBestId returns the BestId field if non-nil, zero value otherwise.
+
+### GetBestIdOk
+
+`func (o *Device) GetBestIdOk() (*string, bool)`
+
+GetBestIdOk returns a tuple with the BestId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBestId
+
+`func (o *Device) SetBestId(v string)`
+
+SetBestId sets BestId field to given value.
+
+### HasBestId
+
+`func (o *Device) HasBestId() bool`
+
+HasBestId returns a boolean if a field has been set.
 
 ### GetBestLocation
 

@@ -22,6 +22,8 @@ var _ MappedNullable = &Device{}
 
 // Device struct for Device
 type Device struct {
+	// The best ID for the device, preference for the serial number over device UID
+	BestId               *string                 `json:"best_id,omitempty"`
 	BestLocation         NullableLocation        `json:"best_location,omitempty"`
 	CellularUsage        []SimUsage              `json:"cellular_usage,omitempty"`
 	Contact              NullableContact         `json:"contact,omitempty"`
@@ -68,6 +70,38 @@ func NewDevice(fleetUids []string, productUid string, provisioned time.Time, tem
 func NewDeviceWithDefaults() *Device {
 	this := Device{}
 	return &this
+}
+
+// GetBestId returns the BestId field value if set, zero value otherwise.
+func (o *Device) GetBestId() string {
+	if o == nil || IsNil(o.BestId) {
+		var ret string
+		return ret
+	}
+	return *o.BestId
+}
+
+// GetBestIdOk returns a tuple with the BestId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetBestIdOk() (*string, bool) {
+	if o == nil || IsNil(o.BestId) {
+		return nil, false
+	}
+	return o.BestId, true
+}
+
+// HasBestId returns a boolean if a field has been set.
+func (o *Device) HasBestId() bool {
+	if o != nil && !IsNil(o.BestId) {
+		return true
+	}
+
+	return false
+}
+
+// SetBestId gets a reference to the given string and assigns it to the BestId field.
+func (o *Device) SetBestId(v string) {
+	o.BestId = &v
 }
 
 // GetBestLocation returns the BestLocation field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -760,6 +794,9 @@ func (o Device) MarshalJSON() ([]byte, error) {
 
 func (o Device) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BestId) {
+		toSerialize["best_id"] = o.BestId
+	}
 	if o.BestLocation.IsSet() {
 		toSerialize["best_location"] = o.BestLocation.Get()
 	}
@@ -856,6 +893,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "best_id")
 		delete(additionalProperties, "best_location")
 		delete(additionalProperties, "cellular_usage")
 		delete(additionalProperties, "contact")

@@ -29,8 +29,8 @@ type ApiGetDataUsageRequest struct {
 	ApiService          *UsageAPIService
 	projectOrProductUID string
 	period              *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	deviceUID           *[]string
 	fleetUID            *[]string
 	limit               *int32
@@ -44,13 +44,13 @@ func (r ApiGetDataUsageRequest) Period(period string) ApiGetDataUsageRequest {
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDataUsageRequest) StartDate(startDate int32) ApiGetDataUsageRequest {
+func (r ApiGetDataUsageRequest) StartDate(startDate int64) ApiGetDataUsageRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDataUsageRequest) EndDate(endDate int32) ApiGetDataUsageRequest {
+func (r ApiGetDataUsageRequest) EndDate(endDate int64) ApiGetDataUsageRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -236,8 +236,8 @@ type ApiGetEventsUsageRequest struct {
 	ApiService          *UsageAPIService
 	projectOrProductUID string
 	period              *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	deviceUID           *[]string
 	fleetUID            *[]string
 	limit               *int32
@@ -254,13 +254,13 @@ func (r ApiGetEventsUsageRequest) Period(period string) ApiGetEventsUsageRequest
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetEventsUsageRequest) StartDate(startDate int32) ApiGetEventsUsageRequest {
+func (r ApiGetEventsUsageRequest) StartDate(startDate int64) ApiGetEventsUsageRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetEventsUsageRequest) EndDate(endDate int32) ApiGetEventsUsageRequest {
+func (r ApiGetEventsUsageRequest) EndDate(endDate int64) ApiGetEventsUsageRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -489,8 +489,8 @@ type ApiGetRouteLogsUsageRequest struct {
 	ApiService          *UsageAPIService
 	projectOrProductUID string
 	period              *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	routeUID            *[]string
 	limit               *int32
 	aggregate           *string
@@ -504,13 +504,13 @@ func (r ApiGetRouteLogsUsageRequest) Period(period string) ApiGetRouteLogsUsageR
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetRouteLogsUsageRequest) StartDate(startDate int32) ApiGetRouteLogsUsageRequest {
+func (r ApiGetRouteLogsUsageRequest) StartDate(startDate int64) ApiGetRouteLogsUsageRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetRouteLogsUsageRequest) EndDate(endDate int32) ApiGetRouteLogsUsageRequest {
+func (r ApiGetRouteLogsUsageRequest) EndDate(endDate int64) ApiGetRouteLogsUsageRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -692,8 +692,8 @@ type ApiGetSessionsUsageRequest struct {
 	ApiService          *UsageAPIService
 	projectOrProductUID string
 	period              *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	deviceUID           *[]string
 	fleetUID            *[]string
 	limit               *int32
@@ -708,13 +708,13 @@ func (r ApiGetSessionsUsageRequest) Period(period string) ApiGetSessionsUsageReq
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetSessionsUsageRequest) StartDate(startDate int32) ApiGetSessionsUsageRequest {
+func (r ApiGetSessionsUsageRequest) StartDate(startDate int64) ApiGetSessionsUsageRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetSessionsUsageRequest) EndDate(endDate int32) ApiGetSessionsUsageRequest {
+func (r ApiGetSessionsUsageRequest) EndDate(endDate int64) ApiGetSessionsUsageRequest {
 	r.endDate = &endDate
 	return r
 }

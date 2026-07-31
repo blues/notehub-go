@@ -2,12 +2,12 @@
 
 ## Properties
 
-| Name            | Type          | Description                                                                                                                                                                   | Notes |
-| --------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| **EndDate**     | **time.Time** | Latest event time within the journey.                                                                                                                                         |
-| **JourneyId**   | **int64**     | Identifier of the journey, taken from the &#x60;journey&#x60; field on &#x60;\_track.qo&#x60; events. This value is itself a Unix timestamp marking the start of the journey. |
-| **StartDate**   | **time.Time** | Earliest event time within the journey.                                                                                                                                       |
-| **TotalEvents** | **int64**     | The number of \_track.qo events in the journey.                                                                                                                               |
+| Name            | Type          | Description                                                                                                                                                            | Notes |
+| --------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **EndDate**     | **time.Time** | Latest event time within the journey.                                                                                                                                  |
+| **JourneyId**   | **int64**     | Identifier of the journey, taken from the numeric &#x60;journey&#x60; field in the event body. This value is itself a Unix timestamp marking the start of the journey. |
+| **StartDate**   | **time.Time** | Earliest event time within the journey.                                                                                                                                |
+| **TotalEvents** | **int64**     | The number of events in the journey.                                                                                                                                   |
 
 ## Methods
 
