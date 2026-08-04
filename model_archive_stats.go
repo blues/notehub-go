@@ -26,7 +26,7 @@ type ArchiveStats struct {
 	// Timestamp of the latest archived record.
 	End *time.Time `json:"end,omitempty"`
 	// Number of archive files.
-	FileCount *int32 `json:"file_count,omitempty"`
+	FileCount *int64 `json:"file_count,omitempty"`
 	// Total number of records across all archive files. Null when the count cannot be determined because one or more archive files predate the record-count filename format.
 	RecordCount NullableInt64 `json:"record_count,omitempty"`
 	// Total size of all archive files, in bytes.
@@ -118,9 +118,9 @@ func (o *ArchiveStats) SetEnd(v time.Time) {
 }
 
 // GetFileCount returns the FileCount field value if set, zero value otherwise.
-func (o *ArchiveStats) GetFileCount() int32 {
+func (o *ArchiveStats) GetFileCount() int64 {
 	if o == nil || IsNil(o.FileCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.FileCount
@@ -128,7 +128,7 @@ func (o *ArchiveStats) GetFileCount() int32 {
 
 // GetFileCountOk returns a tuple with the FileCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchiveStats) GetFileCountOk() (*int32, bool) {
+func (o *ArchiveStats) GetFileCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.FileCount) {
 		return nil, false
 	}
@@ -144,8 +144,8 @@ func (o *ArchiveStats) HasFileCount() bool {
 	return false
 }
 
-// SetFileCount gets a reference to the given int32 and assigns it to the FileCount field.
-func (o *ArchiveStats) SetFileCount(v int32) {
+// SetFileCount gets a reference to the given int64 and assigns it to the FileCount field.
+func (o *ArchiveStats) SetFileCount(v int64) {
 	o.FileCount = &v
 }
 

@@ -6,7 +6,7 @@
 | ------------------ | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
 | **Begin**          | Pointer to **time.Time**     | Timestamp of the earliest archived record.                                                                                                                             | [optional] |
 | **End**            | Pointer to **time.Time**     | Timestamp of the latest archived record.                                                                                                                               | [optional] |
-| **FileCount**      | Pointer to **int32**         | Number of archive files.                                                                                                                                               | [optional] |
+| **FileCount**      | Pointer to **int64**         | Number of archive files.                                                                                                                                               | [optional] |
 | **RecordCount**    | Pointer to **NullableInt64** | Total number of records across all archive files. Null when the count cannot be determined because one or more archive files predate the record-count filename format. | [optional] |
 | **TotalSizeBytes** | Pointer to **int64**         | Total size of all archive files, in bytes.                                                                                                                             | [optional] |
 
@@ -81,20 +81,20 @@ HasEnd returns a boolean if a field has been set.
 
 ### GetFileCount
 
-`func (o *ArchiveStats) GetFileCount() int32`
+`func (o *ArchiveStats) GetFileCount() int64`
 
 GetFileCount returns the FileCount field if non-nil, zero value otherwise.
 
 ### GetFileCountOk
 
-`func (o *ArchiveStats) GetFileCountOk() (*int32, bool)`
+`func (o *ArchiveStats) GetFileCountOk() (*int64, bool)`
 
 GetFileCountOk returns a tuple with the FileCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFileCount
 
-`func (o *ArchiveStats) SetFileCount(v int32)`
+`func (o *ArchiveStats) SetFileCount(v int64)`
 
 SetFileCount sets FileCount field to given value.
 
