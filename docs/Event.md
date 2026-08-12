@@ -25,6 +25,7 @@
 | **OrderingCode**     | Pointer to **string**                 | Ordering code. Only available on _session.qo events.                                                                                                  | [optional] |
 | **Orientation**      | Pointer to **string**                 | The orientation of the device. Only available on _session.qo events.                                                                                  | [optional] |
 | **Payload**          | Pointer to **string**                 | A base64-encoded binary payload                                                                                                                       | [optional] |
+| **Platform**         | Pointer to **bool**                   | Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data                                                 | [optional] |
 | **Product**          | Pointer to **string**                 | Product UID (globally unique)                                                                                                                         | [optional] |
 | **Rat**              | Pointer to **string**                 | Rat. Only available on _session.qo events.                                                                                                            | [optional] |
 | **Received**         | Pointer to **float64**                | The unix timestamp when the event was received                                                                                                        | [optional] |
@@ -610,6 +611,31 @@ SetPayload sets Payload field to given value.
 `func (o *Event) HasPayload() bool`
 
 HasPayload returns a boolean if a field has been set.
+
+### GetPlatform
+
+`func (o *Event) GetPlatform() bool`
+
+GetPlatform returns the Platform field if non-nil, zero value otherwise.
+
+### GetPlatformOk
+
+`func (o *Event) GetPlatformOk() (*bool, bool)`
+
+GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPlatform
+
+`func (o *Event) SetPlatform(v bool)`
+
+SetPlatform sets Platform field to given value.
+
+### HasPlatform
+
+`func (o *Event) HasPlatform() bool`
+
+HasPlatform returns a boolean if a field has been set.
 
 ### GetProduct
 

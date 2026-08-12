@@ -96,7 +96,6 @@ docs/GetDbNote200Response.md
 docs/GetDeviceEnvironmentVariablesByPin200Response.md
 docs/GetDeviceFleets200Response.md
 docs/GetDeviceHealthLog200Response.md
-docs/GetDeviceHealthLog200ResponseHealthLogInner.md
 docs/GetDeviceJourney200Response.md
 docs/GetDeviceJourney200ResponseJourney.md
 docs/GetDeviceJourneys200Response.md
@@ -122,6 +121,7 @@ docs/GetRouteLogsUsage200Response.md
 docs/GetSessionsUsage200Response.md
 docs/GetWebhooks200Response.md
 docs/GoogleRoute.md
+docs/HealthLog.md
 docs/HttpRoute.md
 docs/InlineObject.md
 docs/Job.md
@@ -278,7 +278,6 @@ model_get_db_note_200_response.go
 model_get_device_environment_variables_by_pin_200_response.go
 model_get_device_fleets_200_response.go
 model_get_device_health_log_200_response.go
-model_get_device_health_log_200_response_health_log_inner.go
 model_get_device_journey_200_response.go
 model_get_device_journey_200_response_journey.go
 model_get_device_journeys_200_response.go
@@ -304,6 +303,7 @@ model_get_route_logs_usage_200_response.go
 model_get_sessions_usage_200_response.go
 model_get_webhooks_200_response.go
 model_google_route.go
+model_health_log.go
 model_http_route.go
 model_inline_object.go
 model_job.go

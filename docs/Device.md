@@ -14,11 +14,17 @@
 | **FirmwareNotecard**     | Pointer to **string**                                        |                                                                              | [optional] |
 | **FleetUids**            | **[]string**                                                 |                                                                              |
 | **GpsLocation**          | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
+| **HealthLog**            | Pointer to [**[]HealthLog**](HealthLog.md)                   |                                                                              | [optional] |
 | **LastActivity**         | Pointer to **NullableTime**                                  |                                                                              | [optional] |
 | **ProductUid**           | **string**                                                   |                                                                              |
 | **Provisioned**          | **time.Time**                                                |                                                                              |
+| **RecentEventCount**     | Pointer to **[]int32**                                       |                                                                              | [optional] |
+| **RecentSessionCount**   | Pointer to **[]int32**                                       |                                                                              | [optional] |
+| **RecentSessionSeconds** | Pointer to **[]int32**                                       |                                                                              | [optional] |
+| **RecentWhen**           | Pointer to **NullableTime**                                  |                                                                              | [optional] |
 | **SerialNumber**         | Pointer to **string**                                        |                                                                              | [optional] |
 | **Sku**                  | Pointer to **string**                                        |                                                                              | [optional] |
+| **Tags**                 | Pointer to **string**                                        |                                                                              | [optional] |
 | **Temperature**          | **float64**                                                  |                                                                              |
 | **TowerInfo**            | Pointer to [**NullableDeviceTowerInfo**](DeviceTowerInfo.md) |                                                                              | [optional] |
 | **TowerLocation**        | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
@@ -337,6 +343,31 @@ SetGpsLocationNil sets the value for GpsLocation to be an explicit nil
 
 UnsetGpsLocation ensures that no value is present for GpsLocation, not even an explicit nil
 
+### GetHealthLog
+
+`func (o *Device) GetHealthLog() []HealthLog`
+
+GetHealthLog returns the HealthLog field if non-nil, zero value otherwise.
+
+### GetHealthLogOk
+
+`func (o *Device) GetHealthLogOk() (*[]HealthLog, bool)`
+
+GetHealthLogOk returns a tuple with the HealthLog field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHealthLog
+
+`func (o *Device) SetHealthLog(v []HealthLog)`
+
+SetHealthLog sets HealthLog field to given value.
+
+### HasHealthLog
+
+`func (o *Device) HasHealthLog() bool`
+
+HasHealthLog returns a boolean if a field has been set.
+
 ### GetLastActivity
 
 `func (o *Device) GetLastActivity() time.Time`
@@ -412,6 +443,118 @@ and a boolean to check if the value has been set.
 
 SetProvisioned sets Provisioned field to given value.
 
+### GetRecentEventCount
+
+`func (o *Device) GetRecentEventCount() []int32`
+
+GetRecentEventCount returns the RecentEventCount field if non-nil, zero value otherwise.
+
+### GetRecentEventCountOk
+
+`func (o *Device) GetRecentEventCountOk() (*[]int32, bool)`
+
+GetRecentEventCountOk returns a tuple with the RecentEventCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecentEventCount
+
+`func (o *Device) SetRecentEventCount(v []int32)`
+
+SetRecentEventCount sets RecentEventCount field to given value.
+
+### HasRecentEventCount
+
+`func (o *Device) HasRecentEventCount() bool`
+
+HasRecentEventCount returns a boolean if a field has been set.
+
+### GetRecentSessionCount
+
+`func (o *Device) GetRecentSessionCount() []int32`
+
+GetRecentSessionCount returns the RecentSessionCount field if non-nil, zero value otherwise.
+
+### GetRecentSessionCountOk
+
+`func (o *Device) GetRecentSessionCountOk() (*[]int32, bool)`
+
+GetRecentSessionCountOk returns a tuple with the RecentSessionCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecentSessionCount
+
+`func (o *Device) SetRecentSessionCount(v []int32)`
+
+SetRecentSessionCount sets RecentSessionCount field to given value.
+
+### HasRecentSessionCount
+
+`func (o *Device) HasRecentSessionCount() bool`
+
+HasRecentSessionCount returns a boolean if a field has been set.
+
+### GetRecentSessionSeconds
+
+`func (o *Device) GetRecentSessionSeconds() []int32`
+
+GetRecentSessionSeconds returns the RecentSessionSeconds field if non-nil, zero value otherwise.
+
+### GetRecentSessionSecondsOk
+
+`func (o *Device) GetRecentSessionSecondsOk() (*[]int32, bool)`
+
+GetRecentSessionSecondsOk returns a tuple with the RecentSessionSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecentSessionSeconds
+
+`func (o *Device) SetRecentSessionSeconds(v []int32)`
+
+SetRecentSessionSeconds sets RecentSessionSeconds field to given value.
+
+### HasRecentSessionSeconds
+
+`func (o *Device) HasRecentSessionSeconds() bool`
+
+HasRecentSessionSeconds returns a boolean if a field has been set.
+
+### GetRecentWhen
+
+`func (o *Device) GetRecentWhen() time.Time`
+
+GetRecentWhen returns the RecentWhen field if non-nil, zero value otherwise.
+
+### GetRecentWhenOk
+
+`func (o *Device) GetRecentWhenOk() (*time.Time, bool)`
+
+GetRecentWhenOk returns a tuple with the RecentWhen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecentWhen
+
+`func (o *Device) SetRecentWhen(v time.Time)`
+
+SetRecentWhen sets RecentWhen field to given value.
+
+### HasRecentWhen
+
+`func (o *Device) HasRecentWhen() bool`
+
+HasRecentWhen returns a boolean if a field has been set.
+
+### SetRecentWhenNil
+
+`func (o *Device) SetRecentWhenNil(b bool)`
+
+SetRecentWhenNil sets the value for RecentWhen to be an explicit nil
+
+### UnsetRecentWhen
+
+`func (o *Device) UnsetRecentWhen()`
+
+UnsetRecentWhen ensures that no value is present for RecentWhen, not even an explicit nil
+
 ### GetSerialNumber
 
 `func (o *Device) GetSerialNumber() string`
@@ -461,6 +604,31 @@ SetSku sets Sku field to given value.
 `func (o *Device) HasSku() bool`
 
 HasSku returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *Device) GetTags() string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *Device) GetTagsOk() (*string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *Device) SetTags(v string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *Device) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetTemperature
 

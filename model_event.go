@@ -62,6 +62,8 @@ type Event struct {
 	Orientation *string `json:"orientation,omitempty"`
 	// A base64-encoded binary payload
 	Payload *string `json:"payload,omitempty"`
+	// Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data
+	Platform *bool `json:"platform,omitempty"`
 	// Product UID (globally unique)
 	Product *string `json:"product,omitempty"`
 	// Rat. Only available on _session.qo events.
@@ -835,6 +837,38 @@ func (o *Event) HasPayload() bool {
 // SetPayload gets a reference to the given string and assigns it to the Payload field.
 func (o *Event) SetPayload(v string) {
 	o.Payload = &v
+}
+
+// GetPlatform returns the Platform field value if set, zero value otherwise.
+func (o *Event) GetPlatform() bool {
+	if o == nil || IsNil(o.Platform) {
+		var ret bool
+		return ret
+	}
+	return *o.Platform
+}
+
+// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPlatformOk() (*bool, bool) {
+	if o == nil || IsNil(o.Platform) {
+		return nil, false
+	}
+	return o.Platform, true
+}
+
+// HasPlatform returns a boolean if a field has been set.
+func (o *Event) HasPlatform() bool {
+	if o != nil && !IsNil(o.Platform) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatform gets a reference to the given bool and assigns it to the Platform field.
+func (o *Event) SetPlatform(v bool) {
+	o.Platform = &v
 }
 
 // GetProduct returns the Product field value if set, zero value otherwise.
@@ -2222,6 +2256,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Payload) {
 		toSerialize["payload"] = o.Payload
 	}
+	if !IsNil(o.Platform) {
+		toSerialize["platform"] = o.Platform
+	}
 	if !IsNil(o.Product) {
 		toSerialize["product"] = o.Product
 	}
@@ -2388,6 +2425,7 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ordering_code")
 		delete(additionalProperties, "orientation")
 		delete(additionalProperties, "payload")
+		delete(additionalProperties, "platform")
 		delete(additionalProperties, "product")
 		delete(additionalProperties, "rat")
 		delete(additionalProperties, "received")
