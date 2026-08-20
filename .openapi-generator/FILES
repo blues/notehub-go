@@ -25,6 +25,7 @@ docs/ArchiveStats.md
 docs/AuthorizationAPI.md
 docs/AwsRoute.md
 docs/AzureRoute.md
+docs/BatchJobNoteRequest.md
 docs/BatchJobRequests.md
 docs/BillingAccount.md
 docs/BillingAccountAPI.md
@@ -212,6 +213,7 @@ model_archive_stats.go
 model_aws_role_config.go
 model_aws_route.go
 model_azure_route.go
+model_batch_job_note_request.go
 model_batch_job_requests.go
 model_billing_account.go
 model_billing_account_role.go
