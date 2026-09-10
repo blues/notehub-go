@@ -27,12 +27,12 @@ type ApiCreateMonitorRequest struct {
 	ctx                 context.Context
 	ApiService          *MonitorAPIService
 	projectOrProductUID string
-	body                *Monitor
+	createMonitor       *CreateMonitor
 }
 
 // Body or payload of monitor to be created
-func (r ApiCreateMonitorRequest) Body(body Monitor) ApiCreateMonitorRequest {
-	r.body = &body
+func (r ApiCreateMonitorRequest) CreateMonitor(createMonitor CreateMonitor) ApiCreateMonitorRequest {
+	r.createMonitor = &createMonitor
 	return r
 }
 
@@ -79,8 +79,8 @@ func (a *MonitorAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*Mo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	if r.createMonitor == nil {
+		return localVarReturnValue, nil, reportError("createMonitor is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -101,7 +101,7 @@ func (a *MonitorAPIService) CreateMonitorExecute(r ApiCreateMonitorRequest) (*Mo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.body
+	localVarPostBody = r.createMonitor
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

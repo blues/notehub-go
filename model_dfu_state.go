@@ -21,28 +21,28 @@ var _ MappedNullable = &DFUState{}
 // DFUState struct for DFUState
 type DFUState struct {
 	// The time when the DFU began
-	Began *float32 `json:"began,omitempty"`
+	Began *int64 `json:"began,omitempty"`
 	// Used for image verification
-	Crc32 *float32 `json:"crc32,omitempty"`
+	Crc32 *int64 `json:"crc32,omitempty"`
 	// The number of consecutive errors the DFU process has encountered
-	Errors *float32 `json:"errors,omitempty"`
+	Errors *int64 `json:"errors,omitempty"`
 	// Firmware filename
 	File *string `json:"file,omitempty"`
 	// Length of firmware file
-	Length *float32 `json:"length,omitempty"`
+	Length *int64 `json:"length,omitempty"`
 	// Used for image verification
 	Md5 *string `json:"md5,omitempty"`
 	// * \"idle\"          - nothing downloading or downloaded * \"error\"         - halted and in the error state * \"downloading\"   - transferring data from cloud to module * \"sideloading\"   - transferring data via request to module * \"ready\"         - DFU data is ready/verified and waiting on external storage * \"ready-retry\"   - DFU data is ready/verified and retrying * \"updating\"      - currently updating * \"completed\"     - DFU is done successfully
 	Mode *string `json:"mode,omitempty"`
 	// The amount the notecard has read of the image from notehub
-	Read *float32 `json:"read,omitempty"`
+	Read *int64 `json:"read,omitempty"`
 	// Value of _fw_retry environment var at time of DFU initialization
-	Retry *float32 `json:"retry,omitempty"`
+	Retry *int64 `json:"retry,omitempty"`
 	// Status message
 	Status *string `json:"status,omitempty"`
 	Type   *string `json:"type,omitempty"`
 	// Last updated timestamp
-	Updated *float32 `json:"updated,omitempty"`
+	Updated *int64 `json:"updated,omitempty"`
 	// Last known version, which is generally a JSON object contained within the firmware image
 	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -68,9 +68,9 @@ func NewDFUStateWithDefaults() *DFUState {
 }
 
 // GetBegan returns the Began field value if set, zero value otherwise.
-func (o *DFUState) GetBegan() float32 {
+func (o *DFUState) GetBegan() int64 {
 	if o == nil || IsNil(o.Began) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Began
@@ -78,7 +78,7 @@ func (o *DFUState) GetBegan() float32 {
 
 // GetBeganOk returns a tuple with the Began field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetBeganOk() (*float32, bool) {
+func (o *DFUState) GetBeganOk() (*int64, bool) {
 	if o == nil || IsNil(o.Began) {
 		return nil, false
 	}
@@ -94,15 +94,15 @@ func (o *DFUState) HasBegan() bool {
 	return false
 }
 
-// SetBegan gets a reference to the given float32 and assigns it to the Began field.
-func (o *DFUState) SetBegan(v float32) {
+// SetBegan gets a reference to the given int64 and assigns it to the Began field.
+func (o *DFUState) SetBegan(v int64) {
 	o.Began = &v
 }
 
 // GetCrc32 returns the Crc32 field value if set, zero value otherwise.
-func (o *DFUState) GetCrc32() float32 {
+func (o *DFUState) GetCrc32() int64 {
 	if o == nil || IsNil(o.Crc32) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Crc32
@@ -110,7 +110,7 @@ func (o *DFUState) GetCrc32() float32 {
 
 // GetCrc32Ok returns a tuple with the Crc32 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetCrc32Ok() (*float32, bool) {
+func (o *DFUState) GetCrc32Ok() (*int64, bool) {
 	if o == nil || IsNil(o.Crc32) {
 		return nil, false
 	}
@@ -126,15 +126,15 @@ func (o *DFUState) HasCrc32() bool {
 	return false
 }
 
-// SetCrc32 gets a reference to the given float32 and assigns it to the Crc32 field.
-func (o *DFUState) SetCrc32(v float32) {
+// SetCrc32 gets a reference to the given int64 and assigns it to the Crc32 field.
+func (o *DFUState) SetCrc32(v int64) {
 	o.Crc32 = &v
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *DFUState) GetErrors() float32 {
+func (o *DFUState) GetErrors() int64 {
 	if o == nil || IsNil(o.Errors) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Errors
@@ -142,7 +142,7 @@ func (o *DFUState) GetErrors() float32 {
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetErrorsOk() (*float32, bool) {
+func (o *DFUState) GetErrorsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
@@ -158,8 +158,8 @@ func (o *DFUState) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given float32 and assigns it to the Errors field.
-func (o *DFUState) SetErrors(v float32) {
+// SetErrors gets a reference to the given int64 and assigns it to the Errors field.
+func (o *DFUState) SetErrors(v int64) {
 	o.Errors = &v
 }
 
@@ -196,9 +196,9 @@ func (o *DFUState) SetFile(v string) {
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
-func (o *DFUState) GetLength() float32 {
+func (o *DFUState) GetLength() int64 {
 	if o == nil || IsNil(o.Length) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Length
@@ -206,7 +206,7 @@ func (o *DFUState) GetLength() float32 {
 
 // GetLengthOk returns a tuple with the Length field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetLengthOk() (*float32, bool) {
+func (o *DFUState) GetLengthOk() (*int64, bool) {
 	if o == nil || IsNil(o.Length) {
 		return nil, false
 	}
@@ -222,8 +222,8 @@ func (o *DFUState) HasLength() bool {
 	return false
 }
 
-// SetLength gets a reference to the given float32 and assigns it to the Length field.
-func (o *DFUState) SetLength(v float32) {
+// SetLength gets a reference to the given int64 and assigns it to the Length field.
+func (o *DFUState) SetLength(v int64) {
 	o.Length = &v
 }
 
@@ -292,9 +292,9 @@ func (o *DFUState) SetMode(v string) {
 }
 
 // GetRead returns the Read field value if set, zero value otherwise.
-func (o *DFUState) GetRead() float32 {
+func (o *DFUState) GetRead() int64 {
 	if o == nil || IsNil(o.Read) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Read
@@ -302,7 +302,7 @@ func (o *DFUState) GetRead() float32 {
 
 // GetReadOk returns a tuple with the Read field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetReadOk() (*float32, bool) {
+func (o *DFUState) GetReadOk() (*int64, bool) {
 	if o == nil || IsNil(o.Read) {
 		return nil, false
 	}
@@ -318,15 +318,15 @@ func (o *DFUState) HasRead() bool {
 	return false
 }
 
-// SetRead gets a reference to the given float32 and assigns it to the Read field.
-func (o *DFUState) SetRead(v float32) {
+// SetRead gets a reference to the given int64 and assigns it to the Read field.
+func (o *DFUState) SetRead(v int64) {
 	o.Read = &v
 }
 
 // GetRetry returns the Retry field value if set, zero value otherwise.
-func (o *DFUState) GetRetry() float32 {
+func (o *DFUState) GetRetry() int64 {
 	if o == nil || IsNil(o.Retry) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Retry
@@ -334,7 +334,7 @@ func (o *DFUState) GetRetry() float32 {
 
 // GetRetryOk returns a tuple with the Retry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetRetryOk() (*float32, bool) {
+func (o *DFUState) GetRetryOk() (*int64, bool) {
 	if o == nil || IsNil(o.Retry) {
 		return nil, false
 	}
@@ -350,8 +350,8 @@ func (o *DFUState) HasRetry() bool {
 	return false
 }
 
-// SetRetry gets a reference to the given float32 and assigns it to the Retry field.
-func (o *DFUState) SetRetry(v float32) {
+// SetRetry gets a reference to the given int64 and assigns it to the Retry field.
+func (o *DFUState) SetRetry(v int64) {
 	o.Retry = &v
 }
 
@@ -420,9 +420,9 @@ func (o *DFUState) SetType(v string) {
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
-func (o *DFUState) GetUpdated() float32 {
+func (o *DFUState) GetUpdated() int64 {
 	if o == nil || IsNil(o.Updated) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Updated
@@ -430,7 +430,7 @@ func (o *DFUState) GetUpdated() float32 {
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DFUState) GetUpdatedOk() (*float32, bool) {
+func (o *DFUState) GetUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
@@ -446,8 +446,8 @@ func (o *DFUState) HasUpdated() bool {
 	return false
 }
 
-// SetUpdated gets a reference to the given float32 and assigns it to the Updated field.
-func (o *DFUState) SetUpdated(v float32) {
+// SetUpdated gets a reference to the given int64 and assigns it to the Updated field.
+func (o *DFUState) SetUpdated(v int64) {
 	o.Updated = &v
 }
 

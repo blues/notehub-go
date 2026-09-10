@@ -21,6 +21,8 @@ var _ MappedNullable = &GetDeviceEnvironmentVariablesByPin200Response{}
 
 // GetDeviceEnvironmentVariablesByPin200Response struct for GetDeviceEnvironmentVariablesByPin200Response
 type GetDeviceEnvironmentVariablesByPin200Response struct {
+	// Optional per-variable annotations for device-level environment variables, keyed by variable name.
+	EnvironmentVariableNotes *map[string]string `json:"environment_variable_notes,omitempty"`
 	// The environment variables for this device that have been set using host firmware or the Notehub API or UI.
 	EnvironmentVariables map[string]string `json:"environment_variables"`
 	// The environment variables as they will be seen by the device, fully resolved with project/fleet/device prioritization rules.
@@ -49,6 +51,38 @@ func NewGetDeviceEnvironmentVariablesByPin200Response(environmentVariables map[s
 func NewGetDeviceEnvironmentVariablesByPin200ResponseWithDefaults() *GetDeviceEnvironmentVariablesByPin200Response {
 	this := GetDeviceEnvironmentVariablesByPin200Response{}
 	return &this
+}
+
+// GetEnvironmentVariableNotes returns the EnvironmentVariableNotes field value if set, zero value otherwise.
+func (o *GetDeviceEnvironmentVariablesByPin200Response) GetEnvironmentVariableNotes() map[string]string {
+	if o == nil || IsNil(o.EnvironmentVariableNotes) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.EnvironmentVariableNotes
+}
+
+// GetEnvironmentVariableNotesOk returns a tuple with the EnvironmentVariableNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetDeviceEnvironmentVariablesByPin200Response) GetEnvironmentVariableNotesOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.EnvironmentVariableNotes) {
+		return nil, false
+	}
+	return o.EnvironmentVariableNotes, true
+}
+
+// HasEnvironmentVariableNotes returns a boolean if a field has been set.
+func (o *GetDeviceEnvironmentVariablesByPin200Response) HasEnvironmentVariableNotes() bool {
+	if o != nil && !IsNil(o.EnvironmentVariableNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironmentVariableNotes gets a reference to the given map[string]string and assigns it to the EnvironmentVariableNotes field.
+func (o *GetDeviceEnvironmentVariablesByPin200Response) SetEnvironmentVariableNotes(v map[string]string) {
+	o.EnvironmentVariableNotes = &v
 }
 
 // GetEnvironmentVariables returns the EnvironmentVariables field value
@@ -141,6 +175,9 @@ func (o GetDeviceEnvironmentVariablesByPin200Response) MarshalJSON() ([]byte, er
 
 func (o GetDeviceEnvironmentVariablesByPin200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EnvironmentVariableNotes) {
+		toSerialize["environment_variable_notes"] = o.EnvironmentVariableNotes
+	}
 	toSerialize["environment_variables"] = o.EnvironmentVariables
 	if !IsNil(o.EnvironmentVariablesEffective) {
 		toSerialize["environment_variables_effective"] = o.EnvironmentVariablesEffective
@@ -190,6 +227,7 @@ func (o *GetDeviceEnvironmentVariablesByPin200Response) UnmarshalJSON(data []byt
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "environment_variable_notes")
 		delete(additionalProperties, "environment_variables")
 		delete(additionalProperties, "environment_variables_effective")
 		delete(additionalProperties, "environment_variables_env_default")

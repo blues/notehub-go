@@ -22,6 +22,8 @@ var _ MappedNullable = &Device{}
 
 // Device struct for Device
 type Device struct {
+	// The best ID for the device, preference for the serial number over device UID
+	BestId               *string                 `json:"best_id,omitempty"`
 	BestLocation         NullableLocation        `json:"best_location,omitempty"`
 	CellularUsage        []SimUsage              `json:"cellular_usage,omitempty"`
 	Contact              NullableContact         `json:"contact,omitempty"`
@@ -31,11 +33,17 @@ type Device struct {
 	FirmwareNotecard     *string                 `json:"firmware_notecard,omitempty"`
 	FleetUids            []string                `json:"fleet_uids"`
 	GpsLocation          NullableLocation        `json:"gps_location,omitempty"`
+	HealthLog            []HealthLog             `json:"health_log,omitempty"`
 	LastActivity         NullableTime            `json:"last_activity,omitempty"`
 	ProductUid           string                  `json:"product_uid"`
 	Provisioned          time.Time               `json:"provisioned"`
+	RecentEventCount     []int32                 `json:"recent_event_count,omitempty"`
+	RecentSessionCount   []int32                 `json:"recent_session_count,omitempty"`
+	RecentSessionSeconds []int32                 `json:"recent_session_seconds,omitempty"`
+	RecentWhen           NullableTime            `json:"recent_when,omitempty"`
 	SerialNumber         *string                 `json:"serial_number,omitempty"`
 	Sku                  *string                 `json:"sku,omitempty"`
+	Tags                 *string                 `json:"tags,omitempty"`
 	Temperature          float64                 `json:"temperature"`
 	TowerInfo            NullableDeviceTowerInfo `json:"tower_info,omitempty"`
 	TowerLocation        NullableLocation        `json:"tower_location,omitempty"`
@@ -68,6 +76,38 @@ func NewDevice(fleetUids []string, productUid string, provisioned time.Time, tem
 func NewDeviceWithDefaults() *Device {
 	this := Device{}
 	return &this
+}
+
+// GetBestId returns the BestId field value if set, zero value otherwise.
+func (o *Device) GetBestId() string {
+	if o == nil || IsNil(o.BestId) {
+		var ret string
+		return ret
+	}
+	return *o.BestId
+}
+
+// GetBestIdOk returns a tuple with the BestId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetBestIdOk() (*string, bool) {
+	if o == nil || IsNil(o.BestId) {
+		return nil, false
+	}
+	return o.BestId, true
+}
+
+// HasBestId returns a boolean if a field has been set.
+func (o *Device) HasBestId() bool {
+	if o != nil && !IsNil(o.BestId) {
+		return true
+	}
+
+	return false
+}
+
+// SetBestId gets a reference to the given string and assigns it to the BestId field.
+func (o *Device) SetBestId(v string) {
+	o.BestId = &v
 }
 
 // GetBestLocation returns the BestLocation field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -394,6 +434,38 @@ func (o *Device) UnsetGpsLocation() {
 	o.GpsLocation.Unset()
 }
 
+// GetHealthLog returns the HealthLog field value if set, zero value otherwise.
+func (o *Device) GetHealthLog() []HealthLog {
+	if o == nil || IsNil(o.HealthLog) {
+		var ret []HealthLog
+		return ret
+	}
+	return o.HealthLog
+}
+
+// GetHealthLogOk returns a tuple with the HealthLog field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetHealthLogOk() ([]HealthLog, bool) {
+	if o == nil || IsNil(o.HealthLog) {
+		return nil, false
+	}
+	return o.HealthLog, true
+}
+
+// HasHealthLog returns a boolean if a field has been set.
+func (o *Device) HasHealthLog() bool {
+	if o != nil && !IsNil(o.HealthLog) {
+		return true
+	}
+
+	return false
+}
+
+// SetHealthLog gets a reference to the given []HealthLog and assigns it to the HealthLog field.
+func (o *Device) SetHealthLog(v []HealthLog) {
+	o.HealthLog = v
+}
+
 // GetLastActivity returns the LastActivity field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Device) GetLastActivity() time.Time {
 	if o == nil || IsNil(o.LastActivity.Get()) {
@@ -485,6 +557,145 @@ func (o *Device) SetProvisioned(v time.Time) {
 	o.Provisioned = v
 }
 
+// GetRecentEventCount returns the RecentEventCount field value if set, zero value otherwise.
+func (o *Device) GetRecentEventCount() []int32 {
+	if o == nil || IsNil(o.RecentEventCount) {
+		var ret []int32
+		return ret
+	}
+	return o.RecentEventCount
+}
+
+// GetRecentEventCountOk returns a tuple with the RecentEventCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetRecentEventCountOk() ([]int32, bool) {
+	if o == nil || IsNil(o.RecentEventCount) {
+		return nil, false
+	}
+	return o.RecentEventCount, true
+}
+
+// HasRecentEventCount returns a boolean if a field has been set.
+func (o *Device) HasRecentEventCount() bool {
+	if o != nil && !IsNil(o.RecentEventCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecentEventCount gets a reference to the given []int32 and assigns it to the RecentEventCount field.
+func (o *Device) SetRecentEventCount(v []int32) {
+	o.RecentEventCount = v
+}
+
+// GetRecentSessionCount returns the RecentSessionCount field value if set, zero value otherwise.
+func (o *Device) GetRecentSessionCount() []int32 {
+	if o == nil || IsNil(o.RecentSessionCount) {
+		var ret []int32
+		return ret
+	}
+	return o.RecentSessionCount
+}
+
+// GetRecentSessionCountOk returns a tuple with the RecentSessionCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetRecentSessionCountOk() ([]int32, bool) {
+	if o == nil || IsNil(o.RecentSessionCount) {
+		return nil, false
+	}
+	return o.RecentSessionCount, true
+}
+
+// HasRecentSessionCount returns a boolean if a field has been set.
+func (o *Device) HasRecentSessionCount() bool {
+	if o != nil && !IsNil(o.RecentSessionCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecentSessionCount gets a reference to the given []int32 and assigns it to the RecentSessionCount field.
+func (o *Device) SetRecentSessionCount(v []int32) {
+	o.RecentSessionCount = v
+}
+
+// GetRecentSessionSeconds returns the RecentSessionSeconds field value if set, zero value otherwise.
+func (o *Device) GetRecentSessionSeconds() []int32 {
+	if o == nil || IsNil(o.RecentSessionSeconds) {
+		var ret []int32
+		return ret
+	}
+	return o.RecentSessionSeconds
+}
+
+// GetRecentSessionSecondsOk returns a tuple with the RecentSessionSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetRecentSessionSecondsOk() ([]int32, bool) {
+	if o == nil || IsNil(o.RecentSessionSeconds) {
+		return nil, false
+	}
+	return o.RecentSessionSeconds, true
+}
+
+// HasRecentSessionSeconds returns a boolean if a field has been set.
+func (o *Device) HasRecentSessionSeconds() bool {
+	if o != nil && !IsNil(o.RecentSessionSeconds) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecentSessionSeconds gets a reference to the given []int32 and assigns it to the RecentSessionSeconds field.
+func (o *Device) SetRecentSessionSeconds(v []int32) {
+	o.RecentSessionSeconds = v
+}
+
+// GetRecentWhen returns the RecentWhen field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Device) GetRecentWhen() time.Time {
+	if o == nil || IsNil(o.RecentWhen.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.RecentWhen.Get()
+}
+
+// GetRecentWhenOk returns a tuple with the RecentWhen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Device) GetRecentWhenOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.RecentWhen.Get(), o.RecentWhen.IsSet()
+}
+
+// HasRecentWhen returns a boolean if a field has been set.
+func (o *Device) HasRecentWhen() bool {
+	if o != nil && o.RecentWhen.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRecentWhen gets a reference to the given NullableTime and assigns it to the RecentWhen field.
+func (o *Device) SetRecentWhen(v time.Time) {
+	o.RecentWhen.Set(&v)
+}
+
+// SetRecentWhenNil sets the value for RecentWhen to be an explicit nil
+func (o *Device) SetRecentWhenNil() {
+	o.RecentWhen.Set(nil)
+}
+
+// UnsetRecentWhen ensures that no value is present for RecentWhen, not even an explicit nil
+func (o *Device) UnsetRecentWhen() {
+	o.RecentWhen.Unset()
+}
+
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
 func (o *Device) GetSerialNumber() string {
 	if o == nil || IsNil(o.SerialNumber) {
@@ -547,6 +758,38 @@ func (o *Device) HasSku() bool {
 // SetSku gets a reference to the given string and assigns it to the Sku field.
 func (o *Device) SetSku(v string) {
 	o.Sku = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Device) GetTags() string {
+	if o == nil || IsNil(o.Tags) {
+		var ret string
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetTagsOk() (*string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Device) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given string and assigns it to the Tags field.
+func (o *Device) SetTags(v string) {
+	o.Tags = &v
 }
 
 // GetTemperature returns the Temperature field value
@@ -760,6 +1003,9 @@ func (o Device) MarshalJSON() ([]byte, error) {
 
 func (o Device) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BestId) {
+		toSerialize["best_id"] = o.BestId
+	}
 	if o.BestLocation.IsSet() {
 		toSerialize["best_location"] = o.BestLocation.Get()
 	}
@@ -785,16 +1031,34 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	if o.GpsLocation.IsSet() {
 		toSerialize["gps_location"] = o.GpsLocation.Get()
 	}
+	if !IsNil(o.HealthLog) {
+		toSerialize["health_log"] = o.HealthLog
+	}
 	if o.LastActivity.IsSet() {
 		toSerialize["last_activity"] = o.LastActivity.Get()
 	}
 	toSerialize["product_uid"] = o.ProductUid
 	toSerialize["provisioned"] = o.Provisioned
+	if !IsNil(o.RecentEventCount) {
+		toSerialize["recent_event_count"] = o.RecentEventCount
+	}
+	if !IsNil(o.RecentSessionCount) {
+		toSerialize["recent_session_count"] = o.RecentSessionCount
+	}
+	if !IsNil(o.RecentSessionSeconds) {
+		toSerialize["recent_session_seconds"] = o.RecentSessionSeconds
+	}
+	if o.RecentWhen.IsSet() {
+		toSerialize["recent_when"] = o.RecentWhen.Get()
+	}
 	if !IsNil(o.SerialNumber) {
 		toSerialize["serial_number"] = o.SerialNumber
 	}
 	if !IsNil(o.Sku) {
 		toSerialize["sku"] = o.Sku
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 	toSerialize["temperature"] = o.Temperature
 	if o.TowerInfo.IsSet() {
@@ -856,6 +1120,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "best_id")
 		delete(additionalProperties, "best_location")
 		delete(additionalProperties, "cellular_usage")
 		delete(additionalProperties, "contact")
@@ -865,11 +1130,17 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "firmware_notecard")
 		delete(additionalProperties, "fleet_uids")
 		delete(additionalProperties, "gps_location")
+		delete(additionalProperties, "health_log")
 		delete(additionalProperties, "last_activity")
 		delete(additionalProperties, "product_uid")
 		delete(additionalProperties, "provisioned")
+		delete(additionalProperties, "recent_event_count")
+		delete(additionalProperties, "recent_session_count")
+		delete(additionalProperties, "recent_session_seconds")
+		delete(additionalProperties, "recent_when")
 		delete(additionalProperties, "serial_number")
 		delete(additionalProperties, "sku")
+		delete(additionalProperties, "tags")
 		delete(additionalProperties, "temperature")
 		delete(additionalProperties, "tower_info")
 		delete(additionalProperties, "tower_location")

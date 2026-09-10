@@ -12,7 +12,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## CreateMonitor
 
-> Monitor CreateMonitor(ctx, projectOrProductUID).Body(body).Execute()
+> Monitor CreateMonitor(ctx, projectOrProductUID).CreateMonitor(createMonitor).Execute()
 
 ### Example
 
@@ -28,11 +28,11 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	body := Monitor(987) // Monitor | Body or payload of monitor to be created
+	createMonitor := *openapiclient.NewCreateMonitor() // CreateMonitor | Body or payload of monitor to be created
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.MonitorAPI.CreateMonitor(context.Background(), projectOrProductUID).Body(body).Execute()
+	resp, r, err := apiClient.MonitorAPI.CreateMonitor(context.Background(), projectOrProductUID).CreateMonitor(createMonitor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `MonitorAPI.CreateMonitor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiCreateMonitorRequest struc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | **Monitor** | Body or payload of monitor to be created |
+**createMonitor** | [**CreateMonitor**](CreateMonitor.md) | Body or payload of monitor to be created |
 
 ### Return type
 

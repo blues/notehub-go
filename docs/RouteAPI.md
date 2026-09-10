@@ -226,8 +226,8 @@ func main() {
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "date")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "desc")
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	systemFilesOnly := true // bool |  (optional)
 	mostRecentOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
@@ -266,8 +266,8 @@ Other parameters are passed through a pointer to a apiGetRouteLogsByRouteRequest
 **deviceUID** | **[]string** | A Device UID. |
 **sortBy** | **string** | | [default to &quot;date&quot;]
 **sortOrder** | **string** | | [default to &quot;desc&quot;]
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **systemFilesOnly** | **bool** | |
 **mostRecentOnly** | **bool** | |
 **files** | **string** | |
