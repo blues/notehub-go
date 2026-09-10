@@ -34,7 +34,9 @@ type DataSet struct {
 	// If non-empty, only events from these notefiles populate the dataset. Empty or omitted means all notefiles.
 	Notefiles []string                      `json:"notefiles,omitempty"`
 	Reload    NullableDatasetReloadProgress `json:"reload,omitempty"`
-	// JSONata expression resulting in the relevant time field
+	// Optional JSONata expression that expands one event into several rows. It evaluates to one row object per row, whose keys are the dataset's columns: an array of objects, or a single object for one row. Both are accepted because JSONata collapses a one-element sequence to the element, so the same expression yields an array for an event carrying several readings and a bare object for one carrying a single reading. A result that is undefined or empty contributes no rows and is not an error; anything that is not an object, or an array containing one, is rejected. When set it is the only expression that reads the event: each field below takes the row object key matching its name, and time/lat/lon name a key too. Omit it and the dataset produces one row per event, with each field's own jsonata expression reading the event directly. event.uploaded and event.captured always resolve against the event either way.
+	Rows *string `json:"rows,omitempty"`
+	// JSONata expression resulting in the row's time. Required for a dataset with no rows expression. With one it defaults to the row object's \"time\" key, and only needs setting to name a different key, or to reach past the row as event.uploaded and event.captured do. lat and lon work the same way and are what declare that the dataset has a location column at all.
 	Time                 *string `json:"time,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -325,6 +327,38 @@ func (o *DataSet) UnsetReload() {
 	o.Reload.Unset()
 }
 
+// GetRows returns the Rows field value if set, zero value otherwise.
+func (o *DataSet) GetRows() string {
+	if o == nil || IsNil(o.Rows) {
+		var ret string
+		return ret
+	}
+	return *o.Rows
+}
+
+// GetRowsOk returns a tuple with the Rows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataSet) GetRowsOk() (*string, bool) {
+	if o == nil || IsNil(o.Rows) {
+		return nil, false
+	}
+	return o.Rows, true
+}
+
+// HasRows returns a boolean if a field has been set.
+func (o *DataSet) HasRows() bool {
+	if o != nil && !IsNil(o.Rows) {
+		return true
+	}
+
+	return false
+}
+
+// SetRows gets a reference to the given string and assigns it to the Rows field.
+func (o *DataSet) SetRows(v string) {
+	o.Rows = &v
+}
+
 // GetTime returns the Time field value if set, zero value otherwise.
 func (o *DataSet) GetTime() string {
 	if o == nil || IsNil(o.Time) {
@@ -391,6 +425,9 @@ func (o DataSet) ToMap() (map[string]interface{}, error) {
 	if o.Reload.IsSet() {
 		toSerialize["reload"] = o.Reload.Get()
 	}
+	if !IsNil(o.Rows) {
+		toSerialize["rows"] = o.Rows
+	}
 	if !IsNil(o.Time) {
 		toSerialize["time"] = o.Time
 	}
@@ -424,6 +461,7 @@ func (o *DataSet) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "notefiles")
 		delete(additionalProperties, "reload")
+		delete(additionalProperties, "rows")
 		delete(additionalProperties, "time")
 		o.AdditionalProperties = additionalProperties
 	}
