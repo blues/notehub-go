@@ -43,9 +43,9 @@ type CreateMonitor struct {
 	RoutingCooldownPeriod *string `json:"routing_cooldown_period,omitempty" validate:"regexp=^[0-9]+[smh]$"`
 	// If true, alerts will be created, but no notifications will be sent.
 	Silenced *bool `json:"silenced,omitempty"`
-	// A valid JSONata expression that selects the value to monitor from the source. | It should return a single, numeric value.
+	// A dot-delimited path to a single numeric value within the event body.
 	SourceSelector *string `json:"source_selector,omitempty"`
-	// The type of source to monitor. Supported values are \"event\" and \"heartbeat\".
+	// The type of source to monitor. Defaults to \"event\".
 	SourceType *string `json:"source_type,omitempty"`
 	// The type of condition to apply to the value selected by the source_selector
 	Threshold *int32  `json:"threshold,omitempty"`
@@ -67,6 +67,10 @@ type _CreateMonitor CreateMonitor
 // will change when the set of required properties is changed
 func NewCreateMonitor() *CreateMonitor {
 	this := CreateMonitor{}
+	var description string = ""
+	this.Description = &description
+	var sourceType string = "event"
+	this.SourceType = &sourceType
 	return &this
 }
 
@@ -75,6 +79,10 @@ func NewCreateMonitor() *CreateMonitor {
 // but it doesn't guarantee that properties required by API are set
 func NewCreateMonitorWithDefaults() *CreateMonitor {
 	this := CreateMonitor{}
+	var description string = ""
+	this.Description = &description
+	var sourceType string = "event"
+	this.SourceType = &sourceType
 	return &this
 }
 

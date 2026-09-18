@@ -5152,9 +5152,7 @@ components:
         - $ref: '#/components/schemas/Monitor'
         - required:
             - name
-            - description
             - alert_routes
-            - source_type
             - threshold
     CreateProjectSecretRequest:
       type: object
@@ -6732,6 +6730,7 @@ components:
             - count
         description:
           type: string
+          default: ""
         disabled:
           description: If true, the monitor will not be evaluated.
           type: boolean
@@ -6760,15 +6759,18 @@ components:
           description: If true, alerts will be created, but no notifications will be sent.
           type: boolean
         source_selector:
-          description: A valid JSONata expression that selects the value to monitor from the source. | It should return a single, numeric value.
+          description: A dot-delimited path to a single numeric value within the event body.
           type: string
-          example: body.temperature
+          example: temperature
         source_type:
-          description: The type of source to monitor. Supported values are "event" and "heartbeat".
+          description: The type of source to monitor. Defaults to "event".
           type: string
+          default: event
           enum:
             - event
             - heartbeat
+            - device
+            - usage
         threshold:
           description: The type of condition to apply to the value selected by the source_selector
           type: integer
