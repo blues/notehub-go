@@ -68,6 +68,7 @@ docs/DeviceDfuStateMachine.md
 docs/DeviceDfuStateMachineNode.md
 docs/DeviceDfuStatus.md
 docs/DeviceDfuStatusPage.md
+docs/DeviceSensor.md
 docs/DeviceSession.md
 docs/DeviceTowerInfo.md
 docs/DeviceUsage.md
@@ -251,6 +252,7 @@ model_device_dfu_state_machine.go
 model_device_dfu_state_machine_node.go
 model_device_dfu_status.go
 model_device_dfu_status_page.go
+model_device_sensor.go
 model_device_session.go
 model_device_tower_info.go
 model_device_usage.go

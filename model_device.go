@@ -41,6 +41,7 @@ type Device struct {
 	RecentSessionCount   []int32                 `json:"recent_session_count,omitempty"`
 	RecentSessionSeconds []int32                 `json:"recent_session_seconds,omitempty"`
 	RecentWhen           NullableTime            `json:"recent_when,omitempty"`
+	Sensors              []DeviceSensor          `json:"sensors,omitempty"`
 	SerialNumber         *string                 `json:"serial_number,omitempty"`
 	Sku                  *string                 `json:"sku,omitempty"`
 	Tags                 *string                 `json:"tags,omitempty"`
@@ -696,6 +697,38 @@ func (o *Device) UnsetRecentWhen() {
 	o.RecentWhen.Unset()
 }
 
+// GetSensors returns the Sensors field value if set, zero value otherwise.
+func (o *Device) GetSensors() []DeviceSensor {
+	if o == nil || IsNil(o.Sensors) {
+		var ret []DeviceSensor
+		return ret
+	}
+	return o.Sensors
+}
+
+// GetSensorsOk returns a tuple with the Sensors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetSensorsOk() ([]DeviceSensor, bool) {
+	if o == nil || IsNil(o.Sensors) {
+		return nil, false
+	}
+	return o.Sensors, true
+}
+
+// HasSensors returns a boolean if a field has been set.
+func (o *Device) HasSensors() bool {
+	if o != nil && !IsNil(o.Sensors) {
+		return true
+	}
+
+	return false
+}
+
+// SetSensors gets a reference to the given []DeviceSensor and assigns it to the Sensors field.
+func (o *Device) SetSensors(v []DeviceSensor) {
+	o.Sensors = v
+}
+
 // GetSerialNumber returns the SerialNumber field value if set, zero value otherwise.
 func (o *Device) GetSerialNumber() string {
 	if o == nil || IsNil(o.SerialNumber) {
@@ -1051,6 +1084,9 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	if o.RecentWhen.IsSet() {
 		toSerialize["recent_when"] = o.RecentWhen.Get()
 	}
+	if !IsNil(o.Sensors) {
+		toSerialize["sensors"] = o.Sensors
+	}
 	if !IsNil(o.SerialNumber) {
 		toSerialize["serial_number"] = o.SerialNumber
 	}
@@ -1138,6 +1174,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "recent_session_count")
 		delete(additionalProperties, "recent_session_seconds")
 		delete(additionalProperties, "recent_when")
+		delete(additionalProperties, "sensors")
 		delete(additionalProperties, "serial_number")
 		delete(additionalProperties, "sku")
 		delete(additionalProperties, "tags")

@@ -22,6 +22,7 @@
 | **RecentSessionCount**   | Pointer to **[]int32**                                       |                                                                              | [optional] |
 | **RecentSessionSeconds** | Pointer to **[]int32**                                       |                                                                              | [optional] |
 | **RecentWhen**           | Pointer to **NullableTime**                                  |                                                                              | [optional] |
+| **Sensors**              | Pointer to [**[]DeviceSensor**](DeviceSensor.md)             |                                                                              | [optional] |
 | **SerialNumber**         | Pointer to **string**                                        |                                                                              | [optional] |
 | **Sku**                  | Pointer to **string**                                        |                                                                              | [optional] |
 | **Tags**                 | Pointer to **string**                                        |                                                                              | [optional] |
@@ -554,6 +555,31 @@ SetRecentWhenNil sets the value for RecentWhen to be an explicit nil
 `func (o *Device) UnsetRecentWhen()`
 
 UnsetRecentWhen ensures that no value is present for RecentWhen, not even an explicit nil
+
+### GetSensors
+
+`func (o *Device) GetSensors() []DeviceSensor`
+
+GetSensors returns the Sensors field if non-nil, zero value otherwise.
+
+### GetSensorsOk
+
+`func (o *Device) GetSensorsOk() (*[]DeviceSensor, bool)`
+
+GetSensorsOk returns a tuple with the Sensors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSensors
+
+`func (o *Device) SetSensors(v []DeviceSensor)`
+
+SetSensors sets Sensors field to given value.
+
+### HasSensors
+
+`func (o *Device) HasSensors() bool`
+
+HasSensors returns a boolean if a field has been set.
 
 ### GetSerialNumber
 
