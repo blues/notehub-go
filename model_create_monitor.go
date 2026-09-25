@@ -20,14 +20,14 @@ var _ MappedNullable = &CreateMonitor{}
 
 // CreateMonitor struct for CreateMonitor
 type CreateMonitor struct {
-	// Aggregate function to apply to the selected values before applying the condition. [none, sum, average, max, min]
+	// Aggregate function to apply to the selected values before applying the condition. [none, avg, max, min, sum, count]
 	AggregateFunction *string `json:"aggregate_function,omitempty"`
 	// The time window to aggregate the selected values. It follows the format of a number followed by a time unit
 	AggregateWindow *string `json:"aggregate_window,omitempty" validate:"regexp=^[0-9]+[smh]$"`
 	// If true, the monitor is in alert state.
 	Alert       *bool                     `json:"alert,omitempty"`
 	AlertRoutes []MonitorAlertRoutesInner `json:"alert_routes,omitempty"`
-	// A comparison operation to apply to the value selected by the source_selector [greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to]
+	// A comparison operation to apply to the value selected by the source_selector. Required for event and usage monitors; set automatically for heartbeat monitors. [greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to]
 	ConditionType *string `json:"condition_type,omitempty"`
 	Description   *string `json:"description,omitempty"`
 	// If true, the monitor will not be evaluated.
@@ -47,7 +47,7 @@ type CreateMonitor struct {
 	SourceSelector *string `json:"source_selector,omitempty"`
 	// The type of source to monitor. Defaults to \"event\".
 	SourceType *string `json:"source_type,omitempty"`
-	// The type of condition to apply to the value selected by the source_selector
+	// The value that condition_type compares against. For heartbeat monitors this is seconds of inactivity; for usage monitors it is bytes.
 	Threshold *int32  `json:"threshold,omitempty"`
 	Uid       *string `json:"uid,omitempty"`
 	// For usage monitors: the scope of aggregation. Supported values are \"device\" and \"fleet\".
