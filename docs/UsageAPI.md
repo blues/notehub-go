@@ -28,8 +28,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	period := "period_example" // string | Period type for aggregation
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
@@ -62,8 +62,8 @@ Other parameters are passed through a pointer to a apiGetDataUsageRequest struct
 | ---- | ---- | ----------- | ----- |
 
 **period** | **string** | Period type for aggregation |
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
@@ -105,8 +105,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	period := "period_example" // string | Period type for aggregation
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
@@ -142,8 +142,8 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 | ---- | ---- | ----------- | ----- |
 
 **period** | **string** | Period type for aggregation |
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
@@ -188,8 +188,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	period := "period_example" // string | Period type for aggregation
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	routeUID := []string{"Inner_example"} // []string | A Route UID. (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "route")
@@ -222,8 +222,8 @@ Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest s
 | ---- | ---- | ----------- | ----- |
 
 **period** | **string** | Period type for aggregation |
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **routeUID** | **[]string** | A Route UID. |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;route&quot;]
@@ -265,8 +265,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	period := "period_example" // string | Period type for aggregation
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
 	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
@@ -300,8 +300,8 @@ Other parameters are passed through a pointer to a apiGetSessionsUsageRequest st
 | ---- | ---- | ----------- | ----- |
 
 **period** | **string** | Period type for aggregation |
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **deviceUID** | **[]string** | A Device UID. |
 **fleetUID** | **[]string** | Filter by Fleet UID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]

@@ -23,7 +23,7 @@ type Event struct {
 	// App UID (globally unique)
 	App *string `json:"app,omitempty"`
 	// Bars. Only available on _session.qo events.
-	Bars *float32 `json:"bars,omitempty"`
+	Bars *int32 `json:"bars,omitempty"`
 	// Country
 	BestCountry *string `json:"best_country,omitempty"`
 	// The device serial number, or the DeviceUID if the serial number is not set
@@ -35,7 +35,7 @@ type Event struct {
 	// One of \"gps\", \"triangulated\", or \"tower\"
 	BestLocationType *string `json:"best_location_type,omitempty"`
 	// Unix timestamp
-	BestLocationWhen *float32 `json:"best_location_when,omitempty"`
+	BestLocationWhen *int64 `json:"best_location_when,omitempty"`
 	// Longitude
 	BestLon *float64 `json:"best_lon,omitempty"`
 	// Timezone
@@ -53,7 +53,7 @@ type Event struct {
 	// The notefile associated with this event
 	File *string `json:"file,omitempty"`
 	// The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.
-	Moved *float32 `json:"moved,omitempty"`
+	Moved *int64 `json:"moved,omitempty"`
 	// The note ID in the notefile
 	Note *string `json:"note,omitempty"`
 	// Ordering code. Only available on _session.qo events.
@@ -62,6 +62,8 @@ type Event struct {
 	Orientation *string `json:"orientation,omitempty"`
 	// A base64-encoded binary payload
 	Payload *string `json:"payload,omitempty"`
+	// Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data
+	Platform *bool `json:"platform,omitempty"`
 	// Product UID (globally unique)
 	Product *string `json:"product,omitempty"`
 	// Rat. Only available on _session.qo events.
@@ -71,15 +73,17 @@ type Event struct {
 	// The notecard request
 	Req *string `json:"req,omitempty"`
 	// RSRP. Only available on _session.qo events.
-	Rsrp *float32 `json:"rsrp,omitempty"`
+	Rsrp *int32 `json:"rsrp,omitempty"`
 	// RSRQ. Only available on _session.qo events.
-	Rsrq *float32 `json:"rsrq,omitempty"`
+	Rsrq *int32 `json:"rsrq,omitempty"`
 	// Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events.
-	Rssi *float32 `json:"rssi,omitempty"`
+	Rssi *int32 `json:"rssi,omitempty"`
+	// Sensor UID, for events originating from a sensor attached to the device
+	Sensor *string `json:"sensor,omitempty"`
 	// Session UID (globally unique)
 	Session *string `json:"session,omitempty"`
 	// SINR. Only available on _session.qo events.
-	Sinr *float32 `json:"sinr,omitempty"`
+	Sinr *int32 `json:"sinr,omitempty"`
 	// SKU. Only available on _session.qo events.
 	Sku *string `json:"sku,omitempty"`
 	// The device serial number
@@ -103,7 +107,7 @@ type Event struct {
 	// Timezone
 	TowerTimezone *string `json:"tower_timezone,omitempty"`
 	// Unix timestamp
-	TowerWhen *float32 `json:"tower_when,omitempty"`
+	TowerWhen *int64 `json:"tower_when,omitempty"`
 	// The transport used for this event, e.g., \"cellular\", \"wifi\", \", etc.
 	Transport *string `json:"transport,omitempty"`
 	// Country
@@ -115,16 +119,18 @@ type Event struct {
 	// Longitude
 	TriLon *float64 `json:"tri_lon,omitempty"`
 	// Triangulation points
-	TriPoints *float32 `json:"tri_points,omitempty"`
+	TriPoints *int32 `json:"tri_points,omitempty"`
 	// Timezone
 	TriTimezone *string `json:"tri_timezone,omitempty"`
 	// Unix timestamp
-	TriWhen *float32 `json:"tri_when,omitempty"`
-	Updates *float32 `json:"updates,omitempty"`
+	TriWhen *int64 `json:"tri_when,omitempty"`
+	Updates *int32 `json:"updates,omitempty"`
 	// Device voltage. Only available on _session.qo events.
 	Voltage *float64 `json:"voltage,omitempty"`
 	// When the event was captured on the device
-	When *float32 `json:"when,omitempty"`
+	When *int64 `json:"when,omitempty"`
+	// Millisecond-accurate Unix epoch timestamp for when the event was captured on the device
+	WhenMs *int64 `json:"when_ms,omitempty"`
 	// Country
 	WhereCountry *string `json:"where_country,omitempty"`
 	// Latitude
@@ -138,7 +144,7 @@ type Event struct {
 	// Timezone
 	WhereTimezone *string `json:"where_timezone,omitempty"`
 	// Unix timestamp
-	WhereWhen            *float32 `json:"where_when,omitempty"`
+	WhereWhen            *int64 `json:"where_when,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,9 +200,9 @@ func (o *Event) SetApp(v string) {
 }
 
 // GetBars returns the Bars field value if set, zero value otherwise.
-func (o *Event) GetBars() float32 {
+func (o *Event) GetBars() int32 {
 	if o == nil || IsNil(o.Bars) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Bars
@@ -204,7 +210,7 @@ func (o *Event) GetBars() float32 {
 
 // GetBarsOk returns a tuple with the Bars field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetBarsOk() (*float32, bool) {
+func (o *Event) GetBarsOk() (*int32, bool) {
 	if o == nil || IsNil(o.Bars) {
 		return nil, false
 	}
@@ -220,8 +226,8 @@ func (o *Event) HasBars() bool {
 	return false
 }
 
-// SetBars gets a reference to the given float32 and assigns it to the Bars field.
-func (o *Event) SetBars(v float32) {
+// SetBars gets a reference to the given int32 and assigns it to the Bars field.
+func (o *Event) SetBars(v int32) {
 	o.Bars = &v
 }
 
@@ -386,9 +392,9 @@ func (o *Event) SetBestLocationType(v string) {
 }
 
 // GetBestLocationWhen returns the BestLocationWhen field value if set, zero value otherwise.
-func (o *Event) GetBestLocationWhen() float32 {
+func (o *Event) GetBestLocationWhen() int64 {
 	if o == nil || IsNil(o.BestLocationWhen) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.BestLocationWhen
@@ -396,7 +402,7 @@ func (o *Event) GetBestLocationWhen() float32 {
 
 // GetBestLocationWhenOk returns a tuple with the BestLocationWhen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetBestLocationWhenOk() (*float32, bool) {
+func (o *Event) GetBestLocationWhenOk() (*int64, bool) {
 	if o == nil || IsNil(o.BestLocationWhen) {
 		return nil, false
 	}
@@ -412,8 +418,8 @@ func (o *Event) HasBestLocationWhen() bool {
 	return false
 }
 
-// SetBestLocationWhen gets a reference to the given float32 and assigns it to the BestLocationWhen field.
-func (o *Event) SetBestLocationWhen(v float32) {
+// SetBestLocationWhen gets a reference to the given int64 and assigns it to the BestLocationWhen field.
+func (o *Event) SetBestLocationWhen(v int64) {
 	o.BestLocationWhen = &v
 }
 
@@ -674,9 +680,9 @@ func (o *Event) SetFile(v string) {
 }
 
 // GetMoved returns the Moved field value if set, zero value otherwise.
-func (o *Event) GetMoved() float32 {
+func (o *Event) GetMoved() int64 {
 	if o == nil || IsNil(o.Moved) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.Moved
@@ -684,7 +690,7 @@ func (o *Event) GetMoved() float32 {
 
 // GetMovedOk returns a tuple with the Moved field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetMovedOk() (*float32, bool) {
+func (o *Event) GetMovedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Moved) {
 		return nil, false
 	}
@@ -700,8 +706,8 @@ func (o *Event) HasMoved() bool {
 	return false
 }
 
-// SetMoved gets a reference to the given float32 and assigns it to the Moved field.
-func (o *Event) SetMoved(v float32) {
+// SetMoved gets a reference to the given int64 and assigns it to the Moved field.
+func (o *Event) SetMoved(v int64) {
 	o.Moved = &v
 }
 
@@ -833,6 +839,38 @@ func (o *Event) SetPayload(v string) {
 	o.Payload = &v
 }
 
+// GetPlatform returns the Platform field value if set, zero value otherwise.
+func (o *Event) GetPlatform() bool {
+	if o == nil || IsNil(o.Platform) {
+		var ret bool
+		return ret
+	}
+	return *o.Platform
+}
+
+// GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPlatformOk() (*bool, bool) {
+	if o == nil || IsNil(o.Platform) {
+		return nil, false
+	}
+	return o.Platform, true
+}
+
+// HasPlatform returns a boolean if a field has been set.
+func (o *Event) HasPlatform() bool {
+	if o != nil && !IsNil(o.Platform) {
+		return true
+	}
+
+	return false
+}
+
+// SetPlatform gets a reference to the given bool and assigns it to the Platform field.
+func (o *Event) SetPlatform(v bool) {
+	o.Platform = &v
+}
+
 // GetProduct returns the Product field value if set, zero value otherwise.
 func (o *Event) GetProduct() string {
 	if o == nil || IsNil(o.Product) {
@@ -962,9 +1000,9 @@ func (o *Event) SetReq(v string) {
 }
 
 // GetRsrp returns the Rsrp field value if set, zero value otherwise.
-func (o *Event) GetRsrp() float32 {
+func (o *Event) GetRsrp() int32 {
 	if o == nil || IsNil(o.Rsrp) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Rsrp
@@ -972,7 +1010,7 @@ func (o *Event) GetRsrp() float32 {
 
 // GetRsrpOk returns a tuple with the Rsrp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetRsrpOk() (*float32, bool) {
+func (o *Event) GetRsrpOk() (*int32, bool) {
 	if o == nil || IsNil(o.Rsrp) {
 		return nil, false
 	}
@@ -988,15 +1026,15 @@ func (o *Event) HasRsrp() bool {
 	return false
 }
 
-// SetRsrp gets a reference to the given float32 and assigns it to the Rsrp field.
-func (o *Event) SetRsrp(v float32) {
+// SetRsrp gets a reference to the given int32 and assigns it to the Rsrp field.
+func (o *Event) SetRsrp(v int32) {
 	o.Rsrp = &v
 }
 
 // GetRsrq returns the Rsrq field value if set, zero value otherwise.
-func (o *Event) GetRsrq() float32 {
+func (o *Event) GetRsrq() int32 {
 	if o == nil || IsNil(o.Rsrq) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Rsrq
@@ -1004,7 +1042,7 @@ func (o *Event) GetRsrq() float32 {
 
 // GetRsrqOk returns a tuple with the Rsrq field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetRsrqOk() (*float32, bool) {
+func (o *Event) GetRsrqOk() (*int32, bool) {
 	if o == nil || IsNil(o.Rsrq) {
 		return nil, false
 	}
@@ -1020,15 +1058,15 @@ func (o *Event) HasRsrq() bool {
 	return false
 }
 
-// SetRsrq gets a reference to the given float32 and assigns it to the Rsrq field.
-func (o *Event) SetRsrq(v float32) {
+// SetRsrq gets a reference to the given int32 and assigns it to the Rsrq field.
+func (o *Event) SetRsrq(v int32) {
 	o.Rsrq = &v
 }
 
 // GetRssi returns the Rssi field value if set, zero value otherwise.
-func (o *Event) GetRssi() float32 {
+func (o *Event) GetRssi() int32 {
 	if o == nil || IsNil(o.Rssi) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Rssi
@@ -1036,7 +1074,7 @@ func (o *Event) GetRssi() float32 {
 
 // GetRssiOk returns a tuple with the Rssi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetRssiOk() (*float32, bool) {
+func (o *Event) GetRssiOk() (*int32, bool) {
 	if o == nil || IsNil(o.Rssi) {
 		return nil, false
 	}
@@ -1052,9 +1090,41 @@ func (o *Event) HasRssi() bool {
 	return false
 }
 
-// SetRssi gets a reference to the given float32 and assigns it to the Rssi field.
-func (o *Event) SetRssi(v float32) {
+// SetRssi gets a reference to the given int32 and assigns it to the Rssi field.
+func (o *Event) SetRssi(v int32) {
 	o.Rssi = &v
+}
+
+// GetSensor returns the Sensor field value if set, zero value otherwise.
+func (o *Event) GetSensor() string {
+	if o == nil || IsNil(o.Sensor) {
+		var ret string
+		return ret
+	}
+	return *o.Sensor
+}
+
+// GetSensorOk returns a tuple with the Sensor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetSensorOk() (*string, bool) {
+	if o == nil || IsNil(o.Sensor) {
+		return nil, false
+	}
+	return o.Sensor, true
+}
+
+// HasSensor returns a boolean if a field has been set.
+func (o *Event) HasSensor() bool {
+	if o != nil && !IsNil(o.Sensor) {
+		return true
+	}
+
+	return false
+}
+
+// SetSensor gets a reference to the given string and assigns it to the Sensor field.
+func (o *Event) SetSensor(v string) {
+	o.Sensor = &v
 }
 
 // GetSession returns the Session field value if set, zero value otherwise.
@@ -1090,9 +1160,9 @@ func (o *Event) SetSession(v string) {
 }
 
 // GetSinr returns the Sinr field value if set, zero value otherwise.
-func (o *Event) GetSinr() float32 {
+func (o *Event) GetSinr() int32 {
 	if o == nil || IsNil(o.Sinr) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Sinr
@@ -1100,7 +1170,7 @@ func (o *Event) GetSinr() float32 {
 
 // GetSinrOk returns a tuple with the Sinr field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetSinrOk() (*float32, bool) {
+func (o *Event) GetSinrOk() (*int32, bool) {
 	if o == nil || IsNil(o.Sinr) {
 		return nil, false
 	}
@@ -1116,8 +1186,8 @@ func (o *Event) HasSinr() bool {
 	return false
 }
 
-// SetSinr gets a reference to the given float32 and assigns it to the Sinr field.
-func (o *Event) SetSinr(v float32) {
+// SetSinr gets a reference to the given int32 and assigns it to the Sinr field.
+func (o *Event) SetSinr(v int32) {
 	o.Sinr = &v
 }
 
@@ -1474,9 +1544,9 @@ func (o *Event) SetTowerTimezone(v string) {
 }
 
 // GetTowerWhen returns the TowerWhen field value if set, zero value otherwise.
-func (o *Event) GetTowerWhen() float32 {
+func (o *Event) GetTowerWhen() int64 {
 	if o == nil || IsNil(o.TowerWhen) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.TowerWhen
@@ -1484,7 +1554,7 @@ func (o *Event) GetTowerWhen() float32 {
 
 // GetTowerWhenOk returns a tuple with the TowerWhen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetTowerWhenOk() (*float32, bool) {
+func (o *Event) GetTowerWhenOk() (*int64, bool) {
 	if o == nil || IsNil(o.TowerWhen) {
 		return nil, false
 	}
@@ -1500,8 +1570,8 @@ func (o *Event) HasTowerWhen() bool {
 	return false
 }
 
-// SetTowerWhen gets a reference to the given float32 and assigns it to the TowerWhen field.
-func (o *Event) SetTowerWhen(v float32) {
+// SetTowerWhen gets a reference to the given int64 and assigns it to the TowerWhen field.
+func (o *Event) SetTowerWhen(v int64) {
 	o.TowerWhen = &v
 }
 
@@ -1666,9 +1736,9 @@ func (o *Event) SetTriLon(v float64) {
 }
 
 // GetTriPoints returns the TriPoints field value if set, zero value otherwise.
-func (o *Event) GetTriPoints() float32 {
+func (o *Event) GetTriPoints() int32 {
 	if o == nil || IsNil(o.TriPoints) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.TriPoints
@@ -1676,7 +1746,7 @@ func (o *Event) GetTriPoints() float32 {
 
 // GetTriPointsOk returns a tuple with the TriPoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetTriPointsOk() (*float32, bool) {
+func (o *Event) GetTriPointsOk() (*int32, bool) {
 	if o == nil || IsNil(o.TriPoints) {
 		return nil, false
 	}
@@ -1692,8 +1762,8 @@ func (o *Event) HasTriPoints() bool {
 	return false
 }
 
-// SetTriPoints gets a reference to the given float32 and assigns it to the TriPoints field.
-func (o *Event) SetTriPoints(v float32) {
+// SetTriPoints gets a reference to the given int32 and assigns it to the TriPoints field.
+func (o *Event) SetTriPoints(v int32) {
 	o.TriPoints = &v
 }
 
@@ -1730,9 +1800,9 @@ func (o *Event) SetTriTimezone(v string) {
 }
 
 // GetTriWhen returns the TriWhen field value if set, zero value otherwise.
-func (o *Event) GetTriWhen() float32 {
+func (o *Event) GetTriWhen() int64 {
 	if o == nil || IsNil(o.TriWhen) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.TriWhen
@@ -1740,7 +1810,7 @@ func (o *Event) GetTriWhen() float32 {
 
 // GetTriWhenOk returns a tuple with the TriWhen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetTriWhenOk() (*float32, bool) {
+func (o *Event) GetTriWhenOk() (*int64, bool) {
 	if o == nil || IsNil(o.TriWhen) {
 		return nil, false
 	}
@@ -1756,15 +1826,15 @@ func (o *Event) HasTriWhen() bool {
 	return false
 }
 
-// SetTriWhen gets a reference to the given float32 and assigns it to the TriWhen field.
-func (o *Event) SetTriWhen(v float32) {
+// SetTriWhen gets a reference to the given int64 and assigns it to the TriWhen field.
+func (o *Event) SetTriWhen(v int64) {
 	o.TriWhen = &v
 }
 
 // GetUpdates returns the Updates field value if set, zero value otherwise.
-func (o *Event) GetUpdates() float32 {
+func (o *Event) GetUpdates() int32 {
 	if o == nil || IsNil(o.Updates) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Updates
@@ -1772,7 +1842,7 @@ func (o *Event) GetUpdates() float32 {
 
 // GetUpdatesOk returns a tuple with the Updates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetUpdatesOk() (*float32, bool) {
+func (o *Event) GetUpdatesOk() (*int32, bool) {
 	if o == nil || IsNil(o.Updates) {
 		return nil, false
 	}
@@ -1788,8 +1858,8 @@ func (o *Event) HasUpdates() bool {
 	return false
 }
 
-// SetUpdates gets a reference to the given float32 and assigns it to the Updates field.
-func (o *Event) SetUpdates(v float32) {
+// SetUpdates gets a reference to the given int32 and assigns it to the Updates field.
+func (o *Event) SetUpdates(v int32) {
 	o.Updates = &v
 }
 
@@ -1826,9 +1896,9 @@ func (o *Event) SetVoltage(v float64) {
 }
 
 // GetWhen returns the When field value if set, zero value otherwise.
-func (o *Event) GetWhen() float32 {
+func (o *Event) GetWhen() int64 {
 	if o == nil || IsNil(o.When) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.When
@@ -1836,7 +1906,7 @@ func (o *Event) GetWhen() float32 {
 
 // GetWhenOk returns a tuple with the When field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetWhenOk() (*float32, bool) {
+func (o *Event) GetWhenOk() (*int64, bool) {
 	if o == nil || IsNil(o.When) {
 		return nil, false
 	}
@@ -1852,9 +1922,41 @@ func (o *Event) HasWhen() bool {
 	return false
 }
 
-// SetWhen gets a reference to the given float32 and assigns it to the When field.
-func (o *Event) SetWhen(v float32) {
+// SetWhen gets a reference to the given int64 and assigns it to the When field.
+func (o *Event) SetWhen(v int64) {
 	o.When = &v
+}
+
+// GetWhenMs returns the WhenMs field value if set, zero value otherwise.
+func (o *Event) GetWhenMs() int64 {
+	if o == nil || IsNil(o.WhenMs) {
+		var ret int64
+		return ret
+	}
+	return *o.WhenMs
+}
+
+// GetWhenMsOk returns a tuple with the WhenMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetWhenMsOk() (*int64, bool) {
+	if o == nil || IsNil(o.WhenMs) {
+		return nil, false
+	}
+	return o.WhenMs, true
+}
+
+// HasWhenMs returns a boolean if a field has been set.
+func (o *Event) HasWhenMs() bool {
+	if o != nil && !IsNil(o.WhenMs) {
+		return true
+	}
+
+	return false
+}
+
+// SetWhenMs gets a reference to the given int64 and assigns it to the WhenMs field.
+func (o *Event) SetWhenMs(v int64) {
+	o.WhenMs = &v
 }
 
 // GetWhereCountry returns the WhereCountry field value if set, zero value otherwise.
@@ -2050,9 +2152,9 @@ func (o *Event) SetWhereTimezone(v string) {
 }
 
 // GetWhereWhen returns the WhereWhen field value if set, zero value otherwise.
-func (o *Event) GetWhereWhen() float32 {
+func (o *Event) GetWhereWhen() int64 {
 	if o == nil || IsNil(o.WhereWhen) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.WhereWhen
@@ -2060,7 +2162,7 @@ func (o *Event) GetWhereWhen() float32 {
 
 // GetWhereWhenOk returns a tuple with the WhereWhen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetWhereWhenOk() (*float32, bool) {
+func (o *Event) GetWhereWhenOk() (*int64, bool) {
 	if o == nil || IsNil(o.WhereWhen) {
 		return nil, false
 	}
@@ -2076,8 +2178,8 @@ func (o *Event) HasWhereWhen() bool {
 	return false
 }
 
-// SetWhereWhen gets a reference to the given float32 and assigns it to the WhereWhen field.
-func (o *Event) SetWhereWhen(v float32) {
+// SetWhereWhen gets a reference to the given int64 and assigns it to the WhereWhen field.
+func (o *Event) SetWhereWhen(v int64) {
 	o.WhereWhen = &v
 }
 
@@ -2154,6 +2256,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Payload) {
 		toSerialize["payload"] = o.Payload
 	}
+	if !IsNil(o.Platform) {
+		toSerialize["platform"] = o.Platform
+	}
 	if !IsNil(o.Product) {
 		toSerialize["product"] = o.Product
 	}
@@ -2174,6 +2279,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Rssi) {
 		toSerialize["rssi"] = o.Rssi
+	}
+	if !IsNil(o.Sensor) {
+		toSerialize["sensor"] = o.Sensor
 	}
 	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
@@ -2250,6 +2358,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.When) {
 		toSerialize["when"] = o.When
 	}
+	if !IsNil(o.WhenMs) {
+		toSerialize["when_ms"] = o.WhenMs
+	}
 	if !IsNil(o.WhereCountry) {
 		toSerialize["where_country"] = o.WhereCountry
 	}
@@ -2314,6 +2425,7 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "ordering_code")
 		delete(additionalProperties, "orientation")
 		delete(additionalProperties, "payload")
+		delete(additionalProperties, "platform")
 		delete(additionalProperties, "product")
 		delete(additionalProperties, "rat")
 		delete(additionalProperties, "received")
@@ -2321,6 +2433,7 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "rsrp")
 		delete(additionalProperties, "rsrq")
 		delete(additionalProperties, "rssi")
+		delete(additionalProperties, "sensor")
 		delete(additionalProperties, "session")
 		delete(additionalProperties, "sinr")
 		delete(additionalProperties, "sku")
@@ -2346,6 +2459,7 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "updates")
 		delete(additionalProperties, "voltage")
 		delete(additionalProperties, "when")
+		delete(additionalProperties, "when_ms")
 		delete(additionalProperties, "where_country")
 		delete(additionalProperties, "where_lat")
 		delete(additionalProperties, "where_location")

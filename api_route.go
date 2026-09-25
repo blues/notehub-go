@@ -378,8 +378,8 @@ type ApiGetRouteLogsByRouteRequest struct {
 	deviceUID           *[]string
 	sortBy              *string
 	sortOrder           *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	systemFilesOnly     *bool
 	mostRecentOnly      *bool
 	files               *string
@@ -414,13 +414,13 @@ func (r ApiGetRouteLogsByRouteRequest) SortOrder(sortOrder string) ApiGetRouteLo
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetRouteLogsByRouteRequest) StartDate(startDate int32) ApiGetRouteLogsByRouteRequest {
+func (r ApiGetRouteLogsByRouteRequest) StartDate(startDate int64) ApiGetRouteLogsByRouteRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetRouteLogsByRouteRequest) EndDate(endDate int32) ApiGetRouteLogsByRouteRequest {
+func (r ApiGetRouteLogsByRouteRequest) EndDate(endDate int64) ApiGetRouteLogsByRouteRequest {
 	r.endDate = &endDate
 	return r
 }

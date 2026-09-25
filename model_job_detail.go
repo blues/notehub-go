@@ -12,7 +12,6 @@ Contact: engineering@blues.io
 package notehub
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -35,8 +34,9 @@ type JobDetail struct {
 	// Unix timestamp when the most recent run was submitted
 	LastRunSubmitted *int64 `json:"last_run_submitted,omitempty"`
 	// Human-readable job name
-	Name       string         `json:"name"`
-	Definition *JobDefinition `json:"definition,omitempty"`
+	Name                 string         `json:"name"`
+	Definition           *JobDefinition `json:"definition,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JobDetail JobDetail
@@ -312,6 +312,11 @@ func (o JobDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Definition) {
 		toSerialize["definition"] = o.Definition
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -342,15 +347,27 @@ func (o *JobDetail) UnmarshalJSON(data []byte) (err error) {
 
 	varJobDetail := _JobDetail{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJobDetail)
+	err = json.Unmarshal(data, &varJobDetail)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JobDetail(varJobDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "created_by")
+		delete(additionalProperties, "job_uid")
+		delete(additionalProperties, "last_run_completed")
+		delete(additionalProperties, "last_run_status")
+		delete(additionalProperties, "last_run_submitted")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "definition")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

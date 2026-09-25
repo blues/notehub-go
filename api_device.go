@@ -1649,19 +1649,19 @@ type ApiGetDeviceHealthLogRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	logType             *[]string
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceHealthLogRequest) StartDate(startDate int32) ApiGetDeviceHealthLogRequest {
+func (r ApiGetDeviceHealthLogRequest) StartDate(startDate int64) ApiGetDeviceHealthLogRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceHealthLogRequest) EndDate(endDate int32) ApiGetDeviceHealthLogRequest {
+func (r ApiGetDeviceHealthLogRequest) EndDate(endDate int64) ApiGetDeviceHealthLogRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -1949,18 +1949,18 @@ type ApiGetDeviceJourneysRequest struct {
 	ApiService          *DeviceAPIService
 	projectOrProductUID string
 	deviceUID           string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceJourneysRequest) StartDate(startDate int32) ApiGetDeviceJourneysRequest {
+func (r ApiGetDeviceJourneysRequest) StartDate(startDate int64) ApiGetDeviceJourneysRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceJourneysRequest) EndDate(endDate int32) ApiGetDeviceJourneysRequest {
+func (r ApiGetDeviceJourneysRequest) EndDate(endDate int64) ApiGetDeviceJourneysRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -2573,8 +2573,8 @@ type ApiGetDeviceSessionsRequest struct {
 	deviceUID           string
 	pageSize            *int32
 	pageNum             *int32
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	firstSync           *bool
 }
 
@@ -2589,13 +2589,13 @@ func (r ApiGetDeviceSessionsRequest) PageNum(pageNum int32) ApiGetDeviceSessions
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceSessionsRequest) StartDate(startDate int32) ApiGetDeviceSessionsRequest {
+func (r ApiGetDeviceSessionsRequest) StartDate(startDate int64) ApiGetDeviceSessionsRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetDeviceSessionsRequest) EndDate(endDate int32) ApiGetDeviceSessionsRequest {
+func (r ApiGetDeviceSessionsRequest) EndDate(endDate int64) ApiGetDeviceSessionsRequest {
 	r.endDate = &endDate
 	return r
 }

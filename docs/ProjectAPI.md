@@ -1004,7 +1004,7 @@ Other parameters are passed through a pointer to a apiDisableGlobalEventTransfor
 
 ## DownloadFirmware
 
-> \*os.File DownloadFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
+> *os.File DownloadFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
 
 ### Example
 
@@ -1053,7 +1053,7 @@ Other parameters are passed through a pointer to a apiDownloadFirmwareRequest st
 
 ### Return type
 
-[**\*os.File**](*os.File.md)
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -2997,7 +2997,7 @@ Other parameters are passed through a pointer to a apiUploadFirmwareRequest stru
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | **\*os.File** | contents of the firmware binary |
+**body** | ***os.File** | contents of the firmware binary |
 **version** | **string** | Firmware version (optional). If not provided, the version will be extracted from firmware binary if available, otherwise left empty |
 **notes** | **string** | Optional notes describing what&#39;s different about this firmware version |
 

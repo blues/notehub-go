@@ -2,21 +2,21 @@
 
 ## Properties
 
-| Name        | Type                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Notes      |
-| ----------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **Began**   | Pointer to **float32** | The time when the DFU began                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
-| **Crc32**   | Pointer to **float32** | Used for image verification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
-| **Errors**  | Pointer to **float32** | The number of consecutive errors the DFU process has encountered                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [optional] |
-| **File**    | Pointer to **string**  | Firmware filename                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | [optional] |
-| **Length**  | Pointer to **float32** | Length of firmware file                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | [optional] |
-| **Md5**     | Pointer to **string**  | Used for image verification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
-| **Mode**    | Pointer to **string**  | _ \&quot;idle\&quot; - nothing downloading or downloaded _ \&quot;error\&quot; - halted and in the error state _ \&quot;downloading\&quot; - transferring data from cloud to module _ \&quot;sideloading\&quot; - transferring data via request to module _ \&quot;ready\&quot; - DFU data is ready/verified and waiting on external storage _ \&quot;ready-retry\&quot; - DFU data is ready/verified and retrying _ \&quot;updating\&quot; - currently updating _ \&quot;completed\&quot; - DFU is done successfully | [optional] |
-| **Read**    | Pointer to **float32** | The amount the notecard has read of the image from notehub                                                                                                                                                                                                                                                                                                                                                                                                                                                            | [optional] |
-| **Retry**   | Pointer to **float32** | Value of \_fw_retry environment var at time of DFU initialization                                                                                                                                                                                                                                                                                                                                                                                                                                                     | [optional] |
-| **Status**  | Pointer to **string**  | Status message                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | [optional] |
-| **Type**    | Pointer to **string**  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [optional] |
-| **Updated** | Pointer to **float32** | Last updated timestamp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | [optional] |
-| **Version** | Pointer to **string**  | Last known version, which is generally a JSON object contained within the firmware image                                                                                                                                                                                                                                                                                                                                                                                                                              | [optional] |
+| Name        | Type                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Notes      |
+| ----------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Began**   | Pointer to **int64**  | The time when the DFU began                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
+| **Crc32**   | Pointer to **int64**  | Used for image verification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
+| **Errors**  | Pointer to **int64**  | The number of consecutive errors the DFU process has encountered                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [optional] |
+| **File**    | Pointer to **string** | Firmware filename                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | [optional] |
+| **Length**  | Pointer to **int64**  | Length of firmware file                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | [optional] |
+| **Md5**     | Pointer to **string** | Used for image verification                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | [optional] |
+| **Mode**    | Pointer to **string** | * \&quot;idle\&quot; - nothing downloading or downloaded * \&quot;error\&quot; - halted and in the error state * \&quot;downloading\&quot; - transferring data from cloud to module * \&quot;sideloading\&quot; - transferring data via request to module * \&quot;ready\&quot; - DFU data is ready/verified and waiting on external storage * \&quot;ready-retry\&quot; - DFU data is ready/verified and retrying * \&quot;updating\&quot; - currently updating * \&quot;completed\&quot; - DFU is done successfully | [optional] |
+| **Read**    | Pointer to **int64**  | The amount the notecard has read of the image from notehub                                                                                                                                                                                                                                                                                                                                                                                                                                                            | [optional] |
+| **Retry**   | Pointer to **int64**  | Value of _fw_retry environment var at time of DFU initialization                                                                                                                                                                                                                                                                                                                                                                                                                                                      | [optional] |
+| **Status**  | Pointer to **string** | Status message                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | [optional] |
+| **Type**    | Pointer to **string** |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | [optional] |
+| **Updated** | Pointer to **int64**  | Last updated timestamp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | [optional] |
+| **Version** | Pointer to **string** | Last known version, which is generally a JSON object contained within the firmware image                                                                                                                                                                                                                                                                                                                                                                                                                              | [optional] |
 
 ## Methods
 
@@ -39,20 +39,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBegan
 
-`func (o *DFUState) GetBegan() float32`
+`func (o *DFUState) GetBegan() int64`
 
 GetBegan returns the Began field if non-nil, zero value otherwise.
 
 ### GetBeganOk
 
-`func (o *DFUState) GetBeganOk() (*float32, bool)`
+`func (o *DFUState) GetBeganOk() (*int64, bool)`
 
 GetBeganOk returns a tuple with the Began field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBegan
 
-`func (o *DFUState) SetBegan(v float32)`
+`func (o *DFUState) SetBegan(v int64)`
 
 SetBegan sets Began field to given value.
 
@@ -64,20 +64,20 @@ HasBegan returns a boolean if a field has been set.
 
 ### GetCrc32
 
-`func (o *DFUState) GetCrc32() float32`
+`func (o *DFUState) GetCrc32() int64`
 
 GetCrc32 returns the Crc32 field if non-nil, zero value otherwise.
 
 ### GetCrc32Ok
 
-`func (o *DFUState) GetCrc32Ok() (*float32, bool)`
+`func (o *DFUState) GetCrc32Ok() (*int64, bool)`
 
 GetCrc32Ok returns a tuple with the Crc32 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCrc32
 
-`func (o *DFUState) SetCrc32(v float32)`
+`func (o *DFUState) SetCrc32(v int64)`
 
 SetCrc32 sets Crc32 field to given value.
 
@@ -89,20 +89,20 @@ HasCrc32 returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *DFUState) GetErrors() float32`
+`func (o *DFUState) GetErrors() int64`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *DFUState) GetErrorsOk() (*float32, bool)`
+`func (o *DFUState) GetErrorsOk() (*int64, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *DFUState) SetErrors(v float32)`
+`func (o *DFUState) SetErrors(v int64)`
 
 SetErrors sets Errors field to given value.
 
@@ -139,20 +139,20 @@ HasFile returns a boolean if a field has been set.
 
 ### GetLength
 
-`func (o *DFUState) GetLength() float32`
+`func (o *DFUState) GetLength() int64`
 
 GetLength returns the Length field if non-nil, zero value otherwise.
 
 ### GetLengthOk
 
-`func (o *DFUState) GetLengthOk() (*float32, bool)`
+`func (o *DFUState) GetLengthOk() (*int64, bool)`
 
 GetLengthOk returns a tuple with the Length field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLength
 
-`func (o *DFUState) SetLength(v float32)`
+`func (o *DFUState) SetLength(v int64)`
 
 SetLength sets Length field to given value.
 
@@ -214,20 +214,20 @@ HasMode returns a boolean if a field has been set.
 
 ### GetRead
 
-`func (o *DFUState) GetRead() float32`
+`func (o *DFUState) GetRead() int64`
 
 GetRead returns the Read field if non-nil, zero value otherwise.
 
 ### GetReadOk
 
-`func (o *DFUState) GetReadOk() (*float32, bool)`
+`func (o *DFUState) GetReadOk() (*int64, bool)`
 
 GetReadOk returns a tuple with the Read field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRead
 
-`func (o *DFUState) SetRead(v float32)`
+`func (o *DFUState) SetRead(v int64)`
 
 SetRead sets Read field to given value.
 
@@ -239,20 +239,20 @@ HasRead returns a boolean if a field has been set.
 
 ### GetRetry
 
-`func (o *DFUState) GetRetry() float32`
+`func (o *DFUState) GetRetry() int64`
 
 GetRetry returns the Retry field if non-nil, zero value otherwise.
 
 ### GetRetryOk
 
-`func (o *DFUState) GetRetryOk() (*float32, bool)`
+`func (o *DFUState) GetRetryOk() (*int64, bool)`
 
 GetRetryOk returns a tuple with the Retry field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRetry
 
-`func (o *DFUState) SetRetry(v float32)`
+`func (o *DFUState) SetRetry(v int64)`
 
 SetRetry sets Retry field to given value.
 
@@ -314,20 +314,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUpdated
 
-`func (o *DFUState) GetUpdated() float32`
+`func (o *DFUState) GetUpdated() int64`
 
 GetUpdated returns the Updated field if non-nil, zero value otherwise.
 
 ### GetUpdatedOk
 
-`func (o *DFUState) GetUpdatedOk() (*float32, bool)`
+`func (o *DFUState) GetUpdatedOk() (*int64, bool)`
 
 GetUpdatedOk returns a tuple with the Updated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdated
 
-`func (o *DFUState) SetUpdated(v float32)`
+`func (o *DFUState) SetUpdated(v int64)`
 
 SetUpdated sets Updated field to given value.
 

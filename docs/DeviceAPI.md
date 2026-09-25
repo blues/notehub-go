@@ -972,8 +972,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	logType := []string{"LogType_example"} // []string | Return only specified log types (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1003,8 +1003,8 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **logType** | **[]string** | Return only specified log types |
 
 ### Return type
@@ -1114,8 +1114,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1144,8 +1144,8 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneysRequest s
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 
 ### Return type
 
@@ -1444,8 +1444,8 @@ func main() {
 	deviceUID := "dev:000000000000000" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	firstSync := true // bool | When true, filters results to only show first sync sessions (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1477,8 +1477,8 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **firstSync** | **bool** | When true, filters results to only show first sync sessions | [default to false]
 
 ### Return type

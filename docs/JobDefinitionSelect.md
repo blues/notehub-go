@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name                | Type                    | Description                                                            | Notes      |
-| ------------------- | ----------------------- | ---------------------------------------------------------------------- | ---------- |
-| **AllDevices**      | Pointer to **bool**     | Select all devices in the project                                      | [optional] |
-| **Comment**         | Pointer to **string**   |                                                                        | [optional] |
-| **Devices**         | Pointer to **[]string** | Specific device UIDs to include                                        | [optional] |
-| **DevicesBySn**     | Pointer to **[]string** | Serial number patterns to match (supports glob wildcards \*, ?, [...]) | [optional] |
-| **DevicesInFleets** | Pointer to **[]string** | Fleet UIDs whose devices should be included                            | [optional] |
+| Name                | Type                    | Description                                                           | Notes      |
+| ------------------- | ----------------------- | --------------------------------------------------------------------- | ---------- |
+| **AllDevices**      | Pointer to **bool**     | Select all devices in the project                                     | [optional] |
+| **Comment**         | Pointer to **string**   |                                                                       | [optional] |
+| **Devices**         | Pointer to **[]string** | Specific device UIDs to include                                       | [optional] |
+| **DevicesBySn**     | Pointer to **[]string** | Serial number patterns to match (supports glob wildcards *, ?, [...]) | [optional] |
+| **DevicesInFleets** | Pointer to **[]string** | Fleet UIDs whose devices should be included                           | [optional] |
 
 ## Methods
 

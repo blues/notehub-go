@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name         | Type                  | Description                                        | Notes      |
-| ------------ | --------------------- | -------------------------------------------------- | ---------- |
-| **Datatype** | Pointer to **int32**  | The datatype of the field                          | [optional] |
-| **Jsonata**  | Pointer to **string** | the JSONata expression used to populate this field | [optional] |
-| **Name**     | Pointer to **string** | The name of the field                              | [optional] |
+| Name         | Type                  | Description                                                                                                                                                                                                                                                                                                            | Notes      |
+| ------------ | --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Datatype** | Pointer to **int32**  | The datatype of the field                                                                                                                                                                                                                                                                                              | [optional] |
+| **Jsonata**  | Pointer to **string** | The JSONata expression that populates this field from the event. Required for a dataset with no rows expression. Must be omitted when the dataset has one: the column is then taken from the row object key matching this field&#39;s name, and supplying an expression here is rejected rather than silently ignored. | [optional] |
+| **Name**     | Pointer to **string** | The name of the field                                                                                                                                                                                                                                                                                                  | [optional] |
 
 ## Methods
 

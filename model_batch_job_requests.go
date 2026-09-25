@@ -35,6 +35,8 @@ type BatchJobRequests struct {
 	FleetsToJoin []string `json:"fleets_to_join,omitempty"`
 	// Fleet UIDs to remove the device from
 	FleetsToLeave []string `json:"fleets_to_leave,omitempty"`
+	// note.add/note.update/note.delete requests to perform against the device's own notefiles. When both default_requests and a device's device_requests specify note_reqs, they merge by identity (req, file, note): a device-specific entry with the same identity as a default entry replaces it; entries unique to either side (no collision) all still apply.
+	NoteReqs []BatchJobNoteRequest `json:"note_reqs,omitempty"`
 	// Product UID to provision the device with if not already provisioned
 	ProvisionProduct *string `json:"provision_product,omitempty"`
 	// Set the device serial number only if not already set
@@ -323,6 +325,38 @@ func (o *BatchJobRequests) SetFleetsToLeave(v []string) {
 	o.FleetsToLeave = v
 }
 
+// GetNoteReqs returns the NoteReqs field value if set, zero value otherwise.
+func (o *BatchJobRequests) GetNoteReqs() []BatchJobNoteRequest {
+	if o == nil || IsNil(o.NoteReqs) {
+		var ret []BatchJobNoteRequest
+		return ret
+	}
+	return o.NoteReqs
+}
+
+// GetNoteReqsOk returns a tuple with the NoteReqs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BatchJobRequests) GetNoteReqsOk() ([]BatchJobNoteRequest, bool) {
+	if o == nil || IsNil(o.NoteReqs) {
+		return nil, false
+	}
+	return o.NoteReqs, true
+}
+
+// HasNoteReqs returns a boolean if a field has been set.
+func (o *BatchJobRequests) HasNoteReqs() bool {
+	if o != nil && !IsNil(o.NoteReqs) {
+		return true
+	}
+
+	return false
+}
+
+// SetNoteReqs gets a reference to the given []BatchJobNoteRequest and assigns it to the NoteReqs field.
+func (o *BatchJobRequests) SetNoteReqs(v []BatchJobNoteRequest) {
+	o.NoteReqs = v
+}
+
 // GetProvisionProduct returns the ProvisionProduct field value if set, zero value otherwise.
 func (o *BatchJobRequests) GetProvisionProduct() string {
 	if o == nil || IsNil(o.ProvisionProduct) {
@@ -517,6 +551,9 @@ func (o BatchJobRequests) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FleetsToLeave) {
 		toSerialize["fleets_to_leave"] = o.FleetsToLeave
 	}
+	if !IsNil(o.NoteReqs) {
+		toSerialize["note_reqs"] = o.NoteReqs
+	}
 	if !IsNil(o.ProvisionProduct) {
 		toSerialize["provision_product"] = o.ProvisionProduct
 	}
@@ -562,6 +599,7 @@ func (o *BatchJobRequests) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fleets_to_default")
 		delete(additionalProperties, "fleets_to_join")
 		delete(additionalProperties, "fleets_to_leave")
+		delete(additionalProperties, "note_reqs")
 		delete(additionalProperties, "provision_product")
 		delete(additionalProperties, "sn_to_default")
 		delete(additionalProperties, "sn_to_set")

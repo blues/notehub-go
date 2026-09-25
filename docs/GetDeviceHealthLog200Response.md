@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name          | Type                                                                                                | Description | Notes |
-| ------------- | --------------------------------------------------------------------------------------------------- | ----------- | ----- |
-| **HealthLog** | [**[]GetDeviceHealthLog200ResponseHealthLogInner**](GetDeviceHealthLog200ResponseHealthLogInner.md) |             |
+| Name          | Type                            | Description | Notes |
+| ------------- | ------------------------------- | ----------- | ----- |
+| **HealthLog** | [**[]HealthLog**](HealthLog.md) |             |
 
 ## Methods
 
 ### NewGetDeviceHealthLog200Response
 
-`func NewGetDeviceHealthLog200Response(healthLog []GetDeviceHealthLog200ResponseHealthLogInner, ) *GetDeviceHealthLog200Response`
+`func NewGetDeviceHealthLog200Response(healthLog []HealthLog, ) *GetDeviceHealthLog200Response`
 
 NewGetDeviceHealthLog200Response instantiates a new GetDeviceHealthLog200Response object
 This constructor will assign default values to properties that have it defined,
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetHealthLog
 
-`func (o *GetDeviceHealthLog200Response) GetHealthLog() []GetDeviceHealthLog200ResponseHealthLogInner`
+`func (o *GetDeviceHealthLog200Response) GetHealthLog() []HealthLog`
 
 GetHealthLog returns the HealthLog field if non-nil, zero value otherwise.
 
 ### GetHealthLogOk
 
-`func (o *GetDeviceHealthLog200Response) GetHealthLogOk() (*[]GetDeviceHealthLog200ResponseHealthLogInner, bool)`
+`func (o *GetDeviceHealthLog200Response) GetHealthLogOk() (*[]HealthLog, bool)`
 
 GetHealthLogOk returns a tuple with the HealthLog field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHealthLog
 
-`func (o *GetDeviceHealthLog200Response) SetHealthLog(v []GetDeviceHealthLog200ResponseHealthLogInner)`
+`func (o *GetDeviceHealthLog200Response) SetHealthLog(v []HealthLog)`
 
 SetHealthLog sets HealthLog field to given value.
 

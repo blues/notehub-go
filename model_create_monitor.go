@@ -20,14 +20,14 @@ var _ MappedNullable = &CreateMonitor{}
 
 // CreateMonitor struct for CreateMonitor
 type CreateMonitor struct {
-	// Aggregate function to apply to the selected values before applying the condition. [none, sum, average, max, min]
+	// Aggregate function to apply to the selected values before applying the condition. [none, avg, max, min, sum, count]
 	AggregateFunction *string `json:"aggregate_function,omitempty"`
 	// The time window to aggregate the selected values. It follows the format of a number followed by a time unit
 	AggregateWindow *string `json:"aggregate_window,omitempty" validate:"regexp=^[0-9]+[smh]$"`
 	// If true, the monitor is in alert state.
 	Alert       *bool                     `json:"alert,omitempty"`
 	AlertRoutes []MonitorAlertRoutesInner `json:"alert_routes,omitempty"`
-	// A comparison operation to apply to the value selected by the source_selector [greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to]
+	// A comparison operation to apply to the value selected by the source_selector. Required for event and usage monitors; set automatically for heartbeat monitors. [greater_than, greater_than_or_equal_to, less_than, less_than_or_equal_to, equal_to, not_equal_to]
 	ConditionType *string `json:"condition_type,omitempty"`
 	Description   *string `json:"description,omitempty"`
 	// If true, the monitor will not be evaluated.
@@ -43,11 +43,11 @@ type CreateMonitor struct {
 	RoutingCooldownPeriod *string `json:"routing_cooldown_period,omitempty" validate:"regexp=^[0-9]+[smh]$"`
 	// If true, alerts will be created, but no notifications will be sent.
 	Silenced *bool `json:"silenced,omitempty"`
-	// A valid JSONata expression that selects the value to monitor from the source. | It should return a single, numeric value.
+	// A dot-delimited path to a single numeric value within the event body.
 	SourceSelector *string `json:"source_selector,omitempty"`
-	// The type of source to monitor. Supported values are \"event\" and \"heartbeat\".
+	// The type of source to monitor. Defaults to \"event\".
 	SourceType *string `json:"source_type,omitempty"`
-	// The type of condition to apply to the value selected by the source_selector
+	// The value that condition_type compares against. For heartbeat monitors this is seconds of inactivity; for usage monitors it is bytes.
 	Threshold *int32  `json:"threshold,omitempty"`
 	Uid       *string `json:"uid,omitempty"`
 	// For usage monitors: the scope of aggregation. Supported values are \"device\" and \"fleet\".
@@ -55,8 +55,11 @@ type CreateMonitor struct {
 	// For usage monitors: the type of data usage to monitor. Supported values are \"cellular\" and \"satellite\".
 	UsageType *string `json:"usage_type,omitempty"`
 	// For usage monitors: the rolling time window in days to sum usage over (e.g. 30 for 30 days).
-	UsageWindow *int32 `json:"usage_window,omitempty"`
+	UsageWindow          *int32 `json:"usage_window,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateMonitor CreateMonitor
 
 // NewCreateMonitor instantiates a new CreateMonitor object
 // This constructor will assign default values to properties that have it defined,
@@ -64,6 +67,10 @@ type CreateMonitor struct {
 // will change when the set of required properties is changed
 func NewCreateMonitor() *CreateMonitor {
 	this := CreateMonitor{}
+	var description string = ""
+	this.Description = &description
+	var sourceType string = "event"
+	this.SourceType = &sourceType
 	return &this
 }
 
@@ -72,6 +79,10 @@ func NewCreateMonitor() *CreateMonitor {
 // but it doesn't guarantee that properties required by API are set
 func NewCreateMonitorWithDefaults() *CreateMonitor {
 	this := CreateMonitor{}
+	var description string = ""
+	this.Description = &description
+	var sourceType string = "event"
+	this.SourceType = &sourceType
 	return &this
 }
 
@@ -820,7 +831,53 @@ func (o CreateMonitor) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UsageWindow) {
 		toSerialize["usage_window"] = o.UsageWindow
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateMonitor) UnmarshalJSON(data []byte) (err error) {
+	varCreateMonitor := _CreateMonitor{}
+
+	err = json.Unmarshal(data, &varCreateMonitor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateMonitor(varCreateMonitor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "aggregate_function")
+		delete(additionalProperties, "aggregate_window")
+		delete(additionalProperties, "alert")
+		delete(additionalProperties, "alert_routes")
+		delete(additionalProperties, "condition_type")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "fleet_filter")
+		delete(additionalProperties, "last_routed_at")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "notefile_filter")
+		delete(additionalProperties, "per_device")
+		delete(additionalProperties, "routing_cooldown_period")
+		delete(additionalProperties, "silenced")
+		delete(additionalProperties, "source_selector")
+		delete(additionalProperties, "source_type")
+		delete(additionalProperties, "threshold")
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "usage_scope")
+		delete(additionalProperties, "usage_type")
+		delete(additionalProperties, "usage_window")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateMonitor struct {
