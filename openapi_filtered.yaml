@@ -4377,7 +4377,7 @@ components:
           - json
           - csv
     hostFirmwareParam:
-      description: Host firmware filter
+      description: Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: hostFirmware
@@ -4405,7 +4405,7 @@ components:
         default: 50
         minimum: 1
     locationParam:
-      description: Location filter
+      description: Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: location
@@ -4443,7 +4443,7 @@ components:
       schema:
         type: boolean
     notecardFirmwareParam:
-      description: Firmware version filter
+      description: Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: notecardFirmware
@@ -4505,6 +4505,7 @@ components:
       schema:
         type: string
     productUIDQueryParam:
+      description: Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: productUID
@@ -4632,7 +4633,7 @@ components:
           type: string
       style: form
     serialNumberParam:
-      description: Serial number filter
+      description: Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: serialNumber
@@ -4654,7 +4655,7 @@ components:
           type: string
       style: form
     skuParam:
-      description: SKU filter
+      description: SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally.
       explode: true
       in: query
       name: sku
@@ -4708,7 +4709,7 @@ components:
       schema:
         type: boolean
     tagParam:
-      description: Tag filter
+      description: Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`.
       explode: true
       in: query
       name: tag
