@@ -5,7 +5,7 @@
 | Name              | Type                                                                   | Description                                  | Notes      |
 | ----------------- | ---------------------------------------------------------------------- | -------------------------------------------- | ---------- |
 | **AlertSource**   | Pointer to **string**                                                  | The source of the alert                      | [optional] |
-| **CreatedAt**     | Pointer to **int32**                                                   | The time the alert was created               | [optional] |
+| **CreatedAt**     | Pointer to **int64**                                                   | The time the alert was created               | [optional] |
 | **Data**          | Pointer to [**[]AlertDataInner**](AlertDataInner.md)                   |                                              | [optional] |
 | **DeviceUid**     | Pointer to **string**                                                  | Device UID                                   | [optional] |
 | **FieldName**     | Pointer to **string**                                                  | The field name that triggered the alert      | [optional] |
@@ -65,20 +65,20 @@ HasAlertSource returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *Alert) GetCreatedAt() int32`
+`func (o *Alert) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *Alert) GetCreatedAtOk() (*int32, bool)`
+`func (o *Alert) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *Alert) SetCreatedAt(v int32)`
+`func (o *Alert) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 

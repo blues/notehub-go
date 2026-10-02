@@ -139,18 +139,18 @@ type ApiGetOrganizationBalanceHistoryRequest struct {
 	ctx             context.Context
 	ApiService      *OrganizationAPIService
 	organizationUID string
-	startDate       *int32
-	endDate         *int32
+	startDate       *int64
+	endDate         *int64
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetOrganizationBalanceHistoryRequest) StartDate(startDate int32) ApiGetOrganizationBalanceHistoryRequest {
+func (r ApiGetOrganizationBalanceHistoryRequest) StartDate(startDate int64) ApiGetOrganizationBalanceHistoryRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetOrganizationBalanceHistoryRequest) EndDate(endDate int32) ApiGetOrganizationBalanceHistoryRequest {
+func (r ApiGetOrganizationBalanceHistoryRequest) EndDate(endDate int64) ApiGetOrganizationBalanceHistoryRequest {
 	r.endDate = &endDate
 	return r
 }

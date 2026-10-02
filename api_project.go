@@ -2520,13 +2520,13 @@ func (r ApiGetDevicesDfuHistoryRequest) DeviceUID(deviceUID []string) ApiGetDevi
 	return r
 }
 
-// Tag filter
+// Tag filter. Matches the whole tag, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. For example, &#x60;51*&#x60; matches tags starting with &#x60;51&#x60;.
 func (r ApiGetDevicesDfuHistoryRequest) Tag(tag []string) ApiGetDevicesDfuHistoryRequest {
 	r.tag = &tag
 	return r
 }
 
-// Serial number filter
+// Serial number filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) SerialNumber(serialNumber []string) ApiGetDevicesDfuHistoryRequest {
 	r.serialNumber = &serialNumber
 	return r
@@ -2537,30 +2537,31 @@ func (r ApiGetDevicesDfuHistoryRequest) FleetUID(fleetUID string) ApiGetDevicesD
 	return r
 }
 
-// Firmware version filter
+// Firmware version filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) NotecardFirmware(notecardFirmware []string) ApiGetDevicesDfuHistoryRequest {
 	r.notecardFirmware = &notecardFirmware
 	return r
 }
 
-// Location filter
+// Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) Location(location []string) ApiGetDevicesDfuHistoryRequest {
 	r.location = &location
 	return r
 }
 
-// Host firmware filter
+// Host firmware filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) HostFirmware(hostFirmware []string) ApiGetDevicesDfuHistoryRequest {
 	r.hostFirmware = &hostFirmware
 	return r
 }
 
+// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) ProductUID(productUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.productUID = &productUID
 	return r
 }
 
-// SKU filter
+// SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) Sku(sku []string) ApiGetDevicesDfuHistoryRequest {
 	r.sku = &sku
 	return r
@@ -2840,13 +2841,13 @@ func (r ApiGetDevicesDfuStatusRequest) DeviceUID(deviceUID []string) ApiGetDevic
 	return r
 }
 
-// Tag filter
+// Tag filter. Matches the whole tag, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. For example, &#x60;51*&#x60; matches tags starting with &#x60;51&#x60;.
 func (r ApiGetDevicesDfuStatusRequest) Tag(tag []string) ApiGetDevicesDfuStatusRequest {
 	r.tag = &tag
 	return r
 }
 
-// Serial number filter
+// Serial number filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) SerialNumber(serialNumber []string) ApiGetDevicesDfuStatusRequest {
 	r.serialNumber = &serialNumber
 	return r
@@ -2857,30 +2858,31 @@ func (r ApiGetDevicesDfuStatusRequest) FleetUID(fleetUID string) ApiGetDevicesDf
 	return r
 }
 
-// Firmware version filter
+// Firmware version filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) NotecardFirmware(notecardFirmware []string) ApiGetDevicesDfuStatusRequest {
 	r.notecardFirmware = &notecardFirmware
 	return r
 }
 
-// Location filter
+// Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) Location(location []string) ApiGetDevicesDfuStatusRequest {
 	r.location = &location
 	return r
 }
 
-// Host firmware filter
+// Host firmware filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) HostFirmware(hostFirmware []string) ApiGetDevicesDfuStatusRequest {
 	r.hostFirmware = &hostFirmware
 	return r
 }
 
+// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) ProductUID(productUID []string) ApiGetDevicesDfuStatusRequest {
 	r.productUID = &productUID
 	return r
 }
 
-// SKU filter
+// SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) Sku(sku []string) ApiGetDevicesDfuStatusRequest {
 	r.sku = &sku
 	return r
@@ -4767,13 +4769,13 @@ func (r ApiPerformDfuActionRequest) DeviceUID(deviceUID []string) ApiPerformDfuA
 	return r
 }
 
-// Tag filter
+// Tag filter. Matches the whole tag, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. For example, &#x60;51*&#x60; matches tags starting with &#x60;51&#x60;.
 func (r ApiPerformDfuActionRequest) Tag(tag []string) ApiPerformDfuActionRequest {
 	r.tag = &tag
 	return r
 }
 
-// Serial number filter
+// Serial number filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) SerialNumber(serialNumber []string) ApiPerformDfuActionRequest {
 	r.serialNumber = &serialNumber
 	return r
@@ -4784,30 +4786,31 @@ func (r ApiPerformDfuActionRequest) FleetUID(fleetUID string) ApiPerformDfuActio
 	return r
 }
 
-// Firmware version filter
+// Firmware version filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) NotecardFirmware(notecardFirmware []string) ApiPerformDfuActionRequest {
 	r.notecardFirmware = &notecardFirmware
 	return r
 }
 
-// Location filter
+// Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) Location(location []string) ApiPerformDfuActionRequest {
 	r.location = &location
 	return r
 }
 
-// Host firmware filter
+// Host firmware filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) HostFirmware(hostFirmware []string) ApiPerformDfuActionRequest {
 	r.hostFirmware = &hostFirmware
 	return r
 }
 
+// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) ProductUID(productUID []string) ApiPerformDfuActionRequest {
 	r.productUID = &productUID
 	return r
 }
 
-// SKU filter
+// SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) Sku(sku []string) ApiPerformDfuActionRequest {
 	r.sku = &sku
 	return r

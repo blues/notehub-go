@@ -31,10 +31,11 @@ type ApiGetEventsRequest struct {
 	pageSize            *int32
 	pageNum             *int32
 	deviceUID           *[]string
+	sensorUID           *[]string
 	sortBy              *string
 	sortOrder           *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	dateType            *string
 	systemFilesOnly     *bool
 	files               *string
@@ -62,6 +63,12 @@ func (r ApiGetEventsRequest) DeviceUID(deviceUID []string) ApiGetEventsRequest {
 	return r
 }
 
+// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+func (r ApiGetEventsRequest) SensorUID(sensorUID []string) ApiGetEventsRequest {
+	r.sensorUID = &sensorUID
+	return r
+}
+
 func (r ApiGetEventsRequest) SortBy(sortBy string) ApiGetEventsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -73,13 +80,13 @@ func (r ApiGetEventsRequest) SortOrder(sortOrder string) ApiGetEventsRequest {
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetEventsRequest) StartDate(startDate int32) ApiGetEventsRequest {
+func (r ApiGetEventsRequest) StartDate(startDate int64) ApiGetEventsRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetEventsRequest) EndDate(endDate int32) ApiGetEventsRequest {
+func (r ApiGetEventsRequest) EndDate(endDate int64) ApiGetEventsRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -203,6 +210,17 @@ func (a *EventAPIService) GetEventsExecute(r ApiGetEventsRequest) (*GetEvents200
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
+		}
+	}
+	if r.sensorUID != nil {
+		t := *r.sensorUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
 		}
 	}
 	if r.sortBy != nil {
@@ -365,6 +383,7 @@ type ApiGetEventsByCursorRequest struct {
 	files               *string
 	fleetUID            *string
 	deviceUID           *[]string
+	sensorUID           *[]string
 }
 
 func (r ApiGetEventsByCursorRequest) Limit(limit int32) ApiGetEventsByCursorRequest {
@@ -401,6 +420,12 @@ func (r ApiGetEventsByCursorRequest) FleetUID(fleetUID string) ApiGetEventsByCur
 // A Device UID.
 func (r ApiGetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetEventsByCursorRequest {
 	r.deviceUID = &deviceUID
+	return r
+}
+
+// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+func (r ApiGetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetEventsByCursorRequest {
+	r.sensorUID = &sensorUID
 	return r
 }
 
@@ -485,6 +510,17 @@ func (a *EventAPIService) GetEventsByCursorExecute(r ApiGetEventsByCursorRequest
 			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
 		}
 	}
+	if r.sensorUID != nil {
+		t := *r.sensorUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -555,10 +591,11 @@ type ApiGetFleetEventsRequest struct {
 	pageSize            *int32
 	pageNum             *int32
 	deviceUID           *[]string
+	sensorUID           *[]string
 	sortBy              *string
 	sortOrder           *string
-	startDate           *int32
-	endDate             *int32
+	startDate           *int64
+	endDate             *int64
 	dateType            *string
 	systemFilesOnly     *bool
 	files               *string
@@ -585,6 +622,12 @@ func (r ApiGetFleetEventsRequest) DeviceUID(deviceUID []string) ApiGetFleetEvent
 	return r
 }
 
+// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+func (r ApiGetFleetEventsRequest) SensorUID(sensorUID []string) ApiGetFleetEventsRequest {
+	r.sensorUID = &sensorUID
+	return r
+}
+
 func (r ApiGetFleetEventsRequest) SortBy(sortBy string) ApiGetFleetEventsRequest {
 	r.sortBy = &sortBy
 	return r
@@ -596,13 +639,13 @@ func (r ApiGetFleetEventsRequest) SortOrder(sortOrder string) ApiGetFleetEventsR
 }
 
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsRequest) StartDate(startDate int32) ApiGetFleetEventsRequest {
+func (r ApiGetFleetEventsRequest) StartDate(startDate int64) ApiGetFleetEventsRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsRequest) EndDate(endDate int32) ApiGetFleetEventsRequest {
+func (r ApiGetFleetEventsRequest) EndDate(endDate int64) ApiGetFleetEventsRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -723,6 +766,17 @@ func (a *EventAPIService) GetFleetEventsExecute(r ApiGetFleetEventsRequest) (*Ge
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
+		}
+	}
+	if r.sensorUID != nil {
+		t := *r.sensorUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
 		}
 	}
 	if r.sortBy != nil {
@@ -874,8 +928,9 @@ type ApiGetFleetEventsByCursorRequest struct {
 	systemFilesOnly     *bool
 	files               *string
 	deviceUID           *[]string
-	startDate           *int32
-	endDate             *int32
+	sensorUID           *[]string
+	startDate           *int64
+	endDate             *int64
 }
 
 func (r ApiGetFleetEventsByCursorRequest) Limit(limit int32) ApiGetFleetEventsByCursorRequest {
@@ -910,14 +965,20 @@ func (r ApiGetFleetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetFl
 	return r
 }
 
+// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+func (r ApiGetFleetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetFleetEventsByCursorRequest {
+	r.sensorUID = &sensorUID
+	return r
+}
+
 // Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsByCursorRequest) StartDate(startDate int32) ApiGetFleetEventsByCursorRequest {
+func (r ApiGetFleetEventsByCursorRequest) StartDate(startDate int64) ApiGetFleetEventsByCursorRequest {
 	r.startDate = &startDate
 	return r
 }
 
 // End date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsByCursorRequest) EndDate(endDate int32) ApiGetFleetEventsByCursorRequest {
+func (r ApiGetFleetEventsByCursorRequest) EndDate(endDate int64) ApiGetFleetEventsByCursorRequest {
 	r.endDate = &endDate
 	return r
 }
@@ -1001,6 +1062,17 @@ func (a *EventAPIService) GetFleetEventsByCursorExecute(r ApiGetFleetEventsByCur
 			}
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
+		}
+	}
+	if r.sensorUID != nil {
+		t := *r.sensorUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
 		}
 	}
 	if r.startDate != nil {

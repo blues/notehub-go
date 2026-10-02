@@ -4,6 +4,7 @@
 
 | Name                               | Type                             | Description                                                                                                                  | Notes      |
 | ---------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **EnvironmentVariableNotes**       | Pointer to **map[string]string** | Optional per-variable annotations for device-level environment variables, keyed by variable name.                            | [optional] |
 | **EnvironmentVariables**           | **map[string]string**            | The environment variables for this device that have been set using host firmware or the Notehub API or UI.                   |
 | **EnvironmentVariablesEffective**  | Pointer to **map[string]string** | The environment variables as they will be seen by the device, fully resolved with project/fleet/device prioritization rules. | [optional] |
 | **EnvironmentVariablesEnvDefault** | **map[string]string**            | The environment variables that have been set using the env.default request through the Notecard API.                         |
@@ -26,6 +27,31 @@ will change when the set of required properties is changed
 NewGetDeviceEnvironmentVariablesByPin200ResponseWithDefaults instantiates a new GetDeviceEnvironmentVariablesByPin200Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetEnvironmentVariableNotes
+
+`func (o *GetDeviceEnvironmentVariablesByPin200Response) GetEnvironmentVariableNotes() map[string]string`
+
+GetEnvironmentVariableNotes returns the EnvironmentVariableNotes field if non-nil, zero value otherwise.
+
+### GetEnvironmentVariableNotesOk
+
+`func (o *GetDeviceEnvironmentVariablesByPin200Response) GetEnvironmentVariableNotesOk() (*map[string]string, bool)`
+
+GetEnvironmentVariableNotesOk returns a tuple with the EnvironmentVariableNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentVariableNotes
+
+`func (o *GetDeviceEnvironmentVariablesByPin200Response) SetEnvironmentVariableNotes(v map[string]string)`
+
+SetEnvironmentVariableNotes sets EnvironmentVariableNotes field to given value.
+
+### HasEnvironmentVariableNotes
+
+`func (o *GetDeviceEnvironmentVariablesByPin200Response) HasEnvironmentVariableNotes() bool`
+
+HasEnvironmentVariableNotes returns a boolean if a field has been set.
 
 ### GetEnvironmentVariables
 

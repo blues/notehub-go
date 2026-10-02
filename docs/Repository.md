@@ -2,12 +2,13 @@
 
 ## Properties
 
-| Name            | Type                    | Description                                   | Notes      |
-| --------------- | ----------------------- | --------------------------------------------- | ---------- |
-| **FleetUids**   | Pointer to **[]string** |                                               | [optional] |
-| **Name**        | Pointer to **string**   | repository name                               | [optional] |
-| **ProjectUids** | Pointer to **[]string** |                                               | [optional] |
-| **Uid**         | Pointer to **string**   | The unique identifier for the data repository | [optional] |
+| Name            | Type                                                   | Description                                   | Notes      |
+| --------------- | ------------------------------------------------------ | --------------------------------------------- | ---------- |
+| **Archive**     | Pointer to [**NullableArchiveStats**](ArchiveStats.md) |                                               | [optional] |
+| **FleetUids**   | Pointer to **[]string**                                |                                               | [optional] |
+| **Name**        | Pointer to **string**                                  | repository name                               | [optional] |
+| **ProjectUids** | Pointer to **[]string**                                |                                               | [optional] |
+| **Uid**         | Pointer to **string**                                  | The unique identifier for the data repository | [optional] |
 
 ## Methods
 
@@ -27,6 +28,43 @@ will change when the set of required properties is changed
 NewRepositoryWithDefaults instantiates a new Repository object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetArchive
+
+`func (o *Repository) GetArchive() ArchiveStats`
+
+GetArchive returns the Archive field if non-nil, zero value otherwise.
+
+### GetArchiveOk
+
+`func (o *Repository) GetArchiveOk() (*ArchiveStats, bool)`
+
+GetArchiveOk returns a tuple with the Archive field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchive
+
+`func (o *Repository) SetArchive(v ArchiveStats)`
+
+SetArchive sets Archive field to given value.
+
+### HasArchive
+
+`func (o *Repository) HasArchive() bool`
+
+HasArchive returns a boolean if a field has been set.
+
+### SetArchiveNil
+
+`func (o *Repository) SetArchiveNil(b bool)`
+
+SetArchiveNil sets the value for Archive to be an explicit nil
+
+### UnsetArchive
+
+`func (o *Repository) UnsetArchive()`
+
+UnsetArchive ensures that no value is present for Archive, not even an explicit nil
 
 ### GetFleetUids
 

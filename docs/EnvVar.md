@@ -2,12 +2,13 @@
 
 ## Properties
 
-| Name           | Type                  | Description | Notes      |
-| -------------- | --------------------- | ----------- | ---------- |
-| **Key**        | Pointer to **string** |             | [optional] |
-| **Precedence** | Pointer to **int32**  |             | [optional] |
-| **Used**       | Pointer to **bool**   |             | [optional] |
-| **Value**      | Pointer to **string** |             | [optional] |
+| Name           | Type                  | Description                                                      | Notes      |
+| -------------- | --------------------- | ---------------------------------------------------------------- | ---------- |
+| **Key**        | Pointer to **string** |                                                                  | [optional] |
+| **Note**       | Pointer to **string** | Optional free-form text for annotating the environment variable. | [optional] |
+| **Precedence** | Pointer to **int32**  |                                                                  | [optional] |
+| **Used**       | Pointer to **bool**   |                                                                  | [optional] |
+| **Value**      | Pointer to **string** |                                                                  | [optional] |
 
 ## Methods
 
@@ -52,6 +53,31 @@ SetKey sets Key field to given value.
 `func (o *EnvVar) HasKey() bool`
 
 HasKey returns a boolean if a field has been set.
+
+### GetNote
+
+`func (o *EnvVar) GetNote() string`
+
+GetNote returns the Note field if non-nil, zero value otherwise.
+
+### GetNoteOk
+
+`func (o *EnvVar) GetNoteOk() (*string, bool)`
+
+GetNoteOk returns a tuple with the Note field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNote
+
+`func (o *EnvVar) SetNote(v string)`
+
+SetNote sets Note field to given value.
+
+### HasNote
+
+`func (o *EnvVar) HasNote() bool`
+
+HasNote returns a boolean if a field has been set.
 
 ### GetPrecedence
 

@@ -21,13 +21,13 @@ var _ MappedNullable = &UploadMetadata{}
 // UploadMetadata struct for UploadMetadata
 type UploadMetadata struct {
 	Contains *string          `json:"contains,omitempty"`
-	Crc32    *int32           `json:"crc32,omitempty"`
-	Created  *int32           `json:"created,omitempty"`
+	Crc32    *int64           `json:"crc32,omitempty"`
+	Created  *int64           `json:"created,omitempty"`
 	Firmware NullableFirmware `json:"firmware,omitempty"`
 	Found    *string          `json:"found,omitempty"`
-	Length   *int32           `json:"length,omitempty"`
+	Length   *int64           `json:"length,omitempty"`
 	Md5      *string          `json:"md5,omitempty"`
-	Modified *int32           `json:"modified,omitempty"`
+	Modified *int64           `json:"modified,omitempty"`
 	Name     *string          `json:"name,omitempty"`
 	Notes    *string          `json:"notes,omitempty"`
 	Source   *string          `json:"source,omitempty"`
@@ -90,9 +90,9 @@ func (o *UploadMetadata) SetContains(v string) {
 }
 
 // GetCrc32 returns the Crc32 field value if set, zero value otherwise.
-func (o *UploadMetadata) GetCrc32() int32 {
+func (o *UploadMetadata) GetCrc32() int64 {
 	if o == nil || IsNil(o.Crc32) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Crc32
@@ -100,7 +100,7 @@ func (o *UploadMetadata) GetCrc32() int32 {
 
 // GetCrc32Ok returns a tuple with the Crc32 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UploadMetadata) GetCrc32Ok() (*int32, bool) {
+func (o *UploadMetadata) GetCrc32Ok() (*int64, bool) {
 	if o == nil || IsNil(o.Crc32) {
 		return nil, false
 	}
@@ -116,15 +116,15 @@ func (o *UploadMetadata) HasCrc32() bool {
 	return false
 }
 
-// SetCrc32 gets a reference to the given int32 and assigns it to the Crc32 field.
-func (o *UploadMetadata) SetCrc32(v int32) {
+// SetCrc32 gets a reference to the given int64 and assigns it to the Crc32 field.
+func (o *UploadMetadata) SetCrc32(v int64) {
 	o.Crc32 = &v
 }
 
 // GetCreated returns the Created field value if set, zero value otherwise.
-func (o *UploadMetadata) GetCreated() int32 {
+func (o *UploadMetadata) GetCreated() int64 {
 	if o == nil || IsNil(o.Created) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Created
@@ -132,7 +132,7 @@ func (o *UploadMetadata) GetCreated() int32 {
 
 // GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UploadMetadata) GetCreatedOk() (*int32, bool) {
+func (o *UploadMetadata) GetCreatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
@@ -148,8 +148,8 @@ func (o *UploadMetadata) HasCreated() bool {
 	return false
 }
 
-// SetCreated gets a reference to the given int32 and assigns it to the Created field.
-func (o *UploadMetadata) SetCreated(v int32) {
+// SetCreated gets a reference to the given int64 and assigns it to the Created field.
+func (o *UploadMetadata) SetCreated(v int64) {
 	o.Created = &v
 }
 
@@ -229,9 +229,9 @@ func (o *UploadMetadata) SetFound(v string) {
 }
 
 // GetLength returns the Length field value if set, zero value otherwise.
-func (o *UploadMetadata) GetLength() int32 {
+func (o *UploadMetadata) GetLength() int64 {
 	if o == nil || IsNil(o.Length) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Length
@@ -239,7 +239,7 @@ func (o *UploadMetadata) GetLength() int32 {
 
 // GetLengthOk returns a tuple with the Length field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UploadMetadata) GetLengthOk() (*int32, bool) {
+func (o *UploadMetadata) GetLengthOk() (*int64, bool) {
 	if o == nil || IsNil(o.Length) {
 		return nil, false
 	}
@@ -255,8 +255,8 @@ func (o *UploadMetadata) HasLength() bool {
 	return false
 }
 
-// SetLength gets a reference to the given int32 and assigns it to the Length field.
-func (o *UploadMetadata) SetLength(v int32) {
+// SetLength gets a reference to the given int64 and assigns it to the Length field.
+func (o *UploadMetadata) SetLength(v int64) {
 	o.Length = &v
 }
 
@@ -293,9 +293,9 @@ func (o *UploadMetadata) SetMd5(v string) {
 }
 
 // GetModified returns the Modified field value if set, zero value otherwise.
-func (o *UploadMetadata) GetModified() int32 {
+func (o *UploadMetadata) GetModified() int64 {
 	if o == nil || IsNil(o.Modified) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Modified
@@ -303,7 +303,7 @@ func (o *UploadMetadata) GetModified() int32 {
 
 // GetModifiedOk returns a tuple with the Modified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UploadMetadata) GetModifiedOk() (*int32, bool) {
+func (o *UploadMetadata) GetModifiedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Modified) {
 		return nil, false
 	}
@@ -319,8 +319,8 @@ func (o *UploadMetadata) HasModified() bool {
 	return false
 }
 
-// SetModified gets a reference to the given int32 and assigns it to the Modified field.
-func (o *UploadMetadata) SetModified(v int32) {
+// SetModified gets a reference to the given int64 and assigns it to the Modified field.
+func (o *UploadMetadata) SetModified(v int64) {
 	o.Modified = &v
 }
 

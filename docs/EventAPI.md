@@ -12,7 +12,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## GetEvents
 
-> GetEvents200Response GetEvents(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).FleetUID(fleetUID).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
+> GetEvents200Response GetEvents(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SensorUID(sensorUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).FleetUID(fleetUID).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
 
 ### Example
 
@@ -31,10 +31,11 @@ func main() {
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	dateType := "uploaded" // string | Which date to filter on, either 'captured' or 'uploaded'.  This will apply to the startDate and endDate parameters (optional) (default to "captured")
 	systemFilesOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
@@ -47,7 +48,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEvents(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).FleetUID(fleetUID).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
+	resp, r, err := apiClient.EventAPI.GetEvents(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SensorUID(sensorUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).FleetUID(fleetUID).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -74,10 +75,11 @@ Other parameters are passed through a pointer to a apiGetEventsRequest struct vi
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
 **deviceUID** | **[]string** | A Device UID. |
+**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **dateType** | **string** | Which date to filter on, either &#39;captured&#39; or &#39;uploaded&#39;. This will apply to the startDate and endDate parameters | [default to &quot;captured&quot;]
 **systemFilesOnly** | **bool** | |
 **files** | **string** | |
@@ -107,7 +109,7 @@ Other parameters are passed through a pointer to a apiGetEventsRequest struct vi
 
 ## GetEventsByCursor
 
-> GetEventsByCursor200Response GetEventsByCursor(ctx, projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).Execute()
+> GetEventsByCursor200Response GetEventsByCursor(ctx, projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).SensorUID(sensorUID).Execute()
 
 ### Example
 
@@ -130,10 +132,11 @@ func main() {
 	files := "_health.qo, data.qo" // string |  (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEventsByCursor(context.Background(), projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).Execute()
+	resp, r, err := apiClient.EventAPI.GetEventsByCursor(context.Background(), projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).SensorUID(sensorUID).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventsByCursor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -164,6 +167,7 @@ Other parameters are passed through a pointer to a apiGetEventsByCursorRequest s
 **files** | **string** | |
 **fleetUID** | **string** | |
 **deviceUID** | **[]string** | A Device UID. |
+**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 
 ### Return type
 
@@ -184,7 +188,7 @@ Other parameters are passed through a pointer to a apiGetEventsByCursorRequest s
 
 ## GetFleetEvents
 
-> GetEvents200Response GetFleetEvents(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
+> GetEvents200Response GetFleetEvents(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SensorUID(sensorUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
 
 ### Example
 
@@ -204,10 +208,11 @@ func main() {
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 	dateType := "uploaded" // string | Which date to filter on, either 'captured' or 'uploaded'.  This will apply to the startDate and endDate parameters (optional) (default to "captured")
 	systemFilesOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
@@ -219,7 +224,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetFleetEvents(context.Background(), projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
+	resp, r, err := apiClient.EventAPI.GetFleetEvents(context.Background(), projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SensorUID(sensorUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetFleetEvents``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -247,10 +252,11 @@ Other parameters are passed through a pointer to a apiGetFleetEventsRequest stru
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
 **deviceUID** | **[]string** | A Device UID. |
+**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 **dateType** | **string** | Which date to filter on, either &#39;captured&#39; or &#39;uploaded&#39;. This will apply to the startDate and endDate parameters | [default to &quot;captured&quot;]
 **systemFilesOnly** | **bool** | |
 **files** | **string** | |
@@ -279,7 +285,7 @@ Other parameters are passed through a pointer to a apiGetFleetEventsRequest stru
 
 ## GetFleetEventsByCursor
 
-> GetEventsByCursor200Response GetFleetEventsByCursor(ctx, projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).StartDate(startDate).EndDate(endDate).Execute()
+> GetEventsByCursor200Response GetFleetEventsByCursor(ctx, projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).SensorUID(sensorUID).StartDate(startDate).EndDate(endDate).Execute()
 
 ### Example
 
@@ -302,12 +308,13 @@ func main() {
 	systemFilesOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetFleetEventsByCursor(context.Background(), projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).StartDate(startDate).EndDate(endDate).Execute()
+	resp, r, err := apiClient.EventAPI.GetFleetEventsByCursor(context.Background(), projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).SensorUID(sensorUID).StartDate(startDate).EndDate(endDate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetFleetEventsByCursor``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -338,8 +345,9 @@ Other parameters are passed through a pointer to a apiGetFleetEventsByCursorRequ
 **systemFilesOnly** | **bool** | |
 **files** | **string** | |
 **deviceUID** | **[]string** | A Device UID. |
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 
 ### Return type
 

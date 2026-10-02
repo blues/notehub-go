@@ -21,7 +21,7 @@ var _ MappedNullable = &GetDeviceHealthLog200Response{}
 
 // GetDeviceHealthLog200Response struct for GetDeviceHealthLog200Response
 type GetDeviceHealthLog200Response struct {
-	HealthLog            []GetDeviceHealthLog200ResponseHealthLogInner `json:"health_log"`
+	HealthLog            []HealthLog `json:"health_log"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,7 +31,7 @@ type _GetDeviceHealthLog200Response GetDeviceHealthLog200Response
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetDeviceHealthLog200Response(healthLog []GetDeviceHealthLog200ResponseHealthLogInner) *GetDeviceHealthLog200Response {
+func NewGetDeviceHealthLog200Response(healthLog []HealthLog) *GetDeviceHealthLog200Response {
 	this := GetDeviceHealthLog200Response{}
 	this.HealthLog = healthLog
 	return &this
@@ -46,9 +46,9 @@ func NewGetDeviceHealthLog200ResponseWithDefaults() *GetDeviceHealthLog200Respon
 }
 
 // GetHealthLog returns the HealthLog field value
-func (o *GetDeviceHealthLog200Response) GetHealthLog() []GetDeviceHealthLog200ResponseHealthLogInner {
+func (o *GetDeviceHealthLog200Response) GetHealthLog() []HealthLog {
 	if o == nil {
-		var ret []GetDeviceHealthLog200ResponseHealthLogInner
+		var ret []HealthLog
 		return ret
 	}
 
@@ -57,7 +57,7 @@ func (o *GetDeviceHealthLog200Response) GetHealthLog() []GetDeviceHealthLog200Re
 
 // GetHealthLogOk returns a tuple with the HealthLog field value
 // and a boolean to check if the value has been set.
-func (o *GetDeviceHealthLog200Response) GetHealthLogOk() ([]GetDeviceHealthLog200ResponseHealthLogInner, bool) {
+func (o *GetDeviceHealthLog200Response) GetHealthLogOk() ([]HealthLog, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,7 +65,7 @@ func (o *GetDeviceHealthLog200Response) GetHealthLogOk() ([]GetDeviceHealthLog20
 }
 
 // SetHealthLog sets field value
-func (o *GetDeviceHealthLog200Response) SetHealthLog(v []GetDeviceHealthLog200ResponseHealthLogInner) {
+func (o *GetDeviceHealthLog200Response) SetHealthLog(v []HealthLog) {
 	o.HealthLog = v
 }
 

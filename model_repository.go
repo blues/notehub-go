@@ -20,7 +20,8 @@ var _ MappedNullable = &Repository{}
 
 // Repository struct for Repository
 type Repository struct {
-	FleetUids []string `json:"fleet_uids,omitempty"`
+	Archive   NullableArchiveStats `json:"archive,omitempty"`
+	FleetUids []string             `json:"fleet_uids,omitempty"`
 	// repository name
 	Name        *string  `json:"name,omitempty"`
 	ProjectUids []string `json:"project_uids,omitempty"`
@@ -46,6 +47,49 @@ func NewRepository() *Repository {
 func NewRepositoryWithDefaults() *Repository {
 	this := Repository{}
 	return &this
+}
+
+// GetArchive returns the Archive field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Repository) GetArchive() ArchiveStats {
+	if o == nil || IsNil(o.Archive.Get()) {
+		var ret ArchiveStats
+		return ret
+	}
+	return *o.Archive.Get()
+}
+
+// GetArchiveOk returns a tuple with the Archive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Repository) GetArchiveOk() (*ArchiveStats, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Archive.Get(), o.Archive.IsSet()
+}
+
+// HasArchive returns a boolean if a field has been set.
+func (o *Repository) HasArchive() bool {
+	if o != nil && o.Archive.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetArchive gets a reference to the given NullableArchiveStats and assigns it to the Archive field.
+func (o *Repository) SetArchive(v ArchiveStats) {
+	o.Archive.Set(&v)
+}
+
+// SetArchiveNil sets the value for Archive to be an explicit nil
+func (o *Repository) SetArchiveNil() {
+	o.Archive.Set(nil)
+}
+
+// UnsetArchive ensures that no value is present for Archive, not even an explicit nil
+func (o *Repository) UnsetArchive() {
+	o.Archive.Unset()
 }
 
 // GetFleetUids returns the FleetUids field value if set, zero value otherwise.
@@ -186,6 +230,9 @@ func (o Repository) MarshalJSON() ([]byte, error) {
 
 func (o Repository) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Archive.IsSet() {
+		toSerialize["archive"] = o.Archive.Get()
+	}
 	if !IsNil(o.FleetUids) {
 		toSerialize["fleet_uids"] = o.FleetUids
 	}
@@ -220,6 +267,7 @@ func (o *Repository) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "archive")
 		delete(additionalProperties, "fleet_uids")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "project_uids")

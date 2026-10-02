@@ -6,7 +6,7 @@
 | ----------- | ------------------------------------- | ------------------------------------------------------ | ---------- |
 | **Body**    | Pointer to **map[string]interface{}** | The note body                                          | [optional] |
 | **Payload** | Pointer to **string**                 | The note payload                                       | [optional] |
-| **Time**    | Pointer to **int32**                  | The time the Note was added to the Notecard or Notehub | [optional] |
+| **Time**    | Pointer to **int64**                  | The time the Note was added to the Notecard or Notehub | [optional] |
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasPayload returns a boolean if a field has been set.
 
 ### GetTime
 
-`func (o *GetDbNote200Response) GetTime() int32`
+`func (o *GetDbNote200Response) GetTime() int64`
 
 GetTime returns the Time field if non-nil, zero value otherwise.
 
 ### GetTimeOk
 
-`func (o *GetDbNote200Response) GetTimeOk() (*int32, bool)`
+`func (o *GetDbNote200Response) GetTimeOk() (*int64, bool)`
 
 GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTime
 
-`func (o *GetDbNote200Response) SetTime(v int32)`
+`func (o *GetDbNote200Response) SetTime(v int64)`
 
 SetTime sets Time field to given value.
 

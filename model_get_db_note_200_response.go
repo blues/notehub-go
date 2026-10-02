@@ -25,7 +25,7 @@ type GetDbNote200Response struct {
 	// The note payload
 	Payload *string `json:"payload,omitempty"`
 	// The time the Note was added to the Notecard or Notehub
-	Time                 *int32 `json:"time,omitempty"`
+	Time                 *int64 `json:"time,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -113,9 +113,9 @@ func (o *GetDbNote200Response) SetPayload(v string) {
 }
 
 // GetTime returns the Time field value if set, zero value otherwise.
-func (o *GetDbNote200Response) GetTime() int32 {
+func (o *GetDbNote200Response) GetTime() int64 {
 	if o == nil || IsNil(o.Time) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Time
@@ -123,7 +123,7 @@ func (o *GetDbNote200Response) GetTime() int32 {
 
 // GetTimeOk returns a tuple with the Time field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetDbNote200Response) GetTimeOk() (*int32, bool) {
+func (o *GetDbNote200Response) GetTimeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Time) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *GetDbNote200Response) HasTime() bool {
 	return false
 }
 
-// SetTime gets a reference to the given int32 and assigns it to the Time field.
-func (o *GetDbNote200Response) SetTime(v int32) {
+// SetTime gets a reference to the given int64 and assigns it to the Time field.
+func (o *GetDbNote200Response) SetTime(v int64) {
 	o.Time = &v
 }
 

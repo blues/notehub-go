@@ -88,8 +88,8 @@ import (
 
 func main() {
 	billingAccountUID := "00000000-0000-0000-000000000001" // string |
-	startDate := int32(1628631763) // int32 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int32(1657894210) // int32 | End date for filtering results, specified as a Unix timestamp (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -117,8 +117,8 @@ Other parameters are passed through a pointer to a apiGetBillingAccountBalanceHi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**startDate** | **int32** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int32** | End date for filtering results, specified as a Unix timestamp |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 
 ### Return type
 

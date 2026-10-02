@@ -2,21 +2,22 @@
 
 ## Properties
 
-| Name                             | Type                             | Description                                                          | Notes      |
-| -------------------------------- | -------------------------------- | -------------------------------------------------------------------- | ---------- |
-| **Comment**                      | Pointer to **string**            |                                                                      | [optional] |
-| **ConnectivityAssuranceDisable** | Pointer to **bool**              | Disable connectivity assurance for the device                        | [optional] |
-| **ConnectivityAssuranceEnable**  | Pointer to **bool**              | Enable connectivity assurance for the device                         | [optional] |
-| **Disable**                      | Pointer to **bool**              | Disable the device                                                   | [optional] |
-| **Enable**                       | Pointer to **bool**              | Enable the device                                                    | [optional] |
-| **FleetsToDefault**              | Pointer to **[]string**          | Fleet UIDs to assign to the device if it has no fleets               | [optional] |
-| **FleetsToJoin**                 | Pointer to **[]string**          | Fleet UIDs to add the device to                                      | [optional] |
-| **FleetsToLeave**                | Pointer to **[]string**          | Fleet UIDs to remove the device from                                 | [optional] |
-| **ProvisionProduct**             | Pointer to **string**            | Product UID to provision the device with if not already provisioned  | [optional] |
-| **SnToDefault**                  | Pointer to **string**            | Set the device serial number only if not already set                 | [optional] |
-| **SnToSet**                      | Pointer to **string**            | Set the device serial number (\&quot;-\&quot; to clear)              | [optional] |
-| **VarsToDefault**                | Pointer to **map[string]string** | Environment variables to set only if not already set                 | [optional] |
-| **VarsToSet**                    | Pointer to **map[string]string** | Environment variables to set (use \&quot;-\&quot; as value to clear) | [optional] |
+| Name                             | Type                                                           | Description                                                                                                                                                                                                                                                                                                                                                          | Notes      |
+| -------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Comment**                      | Pointer to **string**                                          |                                                                                                                                                                                                                                                                                                                                                                      | [optional] |
+| **ConnectivityAssuranceDisable** | Pointer to **bool**                                            | Disable connectivity assurance for the device                                                                                                                                                                                                                                                                                                                        | [optional] |
+| **ConnectivityAssuranceEnable**  | Pointer to **bool**                                            | Enable connectivity assurance for the device                                                                                                                                                                                                                                                                                                                         | [optional] |
+| **Disable**                      | Pointer to **bool**                                            | Disable the device                                                                                                                                                                                                                                                                                                                                                   | [optional] |
+| **Enable**                       | Pointer to **bool**                                            | Enable the device                                                                                                                                                                                                                                                                                                                                                    | [optional] |
+| **FleetsToDefault**              | Pointer to **[]string**                                        | Fleet UIDs to assign to the device if it has no fleets                                                                                                                                                                                                                                                                                                               | [optional] |
+| **FleetsToJoin**                 | Pointer to **[]string**                                        | Fleet UIDs to add the device to                                                                                                                                                                                                                                                                                                                                      | [optional] |
+| **FleetsToLeave**                | Pointer to **[]string**                                        | Fleet UIDs to remove the device from                                                                                                                                                                                                                                                                                                                                 | [optional] |
+| **NoteReqs**                     | Pointer to [**[]BatchJobNoteRequest**](BatchJobNoteRequest.md) | note.add/note.update/note.delete requests to perform against the device&#39;s own notefiles. When both default_requests and a device&#39;s device_requests specify note_reqs, they merge by identity (req, file, note): a device-specific entry with the same identity as a default entry replaces it; entries unique to either side (no collision) all still apply. | [optional] |
+| **ProvisionProduct**             | Pointer to **string**                                          | Product UID to provision the device with if not already provisioned                                                                                                                                                                                                                                                                                                  | [optional] |
+| **SnToDefault**                  | Pointer to **string**                                          | Set the device serial number only if not already set                                                                                                                                                                                                                                                                                                                 | [optional] |
+| **SnToSet**                      | Pointer to **string**                                          | Set the device serial number (\&quot;-\&quot; to clear)                                                                                                                                                                                                                                                                                                              | [optional] |
+| **VarsToDefault**                | Pointer to **map[string]string**                               | Environment variables to set only if not already set                                                                                                                                                                                                                                                                                                                 | [optional] |
+| **VarsToSet**                    | Pointer to **map[string]string**                               | Environment variables to set (use \&quot;-\&quot; as value to clear)                                                                                                                                                                                                                                                                                                 | [optional] |
 
 ## Methods
 
@@ -236,6 +237,31 @@ SetFleetsToLeave sets FleetsToLeave field to given value.
 `func (o *BatchJobRequests) HasFleetsToLeave() bool`
 
 HasFleetsToLeave returns a boolean if a field has been set.
+
+### GetNoteReqs
+
+`func (o *BatchJobRequests) GetNoteReqs() []BatchJobNoteRequest`
+
+GetNoteReqs returns the NoteReqs field if non-nil, zero value otherwise.
+
+### GetNoteReqsOk
+
+`func (o *BatchJobRequests) GetNoteReqsOk() (*[]BatchJobNoteRequest, bool)`
+
+GetNoteReqsOk returns a tuple with the NoteReqs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNoteReqs
+
+`func (o *BatchJobRequests) SetNoteReqs(v []BatchJobNoteRequest)`
+
+SetNoteReqs sets NoteReqs field to given value.
+
+### HasNoteReqs
+
+`func (o *BatchJobRequests) HasNoteReqs() bool`
+
+HasNoteReqs returns a boolean if a field has been set.
 
 ### GetProvisionProduct
 

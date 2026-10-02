@@ -20,7 +20,9 @@ var _ MappedNullable = &EnvVar{}
 
 // EnvVar struct for EnvVar
 type EnvVar struct {
-	Key                  *string `json:"key,omitempty"`
+	Key *string `json:"key,omitempty"`
+	// Optional free-form text for annotating the environment variable.
+	Note                 *string `json:"note,omitempty"`
 	Precedence           *int32  `json:"precedence,omitempty"`
 	Used                 *bool   `json:"used,omitempty"`
 	Value                *string `json:"value,omitempty"`
@@ -76,6 +78,38 @@ func (o *EnvVar) HasKey() bool {
 // SetKey gets a reference to the given string and assigns it to the Key field.
 func (o *EnvVar) SetKey(v string) {
 	o.Key = &v
+}
+
+// GetNote returns the Note field value if set, zero value otherwise.
+func (o *EnvVar) GetNote() string {
+	if o == nil || IsNil(o.Note) {
+		var ret string
+		return ret
+	}
+	return *o.Note
+}
+
+// GetNoteOk returns a tuple with the Note field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvVar) GetNoteOk() (*string, bool) {
+	if o == nil || IsNil(o.Note) {
+		return nil, false
+	}
+	return o.Note, true
+}
+
+// HasNote returns a boolean if a field has been set.
+func (o *EnvVar) HasNote() bool {
+	if o != nil && !IsNil(o.Note) {
+		return true
+	}
+
+	return false
+}
+
+// SetNote gets a reference to the given string and assigns it to the Note field.
+func (o *EnvVar) SetNote(v string) {
+	o.Note = &v
 }
 
 // GetPrecedence returns the Precedence field value if set, zero value otherwise.
@@ -187,6 +221,9 @@ func (o EnvVar) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
+	if !IsNil(o.Note) {
+		toSerialize["note"] = o.Note
+	}
 	if !IsNil(o.Precedence) {
 		toSerialize["precedence"] = o.Precedence
 	}
@@ -219,6 +256,7 @@ func (o *EnvVar) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
+		delete(additionalProperties, "note")
 		delete(additionalProperties, "precedence")
 		delete(additionalProperties, "used")
 		delete(additionalProperties, "value")

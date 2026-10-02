@@ -5,13 +5,13 @@
 | Name         | Type                                           | Description                                              | Notes      |
 | ------------ | ---------------------------------------------- | -------------------------------------------------------- | ---------- |
 | **Contains** | Pointer to **string**                          |                                                          | [optional] |
-| **Crc32**    | Pointer to **int32**                           |                                                          | [optional] |
-| **Created**  | Pointer to **int32**                           |                                                          | [optional] |
+| **Crc32**    | Pointer to **int64**                           |                                                          | [optional] |
+| **Created**  | Pointer to **int64**                           |                                                          | [optional] |
 | **Firmware** | Pointer to [**NullableFirmware**](Firmware.md) |                                                          | [optional] |
 | **Found**    | Pointer to **string**                          |                                                          | [optional] |
-| **Length**   | Pointer to **int32**                           |                                                          | [optional] |
+| **Length**   | Pointer to **int64**                           |                                                          | [optional] |
 | **Md5**      | Pointer to **string**                          |                                                          | [optional] |
-| **Modified** | Pointer to **int32**                           |                                                          | [optional] |
+| **Modified** | Pointer to **int64**                           |                                                          | [optional] |
 | **Name**     | Pointer to **string**                          |                                                          | [optional] |
 | **Notes**    | Pointer to **string**                          |                                                          | [optional] |
 | **Source**   | Pointer to **string**                          |                                                          | [optional] |
@@ -65,20 +65,20 @@ HasContains returns a boolean if a field has been set.
 
 ### GetCrc32
 
-`func (o *UploadMetadata) GetCrc32() int32`
+`func (o *UploadMetadata) GetCrc32() int64`
 
 GetCrc32 returns the Crc32 field if non-nil, zero value otherwise.
 
 ### GetCrc32Ok
 
-`func (o *UploadMetadata) GetCrc32Ok() (*int32, bool)`
+`func (o *UploadMetadata) GetCrc32Ok() (*int64, bool)`
 
 GetCrc32Ok returns a tuple with the Crc32 field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCrc32
 
-`func (o *UploadMetadata) SetCrc32(v int32)`
+`func (o *UploadMetadata) SetCrc32(v int64)`
 
 SetCrc32 sets Crc32 field to given value.
 
@@ -90,20 +90,20 @@ HasCrc32 returns a boolean if a field has been set.
 
 ### GetCreated
 
-`func (o *UploadMetadata) GetCreated() int32`
+`func (o *UploadMetadata) GetCreated() int64`
 
 GetCreated returns the Created field if non-nil, zero value otherwise.
 
 ### GetCreatedOk
 
-`func (o *UploadMetadata) GetCreatedOk() (*int32, bool)`
+`func (o *UploadMetadata) GetCreatedOk() (*int64, bool)`
 
 GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreated
 
-`func (o *UploadMetadata) SetCreated(v int32)`
+`func (o *UploadMetadata) SetCreated(v int64)`
 
 SetCreated sets Created field to given value.
 
@@ -177,20 +177,20 @@ HasFound returns a boolean if a field has been set.
 
 ### GetLength
 
-`func (o *UploadMetadata) GetLength() int32`
+`func (o *UploadMetadata) GetLength() int64`
 
 GetLength returns the Length field if non-nil, zero value otherwise.
 
 ### GetLengthOk
 
-`func (o *UploadMetadata) GetLengthOk() (*int32, bool)`
+`func (o *UploadMetadata) GetLengthOk() (*int64, bool)`
 
 GetLengthOk returns a tuple with the Length field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLength
 
-`func (o *UploadMetadata) SetLength(v int32)`
+`func (o *UploadMetadata) SetLength(v int64)`
 
 SetLength sets Length field to given value.
 
@@ -227,20 +227,20 @@ HasMd5 returns a boolean if a field has been set.
 
 ### GetModified
 
-`func (o *UploadMetadata) GetModified() int32`
+`func (o *UploadMetadata) GetModified() int64`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *UploadMetadata) GetModifiedOk() (*int32, bool)`
+`func (o *UploadMetadata) GetModifiedOk() (*int64, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *UploadMetadata) SetModified(v int32)`
+`func (o *UploadMetadata) SetModified(v int64)`
 
 SetModified sets Modified field to given value.
 
