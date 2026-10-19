@@ -33,3 +33,6 @@ api/
 
 # Ignore CONTRIBUTING.md (manually maintained)
 CONTRIBUTING.md
+
+# Ignore go.mod (Go version is maintained manually; go mod tidy keeps requirements current)
+go.mod
