@@ -204,7 +204,6 @@ docs/UserFirmwareInfo.md
 docs/WebhookAPI.md
 docs/WebhookSettings.md
 git_push.sh
-go.mod
 go.sum
 model_add_device_to_fleets_request.go
 model_alert.go
