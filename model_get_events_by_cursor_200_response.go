@@ -24,7 +24,7 @@ type GetEventsByCursor200Response struct {
 	Events []Event `json:"events"`
 	// True if there are more events
 	HasMore bool `json:"has_more"`
-	// The cursor value of the next result, which is intended to be used as the \"cursor\" parameter value of the next call to this method. An empty string is returned if there are no more results after this results set.
+	// A legacy cursor, which can be obtained from the `next_cursor` value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this event UID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
 	NextCursor           string `json:"next_cursor"`
 	AdditionalProperties map[string]interface{}
 }

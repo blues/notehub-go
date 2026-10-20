@@ -23,6 +23,20 @@ func Test_notehub_UsageAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test UsageAPIService GetApiUsage", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var projectOrProductUID string
+
+		resp, httpRes, err := apiClient.UsageAPI.GetApiUsage(context.Background(), projectOrProductUID).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test UsageAPIService GetDataUsage", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

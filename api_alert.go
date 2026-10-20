@@ -29,6 +29,7 @@ type ApiGetAlertsRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	monitorUID          *string
 }
 
@@ -39,6 +40,12 @@ func (r ApiGetAlertsRequest) PageSize(pageSize int32) ApiGetAlertsRequest {
 
 func (r ApiGetAlertsRequest) PageNum(pageNum int32) ApiGetAlertsRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetAlertsRequest) Cursor(cursor string) ApiGetAlertsRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -104,6 +111,9 @@ func (a *AlertAPIService) GetAlertsExecute(r ApiGetAlertsRequest) (*GetAlerts200
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.monitorUID != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "monitorUID", r.monitorUID, "form", "")

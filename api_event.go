@@ -30,6 +30,7 @@ type ApiGetEventsRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sensorUID           *[]string
 	sortBy              *string
@@ -54,6 +55,12 @@ func (r ApiGetEventsRequest) PageSize(pageSize int32) ApiGetEventsRequest {
 
 func (r ApiGetEventsRequest) PageNum(pageNum int32) ApiGetEventsRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetEventsRequest) Cursor(cursor string) ApiGetEventsRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -200,6 +207,9 @@ func (a *EventAPIService) GetEventsExecute(r ApiGetEventsRequest) (*GetEvents200
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID
@@ -386,12 +396,13 @@ type ApiGetEventsByCursorRequest struct {
 	sensorUID           *[]string
 }
 
+// Maximum number of events to return.
 func (r ApiGetEventsByCursorRequest) Limit(limit int32) ApiGetEventsByCursorRequest {
 	r.limit = &limit
 	return r
 }
 
-// A cursor, which can be obtained from the &#x60;next_cursor&#x60; value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this event UID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
 func (r ApiGetEventsByCursorRequest) Cursor(cursor string) ApiGetEventsByCursorRequest {
 	r.cursor = &cursor
 	return r
@@ -436,7 +447,7 @@ func (r ApiGetEventsByCursorRequest) Execute() (*GetEventsByCursor200Response, *
 /*
 GetEventsByCursor Method for GetEventsByCursor
 
-Get Events of a Project by cursor
+DEPRECATED: Use Get Events of a Project instead with the cursor parameter.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -590,6 +601,7 @@ type ApiGetFleetEventsRequest struct {
 	fleetUID            string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sensorUID           *[]string
 	sortBy              *string
@@ -613,6 +625,12 @@ func (r ApiGetFleetEventsRequest) PageSize(pageSize int32) ApiGetFleetEventsRequ
 
 func (r ApiGetFleetEventsRequest) PageNum(pageNum int32) ApiGetFleetEventsRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetFleetEventsRequest) Cursor(cursor string) ApiGetFleetEventsRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -756,6 +774,9 @@ func (a *EventAPIService) GetFleetEventsExecute(r ApiGetFleetEventsRequest) (*Ge
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID
@@ -933,12 +954,13 @@ type ApiGetFleetEventsByCursorRequest struct {
 	endDate             *int64
 }
 
+// Maximum number of events to return.
 func (r ApiGetFleetEventsByCursorRequest) Limit(limit int32) ApiGetFleetEventsByCursorRequest {
 	r.limit = &limit
 	return r
 }
 
-// A cursor, which can be obtained from the &#x60;next_cursor&#x60; value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this event UID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
 func (r ApiGetFleetEventsByCursorRequest) Cursor(cursor string) ApiGetFleetEventsByCursorRequest {
 	r.cursor = &cursor
 	return r
@@ -990,7 +1012,7 @@ func (r ApiGetFleetEventsByCursorRequest) Execute() (*GetEventsByCursor200Respon
 /*
 GetFleetEventsByCursor Method for GetFleetEventsByCursor
 
-Get Events of a Fleet by cursor
+DEPRECATED: Use Get Events of a Fleet instead with the cursor parameter.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

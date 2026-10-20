@@ -24,6 +24,163 @@ import (
 // UsageAPIService UsageAPI service
 type UsageAPIService service
 
+type ApiGetApiUsageRequest struct {
+	ctx                 context.Context
+	ApiService          *UsageAPIService
+	projectOrProductUID string
+	period              *string
+	startDate           *int64
+	endDate             *int64
+	limit               *int32
+}
+
+// Period type for aggregation
+func (r ApiGetApiUsageRequest) Period(period string) ApiGetApiUsageRequest {
+	r.period = &period
+	return r
+}
+
+// Start date for filtering results, specified as a Unix timestamp
+func (r ApiGetApiUsageRequest) StartDate(startDate int64) ApiGetApiUsageRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// End date for filtering results, specified as a Unix timestamp
+func (r ApiGetApiUsageRequest) EndDate(endDate int64) ApiGetApiUsageRequest {
+	r.endDate = &endDate
+	return r
+}
+
+// Limit the number of data points returned
+func (r ApiGetApiUsageRequest) Limit(limit int32) ApiGetApiUsageRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiGetApiUsageRequest) Execute() (*GetApiUsage200Response, *http.Response, error) {
+	return r.ApiService.GetApiUsageExecute(r)
+}
+
+/*
+GetApiUsage Method for GetApiUsage
+
+Get billable Notehub API request usage for a project, broken down by endpoint and time period, when endDate is 0 or unspecified the current time is implied. Only requests that are billed against the project's plan are counted
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@return ApiGetApiUsageRequest
+*/
+func (a *UsageAPIService) GetApiUsage(ctx context.Context, projectOrProductUID string) ApiGetApiUsageRequest {
+	return ApiGetApiUsageRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetApiUsage200Response
+func (a *UsageAPIService) GetApiUsageExecute(r ApiGetApiUsageRequest) (*GetApiUsage200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetApiUsage200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsageAPIService.GetApiUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/usage/api"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.period == nil {
+		return localVarReturnValue, nil, reportError("period is required and must be specified")
+	}
+
+	if r.startDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
+	}
+	if r.endDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 200000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
+		r.limit = &defaultValue
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetDataUsageRequest struct {
 	ctx                 context.Context
 	ApiService          *UsageAPIService

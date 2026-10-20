@@ -87,6 +87,7 @@ docs/FirmwareInfo.md
 docs/Fleet.md
 docs/FleetConnectivityAssurance.md
 docs/GetAlerts200Response.md
+docs/GetApiUsage200Response.md
 docs/GetBillingAccount200Response.md
 docs/GetBillingAccount200ResponsePlan.md
 docs/GetBillingAccountBalanceHistory200Response.md
@@ -152,10 +153,6 @@ docs/OAuth2TokenResponse.md
 docs/Organization.md
 docs/OrganizationAPI.md
 docs/OrganizationRole.md
-docs/PersonalAccessToken.md
-docs/PersonalAccessTokenCreatedBy.md
-docs/PersonalAccessTokenInfo.md
-docs/PersonalAccessTokenSecret.md
 docs/Product.md
 docs/Project.md
 docs/ProjectAPI.md
@@ -193,6 +190,7 @@ docs/UpdateHostFirmwareRequest.md
 docs/UpdateProjectSecretRequest.md
 docs/UploadMetadata.md
 docs/UsageAPI.md
+docs/UsageApiData.md
 docs/UsageData.md
 docs/UsageEventsData.md
 docs/UsageEventsResponse.md
@@ -270,6 +268,7 @@ model_firmware_info.go
 model_fleet.go
 model_fleet_connectivity_assurance.go
 model_get_alerts_200_response.go
+model_get_api_usage_200_response.go
 model_get_billing_account_200_response.go
 model_get_billing_account_200_response_plan.go
 model_get_billing_account_balance_history_200_response.go
@@ -332,10 +331,6 @@ model_o_auth2_error.go
 model_o_auth2_token_response.go
 model_organization.go
 model_organization_role.go
-model_personal_access_token.go
-model_personal_access_token_created_by.go
-model_personal_access_token_info.go
-model_personal_access_token_secret.go
 model_product.go
 model_project.go
 model_project_member.go
@@ -370,6 +365,7 @@ model_update_fleet_request.go
 model_update_host_firmware_request.go
 model_update_project_secret_request.go
 model_upload_metadata.go
+model_usage_api_data.go
 model_usage_data.go
 model_usage_events_data.go
 model_usage_events_response.go

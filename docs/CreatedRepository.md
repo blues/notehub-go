@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name            | Type                    | Description                                                                                                                                                         | Notes      |
-| --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **FleetUids**   | Pointer to **[]string** |                                                                                                                                                                     | [optional] |
-| **Name**        | Pointer to **string**   | repository name                                                                                                                                                     | [optional] |
-| **Password**    | Pointer to **string**   | read-only password for the database, also used as X-Repository-Token header for subsequent API calls. This value is only served once when the repository is created | [optional] |
-| **ProjectUids** | Pointer to **[]string** |                                                                                                                                                                     | [optional] |
-| **Uid**         | Pointer to **string**   | The unique identifier for the data repository                                                                                                                       | [optional] |
-| **User**        | Pointer to **string**   | read-only user for database                                                                                                                                         | [optional] |
+| Name            | Type                    | Description                                                                                                                                                                                                                                                   | Notes      |
+| --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **FleetUids**   | Pointer to **[]string** |                                                                                                                                                                                                                                                               | [optional] |
+| **Name**        | Pointer to **string**   | repository name                                                                                                                                                                                                                                               | [optional] |
+| **Password**    | Pointer to **string**   | read-only password for the database, also used as X-Repository-Token header for subsequent API calls. This value is only served once when the repository is created, and never to a scoped token, which queries through the repository token endpoint instead | [optional] |
+| **ProjectUids** | Pointer to **[]string** |                                                                                                                                                                                                                                                               | [optional] |
+| **Uid**         | Pointer to **string**   | The unique identifier for the data repository                                                                                                                                                                                                                 | [optional] |
+| **User**        | Pointer to **string**   | read-only user for database                                                                                                                                                                                                                                   | [optional] |
 
 ## Methods
 

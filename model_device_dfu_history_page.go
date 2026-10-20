@@ -20,8 +20,10 @@ var _ MappedNullable = &DeviceDfuHistoryPage{}
 
 // DeviceDfuHistoryPage struct for DeviceDfuHistoryPage
 type DeviceDfuHistoryPage struct {
-	Devices              []DeviceDfuHistory `json:"devices,omitempty"`
-	HasMore              *bool              `json:"has_more,omitempty"`
+	Devices []DeviceDfuHistory `json:"devices,omitempty"`
+	HasMore *bool              `json:"has_more,omitempty"`
+	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	NextCursor           *string `json:"next_cursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -112,6 +114,38 @@ func (o *DeviceDfuHistoryPage) SetHasMore(v bool) {
 	o.HasMore = &v
 }
 
+// GetNextCursor returns the NextCursor field value if set, zero value otherwise.
+func (o *DeviceDfuHistoryPage) GetNextCursor() string {
+	if o == nil || IsNil(o.NextCursor) {
+		var ret string
+		return ret
+	}
+	return *o.NextCursor
+}
+
+// GetNextCursorOk returns a tuple with the NextCursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeviceDfuHistoryPage) GetNextCursorOk() (*string, bool) {
+	if o == nil || IsNil(o.NextCursor) {
+		return nil, false
+	}
+	return o.NextCursor, true
+}
+
+// HasNextCursor returns a boolean if a field has been set.
+func (o *DeviceDfuHistoryPage) HasNextCursor() bool {
+	if o != nil && !IsNil(o.NextCursor) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextCursor gets a reference to the given string and assigns it to the NextCursor field.
+func (o *DeviceDfuHistoryPage) SetNextCursor(v string) {
+	o.NextCursor = &v
+}
+
 func (o DeviceDfuHistoryPage) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -127,6 +161,9 @@ func (o DeviceDfuHistoryPage) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.HasMore) {
 		toSerialize["has_more"] = o.HasMore
+	}
+	if !IsNil(o.NextCursor) {
+		toSerialize["next_cursor"] = o.NextCursor
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -152,6 +189,7 @@ func (o *DeviceDfuHistoryPage) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "devices")
 		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
 		o.AdditionalProperties = additionalProperties
 	}
 

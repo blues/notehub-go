@@ -375,6 +375,7 @@ type ApiGetRouteLogsByRouteRequest struct {
 	routeUID            string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sortBy              *string
 	sortOrder           *string
@@ -394,6 +395,12 @@ func (r ApiGetRouteLogsByRouteRequest) PageSize(pageSize int32) ApiGetRouteLogsB
 
 func (r ApiGetRouteLogsByRouteRequest) PageNum(pageNum int32) ApiGetRouteLogsByRouteRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetRouteLogsByRouteRequest) Cursor(cursor string) ApiGetRouteLogsByRouteRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -510,6 +517,9 @@ func (a *RouteAPIService) GetRouteLogsByRouteExecute(r ApiGetRouteLogsByRouteReq
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID

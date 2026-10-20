@@ -2,12 +2,13 @@
 
 ## Properties
 
-| Name              | Type                                                                 | Description                                  | Notes      |
-| ----------------- | -------------------------------------------------------------------- | -------------------------------------------- | ---------- |
-| **Current**       | Pointer to [**DeviceDfuHistoryCurrent**](DeviceDfuHistoryCurrent.md) |                                              | [optional] |
-| **DeviceUid**     | Pointer to **string**                                                | Device UID                                   | [optional] |
-| **DfuInProgress** | Pointer to **bool**                                                  | true if there is a DFU currently in progress | [optional] |
-| **Status**        | Pointer to [**DeviceDfuStateMachine**](DeviceDfuStateMachine.md)     |                                              | [optional] |
+| Name              | Type                                                                 | Description                                                                                | Notes      |
+| ----------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ---------- |
+| **Current**       | Pointer to [**DeviceDfuHistoryCurrent**](DeviceDfuHistoryCurrent.md) |                                                                                            | [optional] |
+| **Deleted**       | Pointer to **bool**                                                  | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;. | [optional] |
+| **DeviceUid**     | Pointer to **string**                                                | Device UID                                                                                 | [optional] |
+| **DfuInProgress** | Pointer to **bool**                                                  | true if there is a DFU currently in progress                                               | [optional] |
+| **Status**        | Pointer to [**DeviceDfuStateMachine**](DeviceDfuStateMachine.md)     |                                                                                            | [optional] |
 
 ## Methods
 
@@ -52,6 +53,31 @@ SetCurrent sets Current field to given value.
 `func (o *DeviceDfuStatus) HasCurrent() bool`
 
 HasCurrent returns a boolean if a field has been set.
+
+### GetDeleted
+
+`func (o *DeviceDfuStatus) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *DeviceDfuStatus) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *DeviceDfuStatus) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *DeviceDfuStatus) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 ### GetDeviceUid
 

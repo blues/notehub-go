@@ -4,10 +4,82 @@ All URIs are relative to *https://api.notefile.net*
 
 | Method                                                 | HTTP request                                                | Description |
 | ------------------------------------------------------ | ----------------------------------------------------------- | ----------- |
+| [**GetApiUsage**](UsageAPI.md#GetApiUsage)             | **Get** /v1/projects/{projectOrProductUID}/usage/api        |
 | [**GetDataUsage**](UsageAPI.md#GetDataUsage)           | **Get** /v1/projects/{projectOrProductUID}/usage/data       |
 | [**GetEventsUsage**](UsageAPI.md#GetEventsUsage)       | **Get** /v1/projects/{projectOrProductUID}/usage/events     |
 | [**GetRouteLogsUsage**](UsageAPI.md#GetRouteLogsUsage) | **Get** /v1/projects/{projectOrProductUID}/usage/route-logs |
 | [**GetSessionsUsage**](UsageAPI.md#GetSessionsUsage)   | **Get** /v1/projects/{projectOrProductUID}/usage/sessions   |
+
+## GetApiUsage
+
+> GetApiUsage200Response GetApiUsage(ctx, projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).Limit(limit).Execute()
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	period := "period_example" // string | Period type for aggregation
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
+	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsageAPI.GetApiUsage(context.Background(), projectOrProductUID).Period(period).StartDate(startDate).EndDate(endDate).Limit(limit).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsageAPI.GetApiUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApiUsage`: GetApiUsage200Response
+	fmt.Fprintf(os.Stdout, "Response from `UsageAPI.GetApiUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApiUsageRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**period** | **string** | Period type for aggregation |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
+**limit** | **int32** | Limit the number of data points returned | [default to 200000]
+
+### Return type
+
+[**GetApiUsage200Response**](GetApiUsage200Response.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 ## GetDataUsage
 

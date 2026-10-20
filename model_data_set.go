@@ -25,15 +25,23 @@ type DataSet struct {
 	IsOptimized *bool `json:"is_optimized,omitempty"`
 	// True once the dataset has been fully loaded from the repository's archive after backfill completed. Server-populated; ignored on input.
 	IsReady *bool `json:"is_ready,omitempty"`
+	// Name of the Lambda function deployed for a Python dataset. Derived from the repository and dataset name; set when the function is deployed.
+	LambdaName *string `json:"lambda_name,omitempty"`
+	// Published Lambda version this dataset is pinned to. A reload invokes this version rather than the latest, so republishing a projection never changes how a replay projects.
+	LambdaVersion *string `json:"lambda_version,omitempty"`
 	// JSONata expression resulting in the latitude field
 	Lat *string `json:"lat,omitempty"`
+	// Whether the dataset has a location column, taken from each row's \"lat\" and \"lon\" keys. For Python datasets only; a JSONata dataset declares a location column by setting both lat and lon.
+	Location *bool `json:"location,omitempty"`
 	// JSONata expression resulting in the Longitude field
 	Lon *string `json:"lon,omitempty"`
 	// The name of the data set
 	Name *string `json:"name,omitempty"`
 	// If non-empty, only events from these notefiles populate the dataset. Empty or omitted means all notefiles.
-	Notefiles []string                      `json:"notefiles,omitempty"`
-	Reload    NullableDatasetReloadProgress `json:"reload,omitempty"`
+	Notefiles []string `json:"notefiles,omitempty"`
+	// Optional Python source projecting each event, as an alternative to JSONata. It defines one function, with type annotations required: \"def rows(record: dict[str, Any]) -> list[dict[str, Any]]\". It returns zero or more row objects per event, whose keys are the dataset's columns -- the same convention the rows expression uses. Returning an empty list contributes no rows and is not an error; anything else, None included, is an error for that event. Mutually exclusive with rows, time, lat, lon and every field's own jsonata expression, since a Python projection produces whole row objects and leaves nothing for them to do. Use it for payloads JSONata cannot decode, such as packed binary, base64-wrapped blobs, protobuf or CBOR. At most 64 KiB. Rows must come back in the same order every time rows() runs over the same event: a row's position in the list identifies it, so an order that varies (such as iterating over a set) makes a replay insert duplicates. Sort the list if the order is not already fixed.
+	Python *string                       `json:"python,omitempty"`
+	Reload NullableDatasetReloadProgress `json:"reload,omitempty"`
 	// Optional JSONata expression that expands one event into several rows. It evaluates to one row object per row, whose keys are the dataset's columns: an array of objects, or a single object for one row. Both are accepted because JSONata collapses a one-element sequence to the element, so the same expression yields an array for an event carrying several readings and a bare object for one carrying a single reading. A result that is undefined or empty contributes no rows and is not an error; anything that is not an object, or an array containing one, is rejected. When set it is the only expression that reads the event: each field below takes the row object key matching its name, and time/lat/lon name a key too. Omit it and the dataset produces one row per event, with each field's own jsonata expression reading the event directly. event.uploaded and event.captured always resolve against the event either way.
 	Rows *string `json:"rows,omitempty"`
 	// JSONata expression resulting in the row's time. Required for a dataset with no rows expression. With one it defaults to the row object's \"time\" key, and only needs setting to name a different key, or to reach past the row as event.uploaded and event.captured do. lat and lon work the same way and are what declare that the dataset has a location column at all.
@@ -156,6 +164,70 @@ func (o *DataSet) SetIsReady(v bool) {
 	o.IsReady = &v
 }
 
+// GetLambdaName returns the LambdaName field value if set, zero value otherwise.
+func (o *DataSet) GetLambdaName() string {
+	if o == nil || IsNil(o.LambdaName) {
+		var ret string
+		return ret
+	}
+	return *o.LambdaName
+}
+
+// GetLambdaNameOk returns a tuple with the LambdaName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataSet) GetLambdaNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LambdaName) {
+		return nil, false
+	}
+	return o.LambdaName, true
+}
+
+// HasLambdaName returns a boolean if a field has been set.
+func (o *DataSet) HasLambdaName() bool {
+	if o != nil && !IsNil(o.LambdaName) {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaName gets a reference to the given string and assigns it to the LambdaName field.
+func (o *DataSet) SetLambdaName(v string) {
+	o.LambdaName = &v
+}
+
+// GetLambdaVersion returns the LambdaVersion field value if set, zero value otherwise.
+func (o *DataSet) GetLambdaVersion() string {
+	if o == nil || IsNil(o.LambdaVersion) {
+		var ret string
+		return ret
+	}
+	return *o.LambdaVersion
+}
+
+// GetLambdaVersionOk returns a tuple with the LambdaVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataSet) GetLambdaVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.LambdaVersion) {
+		return nil, false
+	}
+	return o.LambdaVersion, true
+}
+
+// HasLambdaVersion returns a boolean if a field has been set.
+func (o *DataSet) HasLambdaVersion() bool {
+	if o != nil && !IsNil(o.LambdaVersion) {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaVersion gets a reference to the given string and assigns it to the LambdaVersion field.
+func (o *DataSet) SetLambdaVersion(v string) {
+	o.LambdaVersion = &v
+}
+
 // GetLat returns the Lat field value if set, zero value otherwise.
 func (o *DataSet) GetLat() string {
 	if o == nil || IsNil(o.Lat) {
@@ -186,6 +258,38 @@ func (o *DataSet) HasLat() bool {
 // SetLat gets a reference to the given string and assigns it to the Lat field.
 func (o *DataSet) SetLat(v string) {
 	o.Lat = &v
+}
+
+// GetLocation returns the Location field value if set, zero value otherwise.
+func (o *DataSet) GetLocation() bool {
+	if o == nil || IsNil(o.Location) {
+		var ret bool
+		return ret
+	}
+	return *o.Location
+}
+
+// GetLocationOk returns a tuple with the Location field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataSet) GetLocationOk() (*bool, bool) {
+	if o == nil || IsNil(o.Location) {
+		return nil, false
+	}
+	return o.Location, true
+}
+
+// HasLocation returns a boolean if a field has been set.
+func (o *DataSet) HasLocation() bool {
+	if o != nil && !IsNil(o.Location) {
+		return true
+	}
+
+	return false
+}
+
+// SetLocation gets a reference to the given bool and assigns it to the Location field.
+func (o *DataSet) SetLocation(v bool) {
+	o.Location = &v
 }
 
 // GetLon returns the Lon field value if set, zero value otherwise.
@@ -282,6 +386,38 @@ func (o *DataSet) HasNotefiles() bool {
 // SetNotefiles gets a reference to the given []string and assigns it to the Notefiles field.
 func (o *DataSet) SetNotefiles(v []string) {
 	o.Notefiles = v
+}
+
+// GetPython returns the Python field value if set, zero value otherwise.
+func (o *DataSet) GetPython() string {
+	if o == nil || IsNil(o.Python) {
+		var ret string
+		return ret
+	}
+	return *o.Python
+}
+
+// GetPythonOk returns a tuple with the Python field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DataSet) GetPythonOk() (*string, bool) {
+	if o == nil || IsNil(o.Python) {
+		return nil, false
+	}
+	return o.Python, true
+}
+
+// HasPython returns a boolean if a field has been set.
+func (o *DataSet) HasPython() bool {
+	if o != nil && !IsNil(o.Python) {
+		return true
+	}
+
+	return false
+}
+
+// SetPython gets a reference to the given string and assigns it to the Python field.
+func (o *DataSet) SetPython(v string) {
+	o.Python = &v
 }
 
 // GetReload returns the Reload field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -410,8 +546,17 @@ func (o DataSet) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsReady) {
 		toSerialize["is_ready"] = o.IsReady
 	}
+	if !IsNil(o.LambdaName) {
+		toSerialize["lambda_name"] = o.LambdaName
+	}
+	if !IsNil(o.LambdaVersion) {
+		toSerialize["lambda_version"] = o.LambdaVersion
+	}
 	if !IsNil(o.Lat) {
 		toSerialize["lat"] = o.Lat
+	}
+	if !IsNil(o.Location) {
+		toSerialize["location"] = o.Location
 	}
 	if !IsNil(o.Lon) {
 		toSerialize["lon"] = o.Lon
@@ -421,6 +566,9 @@ func (o DataSet) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Notefiles) {
 		toSerialize["notefiles"] = o.Notefiles
+	}
+	if !IsNil(o.Python) {
+		toSerialize["python"] = o.Python
 	}
 	if o.Reload.IsSet() {
 		toSerialize["reload"] = o.Reload.Get()
@@ -456,10 +604,14 @@ func (o *DataSet) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fields")
 		delete(additionalProperties, "is_optimized")
 		delete(additionalProperties, "is_ready")
+		delete(additionalProperties, "lambda_name")
+		delete(additionalProperties, "lambda_version")
 		delete(additionalProperties, "lat")
+		delete(additionalProperties, "location")
 		delete(additionalProperties, "lon")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "notefiles")
+		delete(additionalProperties, "python")
 		delete(additionalProperties, "reload")
 		delete(additionalProperties, "rows")
 		delete(additionalProperties, "time")

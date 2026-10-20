@@ -1390,7 +1390,7 @@ Other parameters are passed through a pointer to a apiGetDeviceFleetsRequest str
 
 ## GetDevicesDfuHistory
 
-> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
 ### Example
 
@@ -1409,6 +1409,7 @@ func main() {
 	firmwareType := "firmwareType_example" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
@@ -1423,7 +1424,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1450,6 +1451,7 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
 **deviceUID** | **[]string** | A Device UID. |
@@ -1481,7 +1483,7 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 ## GetDevicesDfuStatus
 
-> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
 ### Example
 
@@ -1500,6 +1502,7 @@ func main() {
 	firmwareType := "firmwareType_example" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
 	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
@@ -1514,7 +1517,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1541,6 +1544,7 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
 **deviceUID** | **[]string** | A Device UID. |

@@ -2481,6 +2481,7 @@ type ApiGetDevicesDfuHistoryRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2501,6 +2502,12 @@ func (r ApiGetDevicesDfuHistoryRequest) PageSize(pageSize int32) ApiGetDevicesDf
 
 func (r ApiGetDevicesDfuHistoryRequest) PageNum(pageNum int32) ApiGetDevicesDfuHistoryRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuHistoryRequest) Cursor(cursor string) ApiGetDevicesDfuHistoryRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -2574,7 +2581,7 @@ func (r ApiGetDevicesDfuHistoryRequest) Execute() (*DeviceDfuHistoryPage, *http.
 /*
 GetDevicesDfuHistory Method for GetDevicesDfuHistory
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2627,6 +2634,9 @@ func (a *ProjectAPIService) GetDevicesDfuHistoryExecute(r ApiGetDevicesDfuHistor
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
@@ -2802,6 +2812,7 @@ type ApiGetDevicesDfuStatusRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2822,6 +2833,12 @@ func (r ApiGetDevicesDfuStatusRequest) PageSize(pageSize int32) ApiGetDevicesDfu
 
 func (r ApiGetDevicesDfuStatusRequest) PageNum(pageNum int32) ApiGetDevicesDfuStatusRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuStatusRequest) Cursor(cursor string) ApiGetDevicesDfuStatusRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -2895,7 +2912,7 @@ func (r ApiGetDevicesDfuStatusRequest) Execute() (*DeviceDfuStatusPage, *http.Re
 /*
 GetDevicesDfuStatus Method for GetDevicesDfuStatus
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2948,6 +2965,9 @@ func (a *ProjectAPIService) GetDevicesDfuStatusExecute(r ApiGetDevicesDfuStatusR
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
