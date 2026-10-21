@@ -10,7 +10,7 @@ All URIs are relative to *https://api.notefile.net*
 
 ## GetOrganization
 
-> GetBillingAccount200Response GetOrganization(ctx, organizationUID).Execute()
+> GetOrganization200Response GetOrganization(ctx, organizationUID).Execute()
 
 ### Example
 
@@ -34,7 +34,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationAPI.GetOrganization``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetOrganization`: GetBillingAccount200Response
+	// response from `GetOrganization`: GetOrganization200Response
 	fmt.Fprintf(os.Stdout, "Response from `OrganizationAPI.GetOrganization`: %v\n", resp)
 }
 ```
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetOrganizationRequest str
 
 ### Return type
 
-[**GetBillingAccount200Response**](GetBillingAccount200Response.md)
+[**GetOrganization200Response**](GetOrganization200Response.md)
 
 ### Authorization
 
@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiGetOrganizationRequest str
 
 ## GetOrganizationBalanceHistory
 
-> GetBillingAccountBalanceHistory200Response GetOrganizationBalanceHistory(ctx, organizationUID).StartDate(startDate).EndDate(endDate).Execute()
+> GetOrganizationBalanceHistory200Response GetOrganizationBalanceHistory(ctx, organizationUID).StartDate(startDate).EndDate(endDate).Execute()
 
 ### Example
 
@@ -98,7 +98,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationAPI.GetOrganizationBalanceHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetOrganizationBalanceHistory`: GetBillingAccountBalanceHistory200Response
+	// response from `GetOrganizationBalanceHistory`: GetOrganizationBalanceHistory200Response
 	fmt.Fprintf(os.Stdout, "Response from `OrganizationAPI.GetOrganizationBalanceHistory`: %v\n", resp)
 }
 ```
@@ -122,7 +122,7 @@ Other parameters are passed through a pointer to a apiGetOrganizationBalanceHist
 
 ### Return type
 
-[**GetBillingAccountBalanceHistory200Response**](GetBillingAccountBalanceHistory200Response.md)
+[**GetOrganizationBalanceHistory200Response**](GetOrganizationBalanceHistory200Response.md)
 
 ### Authorization
 

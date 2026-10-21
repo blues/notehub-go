@@ -1,7 +1,6 @@
 .gitignore
 api_alert.go
 api_authorization.go
-api_billing_account.go
 api_description.go
 api_device.go
 api_event.go
@@ -28,7 +27,6 @@ docs/AzureRoute.md
 docs/BatchJobNoteRequest.md
 docs/BatchJobRequests.md
 docs/BillingAccount.md
-docs/BillingAccountAPI.md
 docs/BillingAccountRole.md
 docs/BlynkRoute.md
 docs/Body.md
@@ -88,11 +86,6 @@ docs/Fleet.md
 docs/FleetConnectivityAssurance.md
 docs/GetAlerts200Response.md
 docs/GetApiUsage200Response.md
-docs/GetBillingAccount200Response.md
-docs/GetBillingAccount200ResponsePlan.md
-docs/GetBillingAccountBalanceHistory200Response.md
-docs/GetBillingAccountBalanceHistory200ResponseDataInner.md
-docs/GetBillingAccounts200Response.md
 docs/GetDataUsage200Response.md
 docs/GetDataUsage200ResponseDataInner.md
 docs/GetDbNote200Response.md
@@ -111,10 +104,13 @@ docs/GetDevicePublicKeys200ResponseDevicePublicKeysInner.md
 docs/GetDeviceSessions200Response.md
 docs/GetDevices200Response.md
 docs/GetEvents200Response.md
-docs/GetEventsByCursor200Response.md
 docs/GetJobRuns200Response.md
 docs/GetJobs200Response.md
 docs/GetNotefile200Response.md
+docs/GetOrganization200Response.md
+docs/GetOrganization200ResponsePlan.md
+docs/GetOrganizationBalanceHistory200Response.md
+docs/GetOrganizationBalanceHistory200ResponseDataInner.md
 docs/GetOrganizations200Response.md
 docs/GetProducts200Response.md
 docs/GetProjectMembers200Response.md
@@ -127,6 +123,7 @@ docs/GoogleRoute.md
 docs/HealthLog.md
 docs/HttpRoute.md
 docs/InlineObject.md
+docs/InlineObject1.md
 docs/Job.md
 docs/JobDefinition.md
 docs/JobDefinitionReportOptions.md
@@ -269,11 +266,6 @@ model_fleet.go
 model_fleet_connectivity_assurance.go
 model_get_alerts_200_response.go
 model_get_api_usage_200_response.go
-model_get_billing_account_200_response.go
-model_get_billing_account_200_response_plan.go
-model_get_billing_account_balance_history_200_response.go
-model_get_billing_account_balance_history_200_response_data_inner.go
-model_get_billing_accounts_200_response.go
 model_get_data_usage_200_response.go
 model_get_data_usage_200_response_data_inner.go
 model_get_db_note_200_response.go
@@ -292,10 +284,13 @@ model_get_device_public_keys_200_response_device_public_keys_inner.go
 model_get_device_sessions_200_response.go
 model_get_devices_200_response.go
 model_get_events_200_response.go
-model_get_events_by_cursor_200_response.go
 model_get_job_runs_200_response.go
 model_get_jobs_200_response.go
 model_get_notefile_200_response.go
+model_get_organization_200_response.go
+model_get_organization_200_response_plan.go
+model_get_organization_balance_history_200_response.go
+model_get_organization_balance_history_200_response_data_inner.go
 model_get_organizations_200_response.go
 model_get_products_200_response.go
 model_get_project_members_200_response.go
@@ -308,6 +303,7 @@ model_google_route.go
 model_health_log.go
 model_http_route.go
 model_inline_object.go
+model_inline_object_1.go
 model_job.go
 model_job_definition.go
 model_job_definition_report_options.go
@@ -378,7 +374,6 @@ model_webhook_settings.go
 response.go
 test/api_alert_test.go
 test/api_authorization_test.go
-test/api_billing_account_test.go
 test/api_description_test.go
 test/api_device_test.go
 test/api_event_test.go

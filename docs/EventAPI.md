@@ -2,13 +2,11 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                           | HTTP request                                                               | Description |
-| ---------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------- |
-| [**GetEvents**](EventAPI.md#GetEvents)                           | **Get** /v1/projects/{projectOrProductUID}/events                          |
-| [**GetEventsByCursor**](EventAPI.md#GetEventsByCursor)           | **Get** /v1/projects/{projectOrProductUID}/events-cursor                   |
-| [**GetFleetEvents**](EventAPI.md#GetFleetEvents)                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/events        |
-| [**GetFleetEventsByCursor**](EventAPI.md#GetFleetEventsByCursor) | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/events-cursor |
-| [**GetRouteLogsByEvent**](EventAPI.md#GetRouteLogsByEvent)       | **Get** /v1/projects/{projectOrProductUID}/events/{eventUID}/route-logs    |
+| Method                                                     | HTTP request                                                            | Description |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------- | ----------- |
+| [**GetEvents**](EventAPI.md#GetEvents)                     | **Get** /v1/projects/{projectOrProductUID}/events                       |
+| [**GetFleetEvents**](EventAPI.md#GetFleetEvents)           | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/events     |
+| [**GetRouteLogsByEvent**](EventAPI.md#GetRouteLogsByEvent) | **Get** /v1/projects/{projectOrProductUID}/events/{eventUID}/route-logs |
 
 ## GetEvents
 
@@ -109,85 +107,6 @@ Other parameters are passed through a pointer to a apiGetEventsRequest struct vi
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
-## GetEventsByCursor
-
-> GetEventsByCursor200Response GetEventsByCursor(ctx, projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).SensorUID(sensorUID).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	limit := int32(56) // int32 | Maximum number of events to return. (optional) (default to 50)
-	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
-	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	systemFilesOnly := true // bool |  (optional)
-	files := "_health.qo, data.qo" // string |  (optional)
-	fleetUID := "fleetUID_example" // string |  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetEventsByCursor(context.Background(), projectOrProductUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).FleetUID(fleetUID).DeviceUID(deviceUID).SensorUID(sensorUID).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetEventsByCursor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetEventsByCursor`: GetEventsByCursor200Response
-	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetEventsByCursor`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetEventsByCursorRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-**limit** | **int32** | Maximum number of events to return. | [default to 50]
-**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
-**sortOrder** | **string** | | [default to &quot;asc&quot;]
-**systemFilesOnly** | **bool** | |
-**files** | **string** | |
-**fleetUID** | **string** | |
-**deviceUID** | **[]string** | A DeviceUID. |
-**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
-
-### Return type
-
-[**GetEventsByCursor200Response**](GetEventsByCursor200Response.md)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
 ## GetFleetEvents
 
 > GetEvents200Response GetFleetEvents(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).SensorUID(sensorUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).DateType(dateType).SystemFilesOnly(systemFilesOnly).Files(files).Format(format).SerialNumber(serialNumber).SessionUID(sessionUID).EventUID(eventUID).SelectFields(selectFields).Execute()
@@ -282,89 +201,6 @@ Other parameters are passed through a pointer to a apiGetFleetEventsRequest stru
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/csv
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-## GetFleetEventsByCursor
-
-> GetEventsByCursor200Response GetFleetEventsByCursor(ctx, projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).SensorUID(sensorUID).StartDate(startDate).EndDate(endDate).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	fleetUID := "fleetUID_example" // string |
-	limit := int32(56) // int32 | Maximum number of events to return. (optional) (default to 50)
-	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
-	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	systemFilesOnly := true // bool |  (optional)
-	files := "_health.qo, data.qo" // string |  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
-	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
-	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventAPI.GetFleetEventsByCursor(context.Background(), projectOrProductUID, fleetUID).Limit(limit).Cursor(cursor).SortOrder(sortOrder).SystemFilesOnly(systemFilesOnly).Files(files).DeviceUID(deviceUID).SensorUID(sensorUID).StartDate(startDate).EndDate(endDate).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EventAPI.GetFleetEventsByCursor``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `GetFleetEventsByCursor`: GetEventsByCursor200Response
-	fmt.Fprintf(os.Stdout, "Response from `EventAPI.GetFleetEventsByCursor`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **fleetUID**            | **string**          |                                                                             |
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetFleetEventsByCursorRequest struct via the builder pattern
-
-| Name | Type | Description | Notes |
-| ---- | ---- | ----------- | ----- |
-
-**limit** | **int32** | Maximum number of events to return. | [default to 50]
-**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
-**sortOrder** | **string** | | [default to &quot;asc&quot;]
-**systemFilesOnly** | **bool** | |
-**files** | **string** | |
-**deviceUID** | **[]string** | A DeviceUID. |
-**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
-**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
-**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-
-### Return type
-
-[**GetEventsByCursor200Response**](GetEventsByCursor200Response.md)
-
-### Authorization
-
-[personalAccessToken](../README.md#personalAccessToken)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

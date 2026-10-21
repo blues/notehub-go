@@ -1,0 +1,87 @@
+# GetOrganizationBalanceHistory200ResponseDataInner
+
+## Properties
+
+| Name                       | Type          | Description | Notes |
+| -------------------------- | ------------- | ----------- | ----- |
+| **Period**                 | **time.Time** |             |
+| **RemainingEventCapacity** | **int64**     |             |
+| **TotalEventCapacityUsed** | **int64**     |             |
+
+## Methods
+
+### NewGetOrganizationBalanceHistory200ResponseDataInner
+
+`func NewGetOrganizationBalanceHistory200ResponseDataInner(period time.Time, remainingEventCapacity int64, totalEventCapacityUsed int64, ) *GetOrganizationBalanceHistory200ResponseDataInner`
+
+NewGetOrganizationBalanceHistory200ResponseDataInner instantiates a new GetOrganizationBalanceHistory200ResponseDataInner object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewGetOrganizationBalanceHistory200ResponseDataInnerWithDefaults
+
+`func NewGetOrganizationBalanceHistory200ResponseDataInnerWithDefaults() *GetOrganizationBalanceHistory200ResponseDataInner`
+
+NewGetOrganizationBalanceHistory200ResponseDataInnerWithDefaults instantiates a new GetOrganizationBalanceHistory200ResponseDataInner object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetPeriod
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetPeriod() time.Time`
+
+GetPeriod returns the Period field if non-nil, zero value otherwise.
+
+### GetPeriodOk
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetPeriodOk() (*time.Time, bool)`
+
+GetPeriodOk returns a tuple with the Period field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPeriod
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) SetPeriod(v time.Time)`
+
+SetPeriod sets Period field to given value.
+
+### GetRemainingEventCapacity
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetRemainingEventCapacity() int64`
+
+GetRemainingEventCapacity returns the RemainingEventCapacity field if non-nil, zero value otherwise.
+
+### GetRemainingEventCapacityOk
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetRemainingEventCapacityOk() (*int64, bool)`
+
+GetRemainingEventCapacityOk returns a tuple with the RemainingEventCapacity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemainingEventCapacity
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) SetRemainingEventCapacity(v int64)`
+
+SetRemainingEventCapacity sets RemainingEventCapacity field to given value.
+
+### GetTotalEventCapacityUsed
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsed() int64`
+
+GetTotalEventCapacityUsed returns the TotalEventCapacityUsed field if non-nil, zero value otherwise.
+
+### GetTotalEventCapacityUsedOk
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) GetTotalEventCapacityUsedOk() (*int64, bool)`
+
+GetTotalEventCapacityUsedOk returns a tuple with the TotalEventCapacityUsed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalEventCapacityUsed
+
+`func (o *GetOrganizationBalanceHistory200ResponseDataInner) SetTotalEventCapacityUsed(v int64)`
+
+SetTotalEventCapacityUsed sets TotalEventCapacityUsed field to given value.
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
