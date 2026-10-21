@@ -102,8 +102,8 @@ func main() {
 	period := "period_example" // string | Period type for aggregation
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	fleetUID := []string{"Inner_example"} // []string | Filter by FleetUID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 
@@ -136,8 +136,8 @@ Other parameters are passed through a pointer to a apiGetDataUsageRequest struct
 **period** | **string** | Period type for aggregation |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**deviceUID** | **[]string** | A Device UID. |
-**fleetUID** | **[]string** | Filter by Fleet UID |
+**deviceUID** | **[]string** | A DeviceUID. |
+**fleetUID** | **[]string** | Filter by FleetUID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 
@@ -179,8 +179,8 @@ func main() {
 	period := "period_example" // string | Period type for aggregation
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	fleetUID := []string{"Inner_example"} // []string | Filter by FleetUID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 	notefile := []string{"Inner_example"} // []string | Filter to specific notefiles (optional)
@@ -216,8 +216,8 @@ Other parameters are passed through a pointer to a apiGetEventsUsageRequest stru
 **period** | **string** | Period type for aggregation |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**deviceUID** | **[]string** | A Device UID. |
-**fleetUID** | **[]string** | Filter by Fleet UID |
+**deviceUID** | **[]string** | A DeviceUID. |
+**fleetUID** | **[]string** | Filter by FleetUID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 **notefile** | **[]string** | Filter to specific notefiles |
@@ -262,7 +262,7 @@ func main() {
 	period := "period_example" // string | Period type for aggregation
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	routeUID := []string{"Inner_example"} // []string | A Route UID. (optional)
+	routeUID := []string{"Inner_example"} // []string | A RouteUID. (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "route")
 	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
@@ -296,7 +296,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsUsageRequest s
 **period** | **string** | Period type for aggregation |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**routeUID** | **[]string** | A Route UID. |
+**routeUID** | **[]string** | A RouteUID. |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;route&quot;]
 **skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]
@@ -339,8 +339,8 @@ func main() {
 	period := "period_example" // string | Period type for aggregation
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	fleetUID := []string{"Inner_example"} // []string | Filter by FleetUID (optional)
 	limit := int32(56) // int32 | Limit the number of data points returned (optional) (default to 200000)
 	aggregate := "aggregate_example" // string | Aggregation level for results (optional) (default to "device")
 	skipRecentData := true // bool | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. (optional) (default to false)
@@ -374,8 +374,8 @@ Other parameters are passed through a pointer to a apiGetSessionsUsageRequest st
 **period** | **string** | Period type for aggregation |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**deviceUID** | **[]string** | A Device UID. |
-**fleetUID** | **[]string** | Filter by Fleet UID |
+**deviceUID** | **[]string** | A DeviceUID. |
+**fleetUID** | **[]string** | Filter by FleetUID |
 **limit** | **int32** | Limit the number of data points returned | [default to 200000]
 **aggregate** | **string** | Aggregation level for results | [default to &quot;device&quot;]
 **skipRecentData** | **bool** | When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects. | [default to false]

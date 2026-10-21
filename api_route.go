@@ -404,7 +404,7 @@ func (r ApiGetRouteLogsByRouteRequest) Cursor(cursor string) ApiGetRouteLogsByRo
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetRouteLogsByRouteRequest) DeviceUID(deviceUID []string) ApiGetRouteLogsByRouteRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -464,7 +464,7 @@ func (r ApiGetRouteLogsByRouteRequest) Execute() ([]RouteLog, *http.Response, er
 /*
 GetRouteLogsByRoute Method for GetRouteLogsByRoute
 
-Get Route Logs by Route UID
+Get Route Logs by RouteUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

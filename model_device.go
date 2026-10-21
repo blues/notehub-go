@@ -22,7 +22,7 @@ var _ MappedNullable = &Device{}
 
 // Device struct for Device
 type Device struct {
-	// The best ID for the device, preference for the serial number over device UID
+	// The best ID for the device, preference for the serial number over DeviceUID
 	BestId        *string          `json:"best_id,omitempty"`
 	BestLocation  NullableLocation `json:"best_location,omitempty"`
 	CellularUsage []SimUsage       `json:"cellular_usage,omitempty"`

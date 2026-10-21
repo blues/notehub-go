@@ -21,7 +21,7 @@ var _ MappedNullable = &CreateProjectRequest{}
 
 // CreateProjectRequest struct for CreateProjectRequest
 type CreateProjectRequest struct {
-	// The billing account UID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
+	// The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
 	BillingAccountUid string `json:"billing_account_uid"`
 	// The label for the project.
 	Label                string `json:"label"`

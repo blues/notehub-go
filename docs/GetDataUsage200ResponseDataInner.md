@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name            | Type                            | Description                                                                                 | Notes      |
-| --------------- | ------------------------------- | ------------------------------------------------------------------------------------------- | ---------- |
-| **Data**        | [**[]UsageData**](UsageData.md) |                                                                                             |
-| **Device**      | Pointer to **string**           | The device UID this usage data belongs to (only present when aggregate is &#39;device&#39;) | [optional] |
-| **DeviceCount** | Pointer to **int32**            | the number of devices represented by this data point                                        | [optional] |
-| **Fleet**       | Pointer to **string**           | The fleet UID this usage data belongs to (only present when aggregate is &#39;fleet&#39;)   | [optional] |
-| **Iccid**       | Pointer to **string**           | The ICCID of the cellular SIM card (only present when type is &#39;cellular&#39;)           | [optional] |
-| **Psid**        | Pointer to **string**           | The PSID (Packet Service ID) of the satellite (or other packet-based device)                | [optional] |
-| **Type**        | **string**                      | The type of connectivity                                                                    |
+| Name            | Type                            | Description                                                                                | Notes      |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------------------------ | ---------- |
+| **Data**        | [**[]UsageData**](UsageData.md) |                                                                                            |
+| **Device**      | Pointer to **string**           | The DeviceUID this usage data belongs to (only present when aggregate is &#39;device&#39;) | [optional] |
+| **DeviceCount** | Pointer to **int32**            | the number of devices represented by this data point                                       | [optional] |
+| **Fleet**       | Pointer to **string**           | The FleetUID this usage data belongs to (only present when aggregate is &#39;fleet&#39;)   | [optional] |
+| **Iccid**       | Pointer to **string**           | The ICCID of the cellular SIM card (only present when type is &#39;cellular&#39;)          | [optional] |
+| **Psid**        | Pointer to **string**           | The PSID (Packet Service ID) of the satellite (or other packet-based device)               | [optional] |
+| **Type**        | **string**                      | The type of connectivity                                                                   |
 
 ## Methods
 

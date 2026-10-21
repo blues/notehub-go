@@ -212,13 +212,13 @@ func (r ApiGetDataUsageRequest) EndDate(endDate int64) ApiGetDataUsageRequest {
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDataUsageRequest) DeviceUID(deviceUID []string) ApiGetDataUsageRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// Filter by Fleet UID
+// Filter by FleetUID
 func (r ApiGetDataUsageRequest) FleetUID(fleetUID []string) ApiGetDataUsageRequest {
 	r.fleetUID = &fleetUID
 	return r
@@ -422,13 +422,13 @@ func (r ApiGetEventsUsageRequest) EndDate(endDate int64) ApiGetEventsUsageReques
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetEventsUsageRequest) DeviceUID(deviceUID []string) ApiGetEventsUsageRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// Filter by Fleet UID
+// Filter by FleetUID
 func (r ApiGetEventsUsageRequest) FleetUID(fleetUID []string) ApiGetEventsUsageRequest {
 	r.fleetUID = &fleetUID
 	return r
@@ -672,7 +672,7 @@ func (r ApiGetRouteLogsUsageRequest) EndDate(endDate int64) ApiGetRouteLogsUsage
 	return r
 }
 
-// A Route UID.
+// A RouteUID.
 func (r ApiGetRouteLogsUsageRequest) RouteUID(routeUID []string) ApiGetRouteLogsUsageRequest {
 	r.routeUID = &routeUID
 	return r
@@ -876,13 +876,13 @@ func (r ApiGetSessionsUsageRequest) EndDate(endDate int64) ApiGetSessionsUsageRe
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetSessionsUsageRequest) DeviceUID(deviceUID []string) ApiGetSessionsUsageRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// Filter by Fleet UID
+// Filter by FleetUID
 func (r ApiGetSessionsUsageRequest) FleetUID(fleetUID []string) ApiGetSessionsUsageRequest {
 	r.fleetUID = &fleetUID
 	return r

@@ -2521,7 +2521,7 @@ func (r ApiGetDevicesDfuHistoryRequest) SortOrder(sortOrder string) ApiGetDevice
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuHistoryRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2562,7 +2562,7 @@ func (r ApiGetDevicesDfuHistoryRequest) HostFirmware(hostFirmware []string) ApiG
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) ProductUID(productUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.productUID = &productUID
 	return r
@@ -2852,7 +2852,7 @@ func (r ApiGetDevicesDfuStatusRequest) SortOrder(sortOrder string) ApiGetDevices
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuStatusRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuStatusRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2893,7 +2893,7 @@ func (r ApiGetDevicesDfuStatusRequest) HostFirmware(hostFirmware []string) ApiGe
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) ProductUID(productUID []string) ApiGetDevicesDfuStatusRequest {
 	r.productUID = &productUID
 	return r
@@ -4783,7 +4783,7 @@ type ApiPerformDfuActionRequest struct {
 	dfuActionRequest    *DfuActionRequest
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiPerformDfuActionRequest) DeviceUID(deviceUID []string) ApiPerformDfuActionRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -4824,7 +4824,7 @@ func (r ApiPerformDfuActionRequest) HostFirmware(hostFirmware []string) ApiPerfo
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) ProductUID(productUID []string) ApiPerformDfuActionRequest {
 	r.productUID = &productUID
 	return r

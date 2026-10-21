@@ -25,7 +25,7 @@ type Alert struct {
 	// The time the alert was created
 	CreatedAt *int64           `json:"created_at,omitempty"`
 	Data      []AlertDataInner `json:"data,omitempty"`
-	// Device UID
+	// DeviceUID
 	DeviceUid *string `json:"device_uid,omitempty"`
 	// The field name that triggered the alert
 	FieldName *string `json:"field_name,omitempty"`
@@ -33,14 +33,14 @@ type Alert struct {
 	MonitorName *string `json:"monitor_name,omitempty"`
 	// The type of monitor that triggered the alert
 	MonitorType *string `json:"monitor_type,omitempty"`
-	// Monitor UID
+	// MonitorUID
 	MonitorUid    *string                   `json:"monitor_uid,omitempty"`
 	Notifications []AlertNotificationsInner `json:"notifications,omitempty"`
 	// If true, the alert has been resolved
 	Resolved *bool `json:"resolved,omitempty"`
 	// The UID of the source of the alert
 	Source *string `json:"source,omitempty"`
-	// Alert UID
+	// AlertUID
 	Uid *string `json:"uid,omitempty"`
 	// The value that triggered the alert
 	Value *float32 `json:"value,omitempty"`

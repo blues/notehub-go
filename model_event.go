@@ -20,7 +20,7 @@ var _ MappedNullable = &Event{}
 
 // Event struct for Event
 type Event struct {
-	// App UID (globally unique)
+	// AppUID (globally unique)
 	App *string `json:"app,omitempty"`
 	// Bars. Only available on _session.qo events.
 	Bars *int32 `json:"bars,omitempty"`
@@ -46,11 +46,11 @@ type Event struct {
 	Bssid *string `json:"bssid,omitempty"`
 	// True if this event has been deleted. Only present when reading with a `cursor`.
 	Deleted *bool `json:"deleted,omitempty"`
-	// Device UID (globally unique)
+	// DeviceUID (globally unique)
 	Device *string `json:"device,omitempty"`
 	// Routed environment variables beginning with \"$\". Only available on _session.qo events.
 	Environment map[string]interface{} `json:"environment,omitempty"`
-	// Event UID (globally unique)
+	// EventUID (globally unique)
 	Event *string `json:"event,omitempty"`
 	// The notefile associated with this event
 	File *string `json:"file,omitempty"`
@@ -66,7 +66,7 @@ type Event struct {
 	Payload *string `json:"payload,omitempty"`
 	// Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data
 	Platform *bool `json:"platform,omitempty"`
-	// Product UID (globally unique)
+	// ProductUID (globally unique)
 	Product *string `json:"product,omitempty"`
 	// Rat. Only available on _session.qo events.
 	Rat *string `json:"rat,omitempty"`
@@ -80,9 +80,9 @@ type Event struct {
 	Rsrq *int32 `json:"rsrq,omitempty"`
 	// Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events.
 	Rssi *int32 `json:"rssi,omitempty"`
-	// Sensor UID, for events originating from a sensor attached to the device
+	// SensorUID, for events originating from a sensor attached to the device
 	Sensor *string `json:"sensor,omitempty"`
-	// Session UID (globally unique)
+	// SessionUID (globally unique)
 	Session *string `json:"session,omitempty"`
 	// SINR. Only available on _session.qo events.
 	Sinr *int32 `json:"sinr,omitempty"`

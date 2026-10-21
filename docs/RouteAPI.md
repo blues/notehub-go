@@ -224,7 +224,7 @@ func main() {
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "date")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "desc")
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsByRouteRequest
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
 **cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **sortBy** | **string** | | [default to &quot;date&quot;]
 **sortOrder** | **string** | | [default to &quot;desc&quot;]
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |

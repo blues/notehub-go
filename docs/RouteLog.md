@@ -7,8 +7,8 @@
 | **Attn**     | Pointer to **bool**   | If true, an error was returned when routing | [optional] |
 | **Date**     | Pointer to **string** | The date of the logs.                       | [optional] |
 | **Duration** | Pointer to **int32**  | The duration of the route in milliseconds   | [optional] |
-| **EventUid** | Pointer to **string** | The event UID.                              | [optional] |
-| **RouteUid** | Pointer to **string** | The route UID.                              | [optional] |
+| **EventUid** | Pointer to **string** | The EventUID.                               | [optional] |
+| **RouteUid** | Pointer to **string** | The routeUID.                               | [optional] |
 | **Status**   | Pointer to **string** | The status of the event.                    | [optional] |
 | **Text**     | Pointer to **string** | The response body of the route.             | [optional] |
 | **Url**      | Pointer to **string** | The URL of the route.                       | [optional] |

@@ -4,7 +4,7 @@
 
 | Name                     | Type                                                         | Description                                                                                | Notes      |
 | ------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ---------- |
-| **BestId**               | Pointer to **string**                                        | The best ID for the device, preference for the serial number over device UID               | [optional] |
+| **BestId**               | Pointer to **string**                                        | The best ID for the device, preference for the serial number over DeviceUID                | [optional] |
 | **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |                                                                                            | [optional] |
 | **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |                                                                                            | [optional] |
 | **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |                                                                                            | [optional] |

@@ -23,11 +23,11 @@ type JobDefinitionSelect struct {
 	// Select all devices in the project
 	AllDevices *bool   `json:"all_devices,omitempty"`
 	Comment    *string `json:"comment,omitempty"`
-	// Specific device UIDs to include
+	// Specific DeviceUIDs to include
 	Devices []string `json:"devices,omitempty"`
 	// Serial number patterns to match (supports glob wildcards *, ?, [...])
 	DevicesBySn []string `json:"devices_by_sn,omitempty"`
-	// Fleet UIDs whose devices should be included
+	// FleetUIDs whose devices should be included
 	DevicesInFleets      []string `json:"devices_in_fleets,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

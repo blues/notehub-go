@@ -64,13 +64,13 @@ func (r ApiGetEventsRequest) Cursor(cursor string) ApiGetEventsRequest {
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetEventsRequest) DeviceUID(deviceUID []string) ApiGetEventsRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetEventsRequest) SensorUID(sensorUID []string) ApiGetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -126,19 +126,19 @@ func (r ApiGetEventsRequest) SerialNumber(serialNumber []string) ApiGetEventsReq
 	return r
 }
 
-// Filter by Fleet UID
+// Filter by FleetUID
 func (r ApiGetEventsRequest) FleetUID(fleetUID []string) ApiGetEventsRequest {
 	r.fleetUID = &fleetUID
 	return r
 }
 
-// Filter by Session UID
+// Filter by SessionUID
 func (r ApiGetEventsRequest) SessionUID(sessionUID []string) ApiGetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by Event UID
+// Filter by EventUID
 func (r ApiGetEventsRequest) EventUID(eventUID []string) ApiGetEventsRequest {
 	r.eventUID = &eventUID
 	return r
@@ -428,13 +428,13 @@ func (r ApiGetEventsByCursorRequest) FleetUID(fleetUID string) ApiGetEventsByCur
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetEventsByCursorRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetEventsByCursorRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -634,13 +634,13 @@ func (r ApiGetFleetEventsRequest) Cursor(cursor string) ApiGetFleetEventsRequest
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetFleetEventsRequest) DeviceUID(deviceUID []string) ApiGetFleetEventsRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetFleetEventsRequest) SensorUID(sensorUID []string) ApiGetFleetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -696,13 +696,13 @@ func (r ApiGetFleetEventsRequest) SerialNumber(serialNumber []string) ApiGetFlee
 	return r
 }
 
-// Filter by Session UID
+// Filter by SessionUID
 func (r ApiGetFleetEventsRequest) SessionUID(sessionUID []string) ApiGetFleetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by Event UID
+// Filter by EventUID
 func (r ApiGetFleetEventsRequest) EventUID(eventUID []string) ApiGetFleetEventsRequest {
 	r.eventUID = &eventUID
 	return r
@@ -981,13 +981,13 @@ func (r ApiGetFleetEventsByCursorRequest) Files(files string) ApiGetFleetEventsB
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetFleetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetFleetEventsByCursorRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetFleetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetFleetEventsByCursorRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -1179,7 +1179,7 @@ func (r ApiGetRouteLogsByEventRequest) Execute() ([]RouteLog, *http.Response, er
 /*
 GetRouteLogsByEvent Method for GetRouteLogsByEvent
 
-Get Route Logs by Event UID
+Get Route Logs by EventUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

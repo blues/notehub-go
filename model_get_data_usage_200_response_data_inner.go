@@ -22,11 +22,11 @@ var _ MappedNullable = &GetDataUsage200ResponseDataInner{}
 // GetDataUsage200ResponseDataInner struct for GetDataUsage200ResponseDataInner
 type GetDataUsage200ResponseDataInner struct {
 	Data []UsageData `json:"data"`
-	// The device UID this usage data belongs to (only present when aggregate is 'device')
+	// The DeviceUID this usage data belongs to (only present when aggregate is 'device')
 	Device *string `json:"device,omitempty"`
 	// the number of devices represented by this data point
 	DeviceCount *int32 `json:"device_count,omitempty"`
-	// The fleet UID this usage data belongs to (only present when aggregate is 'fleet')
+	// The FleetUID this usage data belongs to (only present when aggregate is 'fleet')
 	Fleet *string `json:"fleet,omitempty"`
 	// The ICCID of the cellular SIM card (only present when type is 'cellular')
 	Iccid *string `json:"iccid,omitempty"`

@@ -31,8 +31,8 @@ func main() {
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
@@ -42,9 +42,9 @@ func main() {
 	files := "_health.qo, data.qo" // string |  (optional)
 	format := "format_example" // string | Response format (JSON or CSV) (optional) (default to "json")
 	serialNumber := []string{"Inner_example"} // []string | Filter by Serial Number (optional)
-	fleetUID := []string{"Inner_example"} // []string | Filter by Fleet UID (optional)
-	sessionUID := []string{"Inner_example"} // []string | Filter by Session UID (optional)
-	eventUID := []string{"Inner_example"} // []string | Filter by Event UID (optional)
+	fleetUID := []string{"Inner_example"} // []string | Filter by FleetUID (optional)
+	sessionUID := []string{"Inner_example"} // []string | Filter by SessionUID (optional)
+	eventUID := []string{"Inner_example"} // []string | Filter by EventUID (optional)
 	selectFields := "selectFields_example" // string | Comma-separated list of fields to select from JSON payload (e.g., \"field1,field2.subfield,field3\"), this will reflect the columns in the CSV output. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -76,8 +76,8 @@ Other parameters are passed through a pointer to a apiGetEventsRequest struct vi
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
 **cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
-**deviceUID** | **[]string** | A Device UID. |
-**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
+**deviceUID** | **[]string** | A DeviceUID. |
+**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
@@ -87,9 +87,9 @@ Other parameters are passed through a pointer to a apiGetEventsRequest struct vi
 **files** | **string** | |
 **format** | **string** | Response format (JSON or CSV) | [default to &quot;json&quot;]
 **serialNumber** | **[]string** | Filter by Serial Number |
-**fleetUID** | **[]string** | Filter by Fleet UID |
-**sessionUID** | **[]string** | Filter by Session UID |
-**eventUID** | **[]string** | Filter by Event UID |
+**fleetUID** | **[]string** | Filter by FleetUID |
+**sessionUID** | **[]string** | Filter by SessionUID |
+**eventUID** | **[]string** | Filter by EventUID |
 **selectFields** | **string** | Comma-separated list of fields to select from JSON payload (e.g., \&quot;field1,field2.subfield,field3\&quot;), this will reflect the columns in the CSV output. |
 
 ### Return type
@@ -133,8 +133,8 @@ func main() {
 	systemFilesOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -168,8 +168,8 @@ Other parameters are passed through a pointer to a apiGetEventsByCursorRequest s
 **systemFilesOnly** | **bool** | |
 **files** | **string** | |
 **fleetUID** | **string** | |
-**deviceUID** | **[]string** | A Device UID. |
-**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
+**deviceUID** | **[]string** | A DeviceUID. |
+**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 
 ### Return type
 
@@ -210,8 +210,8 @@ func main() {
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
@@ -221,8 +221,8 @@ func main() {
 	files := "_health.qo, data.qo" // string |  (optional)
 	format := "format_example" // string | Response format (JSON or CSV) (optional) (default to "json")
 	serialNumber := []string{"Inner_example"} // []string | Filter by Serial Number (optional)
-	sessionUID := []string{"Inner_example"} // []string | Filter by Session UID (optional)
-	eventUID := []string{"Inner_example"} // []string | Filter by Event UID (optional)
+	sessionUID := []string{"Inner_example"} // []string | Filter by SessionUID (optional)
+	eventUID := []string{"Inner_example"} // []string | Filter by EventUID (optional)
 	selectFields := "selectFields_example" // string | Comma-separated list of fields to select from JSON payload (e.g., \"field1,field2.subfield,field3\"), this will reflect the columns in the CSV output. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -255,8 +255,8 @@ Other parameters are passed through a pointer to a apiGetFleetEventsRequest stru
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
 **cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
-**deviceUID** | **[]string** | A Device UID. |
-**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
+**deviceUID** | **[]string** | A DeviceUID. |
+**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
@@ -266,8 +266,8 @@ Other parameters are passed through a pointer to a apiGetFleetEventsRequest stru
 **files** | **string** | |
 **format** | **string** | Response format (JSON or CSV) | [default to &quot;json&quot;]
 **serialNumber** | **[]string** | Filter by Serial Number |
-**sessionUID** | **[]string** | Filter by Session UID |
-**eventUID** | **[]string** | Filter by Event UID |
+**sessionUID** | **[]string** | Filter by SessionUID |
+**eventUID** | **[]string** | Filter by EventUID |
 **selectFields** | **string** | Comma-separated list of fields to select from JSON payload (e.g., \&quot;field1,field2.subfield,field3\&quot;), this will reflect the columns in the CSV output. |
 
 ### Return type
@@ -311,8 +311,8 @@ func main() {
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
 	systemFilesOnly := true // bool |  (optional)
 	files := "_health.qo, data.qo" // string |  (optional)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
-	sensorUID := []string{"Inner_example"} // []string | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	sensorUID := []string{"Inner_example"} // []string | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. (optional)
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 
@@ -348,8 +348,8 @@ Other parameters are passed through a pointer to a apiGetFleetEventsByCursorRequ
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
 **systemFilesOnly** | **bool** | |
 **files** | **string** | |
-**deviceUID** | **[]string** | A Device UID. |
-**sensorUID** | **[]string** | A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
+**deviceUID** | **[]string** | A DeviceUID. |
+**sensorUID** | **[]string** | A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix. |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
 

@@ -23,7 +23,7 @@ type DeviceDfuHistory struct {
 	Current *DeviceDfuHistoryCurrent `json:"current,omitempty"`
 	// True if this device has been deleted. Only present when reading with a `cursor`.
 	Deleted *bool `json:"deleted,omitempty"`
-	// Device UID
+	// DeviceUID
 	DeviceUid            *string                 `json:"device_uid,omitempty"`
 	History              []DeviceDfuStateMachine `json:"history,omitempty"`
 	AdditionalProperties map[string]interface{}

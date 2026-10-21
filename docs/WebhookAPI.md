@@ -99,7 +99,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -118,7 +118,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| **webhookUID**          | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -164,7 +164,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 	deviceUID := "dev:000000000000000" // string |
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | The event body (arbitrary JSON)
 
@@ -184,7 +184,7 @@ func main() {
 | -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| **webhookUID** | **string**          | WebhookUID                                                                  |
 | **deviceUID**  | **string**          |                                                                             |
 
 ### Other Parameters
@@ -231,7 +231,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | The event body (arbitrary JSON)
 
 	configuration := openapiclient.NewConfiguration()
@@ -250,7 +250,7 @@ func main() {
 | -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| **webhookUID** | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -296,7 +296,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -314,7 +314,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| **webhookUID**          | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -358,7 +358,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -378,7 +378,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| **webhookUID**          | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -422,7 +422,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -442,7 +442,7 @@ func main() {
 | -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| **webhookUID** | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -613,7 +613,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -632,7 +632,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| **webhookUID**          | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 
@@ -678,7 +678,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | WebhookUID
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -697,7 +697,7 @@ func main() {
 | -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| **webhookUID** | **string**          | WebhookUID                                                                  |
 
 ### Other Parameters
 

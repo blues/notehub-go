@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name                  | Type       | Description                                                                                                                                                     | Notes |
-| --------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| **BillingAccountUid** | **string** | The billing account UID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned. |
-| **Label**             | **string** | The label for the project.                                                                                                                                      |
+| Name                  | Type       | Description                                                                                                                                                 | Notes |
+| --------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **BillingAccountUid** | **string** | The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned. |
+| **Label**             | **string** | The label for the project.                                                                                                                                  |
 
 ## Methods
 

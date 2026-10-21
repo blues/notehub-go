@@ -2796,7 +2796,7 @@ func (r ApiGetDevicesRequest) Cursor(cursor string) ApiGetDevicesRequest {
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesRequest) DeviceUID(deviceUID []string) ApiGetDevicesRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2837,7 +2837,7 @@ func (r ApiGetDevicesRequest) HostFirmware(hostFirmware []string) ApiGetDevicesR
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesRequest) ProductUID(productUID []string) ApiGetDevicesRequest {
 	r.productUID = &productUID
 	return r
@@ -3105,7 +3105,7 @@ func (r ApiGetFleetDevicesRequest) Cursor(cursor string) ApiGetFleetDevicesReque
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetFleetDevicesRequest) DeviceUID(deviceUID []string) ApiGetFleetDevicesRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -3141,7 +3141,7 @@ func (r ApiGetFleetDevicesRequest) HostFirmware(hostFirmware []string) ApiGetFle
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetFleetDevicesRequest) ProductUID(productUID []string) ApiGetFleetDevicesRequest {
 	r.productUID = &productUID
 	return r

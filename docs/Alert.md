@@ -7,15 +7,15 @@
 | **AlertSource**   | Pointer to **string**                                                  | The source of the alert                      | [optional] |
 | **CreatedAt**     | Pointer to **int64**                                                   | The time the alert was created               | [optional] |
 | **Data**          | Pointer to [**[]AlertDataInner**](AlertDataInner.md)                   |                                              | [optional] |
-| **DeviceUid**     | Pointer to **string**                                                  | Device UID                                   | [optional] |
+| **DeviceUid**     | Pointer to **string**                                                  | DeviceUID                                    | [optional] |
 | **FieldName**     | Pointer to **string**                                                  | The field name that triggered the alert      | [optional] |
 | **MonitorName**   | Pointer to **string**                                                  | Monitor Name                                 | [optional] |
 | **MonitorType**   | Pointer to **string**                                                  | The type of monitor that triggered the alert | [optional] |
-| **MonitorUid**    | Pointer to **string**                                                  | Monitor UID                                  | [optional] |
+| **MonitorUid**    | Pointer to **string**                                                  | MonitorUID                                   | [optional] |
 | **Notifications** | Pointer to [**[]AlertNotificationsInner**](AlertNotificationsInner.md) |                                              | [optional] |
 | **Resolved**      | Pointer to **bool**                                                    | If true, the alert has been resolved         | [optional] |
 | **Source**        | Pointer to **string**                                                  | The UID of the source of the alert           | [optional] |
-| **Uid**           | Pointer to **string**                                                  | Alert UID                                    | [optional] |
+| **Uid**           | Pointer to **string**                                                  | AlertUID                                     | [optional] |
 | **Value**         | Pointer to **float32**                                                 | The value that triggered the alert           | [optional] |
 | **Version**       | Pointer to **int32**                                                   | The version of the alert                     | [optional] |
 

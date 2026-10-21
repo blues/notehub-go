@@ -40,7 +40,7 @@ func (r ApiLoginRequest) Execute() (*Login200Response, *http.Response, error) {
 /*
 Login Method for Login
 
-Gets an API key from username and password
+Gets an access token from username and password
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiLoginRequest
