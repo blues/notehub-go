@@ -10,6 +10,7 @@ api_monitor.go
 api_organization.go
 api_project.go
 api_route.go
+api_skills.go
 api_usage.go
 api_webhook.go
 client.go
@@ -174,6 +175,13 @@ docs/SatellitePlan.md
 docs/SchemaProperty.md
 docs/SignalDevice200Response.md
 docs/SimUsage.md
+docs/Skill.md
+docs/SkillLinks.md
+docs/SkillSet.md
+docs/SkillSummary.md
+docs/SkillWrite.md
+docs/SkillWriteResult.md
+docs/SkillsAPI.md
 docs/SlackBearerNotification.md
 docs/SlackRoute.md
 docs/SlackWebHookNotification.md
@@ -349,6 +357,12 @@ model_satellite_plan.go
 model_schema_property.go
 model_signal_device_200_response.go
 model_sim_usage.go
+model_skill.go
+model_skill_links.go
+model_skill_set.go
+model_skill_summary.go
+model_skill_write.go
+model_skill_write_result.go
 model_slack_bearer_notification.go
 model_slack_route.go
 model_slack_web_hook_notification.go
@@ -383,6 +397,7 @@ test/api_monitor_test.go
 test/api_organization_test.go
 test/api_project_test.go
 test/api_route_test.go
+test/api_skills_test.go
 test/api_usage_test.go
 test/api_webhook_test.go
 utils.go

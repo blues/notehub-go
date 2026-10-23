@@ -71,6 +71,8 @@ type APIClient struct {
 
 	RouteAPI *RouteAPIService
 
+	SkillsAPI *SkillsAPIService
+
 	UsageAPI *UsageAPIService
 
 	WebhookAPI *WebhookAPIService
@@ -103,6 +105,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ProjectAPI = (*ProjectAPIService)(&c.common)
 	c.RouteAPI = (*RouteAPIService)(&c.common)
+	c.SkillsAPI = (*SkillsAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
 	c.WebhookAPI = (*WebhookAPIService)(&c.common)
 
