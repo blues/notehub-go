@@ -20,7 +20,7 @@
 | **Silenced**              | Pointer to **bool**                                                    | If true, alerts will be created, but no notifications will be sent.                                                                                                                                                                                               | [optional]                                                                                                      |
 | **SourceSelector**        | Pointer to **string**                                                  | A dot-delimited path to a single numeric value within the event body.                                                                                                                                                                                             | [optional]                                                                                                      |
 | **SourceType**            | Pointer to **string**                                                  | The type of source to monitor. Defaults to \&quot;event\&quot;.                                                                                                                                                                                                   | [optional] [default to "event"]                                                                                 |
-| **Threshold**             | Pointer to **int32**                                                   | The value that condition_type compares against. For heartbeat monitors this is seconds of inactivity; for usage monitors it is bytes.                                                                                                                             | [optional]                                                                                                      |
+| **Threshold**             | Pointer to **float64**                                                 | The value that condition_type compares against. For heartbeat monitors this is seconds of inactivity; for usage monitors it is bytes.                                                                                                                             | [optional]                                                                                                      |
 | **Uid**                   | Pointer to **string**                                                  |                                                                                                                                                                                                                                                                   | [optional]                                                                                                      |
 | **UsageScope**            | Pointer to **string**                                                  | For usage monitors: the scope of aggregation. Supported values are \&quot;device\&quot; and \&quot;fleet\&quot;.                                                                                                                                                  | [optional]                                                                                                      |
 | **UsageType**             | Pointer to **string**                                                  | For usage monitors: the type of data usage to monitor. Supported values are \&quot;cellular\&quot; and \&quot;satellite\&quot;.                                                                                                                                   | [optional]                                                                                                      |
@@ -447,20 +447,20 @@ HasSourceType returns a boolean if a field has been set.
 
 ### GetThreshold
 
-`func (o *Monitor) GetThreshold() int32`
+`func (o *Monitor) GetThreshold() float64`
 
 GetThreshold returns the Threshold field if non-nil, zero value otherwise.
 
 ### GetThresholdOk
 
-`func (o *Monitor) GetThresholdOk() (*int32, bool)`
+`func (o *Monitor) GetThresholdOk() (*float64, bool)`
 
 GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetThreshold
 
-`func (o *Monitor) SetThreshold(v int32)`
+`func (o *Monitor) SetThreshold(v float64)`
 
 SetThreshold sets Threshold field to given value.
 

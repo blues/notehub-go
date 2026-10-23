@@ -204,7 +204,7 @@ Other parameters are passed through a pointer to a apiGetRouteRequest struct via
 
 ## GetRouteLogsByRoute
 
-> []RouteLog GetRouteLogsByRoute(ctx, projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
+> []RouteLog GetRouteLogsByRoute(ctx, projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
 
 ### Example
 
@@ -223,7 +223,8 @@ func main() {
 	routeUID := "route:cbd20093cba58392c9f9bbdd0cdeb1a0" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "date")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "desc")
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
@@ -236,7 +237,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RouteAPI.GetRouteLogsByRoute(context.Background(), projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
+	resp, r, err := apiClient.RouteAPI.GetRouteLogsByRoute(context.Background(), projectOrProductUID, routeUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).SortBy(sortBy).SortOrder(sortOrder).StartDate(startDate).EndDate(endDate).SystemFilesOnly(systemFilesOnly).MostRecentOnly(mostRecentOnly).Files(files).RoutingStatus(routingStatus).ResponseStatus(responseStatus).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RouteAPI.GetRouteLogsByRoute``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -263,7 +264,8 @@ Other parameters are passed through a pointer to a apiGetRouteLogsByRouteRequest
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
-**deviceUID** | **[]string** | A Device UID. |
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
+**deviceUID** | **[]string** | A DeviceUID. |
 **sortBy** | **string** | | [default to &quot;date&quot;]
 **sortOrder** | **string** | | [default to &quot;desc&quot;]
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |

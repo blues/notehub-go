@@ -21,7 +21,7 @@ var _ MappedNullable = &CloneProjectRequest{}
 
 // CloneProjectRequest struct for CloneProjectRequest
 type CloneProjectRequest struct {
-	// The billing account UID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
+	// The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
 	BillingAccountUid string `json:"billing_account_uid"`
 	// Whether to disallow the cloning of the fleets from the parent project.  Default is false if not specified.
 	DisableCloneFleets *bool `json:"disable_clone_fleets,omitempty"`

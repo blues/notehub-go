@@ -22,11 +22,13 @@ var _ MappedNullable = &Device{}
 
 // Device struct for Device
 type Device struct {
-	// The best ID for the device, preference for the serial number over device UID
-	BestId               *string                 `json:"best_id,omitempty"`
-	BestLocation         NullableLocation        `json:"best_location,omitempty"`
-	CellularUsage        []SimUsage              `json:"cellular_usage,omitempty"`
-	Contact              NullableContact         `json:"contact,omitempty"`
+	// The best ID for the device, preference for the serial number over DeviceUID
+	BestId        *string          `json:"best_id,omitempty"`
+	BestLocation  NullableLocation `json:"best_location,omitempty"`
+	CellularUsage []SimUsage       `json:"cellular_usage,omitempty"`
+	Contact       NullableContact  `json:"contact,omitempty"`
+	// True if this device has been deleted. Only present when reading with a `cursor`.
+	Deleted              *bool                   `json:"deleted,omitempty"`
 	Dfu                  NullableDFUEnv          `json:"dfu,omitempty"`
 	Disabled             *bool                   `json:"disabled,omitempty"`
 	FirmwareHost         *string                 `json:"firmware_host,omitempty"`
@@ -227,6 +229,38 @@ func (o *Device) SetContactNil() {
 // UnsetContact ensures that no value is present for Contact, not even an explicit nil
 func (o *Device) UnsetContact() {
 	o.Contact.Unset()
+}
+
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *Device) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *Device) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *Device) SetDeleted(v bool) {
+	o.Deleted = &v
 }
 
 // GetDfu returns the Dfu field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1048,6 +1082,9 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	if o.Contact.IsSet() {
 		toSerialize["contact"] = o.Contact.Get()
 	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 	if o.Dfu.IsSet() {
 		toSerialize["dfu"] = o.Dfu.Get()
 	}
@@ -1160,6 +1197,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "best_location")
 		delete(additionalProperties, "cellular_usage")
 		delete(additionalProperties, "contact")
+		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "dfu")
 		delete(additionalProperties, "disabled")
 		delete(additionalProperties, "firmware_host")

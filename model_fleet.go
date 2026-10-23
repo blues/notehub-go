@@ -32,7 +32,7 @@ type Fleet struct {
 	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
 	SmartRule        *string `json:"smart_rule,omitempty"`
 	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
-	// Fleet UID
+	// FleetUID
 	Uid string `json:"uid"`
 	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
 	WatchdogMins         *int64 `json:"watchdog_mins,omitempty"`

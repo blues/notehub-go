@@ -1390,7 +1390,7 @@ Other parameters are passed through a pointer to a apiGetDeviceFleetsRequest str
 
 ## GetDevicesDfuHistory
 
-> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
 ### Example
 
@@ -1409,21 +1409,22 @@ func main() {
 	firmwareType := "firmwareType_example" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1450,16 +1451,17 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -1481,7 +1483,7 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 ## GetDevicesDfuStatus
 
-> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
 ### Example
 
@@ -1500,21 +1502,22 @@ func main() {
 	firmwareType := "firmwareType_example" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 50)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1541,16 +1544,17 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 
 **pageSize** | **int32** | | [default to 50]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -2482,14 +2486,14 @@ func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	firmwareType := "firmwareType_example" // string |
 	action := "action_example" // string |
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	dfuActionRequest := *openapiclient.NewDfuActionRequest() // DfuActionRequest | Which firmware in the case of an update action (optional)
 
@@ -2519,14 +2523,14 @@ Other parameters are passed through a pointer to a apiPerformDfuActionRequest st
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **dfuActionRequest** | [**DfuActionRequest**](DfuActionRequest.md) | Which firmware in the case of an update action |
 

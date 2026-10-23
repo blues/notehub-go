@@ -2,10 +2,11 @@
 
 ## Properties
 
-| Name        | Type                      | Description | Notes |
-| ----------- | ------------------------- | ----------- | ----- |
-| **Devices** | [**[]Device**](Device.md) |             |
-| **HasMore** | **bool**                  |             |
+| Name           | Type                      | Description                                                                                                                                                                              | Notes      |
+| -------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Devices**    | [**[]Device**](Device.md) |                                                                                                                                                                                          |
+| **HasMore**    | **bool**                  |                                                                                                                                                                                          |
+| **NextCursor** | Pointer to **string**     | Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes. | [optional] |
 
 ## Methods
 
@@ -63,5 +64,30 @@ and a boolean to check if the value has been set.
 `func (o *GetDevices200Response) SetHasMore(v bool)`
 
 SetHasMore sets HasMore field to given value.
+
+### GetNextCursor
+
+`func (o *GetDevices200Response) GetNextCursor() string`
+
+GetNextCursor returns the NextCursor field if non-nil, zero value otherwise.
+
+### GetNextCursorOk
+
+`func (o *GetDevices200Response) GetNextCursorOk() (*string, bool)`
+
+GetNextCursorOk returns a tuple with the NextCursor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextCursor
+
+`func (o *GetDevices200Response) SetNextCursor(v string)`
+
+SetNextCursor sets NextCursor field to given value.
+
+### HasNextCursor
+
+`func (o *GetDevices200Response) HasNextCursor() bool`
+
+HasNextCursor returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

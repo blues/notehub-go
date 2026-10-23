@@ -1,7 +1,6 @@
 .gitignore
 api_alert.go
 api_authorization.go
-api_billing_account.go
 api_description.go
 api_device.go
 api_event.go
@@ -11,6 +10,7 @@ api_monitor.go
 api_organization.go
 api_project.go
 api_route.go
+api_skills.go
 api_usage.go
 api_webhook.go
 client.go
@@ -28,7 +28,6 @@ docs/AzureRoute.md
 docs/BatchJobNoteRequest.md
 docs/BatchJobRequests.md
 docs/BillingAccount.md
-docs/BillingAccountAPI.md
 docs/BillingAccountRole.md
 docs/BlynkRoute.md
 docs/Body.md
@@ -87,11 +86,7 @@ docs/FirmwareInfo.md
 docs/Fleet.md
 docs/FleetConnectivityAssurance.md
 docs/GetAlerts200Response.md
-docs/GetBillingAccount200Response.md
-docs/GetBillingAccount200ResponsePlan.md
-docs/GetBillingAccountBalanceHistory200Response.md
-docs/GetBillingAccountBalanceHistory200ResponseDataInner.md
-docs/GetBillingAccounts200Response.md
+docs/GetApiUsage200Response.md
 docs/GetDataUsage200Response.md
 docs/GetDataUsage200ResponseDataInner.md
 docs/GetDbNote200Response.md
@@ -110,10 +105,13 @@ docs/GetDevicePublicKeys200ResponseDevicePublicKeysInner.md
 docs/GetDeviceSessions200Response.md
 docs/GetDevices200Response.md
 docs/GetEvents200Response.md
-docs/GetEventsByCursor200Response.md
 docs/GetJobRuns200Response.md
 docs/GetJobs200Response.md
 docs/GetNotefile200Response.md
+docs/GetOrganization200Response.md
+docs/GetOrganization200ResponsePlan.md
+docs/GetOrganizationBalanceHistory200Response.md
+docs/GetOrganizationBalanceHistory200ResponseDataInner.md
 docs/GetOrganizations200Response.md
 docs/GetProducts200Response.md
 docs/GetProjectMembers200Response.md
@@ -126,6 +124,7 @@ docs/GoogleRoute.md
 docs/HealthLog.md
 docs/HttpRoute.md
 docs/InlineObject.md
+docs/InlineObject1.md
 docs/Job.md
 docs/JobDefinition.md
 docs/JobDefinitionReportOptions.md
@@ -152,10 +151,6 @@ docs/OAuth2TokenResponse.md
 docs/Organization.md
 docs/OrganizationAPI.md
 docs/OrganizationRole.md
-docs/PersonalAccessToken.md
-docs/PersonalAccessTokenCreatedBy.md
-docs/PersonalAccessTokenInfo.md
-docs/PersonalAccessTokenSecret.md
 docs/Product.md
 docs/Project.md
 docs/ProjectAPI.md
@@ -180,6 +175,13 @@ docs/SatellitePlan.md
 docs/SchemaProperty.md
 docs/SignalDevice200Response.md
 docs/SimUsage.md
+docs/Skill.md
+docs/SkillLinks.md
+docs/SkillSet.md
+docs/SkillSummary.md
+docs/SkillWrite.md
+docs/SkillWriteResult.md
+docs/SkillsAPI.md
 docs/SlackBearerNotification.md
 docs/SlackRoute.md
 docs/SlackWebHookNotification.md
@@ -193,6 +195,7 @@ docs/UpdateHostFirmwareRequest.md
 docs/UpdateProjectSecretRequest.md
 docs/UploadMetadata.md
 docs/UsageAPI.md
+docs/UsageApiData.md
 docs/UsageData.md
 docs/UsageEventsData.md
 docs/UsageEventsResponse.md
@@ -270,11 +273,7 @@ model_firmware_info.go
 model_fleet.go
 model_fleet_connectivity_assurance.go
 model_get_alerts_200_response.go
-model_get_billing_account_200_response.go
-model_get_billing_account_200_response_plan.go
-model_get_billing_account_balance_history_200_response.go
-model_get_billing_account_balance_history_200_response_data_inner.go
-model_get_billing_accounts_200_response.go
+model_get_api_usage_200_response.go
 model_get_data_usage_200_response.go
 model_get_data_usage_200_response_data_inner.go
 model_get_db_note_200_response.go
@@ -293,10 +292,13 @@ model_get_device_public_keys_200_response_device_public_keys_inner.go
 model_get_device_sessions_200_response.go
 model_get_devices_200_response.go
 model_get_events_200_response.go
-model_get_events_by_cursor_200_response.go
 model_get_job_runs_200_response.go
 model_get_jobs_200_response.go
 model_get_notefile_200_response.go
+model_get_organization_200_response.go
+model_get_organization_200_response_plan.go
+model_get_organization_balance_history_200_response.go
+model_get_organization_balance_history_200_response_data_inner.go
 model_get_organizations_200_response.go
 model_get_products_200_response.go
 model_get_project_members_200_response.go
@@ -309,6 +311,7 @@ model_google_route.go
 model_health_log.go
 model_http_route.go
 model_inline_object.go
+model_inline_object_1.go
 model_job.go
 model_job_definition.go
 model_job_definition_report_options.go
@@ -332,10 +335,6 @@ model_o_auth2_error.go
 model_o_auth2_token_response.go
 model_organization.go
 model_organization_role.go
-model_personal_access_token.go
-model_personal_access_token_created_by.go
-model_personal_access_token_info.go
-model_personal_access_token_secret.go
 model_product.go
 model_project.go
 model_project_member.go
@@ -358,6 +357,12 @@ model_satellite_plan.go
 model_schema_property.go
 model_signal_device_200_response.go
 model_sim_usage.go
+model_skill.go
+model_skill_links.go
+model_skill_set.go
+model_skill_summary.go
+model_skill_write.go
+model_skill_write_result.go
 model_slack_bearer_notification.go
 model_slack_route.go
 model_slack_web_hook_notification.go
@@ -370,6 +375,7 @@ model_update_fleet_request.go
 model_update_host_firmware_request.go
 model_update_project_secret_request.go
 model_upload_metadata.go
+model_usage_api_data.go
 model_usage_data.go
 model_usage_events_data.go
 model_usage_events_response.go
@@ -382,7 +388,6 @@ model_webhook_settings.go
 response.go
 test/api_alert_test.go
 test/api_authorization_test.go
-test/api_billing_account_test.go
 test/api_description_test.go
 test/api_device_test.go
 test/api_event_test.go
@@ -392,6 +397,7 @@ test/api_monitor_test.go
 test/api_organization_test.go
 test/api_project_test.go
 test/api_route_test.go
+test/api_skills_test.go
 test/api_usage_test.go
 test/api_webhook_test.go
 utils.go

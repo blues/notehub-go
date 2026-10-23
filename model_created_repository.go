@@ -23,7 +23,7 @@ type CreatedRepository struct {
 	FleetUids []string `json:"fleet_uids,omitempty"`
 	// repository name
 	Name *string `json:"name,omitempty"`
-	// read-only password for the database, also used as X-Repository-Token header for subsequent API calls.  This value is only served once when the repository is created
+	// read-only password for the database, also used as X-Repository-Token header for subsequent API calls.  This value is only served once when the repository is created, and never to a scoped token, which queries through the repository token endpoint instead
 	Password    *string  `json:"password,omitempty"`
 	ProjectUids []string `json:"project_uids,omitempty"`
 	// The unique identifier for the data repository

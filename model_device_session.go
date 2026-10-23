@@ -28,13 +28,13 @@ type DeviceSession struct {
 	Cell *string `json:"cell,omitempty"`
 	// Was this a continuous connection?
 	Continuous *bool `json:"continuous,omitempty"`
-	// Device UID
+	// DeviceUID
 	Device *string `json:"device,omitempty"`
 	// Number of events routed
 	Events *int64 `json:"events,omitempty"`
 	// Number of failed connection attempts in the prior session
 	FailedConnects *int64 `json:"failed_connects,omitempty"`
-	// Array of Fleet UIDs
+	// Array of FleetUIDs
 	Fleets        []string `json:"fleets,omitempty"`
 	HpCyclesData  *int64   `json:"hp_cycles_data,omitempty"`
 	HpCyclesGps   *int64   `json:"hp_cycles_gps,omitempty"`
@@ -54,14 +54,14 @@ type DeviceSession struct {
 	PowerMah      *float64     `json:"power_mah,omitempty"`
 	PowerPrimary  *bool        `json:"power_primary,omitempty"`
 	PowerUsb      *bool        `json:"power_usb,omitempty"`
-	// Product UID
+	// ProductUID
 	Product *string `json:"product,omitempty"`
 	Rat     *string `json:"rat,omitempty"`
 	Rsrp    *int32  `json:"rsrp,omitempty"`
 	Rsrq    *int32  `json:"rsrq,omitempty"`
 	Rssi    *int32  `json:"rssi,omitempty"`
 	Scan    *string `json:"scan,omitempty"`
-	// Session UID
+	// SessionUID
 	Session *string `json:"session,omitempty"`
 	// UNIX timestamp of session start
 	SessionBegan *int64 `json:"session_began,omitempty"`

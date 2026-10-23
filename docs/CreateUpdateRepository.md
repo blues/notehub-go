@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name            | Type                    | Description | Notes      |
-| --------------- | ----------------------- | ----------- | ---------- |
-| **FleetUids**   | Pointer to **[]string** |             | [optional] |
-| **Name**        | Pointer to **string**   |             | [optional] |
-| **ProjectUids** | Pointer to **[]string** |             | [optional] |
+| Name            | Type                    | Description                                                                                    | Notes      |
+| --------------- | ----------------------- | ---------------------------------------------------------------------------------------------- | ---------- |
+| **FleetUids**   | Pointer to **[]string** |                                                                                                | [optional] |
+| **Name**        | Pointer to **string**   |                                                                                                | [optional] |
+| **ProjectUids** | Pointer to **[]string** | The project whose events the repository holds. A repository can reference at most one project. | [optional] |
 
 ## Methods
 

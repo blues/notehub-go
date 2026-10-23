@@ -26,9 +26,9 @@ type RouteLog struct {
 	Date *string `json:"date,omitempty"`
 	// The duration of the route in milliseconds
 	Duration *int32 `json:"duration,omitempty"`
-	// The event UID.
+	// The EventUID.
 	EventUid *string `json:"event_uid,omitempty"`
-	// The route UID.
+	// The routeUID.
 	RouteUid *string `json:"route_uid,omitempty"`
 	// The status of the event.
 	Status *string `json:"status,omitempty"`

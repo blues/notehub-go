@@ -2481,6 +2481,7 @@ type ApiGetDevicesDfuHistoryRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2504,6 +2505,12 @@ func (r ApiGetDevicesDfuHistoryRequest) PageNum(pageNum int32) ApiGetDevicesDfuH
 	return r
 }
 
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuHistoryRequest) Cursor(cursor string) ApiGetDevicesDfuHistoryRequest {
+	r.cursor = &cursor
+	return r
+}
+
 func (r ApiGetDevicesDfuHistoryRequest) SortBy(sortBy string) ApiGetDevicesDfuHistoryRequest {
 	r.sortBy = &sortBy
 	return r
@@ -2514,7 +2521,7 @@ func (r ApiGetDevicesDfuHistoryRequest) SortOrder(sortOrder string) ApiGetDevice
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuHistoryRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2555,7 +2562,7 @@ func (r ApiGetDevicesDfuHistoryRequest) HostFirmware(hostFirmware []string) ApiG
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) ProductUID(productUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.productUID = &productUID
 	return r
@@ -2574,7 +2581,7 @@ func (r ApiGetDevicesDfuHistoryRequest) Execute() (*DeviceDfuHistoryPage, *http.
 /*
 GetDevicesDfuHistory Method for GetDevicesDfuHistory
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2627,6 +2634,9 @@ func (a *ProjectAPIService) GetDevicesDfuHistoryExecute(r ApiGetDevicesDfuHistor
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
@@ -2802,6 +2812,7 @@ type ApiGetDevicesDfuStatusRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2825,6 +2836,12 @@ func (r ApiGetDevicesDfuStatusRequest) PageNum(pageNum int32) ApiGetDevicesDfuSt
 	return r
 }
 
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuStatusRequest) Cursor(cursor string) ApiGetDevicesDfuStatusRequest {
+	r.cursor = &cursor
+	return r
+}
+
 func (r ApiGetDevicesDfuStatusRequest) SortBy(sortBy string) ApiGetDevicesDfuStatusRequest {
 	r.sortBy = &sortBy
 	return r
@@ -2835,7 +2852,7 @@ func (r ApiGetDevicesDfuStatusRequest) SortOrder(sortOrder string) ApiGetDevices
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuStatusRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuStatusRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2876,7 +2893,7 @@ func (r ApiGetDevicesDfuStatusRequest) HostFirmware(hostFirmware []string) ApiGe
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) ProductUID(productUID []string) ApiGetDevicesDfuStatusRequest {
 	r.productUID = &productUID
 	return r
@@ -2895,7 +2912,7 @@ func (r ApiGetDevicesDfuStatusRequest) Execute() (*DeviceDfuStatusPage, *http.Re
 /*
 GetDevicesDfuStatus Method for GetDevicesDfuStatus
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2948,6 +2965,9 @@ func (a *ProjectAPIService) GetDevicesDfuStatusExecute(r ApiGetDevicesDfuStatusR
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
@@ -4763,7 +4783,7 @@ type ApiPerformDfuActionRequest struct {
 	dfuActionRequest    *DfuActionRequest
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiPerformDfuActionRequest) DeviceUID(deviceUID []string) ApiPerformDfuActionRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -4804,7 +4824,7 @@ func (r ApiPerformDfuActionRequest) HostFirmware(hostFirmware []string) ApiPerfo
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) ProductUID(productUID []string) ApiPerformDfuActionRequest {
 	r.productUID = &productUID
 	return r

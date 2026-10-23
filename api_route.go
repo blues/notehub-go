@@ -375,6 +375,7 @@ type ApiGetRouteLogsByRouteRequest struct {
 	routeUID            string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sortBy              *string
 	sortOrder           *string
@@ -397,7 +398,13 @@ func (r ApiGetRouteLogsByRouteRequest) PageNum(pageNum int32) ApiGetRouteLogsByR
 	return r
 }
 
-// A Device UID.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetRouteLogsByRouteRequest) Cursor(cursor string) ApiGetRouteLogsByRouteRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// A DeviceUID.
 func (r ApiGetRouteLogsByRouteRequest) DeviceUID(deviceUID []string) ApiGetRouteLogsByRouteRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -457,7 +464,7 @@ func (r ApiGetRouteLogsByRouteRequest) Execute() ([]RouteLog, *http.Response, er
 /*
 GetRouteLogsByRoute Method for GetRouteLogsByRoute
 
-Get Route Logs by Route UID
+Get Route Logs by RouteUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -510,6 +517,9 @@ func (a *RouteAPIService) GetRouteLogsByRouteExecute(r ApiGetRouteLogsByRouteReq
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID

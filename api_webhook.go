@@ -163,7 +163,7 @@ Creates a webhook for the specified product with the given name. The name | must
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiCreateWebhookRequest
 */
 func (a *WebhookAPIService) CreateWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiCreateWebhookRequest {
@@ -280,7 +280,7 @@ Sends an event to be processed by the specified webhook, addressed by productUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@param deviceUID
 	@return ApiCreateWebhookDeviceEventByProductRequest
 */
@@ -399,7 +399,7 @@ Sends an event to be processed by the specified webhook, addressed by productUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiCreateWebhookEventByProductRequest
 */
 func (a *WebhookAPIService) CreateWebhookEventByProduct(ctx context.Context, productUID string, webhookUID string) ApiCreateWebhookEventByProductRequest {
@@ -508,7 +508,7 @@ Deletes the specified webhook
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiDeleteWebhookRequest
 */
 func (a *WebhookAPIService) DeleteWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiDeleteWebhookRequest {
@@ -612,7 +612,7 @@ Retrieves the configuration settings for the specified webhook
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiGetWebhookRequest
 */
 func (a *WebhookAPIService) GetWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiGetWebhookRequest {
@@ -728,7 +728,7 @@ Retrieves the configuration settings for the specified webhook, addressed by pro
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiGetWebhookSettingsByProductRequest
 */
 func (a *WebhookAPIService) GetWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiGetWebhookSettingsByProductRequest {
@@ -1075,7 +1075,7 @@ Updates the configuration settings for the specified webhook. | Webhook will be 
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiUpdateWebhookRequest
 */
 func (a *WebhookAPIService) UpdateWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiUpdateWebhookRequest {
@@ -1190,7 +1190,7 @@ Updates the configuration settings for the specified webhook, addressed by produ
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID WebhookUID
 	@return ApiUpdateWebhookSettingsByProductRequest
 */
 func (a *WebhookAPIService) UpdateWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiUpdateWebhookSettingsByProductRequest {

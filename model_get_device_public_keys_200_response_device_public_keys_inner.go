@@ -20,6 +20,8 @@ var _ MappedNullable = &GetDevicePublicKeys200ResponseDevicePublicKeysInner{}
 
 // GetDevicePublicKeys200ResponseDevicePublicKeysInner struct for GetDevicePublicKeys200ResponseDevicePublicKeysInner
 type GetDevicePublicKeys200ResponseDevicePublicKeysInner struct {
+	// True if this device has been deleted. Only present when reading with a `cursor`.
+	Deleted              *bool   `json:"deleted,omitempty"`
 	Key                  *string `json:"key,omitempty"`
 	Uid                  *string `json:"uid,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -42,6 +44,38 @@ func NewGetDevicePublicKeys200ResponseDevicePublicKeysInner() *GetDevicePublicKe
 func NewGetDevicePublicKeys200ResponseDevicePublicKeysInnerWithDefaults() *GetDevicePublicKeys200ResponseDevicePublicKeysInner {
 	this := GetDevicePublicKeys200ResponseDevicePublicKeysInner{}
 	return &this
+}
+
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) SetDeleted(v bool) {
+	o.Deleted = &v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
@@ -118,6 +152,9 @@ func (o GetDevicePublicKeys200ResponseDevicePublicKeysInner) MarshalJSON() ([]by
 
 func (o GetDevicePublicKeys200ResponseDevicePublicKeysInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
@@ -146,6 +183,7 @@ func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) UnmarshalJSON(data
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "uid")
 		o.AdditionalProperties = additionalProperties

@@ -2434,6 +2434,7 @@ type ApiGetDevicePublicKeysRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 }
 
 func (r ApiGetDevicePublicKeysRequest) PageSize(pageSize int32) ApiGetDevicePublicKeysRequest {
@@ -2443,6 +2444,12 @@ func (r ApiGetDevicePublicKeysRequest) PageSize(pageSize int32) ApiGetDevicePubl
 
 func (r ApiGetDevicePublicKeysRequest) PageNum(pageNum int32) ApiGetDevicePublicKeysRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicePublicKeysRequest) Cursor(cursor string) ApiGetDevicePublicKeysRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -2503,6 +2510,9 @@ func (a *DeviceAPIService) GetDevicePublicKeysExecute(r ApiGetDevicePublicKeysRe
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2573,6 +2583,7 @@ type ApiGetDeviceSessionsRequest struct {
 	deviceUID           string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	startDate           *int64
 	endDate             *int64
 	firstSync           *bool
@@ -2585,6 +2596,12 @@ func (r ApiGetDeviceSessionsRequest) PageSize(pageSize int32) ApiGetDeviceSessio
 
 func (r ApiGetDeviceSessionsRequest) PageNum(pageNum int32) ApiGetDeviceSessionsRequest {
 	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDeviceSessionsRequest) Cursor(cursor string) ApiGetDeviceSessionsRequest {
+	r.cursor = &cursor
 	return r
 }
 
@@ -2667,6 +2684,9 @@ func (a *DeviceAPIService) GetDeviceSessionsExecute(r ApiGetDeviceSessionsReques
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
 	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
 	if r.startDate != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
 	}
@@ -2748,6 +2768,7 @@ type ApiGetDevicesRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	tag                 *[]string
 	serialNumber        *[]string
@@ -2769,7 +2790,13 @@ func (r ApiGetDevicesRequest) PageNum(pageNum int32) ApiGetDevicesRequest {
 	return r
 }
 
-// A Device UID.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesRequest) Cursor(cursor string) ApiGetDevicesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// A DeviceUID.
 func (r ApiGetDevicesRequest) DeviceUID(deviceUID []string) ApiGetDevicesRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2810,7 +2837,7 @@ func (r ApiGetDevicesRequest) HostFirmware(hostFirmware []string) ApiGetDevicesR
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesRequest) ProductUID(productUID []string) ApiGetDevicesRequest {
 	r.productUID = &productUID
 	return r
@@ -2879,6 +2906,9 @@ func (a *DeviceAPIService) GetDevicesExecute(r ApiGetDevicesRequest) (*GetDevice
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID
@@ -3048,6 +3078,7 @@ type ApiGetFleetDevicesRequest struct {
 	fleetUID            string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	tag                 *[]string
 	serialNumber        *[]string
@@ -3068,7 +3099,13 @@ func (r ApiGetFleetDevicesRequest) PageNum(pageNum int32) ApiGetFleetDevicesRequ
 	return r
 }
 
-// A Device UID.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetFleetDevicesRequest) Cursor(cursor string) ApiGetFleetDevicesRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// A DeviceUID.
 func (r ApiGetFleetDevicesRequest) DeviceUID(deviceUID []string) ApiGetFleetDevicesRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -3104,7 +3141,7 @@ func (r ApiGetFleetDevicesRequest) HostFirmware(hostFirmware []string) ApiGetFle
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetFleetDevicesRequest) ProductUID(productUID []string) ApiGetFleetDevicesRequest {
 	r.productUID = &productUID
 	return r
@@ -3176,6 +3213,9 @@ func (a *DeviceAPIService) GetFleetDevicesExecute(r ApiGetFleetDevicesRequest) (
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID

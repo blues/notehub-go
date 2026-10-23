@@ -23,7 +23,7 @@ type Monitor struct {
 	// Aggregate function to apply to the selected values before applying the condition. [none, avg, max, min, sum, count]
 	AggregateFunction *string `json:"aggregate_function,omitempty"`
 	// The time window to aggregate the selected values. It follows the format of a number followed by a time unit
-	AggregateWindow *string `json:"aggregate_window,omitempty" validate:"regexp=^[0-9]+[smh]$"`
+	AggregateWindow *string `json:"aggregate_window,omitempty" validate:"regexp=^(([0-9]+[.]?[0-9]*|[.][0-9]+)(ns|us|µs|ms|s|m|h))+$"`
 	// If true, the monitor is in alert state.
 	Alert       *bool                     `json:"alert,omitempty"`
 	AlertRoutes []MonitorAlertRoutesInner `json:"alert_routes,omitempty"`
@@ -40,7 +40,7 @@ type Monitor struct {
 	// Only relevant when using an aggregate_function. If true, the monitor will be evaluated per device, | rather than across the set of selected devices. If true then if a single device matches the specified criteria, | and alert will be created, otherwise the aggregate function will be applied across all devices.
 	PerDevice *bool `json:"per_device,omitempty"`
 	// The time period to wait before routing another event after the monitor | has been triggered. It follows the format of a number followed by a time unit.
-	RoutingCooldownPeriod *string `json:"routing_cooldown_period,omitempty" validate:"regexp=^[0-9]+[smh]$"`
+	RoutingCooldownPeriod *string `json:"routing_cooldown_period,omitempty" validate:"regexp=^(([0-9]+[.]?[0-9]*|[.][0-9]+)(ns|us|µs|ms|s|m|h))+$"`
 	// If true, alerts will be created, but no notifications will be sent.
 	Silenced *bool `json:"silenced,omitempty"`
 	// A dot-delimited path to a single numeric value within the event body.
@@ -48,8 +48,8 @@ type Monitor struct {
 	// The type of source to monitor. Defaults to \"event\".
 	SourceType *string `json:"source_type,omitempty"`
 	// The value that condition_type compares against. For heartbeat monitors this is seconds of inactivity; for usage monitors it is bytes.
-	Threshold *int32  `json:"threshold,omitempty"`
-	Uid       *string `json:"uid,omitempty"`
+	Threshold *float64 `json:"threshold,omitempty"`
+	Uid       *string  `json:"uid,omitempty"`
 	// For usage monitors: the scope of aggregation. Supported values are \"device\" and \"fleet\".
 	UsageScope *string `json:"usage_scope,omitempty"`
 	// For usage monitors: the type of data usage to monitor. Supported values are \"cellular\" and \"satellite\".
@@ -599,9 +599,9 @@ func (o *Monitor) SetSourceType(v string) {
 }
 
 // GetThreshold returns the Threshold field value if set, zero value otherwise.
-func (o *Monitor) GetThreshold() int32 {
+func (o *Monitor) GetThreshold() float64 {
 	if o == nil || IsNil(o.Threshold) {
-		var ret int32
+		var ret float64
 		return ret
 	}
 	return *o.Threshold
@@ -609,7 +609,7 @@ func (o *Monitor) GetThreshold() int32 {
 
 // GetThresholdOk returns a tuple with the Threshold field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Monitor) GetThresholdOk() (*int32, bool) {
+func (o *Monitor) GetThresholdOk() (*float64, bool) {
 	if o == nil || IsNil(o.Threshold) {
 		return nil, false
 	}
@@ -625,8 +625,8 @@ func (o *Monitor) HasThreshold() bool {
 	return false
 }
 
-// SetThreshold gets a reference to the given int32 and assigns it to the Threshold field.
-func (o *Monitor) SetThreshold(v int32) {
+// SetThreshold gets a reference to the given float64 and assigns it to the Threshold field.
+func (o *Monitor) SetThreshold(v float64) {
 	o.Threshold = &v
 }
 

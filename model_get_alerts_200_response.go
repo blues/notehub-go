@@ -24,7 +24,9 @@ type GetAlerts200Response struct {
 	// The list of alerts
 	Alerts []Alert `json:"alerts"`
 	// True if there are more alerts
-	HasMore              bool `json:"has_more"`
+	HasMore bool `json:"has_more"`
+	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	NextCursor           *string `json:"next_cursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -97,6 +99,38 @@ func (o *GetAlerts200Response) SetHasMore(v bool) {
 	o.HasMore = v
 }
 
+// GetNextCursor returns the NextCursor field value if set, zero value otherwise.
+func (o *GetAlerts200Response) GetNextCursor() string {
+	if o == nil || IsNil(o.NextCursor) {
+		var ret string
+		return ret
+	}
+	return *o.NextCursor
+}
+
+// GetNextCursorOk returns a tuple with the NextCursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetAlerts200Response) GetNextCursorOk() (*string, bool) {
+	if o == nil || IsNil(o.NextCursor) {
+		return nil, false
+	}
+	return o.NextCursor, true
+}
+
+// HasNextCursor returns a boolean if a field has been set.
+func (o *GetAlerts200Response) HasNextCursor() bool {
+	if o != nil && !IsNil(o.NextCursor) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextCursor gets a reference to the given string and assigns it to the NextCursor field.
+func (o *GetAlerts200Response) SetNextCursor(v string) {
+	o.NextCursor = &v
+}
+
 func (o GetAlerts200Response) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -109,6 +143,9 @@ func (o GetAlerts200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["alerts"] = o.Alerts
 	toSerialize["has_more"] = o.HasMore
+	if !IsNil(o.NextCursor) {
+		toSerialize["next_cursor"] = o.NextCursor
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -155,6 +192,7 @@ func (o *GetAlerts200Response) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "alerts")
 		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
 		o.AdditionalProperties = additionalProperties
 	}
 

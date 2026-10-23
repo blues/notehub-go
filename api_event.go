@@ -30,6 +30,7 @@ type ApiGetEventsRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sensorUID           *[]string
 	sortBy              *string
@@ -57,13 +58,19 @@ func (r ApiGetEventsRequest) PageNum(pageNum int32) ApiGetEventsRequest {
 	return r
 }
 
-// A Device UID.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetEventsRequest) Cursor(cursor string) ApiGetEventsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// A DeviceUID.
 func (r ApiGetEventsRequest) DeviceUID(deviceUID []string) ApiGetEventsRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetEventsRequest) SensorUID(sensorUID []string) ApiGetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -119,19 +126,19 @@ func (r ApiGetEventsRequest) SerialNumber(serialNumber []string) ApiGetEventsReq
 	return r
 }
 
-// Filter by Fleet UID
+// Filter by FleetUID
 func (r ApiGetEventsRequest) FleetUID(fleetUID []string) ApiGetEventsRequest {
 	r.fleetUID = &fleetUID
 	return r
 }
 
-// Filter by Session UID
+// Filter by SessionUID
 func (r ApiGetEventsRequest) SessionUID(sessionUID []string) ApiGetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by Event UID
+// Filter by EventUID
 func (r ApiGetEventsRequest) EventUID(eventUID []string) ApiGetEventsRequest {
 	r.eventUID = &eventUID
 	return r
@@ -200,6 +207,9 @@ func (a *EventAPIService) GetEventsExecute(r ApiGetEventsRequest) (*GetEvents200
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID
@@ -372,217 +382,6 @@ func (a *EventAPIService) GetEventsExecute(r ApiGetEventsRequest) (*GetEvents200
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetEventsByCursorRequest struct {
-	ctx                 context.Context
-	ApiService          *EventAPIService
-	projectOrProductUID string
-	limit               *int32
-	cursor              *string
-	sortOrder           *string
-	systemFilesOnly     *bool
-	files               *string
-	fleetUID            *string
-	deviceUID           *[]string
-	sensorUID           *[]string
-}
-
-func (r ApiGetEventsByCursorRequest) Limit(limit int32) ApiGetEventsByCursorRequest {
-	r.limit = &limit
-	return r
-}
-
-// A cursor, which can be obtained from the &#x60;next_cursor&#x60; value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this event UID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
-func (r ApiGetEventsByCursorRequest) Cursor(cursor string) ApiGetEventsByCursorRequest {
-	r.cursor = &cursor
-	return r
-}
-
-func (r ApiGetEventsByCursorRequest) SortOrder(sortOrder string) ApiGetEventsByCursorRequest {
-	r.sortOrder = &sortOrder
-	return r
-}
-
-func (r ApiGetEventsByCursorRequest) SystemFilesOnly(systemFilesOnly bool) ApiGetEventsByCursorRequest {
-	r.systemFilesOnly = &systemFilesOnly
-	return r
-}
-
-func (r ApiGetEventsByCursorRequest) Files(files string) ApiGetEventsByCursorRequest {
-	r.files = &files
-	return r
-}
-
-func (r ApiGetEventsByCursorRequest) FleetUID(fleetUID string) ApiGetEventsByCursorRequest {
-	r.fleetUID = &fleetUID
-	return r
-}
-
-// A Device UID.
-func (r ApiGetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetEventsByCursorRequest {
-	r.deviceUID = &deviceUID
-	return r
-}
-
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
-func (r ApiGetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetEventsByCursorRequest {
-	r.sensorUID = &sensorUID
-	return r
-}
-
-func (r ApiGetEventsByCursorRequest) Execute() (*GetEventsByCursor200Response, *http.Response, error) {
-	return r.ApiService.GetEventsByCursorExecute(r)
-}
-
-/*
-GetEventsByCursor Method for GetEventsByCursor
-
-Get Events of a Project by cursor
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectOrProductUID
-	@return ApiGetEventsByCursorRequest
-*/
-func (a *EventAPIService) GetEventsByCursor(ctx context.Context, projectOrProductUID string) ApiGetEventsByCursorRequest {
-	return ApiGetEventsByCursorRequest{
-		ApiService:          a,
-		ctx:                 ctx,
-		projectOrProductUID: projectOrProductUID,
-	}
-}
-
-// Execute executes the request
-//
-//	@return GetEventsByCursor200Response
-func (a *EventAPIService) GetEventsByCursorExecute(r ApiGetEventsByCursorRequest) (*GetEventsByCursor200Response, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetEventsByCursor200Response
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetEventsByCursor")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/events-cursor"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 50
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
-		r.limit = &defaultValue
-	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
-	}
-	if r.sortOrder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", r.sortOrder, "form", "")
-	} else {
-		var defaultValue string = "asc"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", defaultValue, "form", "")
-		r.sortOrder = &defaultValue
-	}
-	if r.systemFilesOnly != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "systemFilesOnly", r.systemFilesOnly, "form", "")
-	}
-	if r.files != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "files", r.files, "form", "")
-	}
-	if r.fleetUID != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", r.fleetUID, "form", "")
-	}
-	if r.deviceUID != nil {
-		t := *r.deviceUID
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
-		}
-	}
-	if r.sensorUID != nil {
-		t := *r.sensorUID
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
-		}
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetFleetEventsRequest struct {
 	ctx                 context.Context
 	ApiService          *EventAPIService
@@ -590,6 +389,7 @@ type ApiGetFleetEventsRequest struct {
 	fleetUID            string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	deviceUID           *[]string
 	sensorUID           *[]string
 	sortBy              *string
@@ -616,13 +416,19 @@ func (r ApiGetFleetEventsRequest) PageNum(pageNum int32) ApiGetFleetEventsReques
 	return r
 }
 
-// A Device UID.
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetFleetEventsRequest) Cursor(cursor string) ApiGetFleetEventsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// A DeviceUID.
 func (r ApiGetFleetEventsRequest) DeviceUID(deviceUID []string) ApiGetFleetEventsRequest {
 	r.deviceUID = &deviceUID
 	return r
 }
 
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
 func (r ApiGetFleetEventsRequest) SensorUID(sensorUID []string) ApiGetFleetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -678,13 +484,13 @@ func (r ApiGetFleetEventsRequest) SerialNumber(serialNumber []string) ApiGetFlee
 	return r
 }
 
-// Filter by Session UID
+// Filter by SessionUID
 func (r ApiGetFleetEventsRequest) SessionUID(sessionUID []string) ApiGetFleetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by Event UID
+// Filter by EventUID
 func (r ApiGetFleetEventsRequest) EventUID(eventUID []string) ApiGetFleetEventsRequest {
 	r.eventUID = &eventUID
 	return r
@@ -756,6 +562,9 @@ func (a *EventAPIService) GetFleetEventsExecute(r ApiGetFleetEventsRequest) (*Ge
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.deviceUID != nil {
 		t := *r.deviceUID
@@ -917,232 +726,6 @@ func (a *EventAPIService) GetFleetEventsExecute(r ApiGetFleetEventsRequest) (*Ge
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetFleetEventsByCursorRequest struct {
-	ctx                 context.Context
-	ApiService          *EventAPIService
-	projectOrProductUID string
-	fleetUID            string
-	limit               *int32
-	cursor              *string
-	sortOrder           *string
-	systemFilesOnly     *bool
-	files               *string
-	deviceUID           *[]string
-	sensorUID           *[]string
-	startDate           *int64
-	endDate             *int64
-}
-
-func (r ApiGetFleetEventsByCursorRequest) Limit(limit int32) ApiGetFleetEventsByCursorRequest {
-	r.limit = &limit
-	return r
-}
-
-// A cursor, which can be obtained from the &#x60;next_cursor&#x60; value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this event UID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
-func (r ApiGetFleetEventsByCursorRequest) Cursor(cursor string) ApiGetFleetEventsByCursorRequest {
-	r.cursor = &cursor
-	return r
-}
-
-func (r ApiGetFleetEventsByCursorRequest) SortOrder(sortOrder string) ApiGetFleetEventsByCursorRequest {
-	r.sortOrder = &sortOrder
-	return r
-}
-
-func (r ApiGetFleetEventsByCursorRequest) SystemFilesOnly(systemFilesOnly bool) ApiGetFleetEventsByCursorRequest {
-	r.systemFilesOnly = &systemFilesOnly
-	return r
-}
-
-func (r ApiGetFleetEventsByCursorRequest) Files(files string) ApiGetFleetEventsByCursorRequest {
-	r.files = &files
-	return r
-}
-
-// A Device UID.
-func (r ApiGetFleetEventsByCursorRequest) DeviceUID(deviceUID []string) ApiGetFleetEventsByCursorRequest {
-	r.deviceUID = &deviceUID
-	return r
-}
-
-// A sensor UID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
-func (r ApiGetFleetEventsByCursorRequest) SensorUID(sensorUID []string) ApiGetFleetEventsByCursorRequest {
-	r.sensorUID = &sensorUID
-	return r
-}
-
-// Start date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsByCursorRequest) StartDate(startDate int64) ApiGetFleetEventsByCursorRequest {
-	r.startDate = &startDate
-	return r
-}
-
-// End date for filtering results, specified as a Unix timestamp
-func (r ApiGetFleetEventsByCursorRequest) EndDate(endDate int64) ApiGetFleetEventsByCursorRequest {
-	r.endDate = &endDate
-	return r
-}
-
-func (r ApiGetFleetEventsByCursorRequest) Execute() (*GetEventsByCursor200Response, *http.Response, error) {
-	return r.ApiService.GetFleetEventsByCursorExecute(r)
-}
-
-/*
-GetFleetEventsByCursor Method for GetFleetEventsByCursor
-
-Get Events of a Fleet by cursor
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param projectOrProductUID
-	@param fleetUID
-	@return ApiGetFleetEventsByCursorRequest
-*/
-func (a *EventAPIService) GetFleetEventsByCursor(ctx context.Context, projectOrProductUID string, fleetUID string) ApiGetFleetEventsByCursorRequest {
-	return ApiGetFleetEventsByCursorRequest{
-		ApiService:          a,
-		ctx:                 ctx,
-		projectOrProductUID: projectOrProductUID,
-		fleetUID:            fleetUID,
-	}
-}
-
-// Execute executes the request
-//
-//	@return GetEventsByCursor200Response
-func (a *EventAPIService) GetFleetEventsByCursorExecute(r ApiGetFleetEventsByCursorRequest) (*GetEventsByCursor200Response, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetEventsByCursor200Response
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventAPIService.GetFleetEventsByCursor")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/fleets/{fleetUID}/events-cursor"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"fleetUID"+"}", url.PathEscape(parameterValueToString(r.fleetUID, "fleetUID")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 50
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
-		r.limit = &defaultValue
-	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
-	}
-	if r.sortOrder != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", r.sortOrder, "form", "")
-	} else {
-		var defaultValue string = "asc"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sortOrder", defaultValue, "form", "")
-		r.sortOrder = &defaultValue
-	}
-	if r.systemFilesOnly != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "systemFilesOnly", r.systemFilesOnly, "form", "")
-	}
-	if r.files != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "files", r.files, "form", "")
-	}
-	if r.deviceUID != nil {
-		t := *r.deviceUID
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
-		}
-	}
-	if r.sensorUID != nil {
-		t := *r.sensorUID
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "sensorUID", t, "form", "multi")
-		}
-	}
-	if r.startDate != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
-	}
-	if r.endDate != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		var v Error
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			newErr.error = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-		newErr.model = v
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetRouteLogsByEventRequest struct {
 	ctx                 context.Context
 	ApiService          *EventAPIService
@@ -1157,7 +740,7 @@ func (r ApiGetRouteLogsByEventRequest) Execute() ([]RouteLog, *http.Response, er
 /*
 GetRouteLogsByEvent Method for GetRouteLogsByEvent
 
-Get Route Logs by Event UID
+Get Route Logs by EventUID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

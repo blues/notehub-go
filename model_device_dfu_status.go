@@ -21,7 +21,9 @@ var _ MappedNullable = &DeviceDfuStatus{}
 // DeviceDfuStatus struct for DeviceDfuStatus
 type DeviceDfuStatus struct {
 	Current *DeviceDfuHistoryCurrent `json:"current,omitempty"`
-	// Device UID
+	// True if this device has been deleted. Only present when reading with a `cursor`.
+	Deleted *bool `json:"deleted,omitempty"`
+	// DeviceUID
 	DeviceUid *string `json:"device_uid,omitempty"`
 	// true if there is a DFU currently in progress
 	DfuInProgress        *bool                  `json:"dfu_in_progress,omitempty"`
@@ -78,6 +80,38 @@ func (o *DeviceDfuStatus) HasCurrent() bool {
 // SetCurrent gets a reference to the given DeviceDfuHistoryCurrent and assigns it to the Current field.
 func (o *DeviceDfuStatus) SetCurrent(v DeviceDfuHistoryCurrent) {
 	o.Current = &v
+}
+
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *DeviceDfuStatus) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeviceDfuStatus) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *DeviceDfuStatus) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *DeviceDfuStatus) SetDeleted(v bool) {
+	o.Deleted = &v
 }
 
 // GetDeviceUid returns the DeviceUid field value if set, zero value otherwise.
@@ -189,6 +223,9 @@ func (o DeviceDfuStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Current) {
 		toSerialize["current"] = o.Current
 	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 	if !IsNil(o.DeviceUid) {
 		toSerialize["device_uid"] = o.DeviceUid
 	}
@@ -221,6 +258,7 @@ func (o *DeviceDfuStatus) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "current")
+		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "device_uid")
 		delete(additionalProperties, "dfu_in_progress")
 		delete(additionalProperties, "status")

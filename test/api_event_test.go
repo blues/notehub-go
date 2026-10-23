@@ -37,20 +37,6 @@ func Test_notehub_EventAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test EventAPIService GetEventsByCursor", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-
-		resp, httpRes, err := apiClient.EventAPI.GetEventsByCursor(context.Background(), projectOrProductUID).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test EventAPIService GetFleetEvents", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -59,21 +45,6 @@ func Test_notehub_EventAPIService(t *testing.T) {
 		var fleetUID string
 
 		resp, httpRes, err := apiClient.EventAPI.GetFleetEvents(context.Background(), projectOrProductUID, fleetUID).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test EventAPIService GetFleetEventsByCursor", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var projectOrProductUID string
-		var fleetUID string
-
-		resp, httpRes, err := apiClient.EventAPI.GetFleetEventsByCursor(context.Background(), projectOrProductUID, fleetUID).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
