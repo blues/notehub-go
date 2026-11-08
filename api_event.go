@@ -197,7 +197,7 @@ func (a *EventAPIService) GetEventsExecute(r ApiGetEventsRequest) (*GetEvents200
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -552,7 +552,7 @@ func (a *EventAPIService) GetFleetEventsExecute(r ApiGetFleetEventsRequest) (*Ge
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}

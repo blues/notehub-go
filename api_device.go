@@ -1871,7 +1871,7 @@ func (a *DeviceAPIService) GetDeviceJourneyExecute(r ApiGetDeviceJourneyRequest)
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2500,7 +2500,7 @@ func (a *DeviceAPIService) GetDevicePublicKeysExecute(r ApiGetDevicePublicKeysRe
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2673,7 +2673,7 @@ func (a *DeviceAPIService) GetDeviceSessionsExecute(r ApiGetDeviceSessionsReques
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2896,7 +2896,7 @@ func (a *DeviceAPIService) GetDevicesExecute(r ApiGetDevicesRequest) (*GetDevice
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -3203,7 +3203,7 @@ func (a *DeviceAPIService) GetFleetDevicesExecute(r ApiGetFleetDevicesRequest) (
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}

@@ -2624,7 +2624,7 @@ func (a *ProjectAPIService) GetDevicesDfuHistoryExecute(r ApiGetDevicesDfuHistor
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2955,7 +2955,7 @@ func (a *ProjectAPIService) GetDevicesDfuStatusExecute(r ApiGetDevicesDfuStatusR
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}

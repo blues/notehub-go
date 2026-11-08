@@ -24,7 +24,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	monitorUID := "monitorUID_example" // string |  (optional)
@@ -55,7 +55,7 @@ Other parameters are passed through a pointer to a apiGetAlertsRequest struct vi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
 **cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **monitorUID** | **string** | |
