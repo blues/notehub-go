@@ -23,18 +23,6 @@ func Test_notehub_AuthorizationAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AuthorizationAPIService Login", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		resp, httpRes, err := apiClient.AuthorizationAPI.Login(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test AuthorizationAPIService OAuth2ClientCredentials", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
