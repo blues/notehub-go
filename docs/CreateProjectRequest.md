@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name                  | Type       | Description                                                                                                                                                 | Notes |
-| --------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-| **BillingAccountUid** | **string** | The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned. |
-| **Label**             | **string** | The label for the project.                                                                                                                                  |
+| Name                  | Type       | Description                                                                                                     | Notes |
+| --------------------- | ---------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **BillingAccountUid** | **string** | UID of the organization that owns and is billed for the project. List them with &#x60;GetBillingAccounts&#x60;. |
+| **Label**             | **string** | Project name shown in Notehub.                                                                                  |
 
 ## Methods
 

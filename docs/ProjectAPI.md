@@ -5,22 +5,22 @@ All URIs are relative to *https://api.notefile.net*
 | Method                                                                                 | HTTP request                                                                                | Description                                              |
 | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
 | [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
-| [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           |
+| [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           | Clone a project                                          |
 | [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          |
-| [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        |
-| [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       |
+| [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        | Create a product                                         |
+| [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       | Create a project                                         |
 | [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         |
 | [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    |
 | [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            |
 | [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             |
 | [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} |
-| [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         |
-| [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               |
+| [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         | Delete a product                                         |
+| [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               | Delete a project                                         |
 | [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   |
 | [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          |
-| [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   |
+| [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   | Disable the global event transformation                  |
 | [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
-| [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    |
+| [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    | Enable the global event transformation                   |
 | [**GetAWSRoleConfig**](ProjectAPI.md#GetAWSRoleConfig)                                 | **Get** /v1/projects/{projectOrProductUID}/aws-role-config                                  | Get AWS role configuration for role-based authentication |
 | [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   |
 | [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    |
@@ -32,18 +32,18 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get environment variable hierarchy for a device          |
 | [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
 | [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           |
-| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | Get variable format for a notefile                       |
-| [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         |
-| [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  |
-| [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   |
+| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | List Notefile schemas                                    |
+| [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         | List a project&#39;s products                            |
+| [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  | Get a project                                            |
+| [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   | Get the project for a ProductUID                         |
 | [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device          |
 | [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            |
-| [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          |
+| [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          | List project members                                     |
 | [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          |
-| [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        |
+| [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        | List projects                                            |
 | [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     |
 | [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
-| [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           |
+| [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           | Set the global event transformation                      |
 | [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            |
 | [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              |
 | [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
@@ -121,6 +121,8 @@ Other parameters are passed through a pointer to a apiAddDeviceToFleetsRequest s
 
 > Project CloneProject(ctx, projectOrProductUID).CloneProjectRequest(cloneProjectRequest).Execute()
 
+Clone a project
+
 ### Example
 
 ```go
@@ -135,7 +137,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	cloneProjectRequest := *openapiclient.NewCloneProjectRequest("BillingAccountUid_example", "Label_example") // CloneProjectRequest | Project to be cloned
+	cloneProjectRequest := *openapiclient.NewCloneProjectRequest("BillingAccountUid_example", "Label_example") // CloneProjectRequest | The new project's name and organization, and what to leave out of the copy.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -163,7 +165,7 @@ Other parameters are passed through a pointer to a apiCloneProjectRequest struct
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**cloneProjectRequest** | [**CloneProjectRequest**](CloneProjectRequest.md) | Project to be cloned |
+**cloneProjectRequest** | [**CloneProjectRequest**](CloneProjectRequest.md) | The new project&#39;s name and organization, and what to leave out of the copy. |
 
 ### Return type
 
@@ -251,6 +253,8 @@ Other parameters are passed through a pointer to a apiCreateFleetRequest struct 
 
 > Product CreateProduct(ctx, projectOrProductUID).CreateProductRequest(createProductRequest).Execute()
 
+Create a product
+
 ### Example
 
 ```go
@@ -265,7 +269,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	createProductRequest := *openapiclient.NewCreateProductRequest("Label_example", "ProductUid_example") // CreateProductRequest | Product to be created
+	createProductRequest := *openapiclient.NewCreateProductRequest("Label_example", "ProductUid_example") // CreateProductRequest | The new product's UID suffix, name and provisioning settings.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -293,7 +297,7 @@ Other parameters are passed through a pointer to a apiCreateProductRequest struc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**createProductRequest** | [**CreateProductRequest**](CreateProductRequest.md) | Product to be created |
+**createProductRequest** | [**CreateProductRequest**](CreateProductRequest.md) | The new product&#39;s UID suffix, name and provisioning settings. |
 
 ### Return type
 
@@ -316,6 +320,8 @@ Other parameters are passed through a pointer to a apiCreateProductRequest struc
 
 > Project CreateProject(ctx).CreateProjectRequest(createProjectRequest).Execute()
 
+Create a project
+
 ### Example
 
 ```go
@@ -329,7 +335,7 @@ import (
 )
 
 func main() {
-	createProjectRequest := *openapiclient.NewCreateProjectRequest("BillingAccountUid_example", "Label_example") // CreateProjectRequest | Project to be created
+	createProjectRequest := *openapiclient.NewCreateProjectRequest("BillingAccountUid_example", "Label_example") // CreateProjectRequest | The new project's name and organization.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -349,9 +355,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiCreateProjectRequest struct via the builder pattern
 
-| Name                     | Type                                                | Description           | Notes |
-| ------------------------ | --------------------------------------------------- | --------------------- | ----- |
-| **createProjectRequest** | [**CreateProjectRequest**](CreateProjectRequest.md) | Project to be created |
+| Name                     | Type                                                | Description                                  | Notes |
+| ------------------------ | --------------------------------------------------- | -------------------------------------------- | ----- |
+| **createProjectRequest** | [**CreateProjectRequest**](CreateProjectRequest.md) | The new project&#39;s name and organization. |
 
 ### Return type
 
@@ -698,6 +704,8 @@ Other parameters are passed through a pointer to a apiDeleteFleetEnvironmentVari
 
 > DeleteProduct(ctx, projectOrProductUID, productUID).Execute()
 
+Delete a product
+
 ### Example
 
 ```go
@@ -759,6 +767,8 @@ Other parameters are passed through a pointer to a apiDeleteProductRequest struc
 ## DeleteProject
 
 > DeleteProject(ctx, projectOrProductUID).Execute()
+
+Delete a project
 
 ### Example
 
@@ -946,6 +956,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectSecretRequest
 
 > DisableGlobalEventTransformation(ctx, projectOrProductUID).Execute()
 
+Disable the global event transformation
+
 ### Example
 
 ```go
@@ -1071,6 +1083,8 @@ Other parameters are passed through a pointer to a apiDownloadFirmwareRequest st
 ## EnableGlobalEventTransformation
 
 > EnableGlobalEventTransformation(ctx, projectOrProductUID).Execute()
+
+Enable the global event transformation
 
 ### Example
 
@@ -1915,7 +1929,7 @@ Other parameters are passed through a pointer to a apiGetFleetsRequest struct vi
 
 > []NotefileSchema GetNotefileSchemas(ctx, projectOrProductUID).Execute()
 
-Get variable format for a notefile
+List Notefile schemas
 
 ### Example
 
@@ -1979,6 +1993,8 @@ Other parameters are passed through a pointer to a apiGetNotefileSchemasRequest 
 
 > GetProducts200Response GetProducts(ctx, projectOrProductUID).Execute()
 
+List a project's products
+
 ### Example
 
 ```go
@@ -2040,6 +2056,8 @@ Other parameters are passed through a pointer to a apiGetProductsRequest struct 
 ## GetProject
 
 > Project GetProject(ctx, projectOrProductUID).Execute()
+
+Get a project
 
 ### Example
 
@@ -2103,6 +2121,8 @@ Other parameters are passed through a pointer to a apiGetProjectRequest struct v
 
 > Project GetProjectByProduct(ctx, productUID).Execute()
 
+Get the project for a ProductUID
+
 ### Example
 
 ```go
@@ -2116,7 +2136,7 @@ import (
 )
 
 func main() {
-	productUID := "com.blues.airnote" // string |
+	productUID := "com.blues.airnote" // string | ProductUID, e.g. `com.blues.airnote`, with or without the `product:` prefix.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2132,10 +2152,10 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
+| Name           | Type                | Description                                                                                      | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------------ | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                      |
+| **productUID** | **string**          | ProductUID, e.g. &#x60;com.blues.airnote&#x60;, with or without the &#x60;product:&#x60; prefix. |
 
 ### Other Parameters
 
@@ -2291,6 +2311,8 @@ Other parameters are passed through a pointer to a apiGetProjectEnvironmentVaria
 
 > GetProjectMembers200Response GetProjectMembers(ctx, projectOrProductUID).Execute()
 
+List project members
+
 ### Example
 
 ```go
@@ -2414,6 +2436,8 @@ Other parameters are passed through a pointer to a apiGetProjectSecretsRequest s
 ## GetProjects
 
 > GetProjects200Response GetProjects(ctx).Execute()
+
+List projects
 
 ### Example
 
@@ -2622,6 +2646,8 @@ Other parameters are passed through a pointer to a apiSetFleetEnvironmentVariabl
 
 > SetGlobalEventTransformation(ctx, projectOrProductUID).Body(body).Execute()
 
+Set the global event transformation
+
 ### Example
 
 ```go
@@ -2636,7 +2662,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	body := "body_example" // string | JSONata expression which will be applied to each event before it is persisted and routed
+	body := "body_example" // string | JSONata expression as plain text. An empty body clears the transformation.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2662,7 +2688,7 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | **string** | JSONata expression which will be applied to each event before it is persisted and routed |
+**body** | **string** | JSONata expression as plain text. An empty body clears the transformation. |
 
 ### Return type
 

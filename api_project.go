@@ -160,7 +160,7 @@ type ApiCloneProjectRequest struct {
 	cloneProjectRequest *CloneProjectRequest
 }
 
-// Project to be cloned
+// The new project&#39;s name and organization, and what to leave out of the copy.
 func (r ApiCloneProjectRequest) CloneProjectRequest(cloneProjectRequest CloneProjectRequest) ApiCloneProjectRequest {
 	r.cloneProjectRequest = &cloneProjectRequest
 	return r
@@ -171,9 +171,14 @@ func (r ApiCloneProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-CloneProject Method for CloneProject
+CloneProject Clone a project
 
-Clone a Project
+Create a new project as a copy of this one. Settings, environment variables,
+transformation, fleets, routes and host firmware are copied; devices, products and members
+aren't. Copied fleets get new FleetUIDs.
+
+Requires the Owner role (400 otherwise), a verified email address (401 otherwise), and
+permission to create projects in the target organization (403 otherwise).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -408,7 +413,7 @@ type ApiCreateProductRequest struct {
 	createProductRequest *CreateProductRequest
 }
 
-// Product to be created
+// The new product&#39;s UID suffix, name and provisioning settings.
 func (r ApiCreateProductRequest) CreateProductRequest(createProductRequest CreateProductRequest) ApiCreateProductRequest {
 	r.createProductRequest = &createProductRequest
 	return r
@@ -419,9 +424,14 @@ func (r ApiCreateProductRequest) Execute() (*Product, *http.Response, error) {
 }
 
 /*
-CreateProduct Method for CreateProduct
+CreateProduct Create a product
 
-Create Product within a Project
+Add a ProductUID to the project, formed from the caller's reversed email and `product_uid`.
+For `jane@acme.com` and `sensors` it is `com.acme.jane:sensors`.
+
+Requires the Owner or Developer role and a verified email address (400 otherwise). Returns
+404 if an `auto_provision_fleets` entry isn't a fleet in this project, and 500 if
+`product_uid` is invalid or already taken.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -531,7 +541,7 @@ type ApiCreateProjectRequest struct {
 	createProjectRequest *CreateProjectRequest
 }
 
-// Project to be created
+// The new project&#39;s name and organization.
 func (r ApiCreateProjectRequest) CreateProjectRequest(createProjectRequest CreateProjectRequest) ApiCreateProjectRequest {
 	r.createProjectRequest = &createProjectRequest
 	return r
@@ -542,9 +552,13 @@ func (r ApiCreateProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-CreateProject Method for CreateProject
+CreateProject Create a project
 
-Create a Project
+Create a project in an organization, with one default fleet, no products, and the caller
+as its Owner. A second call creates another project.
+
+Requires a verified email address (401 otherwise) and permission to create projects in the
+organization (403 otherwise).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateProjectRequest
@@ -1262,9 +1276,12 @@ func (r ApiDeleteProductRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProduct Method for DeleteProduct
+DeleteProduct Delete a product
 
-Delete a product
+Remove a ProductUID from the project. Accepts the UID with or without the `product:`
+prefix.
+
+Requires the Owner or Developer role. Returns 404 if the project has no such ProductUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1365,9 +1382,12 @@ func (r ApiDeleteProjectRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProject Method for DeleteProject
+DeleteProject Delete a project
 
-Delete a Project by ProjectUID
+Delete a project, its ProductUIDs, and every member's access to it. Can't be undone
+through the API.
+
+Requires the Owner or Developer role. Returns 200 with no body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1696,9 +1716,13 @@ func (r ApiDisableGlobalEventTransformationRequest) Execute() (*http.Response, e
 }
 
 /*
-DisableGlobalEventTransformation Method for DisableGlobalEventTransformation
+DisableGlobalEventTransformation Disable the global event transformation
 
-Disable the project-level event JSONata transformation
+Stop applying the project's global event transformation to new events. The expression is
+kept, so `EnableGlobalEventTransformation` can turn it back on.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent's
+transformation applies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1916,9 +1940,13 @@ func (r ApiEnableGlobalEventTransformationRequest) Execute() (*http.Response, er
 }
 
 /*
-EnableGlobalEventTransformation Method for EnableGlobalEventTransformation
+EnableGlobalEventTransformation Enable the global event transformation
 
-Enable the project-level event JSONata transformation
+Resume applying the project's global event transformation to new events, without changing
+the expression. Undoes `DisableGlobalEventTransformation`.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent's
+transformation applies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2018,8 +2046,9 @@ func (r ApiGetAWSRoleConfigRequest) Execute() (*AWSRoleConfig, *http.Response, e
 /*
 GetAWSRoleConfig Get AWS role configuration for role-based authentication
 
-Returns the AWS Account ID and External ID needed to configure an IAM role
-trust policy for role-based authentication on AWS routes.
+Get the AWS account ID and External ID for the IAM role trust policy used by AWS routes
+with role-based authentication. The External ID is created on the first call and stays the
+same after that.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3792,7 +3821,10 @@ func (r ApiGetNotefileSchemasRequest) Execute() ([]NotefileSchema, *http.Respons
 }
 
 /*
-GetNotefileSchemas Get variable format for a notefile
+GetNotefileSchemas List Notefile schemas
+
+List the project's Notefiles, each with the event `body` fields Notehub has seen in it and
+their JSON types. Inferred from received events.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3894,9 +3926,11 @@ func (r ApiGetProductsRequest) Execute() (*GetProducts200Response, *http.Respons
 }
 
 /*
-GetProducts Method for GetProducts
+GetProducts List a project's products
 
-Get Products within a Project
+List the project's ProductUIDs, each with its label, auto-provision fleets, and whether new
+devices start disabled. UIDs here include the `product:` prefix; `CreateProduct` returns
+them without it. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4006,9 +4040,10 @@ func (r ApiGetProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-GetProject Method for GetProject
+GetProject Get a project
 
-Get a Project by ProjectUID
+Get a project's label, creation time, contacts, and the caller's `role` in it. Accepts a
+ProductUID in place of the ProjectUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4118,12 +4153,13 @@ func (r ApiGetProjectByProductRequest) Execute() (*Project, *http.Response, erro
 }
 
 /*
-GetProjectByProduct Method for GetProjectByProduct
+GetProjectByProduct Get the project for a ProductUID
 
-Get a Project by ProductUID
+Get the project that a ProductUID belongs to. Returns the same object as `GetProject`,
+which also accepts a ProductUID in place of a ProjectUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param productUID
+	@param productUID ProductUID, e.g. `com.blues.airnote`, with or without the `product:` prefix.
 	@return ApiGetProjectByProductRequest
 */
 func (a *ProjectAPIService) GetProjectByProduct(ctx context.Context, productUID string) ApiGetProjectByProductRequest {
@@ -4444,9 +4480,10 @@ func (r ApiGetProjectMembersRequest) Execute() (*GetProjectMembers200Response, *
 }
 
 /*
-GetProjectMembers Method for GetProjectMembers
+GetProjectMembers List project members
 
-Get Project Members
+List the project's members with each one's name and role. Emails are filled in only when
+the caller is an Owner. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4667,9 +4704,10 @@ func (r ApiGetProjectsRequest) Execute() (*GetProjects200Response, *http.Respons
 }
 
 /*
-GetProjects Method for GetProjects
+GetProjects List projects
 
-Get Projects accessible by the api_key
+List every project the caller is a member of, with the caller's `role` in each. Not
+paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetProjectsRequest
@@ -5170,7 +5208,7 @@ type ApiSetGlobalEventTransformationRequest struct {
 	body                *string
 }
 
-// JSONata expression which will be applied to each event before it is persisted and routed
+// JSONata expression as plain text. An empty body clears the transformation.
 func (r ApiSetGlobalEventTransformationRequest) Body(body string) ApiSetGlobalEventTransformationRequest {
 	r.body = &body
 	return r
@@ -5181,9 +5219,15 @@ func (r ApiSetGlobalEventTransformationRequest) Execute() (*http.Response, error
 }
 
 /*
-SetGlobalEventTransformation Method for SetGlobalEventTransformation
+SetGlobalEventTransformation Set the global event transformation
 
-Set the project-level event JSONata transformation
+Set the project's JSONata expression that rewrites each new event before it's stored and
+routed. It can change `body`, `payload`, `details`, `file` and `note`, or drop the event
+with `$doNotRoute()`; an event it fails on is kept with `error` set. Doesn't enable or
+disable it.
+
+Requires the Owner or Developer role. Returns 400 if it doesn't compile, or for a
+sub-project, which uses its parent's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

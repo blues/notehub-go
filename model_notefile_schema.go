@@ -21,7 +21,9 @@ var _ MappedNullable = &NotefileSchema{}
 
 // NotefileSchema struct for NotefileSchema
 type NotefileSchema struct {
-	Notefile             string           `json:"notefile"`
+	// Notefile name, e.g. `sensors.qo`.
+	Notefile string `json:"notefile"`
+	// Fields seen in this Notefile's event `body`. Event envelope fields such as `when` and `device` are not included.
 	Properties           []SchemaProperty `json:"properties"`
 	AdditionalProperties map[string]interface{}
 }

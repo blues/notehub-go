@@ -2,12 +2,12 @@
 
 ## Properties
 
-| Name                   | Type                | Description                                                                                                                                                 | Notes      |
-| ---------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **BillingAccountUid**  | **string**          | The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned. |
-| **DisableCloneFleets** | Pointer to **bool** | Whether to disallow the cloning of the fleets from the parent project. Default is false if not specified.                                                   | [optional] |
-| **DisableCloneRoutes** | Pointer to **bool** | Whether to disallow the cloning of the routes from the parent project. Default is false if not specified.                                                   | [optional] |
-| **Label**              | **string**          | The label for the project.                                                                                                                                  |
+| Name                   | Type                | Description                                                                                                                            | Notes      |
+| ---------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **BillingAccountUid**  | **string**          | UID of the organization that owns the new project. List them with &#x60;GetBillingAccounts&#x60;.                                      |
+| **DisableCloneFleets** | Pointer to **bool** | If &#x60;true&#x60;, the new project gets one default fleet instead of copies of this project&#39;s fleets. Default &#x60;false&#x60;. | [optional] |
+| **DisableCloneRoutes** | Pointer to **bool** | If &#x60;true&#x60;, the new project starts with no routes. Default &#x60;false&#x60;.                                                 | [optional] |
+| **Label**              | **string**          | Name of the new project.                                                                                                               |
 
 ## Methods
 

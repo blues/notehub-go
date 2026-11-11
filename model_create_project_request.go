@@ -21,9 +21,9 @@ var _ MappedNullable = &CreateProjectRequest{}
 
 // CreateProjectRequest struct for CreateProjectRequest
 type CreateProjectRequest struct {
-	// The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
+	// UID of the organization that owns and is billed for the project. List them with `GetBillingAccounts`.
 	BillingAccountUid string `json:"billing_account_uid"`
-	// The label for the project.
+	// Project name shown in Notehub.
 	Label                string `json:"label"`
 	AdditionalProperties map[string]interface{}
 }

@@ -21,13 +21,13 @@ var _ MappedNullable = &CloneProjectRequest{}
 
 // CloneProjectRequest struct for CloneProjectRequest
 type CloneProjectRequest struct {
-	// The OrganizationUID for the project. The caller of the API must be able to create projects within the billing account, otherwise an error will be returned.
+	// UID of the organization that owns the new project. List them with `GetBillingAccounts`.
 	BillingAccountUid string `json:"billing_account_uid"`
-	// Whether to disallow the cloning of the fleets from the parent project.  Default is false if not specified.
+	// If `true`, the new project gets one default fleet instead of copies of this project's fleets. Default `false`.
 	DisableCloneFleets *bool `json:"disable_clone_fleets,omitempty"`
-	// Whether to disallow the cloning of the routes from the parent project.  Default is false if not specified.
+	// If `true`, the new project starts with no routes. Default `false`.
 	DisableCloneRoutes *bool `json:"disable_clone_routes,omitempty"`
-	// The label for the project.
+	// Name of the new project.
 	Label                string `json:"label"`
 	AdditionalProperties map[string]interface{}
 }
