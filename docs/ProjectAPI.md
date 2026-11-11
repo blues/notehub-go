@@ -4,55 +4,57 @@ All URIs are relative to *https://api.notefile.net*
 
 | Method                                                                                 | HTTP request                                                                                | Description                                              |
 | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
+| [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       | Add a device to fleets                                   |
 | [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           | Clone a project                                          |
-| [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          |
+| [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          | Create a fleet                                           |
 | [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        | Create a product                                         |
 | [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       | Create a project                                         |
-| [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         |
-| [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    |
+| [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         | Create a project secret                                  |
+| [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    | Remove a device from fleets                              |
 | [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            |
-| [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             |
-| [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} |
+| [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             | Delete a fleet                                           |
+| [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} | Delete a fleet environment variable                      |
 | [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         | Delete a product                                         |
 | [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               | Delete a project                                         |
-| [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   |
-| [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          |
+| [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   | Delete a project environment variable                    |
+| [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          | Delete a project secret                                  |
 | [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   | Disable the global event transformation                  |
 | [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
 | [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    | Enable the global event transformation                   |
 | [**GetAWSRoleConfig**](ProjectAPI.md#GetAWSRoleConfig)                                 | **Get** /v1/projects/{projectOrProductUID}/aws-role-config                                  | Get AWS role configuration for role-based authentication |
 | [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   |
 | [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    |
-| [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
+| [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       | List a device&#39;s fleets                               |
 | [**GetDevicesDfuHistory**](ProjectAPI.md#GetDevicesDfuHistory)                         | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/history                       |
 | [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        |
 | [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         |
-| [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
-| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get environment variable hierarchy for a device          |
-| [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
-| [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           |
+| [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Get a fleet                                              |
+| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get a fleet&#39;s environment hierarchy                  |
+| [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Get fleet environment variables                          |
+| [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           | List fleets                                              |
 | [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | List Notefile schemas                                    |
 | [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         | List a project&#39;s products                            |
 | [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  | Get a project                                            |
 | [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   | Get the project for a ProductUID                         |
-| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device          |
-| [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            |
+| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get the project environment hierarchy                    |
+| [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            | Get project environment variables                        |
 | [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          | List project members                                     |
-| [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          |
+| [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          | List project secrets                                     |
 | [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        | List projects                                            |
 | [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     |
-| [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
+| [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Set fleet environment variables                          |
 | [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           | Set the global event transformation                      |
-| [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            |
+| [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            | Set project environment variables                        |
 | [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              |
-| [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
-| [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             |
+| [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Update a fleet                                           |
+| [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             | Update a project secret                                  |
 | [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
 
 ## AddDeviceToFleets
 
 > GetDeviceFleets200Response AddDeviceToFleets(ctx, projectOrProductUID, deviceUID).AddDeviceToFleetsRequest(addDeviceToFleetsRequest).Execute()
+
+Add a device to fleets
 
 ### Example
 
@@ -69,7 +71,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	addDeviceToFleetsRequest := *openapiclient.NewAddDeviceToFleetsRequest([]string{"FleetUids_example"}) // AddDeviceToFleetsRequest | The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+	addDeviceToFleetsRequest := *openapiclient.NewAddDeviceToFleetsRequest([]string{"FleetUids_example"}) // AddDeviceToFleetsRequest | The fleets to add the device to.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -98,7 +100,7 @@ Other parameters are passed through a pointer to a apiAddDeviceToFleetsRequest s
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**addDeviceToFleetsRequest** | [**AddDeviceToFleetsRequest**](AddDeviceToFleetsRequest.md) | The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error. |
+**addDeviceToFleetsRequest** | [**AddDeviceToFleetsRequest**](AddDeviceToFleetsRequest.md) | The fleets to add the device to. |
 
 ### Return type
 
@@ -188,6 +190,8 @@ Other parameters are passed through a pointer to a apiCloneProjectRequest struct
 
 > Fleet CreateFleet(ctx, projectOrProductUID).CreateFleetRequest(createFleetRequest).Execute()
 
+Create a fleet
+
 ### Example
 
 ```go
@@ -202,7 +206,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	createFleetRequest := *openapiclient.NewCreateFleetRequest() // CreateFleetRequest | Fleet to be added
+	createFleetRequest := *openapiclient.NewCreateFleetRequest() // CreateFleetRequest | The new fleet's name and settings.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -230,7 +234,7 @@ Other parameters are passed through a pointer to a apiCreateFleetRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**createFleetRequest** | [**CreateFleetRequest**](CreateFleetRequest.md) | Fleet to be added |
+**createFleetRequest** | [**CreateFleetRequest**](CreateFleetRequest.md) | The new fleet&#39;s name and settings. |
 
 ### Return type
 
@@ -380,6 +384,8 @@ Other parameters are passed through a pointer to a apiCreateProjectRequest struc
 
 > ProjectSecret CreateProjectSecret(ctx, projectOrProductUID).CreateProjectSecretRequest(createProjectSecretRequest).Execute()
 
+Create a project secret
+
 ### Example
 
 ```go
@@ -445,6 +451,8 @@ Other parameters are passed through a pointer to a apiCreateProjectSecretRequest
 
 > GetDeviceFleets200Response DeleteDeviceFromFleets(ctx, projectOrProductUID, deviceUID).DeleteDeviceFromFleetsRequest(deleteDeviceFromFleetsRequest).Execute()
 
+Remove a device from fleets
+
 ### Example
 
 ```go
@@ -460,7 +468,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	deleteDeviceFromFleetsRequest := *openapiclient.NewDeleteDeviceFromFleetsRequest([]string{"FleetUids_example"}) // DeleteDeviceFromFleetsRequest | The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+	deleteDeviceFromFleetsRequest := *openapiclient.NewDeleteDeviceFromFleetsRequest([]string{"FleetUids_example"}) // DeleteDeviceFromFleetsRequest | The fleets to remove the device from.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -489,7 +497,7 @@ Other parameters are passed through a pointer to a apiDeleteDeviceFromFleetsRequ
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deleteDeviceFromFleetsRequest** | [**DeleteDeviceFromFleetsRequest**](DeleteDeviceFromFleetsRequest.md) | The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error. |
+**deleteDeviceFromFleetsRequest** | [**DeleteDeviceFromFleetsRequest**](DeleteDeviceFromFleetsRequest.md) | The fleets to remove the device from. |
 
 ### Return type
 
@@ -576,6 +584,8 @@ Other parameters are passed through a pointer to a apiDeleteFirmwareRequest stru
 
 > DeleteFleet(ctx, projectOrProductUID, fleetUID).Execute()
 
+Delete a fleet
+
 ### Example
 
 ```go
@@ -638,6 +648,8 @@ Other parameters are passed through a pointer to a apiDeleteFleetRequest struct 
 
 > EnvironmentVariables DeleteFleetEnvironmentVariable(ctx, projectOrProductUID, fleetUID, key).Execute()
 
+Delete a fleet environment variable
+
 ### Example
 
 ```go
@@ -653,7 +665,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	key := "key_example" // string | The environment variable key to delete.
+	key := "key_example" // string | Name of the environment variable to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -674,7 +686,7 @@ func main() {
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
 | **fleetUID**            | **string**          |                                                                             |
-| **key**                 | **string**          | The environment variable key to delete.                                     |
+| **key**                 | **string**          | Name of the environment variable to delete.                                 |
 
 ### Other Parameters
 
@@ -830,6 +842,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectRequest struc
 
 > EnvironmentVariables DeleteProjectEnvironmentVariable(ctx, projectOrProductUID, key).Execute()
 
+Delete a project environment variable
+
 ### Example
 
 ```go
@@ -844,7 +858,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	key := "key_example" // string | The environment variable key to delete.
+	key := "key_example" // string | Name of the environment variable to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -864,7 +878,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **key**                 | **string**          | The environment variable key to delete.                                     |
+| **key**                 | **string**          | Name of the environment variable to delete.                                 |
 
 ### Other Parameters
 
@@ -894,6 +908,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectEnvironmentVa
 
 > DeleteProjectSecret(ctx, projectOrProductUID, secretName).Execute()
 
+Delete a project secret
+
 ### Example
 
 ```go
@@ -908,7 +924,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	secretName := "secretName_example" // string | The name of the secret.
+	secretName := "secretName_example" // string | Name of the secret, as listed by `GetProjectSecrets`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -926,7 +942,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **secretName**          | **string**          | The name of the secret.                                                     |
+| **secretName**          | **string**          | Name of the secret, as listed by &#x60;GetProjectSecrets&#x60;.             |
 
 ### Other Parameters
 
@@ -1342,6 +1358,8 @@ Other parameters are passed through a pointer to a apiGetDeviceDfuStatusRequest 
 
 > GetDeviceFleets200Response GetDeviceFleets(ctx, projectOrProductUID, deviceUID).Execute()
 
+List a device's fleets
+
 ### Example
 
 ```go
@@ -1673,6 +1691,8 @@ Other parameters are passed through a pointer to a apiGetFirmwareInfoRequest str
 
 > Fleet GetFleet(ctx, projectOrProductUID, fleetUID).Execute()
 
+Get a fleet
+
 ### Example
 
 ```go
@@ -1737,7 +1757,7 @@ Other parameters are passed through a pointer to a apiGetFleetRequest struct via
 
 > EnvTreeJsonNode GetFleetEnvironmentHierarchy(ctx, projectOrProductUID, fleetUID).Execute()
 
-Get environment variable hierarchy for a device
+Get a fleet's environment hierarchy
 
 ### Example
 
@@ -1803,6 +1823,8 @@ Other parameters are passed through a pointer to a apiGetFleetEnvironmentHierarc
 
 > EnvironmentVariables GetFleetEnvironmentVariables(ctx, projectOrProductUID, fleetUID).Execute()
 
+Get fleet environment variables
+
 ### Example
 
 ```go
@@ -1866,6 +1888,8 @@ Other parameters are passed through a pointer to a apiGetFleetEnvironmentVariabl
 ## GetFleets
 
 > GetDeviceFleets200Response GetFleets(ctx, projectOrProductUID).Execute()
+
+List fleets
 
 ### Example
 
@@ -2185,7 +2209,7 @@ Other parameters are passed through a pointer to a apiGetProjectByProductRequest
 
 > EnvTreeJsonNode GetProjectEnvironmentHierarchy(ctx, projectOrProductUID).Execute()
 
-Get environment variable hierarchy for a device
+Get the project environment hierarchy
 
 ### Example
 
@@ -2248,6 +2272,8 @@ Other parameters are passed through a pointer to a apiGetProjectEnvironmentHiera
 ## GetProjectEnvironmentVariables
 
 > EnvironmentVariables GetProjectEnvironmentVariables(ctx, projectOrProductUID).Execute()
+
+Get project environment variables
 
 ### Example
 
@@ -2374,6 +2400,8 @@ Other parameters are passed through a pointer to a apiGetProjectMembersRequest s
 ## GetProjectSecrets
 
 > GetProjectSecretsResponse GetProjectSecrets(ctx, projectOrProductUID).Execute()
+
+List project secrets
 
 ### Example
 
@@ -2579,6 +2607,8 @@ Other parameters are passed through a pointer to a apiPerformDfuActionRequest st
 
 > EnvironmentVariables SetFleetEnvironmentVariables(ctx, projectOrProductUID, fleetUID).EnvironmentVariables(environmentVariables).Execute()
 
+Set fleet environment variables
+
 ### Example
 
 ```go
@@ -2594,7 +2624,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | Environment variables to be added to the fleet
+	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | The variables to add or change, and optional notes.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2623,7 +2653,7 @@ Other parameters are passed through a pointer to a apiSetFleetEnvironmentVariabl
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | Environment variables to be added to the fleet |
+**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | The variables to add or change, and optional notes. |
 
 ### Return type
 
@@ -2710,6 +2740,8 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 ## SetProjectEnvironmentVariables
 
 > EnvironmentVariables SetProjectEnvironmentVariables(ctx, projectOrProductUID).EnvironmentVariables(environmentVariables).Execute()
+
+Set project environment variables
 
 ### Example
 
@@ -2845,6 +2877,8 @@ Other parameters are passed through a pointer to a apiUpdateFirmwareRequest stru
 
 > Fleet UpdateFleet(ctx, projectOrProductUID, fleetUID).UpdateFleetRequest(updateFleetRequest).Execute()
 
+Update a fleet
+
 ### Example
 
 ```go
@@ -2860,7 +2894,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	updateFleetRequest := *openapiclient.NewUpdateFleetRequest() // UpdateFleetRequest | Fleet details to update
+	updateFleetRequest := *openapiclient.NewUpdateFleetRequest() // UpdateFleetRequest | The fields to change. Fields left out keep their values, except `smart_rule_enabled`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2889,7 +2923,7 @@ Other parameters are passed through a pointer to a apiUpdateFleetRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**updateFleetRequest** | [**UpdateFleetRequest**](UpdateFleetRequest.md) | Fleet details to update |
+**updateFleetRequest** | [**UpdateFleetRequest**](UpdateFleetRequest.md) | The fields to change. Fields left out keep their values, except &#x60;smart_rule_enabled&#x60;. |
 
 ### Return type
 
@@ -2912,6 +2946,8 @@ Other parameters are passed through a pointer to a apiUpdateFleetRequest struct 
 
 > ProjectSecret UpdateProjectSecret(ctx, projectOrProductUID, secretName).UpdateProjectSecretRequest(updateProjectSecretRequest).Execute()
 
+Update a project secret
+
 ### Example
 
 ```go
@@ -2926,7 +2962,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	secretName := "secretName_example" // string | The name of the secret.
+	secretName := "secretName_example" // string | Name of the secret, as listed by `GetProjectSecrets`.
 	updateProjectSecretRequest := *openapiclient.NewUpdateProjectSecretRequest("Value_example") // UpdateProjectSecretRequest |
 
 	configuration := openapiclient.NewConfiguration()
@@ -2947,7 +2983,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **secretName**          | **string**          | The name of the secret.                                                     |
+| **secretName**          | **string**          | Name of the secret, as listed by &#x60;GetProjectSecrets&#x60;.             |
 
 ### Other Parameters
 

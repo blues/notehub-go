@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name           | Type                     | Description                                          | Notes      |
-| -------------- | ------------------------ | ---------------------------------------------------- | ---------- |
-| **Created**    | **time.Time**            | When the secret was first created.                   |
-| **CreatedBy**  | **string**               | The actor who created the secret.                    |
-| **Modified**   | Pointer to **time.Time** | When the secret was last updated.                    | [optional] |
-| **ModifiedBy** | Pointer to **string**    | The actor who last updated the secret.               | [optional] |
-| **Name**       | **string**               | The secret name (alphanumeric and underscores only). |
+| Name           | Type                     | Description                                                                    | Notes      |
+| -------------- | ------------------------ | ------------------------------------------------------------------------------ | ---------- |
+| **Created**    | **time.Time**            | When the secret was first created.                                             |
+| **CreatedBy**  | **string**               | UID of the user or OAuth client that created the secret.                       |
+| **Modified**   | Pointer to **time.Time** | When the secret&#39;s value was last set.                                      | [optional] |
+| **ModifiedBy** | Pointer to **string**    | UID of the user or OAuth client that last set the secret&#39;s value.          | [optional] |
+| **Name**       | **string**               | The secret&#39;s name. Routes and alerts reference it as &#x60;[$$name]&#x60;. |
 
 ## Methods
 

@@ -33,7 +33,7 @@ type ApiAddDeviceToFleetsRequest struct {
 	addDeviceToFleetsRequest *AddDeviceToFleetsRequest
 }
 
-// The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+// The fleets to add the device to.
 func (r ApiAddDeviceToFleetsRequest) AddDeviceToFleetsRequest(addDeviceToFleetsRequest AddDeviceToFleetsRequest) ApiAddDeviceToFleetsRequest {
 	r.addDeviceToFleetsRequest = &addDeviceToFleetsRequest
 	return r
@@ -44,9 +44,12 @@ func (r ApiAddDeviceToFleetsRequest) Execute() (*GetDeviceFleets200Response, *ht
 }
 
 /*
-AddDeviceToFleets Method for AddDeviceToFleets
+AddDeviceToFleets Add a device to fleets
 
-Add Device to Fleets
+Add a device to one or more fleets, keeping the fleets it's already in, and return all its
+fleets. Fleets it's already in are skipped, so a retry is safe.
+
+Requires the Owner or Developer role. Returns 400 if a fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -289,7 +292,7 @@ type ApiCreateFleetRequest struct {
 	createFleetRequest  *CreateFleetRequest
 }
 
-// Fleet to be added
+// The new fleet&#39;s name and settings.
 func (r ApiCreateFleetRequest) CreateFleetRequest(createFleetRequest CreateFleetRequest) ApiCreateFleetRequest {
 	r.createFleetRequest = &createFleetRequest
 	return r
@@ -300,9 +303,12 @@ func (r ApiCreateFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-CreateFleet Method for CreateFleet
+CreateFleet Create a fleet
 
-Create Fleet
+Create a fleet in the project. Connectivity assurance is on unless
+`connectivity_assurance.enabled` is `false`. A second call creates another fleet.
+
+Requires the Owner or Developer role. Returns 400 if `label` is missing or empty.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -676,9 +682,13 @@ func (r ApiCreateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response
 }
 
 /*
-CreateProjectSecret Method for CreateProjectSecret
+CreateProjectSecret Create a project secret
 
-Create a new project secret
+Store a secret value that routes and alerts can reference as `[$$name]` without exposing
+it. The value can't be read back.
+
+Requires the Owner or Developer role. Returns 409 if the name is taken, and 400 if it's
+invalid.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -812,7 +822,7 @@ type ApiDeleteDeviceFromFleetsRequest struct {
 	deleteDeviceFromFleetsRequest *DeleteDeviceFromFleetsRequest
 }
 
-// The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+// The fleets to remove the device from.
 func (r ApiDeleteDeviceFromFleetsRequest) DeleteDeviceFromFleetsRequest(deleteDeviceFromFleetsRequest DeleteDeviceFromFleetsRequest) ApiDeleteDeviceFromFleetsRequest {
 	r.deleteDeviceFromFleetsRequest = &deleteDeviceFromFleetsRequest
 	return r
@@ -823,9 +833,12 @@ func (r ApiDeleteDeviceFromFleetsRequest) Execute() (*GetDeviceFleets200Response
 }
 
 /*
-DeleteDeviceFromFleets Method for DeleteDeviceFromFleets
+DeleteDeviceFromFleets Remove a device from fleets
 
-Remove Device from Fleets
+Remove a device from one or more fleets and return the fleets it's still in. Fleets it
+isn't in are ignored, so a retry is safe.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1052,9 +1065,14 @@ func (r ApiDeleteFleetRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteFleet Method for DeleteFleet
+DeleteFleet Delete a fleet
 
-Delete Fleet
+Delete a fleet and remove it from all its devices. The devices stay in the project; the
+fleet's environment variables are deleted. To remove one device from a fleet, use
+`DeleteDeviceFromFleets`.
+
+Requires the Owner or Developer role. Returns 400 if the fleet does not exist, including on
+a retry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1157,14 +1175,17 @@ func (r ApiDeleteFleetEnvironmentVariableRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-DeleteFleetEnvironmentVariable Method for DeleteFleetEnvironmentVariable
+DeleteFleetEnvironmentVariable Delete a fleet environment variable
 
-Delete environment variables of a fleet
+Delete one fleet environment variable and return the ones left.
+
+Requires the Owner or Developer role. Returns 404 if the fleet or the variable doesn't
+exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param fleetUID
-	@param key The environment variable key to delete.
+	@param key Name of the environment variable to delete.
 	@return ApiDeleteFleetEnvironmentVariableRequest
 */
 func (a *ProjectAPIService) DeleteFleetEnvironmentVariable(ctx context.Context, projectOrProductUID string, fleetUID string, key string) ApiDeleteFleetEnvironmentVariableRequest {
@@ -1486,13 +1507,16 @@ func (r ApiDeleteProjectEnvironmentVariableRequest) Execute() (*EnvironmentVaria
 }
 
 /*
-DeleteProjectEnvironmentVariable Method for DeleteProjectEnvironmentVariable
+DeleteProjectEnvironmentVariable Delete a project environment variable
 
-Delete an environment variable of a project by key
+Delete one project environment variable and return the ones left. Deleting a variable that
+doesn't exist still succeeds.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param key The environment variable key to delete.
+	@param key Name of the environment variable to delete.
 	@return ApiDeleteProjectEnvironmentVariableRequest
 */
 func (a *ProjectAPIService) DeleteProjectEnvironmentVariable(ctx context.Context, projectOrProductUID string, key string) ApiDeleteProjectEnvironmentVariableRequest {
@@ -1602,13 +1626,16 @@ func (r ApiDeleteProjectSecretRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProjectSecret Method for DeleteProjectSecret
+DeleteProjectSecret Delete a project secret
 
-Delete a project secret by name
+Delete a project secret. Routes and alerts that still reference it can no longer resolve
+it.
+
+Requires the Owner or Developer role. Returns 404 if the secret doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param secretName The name of the secret.
+	@param secretName Name of the secret, as listed by `GetProjectSecrets`.
 	@return ApiDeleteProjectSecretRequest
 */
 func (a *ProjectAPIService) DeleteProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiDeleteProjectSecretRequest {
@@ -2399,9 +2426,12 @@ func (r ApiGetDeviceFleetsRequest) Execute() (*GetDeviceFleets200Response, *http
 }
 
 /*
-GetDeviceFleets Method for GetDeviceFleets
+GetDeviceFleets List a device's fleets
 
-Get Device Fleets
+List the fleets a device belongs to, with only each fleet's UID, label and creation time.
+For a fleet's full details use `GetFleet`.
+
+Returns 404 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3380,9 +3410,12 @@ func (r ApiGetFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-GetFleet Method for GetFleet
+GetFleet Get a fleet
 
-Get Fleet
+Get one fleet's label, smart rule, watchdog and environment variables. Doesn't include
+`smart_rule_enabled`.
+
+Returns 404 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3488,7 +3521,12 @@ func (r ApiGetFleetEnvironmentHierarchyRequest) Execute() (*EnvTreeJsonNode, *ht
 }
 
 /*
-GetFleetEnvironmentHierarchy Get environment variable hierarchy for a device
+GetFleetEnvironmentHierarchy Get a fleet's environment hierarchy
+
+Get a fleet's environment variables and the project variables it inherits, as a tree. Each
+variable has its precedence and whether it is used or overridden.
+
+Returns 500 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3594,9 +3632,12 @@ func (r ApiGetFleetEnvironmentVariablesRequest) Execute() (*EnvironmentVariables
 }
 
 /*
-GetFleetEnvironmentVariables Method for GetFleetEnvironmentVariables
+GetFleetEnvironmentVariables Get fleet environment variables
 
-Get environment variables of a fleet
+Get the environment variables set on a fleet, with their notes. They override project
+variables, and device variables override them.
+
+Returns 404 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3709,9 +3750,10 @@ func (r ApiGetFleetsRequest) Execute() (*GetDeviceFleets200Response, *http.Respo
 }
 
 /*
-GetFleets Method for GetFleets
+GetFleets List fleets
 
-Get Project Fleets
+List the project's fleets with each one's label, smart rule, watchdog and environment
+variables. Doesn't include `smart_rule_enabled`. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4266,7 +4308,11 @@ func (r ApiGetProjectEnvironmentHierarchyRequest) Execute() (*EnvTreeJsonNode, *
 }
 
 /*
-GetProjectEnvironmentHierarchy Get environment variable hierarchy for a device
+GetProjectEnvironmentHierarchy Get the project environment hierarchy
+
+Get the project's environment variables as a one-node environment hierarchy tree. The fleet
+and device hierarchy operations use the same format; for plain key/value pairs, use
+`GetProjectEnvironmentVariables`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4368,9 +4414,11 @@ func (r ApiGetProjectEnvironmentVariablesRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-GetProjectEnvironmentVariables Method for GetProjectEnvironmentVariables
+GetProjectEnvironmentVariables Get project environment variables
 
-Get environment variables of a project
+Get the environment variables set on the project, with their notes. Fleet and device
+variables override these; for what a device actually sees, use
+`GetDeviceEnvironmentVariables`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4593,9 +4641,10 @@ func (r ApiGetProjectSecretsRequest) Execute() (*GetProjectSecretsResponse, *htt
 }
 
 /*
-GetProjectSecrets Method for GetProjectSecrets
+GetProjectSecrets List project secrets
 
-Get all secrets for a project (metadata only, values are never returned)
+List the project's secrets by name, with who created and last changed each one and when.
+Values are never returned.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5081,7 +5130,7 @@ type ApiSetFleetEnvironmentVariablesRequest struct {
 	environmentVariables *EnvironmentVariables
 }
 
-// Environment variables to be added to the fleet
+// The variables to add or change, and optional notes.
 func (r ApiSetFleetEnvironmentVariablesRequest) EnvironmentVariables(environmentVariables EnvironmentVariables) ApiSetFleetEnvironmentVariablesRequest {
 	r.environmentVariables = &environmentVariables
 	return r
@@ -5092,9 +5141,14 @@ func (r ApiSetFleetEnvironmentVariablesRequest) Execute() (*EnvironmentVariables
 }
 
 /*
-SetFleetEnvironmentVariables Method for SetFleetEnvironmentVariables
+SetFleetEnvironmentVariables Set fleet environment variables
 
-Set environment variables of a fleet
+Add or change a fleet's environment variables; variables you don't send keep their values.
+A value of `""` or `-` deletes that variable. Setting `_fw`, `_fwc` or `_fwm` starts a
+host, Notecard or modem firmware update.
+
+Requires the Owner or Developer role. Returns 404 if the fleet doesn't exist, and 400 if a
+note's key isn't a variable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5336,9 +5390,13 @@ func (r ApiSetProjectEnvironmentVariablesRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-SetProjectEnvironmentVariables Method for SetProjectEnvironmentVariables
+SetProjectEnvironmentVariables Set project environment variables
 
-Set environment variables of a project
+Add or change project environment variables; variables you don't send keep their values. A
+value of `""` or `-` deletes that variable. Setting `_fw`, `_fwc` or `_fwm` starts a host,
+Notecard or modem firmware update.
+
+Requires the Owner or Developer role. Returns 400 if a note's key isn't a variable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5579,7 +5637,7 @@ type ApiUpdateFleetRequest struct {
 	updateFleetRequest  *UpdateFleetRequest
 }
 
-// Fleet details to update
+// The fields to change. Fields left out keep their values, except &#x60;smart_rule_enabled&#x60;.
 func (r ApiUpdateFleetRequest) UpdateFleetRequest(updateFleetRequest UpdateFleetRequest) ApiUpdateFleetRequest {
 	r.updateFleetRequest = &updateFleetRequest
 	return r
@@ -5590,9 +5648,14 @@ func (r ApiUpdateFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-UpdateFleet Method for UpdateFleet
+UpdateFleet Update a fleet
 
-Update Fleet
+Change a fleet's label, smart rule, watchdog or connectivity assurance, or add and remove
+devices. Always send `smart_rule_enabled`; leaving it out turns the smart rule off. Empty
+`label` or `smart_rule` keeps the current value; `-` clears `smart_rule`.
+
+Requires the Owner or Developer role. Returns 400 for an unknown fleet or `label` of `-`,
+and for a bad DeviceUID after saving the other changes.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5717,13 +5780,16 @@ func (r ApiUpdateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response
 }
 
 /*
-UpdateProjectSecret Method for UpdateProjectSecret
+UpdateProjectSecret Update a project secret
 
-Update the value of an existing project secret
+Replace the value of an existing project secret. Routes and alerts that reference it use the
+new value from then on.
+
+Requires the Owner or Developer role. Returns 404 if the secret doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param secretName The name of the secret.
+	@param secretName Name of the secret, as listed by `GetProjectSecrets`.
 	@return ApiUpdateProjectSecretRequest
 */
 func (a *ProjectAPIService) UpdateProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiUpdateProjectSecretRequest {

@@ -21,7 +21,7 @@ var _ MappedNullable = &DeleteDeviceFromFleetsRequest{}
 
 // DeleteDeviceFromFleetsRequest struct for DeleteDeviceFromFleetsRequest
 type DeleteDeviceFromFleetsRequest struct {
-	// The fleetUIDs to remove from the device.
+	// FleetUIDs to remove the device from.
 	FleetUids            []string `json:"fleet_uids"`
 	AdditionalProperties map[string]interface{}
 }
