@@ -42,9 +42,14 @@ func (r ApiCreateRouteRequest) Execute() (*NotehubRoute, *http.Response, error) 
 }
 
 /*
-CreateRoute Method for CreateRoute
+CreateRoute Create a route
 
-Create Route within a Project
+Create a route that sends a project's events to a destination such as a URL, an MQTT broker
+or a cloud service. Set `type` and fill in the object it names. Omit `fleets` to send every
+fleet's events. Unknown FleetUIDs are ignored, so `fleets: []` or a list of only unknown
+UIDs gives a route that sends nothing.
+
+Requires the Owner or Developer role. Returns 400 for invalid settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -160,13 +165,16 @@ func (r ApiDeleteRouteRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteRoute Method for DeleteRoute
+DeleteRoute Delete a route
 
-Delete single route within a project
+Delete a route so it stops sending events. To pause it instead, set `disabled` with
+`UpdateRoute`.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param routeUID
+	@param routeUID RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`. List with `GetRoutes`.
 	@return ApiDeleteRouteRequest
 */
 func (a *RouteAPIService) DeleteRoute(ctx context.Context, projectOrProductUID string, routeUID string) ApiDeleteRouteRequest {
@@ -264,13 +272,16 @@ func (r ApiGetRouteRequest) Execute() (*NotehubRoute, *http.Response, error) {
 }
 
 /*
-GetRoute Method for GetRoute
+GetRoute Get a route
 
-Get single route within a project
+Get one route's full settings: destination, filter, transform and fleets. Secrets such as
+passwords and keys come back as `(omitted)`.
+
+Requires the Owner or Developer role. Viewers can use `GetRoutes`. Returns 404 if the route doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param routeUID
+	@param routeUID RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`. List with `GetRoutes`.
 	@return ApiGetRouteRequest
 */
 func (a *RouteAPIService) GetRoute(ctx context.Context, projectOrProductUID string, routeUID string) ApiGetRouteRequest {
@@ -410,11 +421,13 @@ func (r ApiGetRouteLogsByRouteRequest) DeviceUID(deviceUID []string) ApiGetRoute
 	return r
 }
 
+// Field to sort by. - &#x60;date&#x60;: when the attempt was made - &#x60;event&#x60;: the order the events arrived in, then the attempt time
 func (r ApiGetRouteLogsByRouteRequest) SortBy(sortBy string) ApiGetRouteLogsByRouteRequest {
 	r.sortBy = &sortBy
 	return r
 }
 
+// Sort direction. - &#x60;asc&#x60;: oldest first - &#x60;desc&#x60;: newest first
 func (r ApiGetRouteLogsByRouteRequest) SortOrder(sortOrder string) ApiGetRouteLogsByRouteRequest {
 	r.sortOrder = &sortOrder
 	return r
@@ -432,26 +445,31 @@ func (r ApiGetRouteLogsByRouteRequest) EndDate(endDate int64) ApiGetRouteLogsByR
 	return r
 }
 
+// If true, return only events from system notefiles, such as &#x60;_session.qo&#x60; and &#x60;_health.qo&#x60;.
 func (r ApiGetRouteLogsByRouteRequest) SystemFilesOnly(systemFilesOnly bool) ApiGetRouteLogsByRouteRequest {
 	r.systemFilesOnly = &systemFilesOnly
 	return r
 }
 
+// If true, return only the latest attempt for each event.
 func (r ApiGetRouteLogsByRouteRequest) MostRecentOnly(mostRecentOnly bool) ApiGetRouteLogsByRouteRequest {
 	r.mostRecentOnly = &mostRecentOnly
 	return r
 }
 
+// Comma-separated notefiles, e.g. &#x60;data.qo,_health.qo&#x60;. Don&#39;t combine with &#x60;systemFilesOnly&#x60;.
 func (r ApiGetRouteLogsByRouteRequest) Files(files string) ApiGetRouteLogsByRouteRequest {
 	r.files = &files
 	return r
 }
 
+// Return only attempts with this outcome. - &#x60;success&#x60;: the destination accepted the event - &#x60;failure&#x60;: the attempt failed
 func (r ApiGetRouteLogsByRouteRequest) RoutingStatus(routingStatus []string) ApiGetRouteLogsByRouteRequest {
 	r.routingStatus = &routingStatus
 	return r
 }
 
+// Response status codes to include, e.g. &#x60;500&#x60;.
 func (r ApiGetRouteLogsByRouteRequest) ResponseStatus(responseStatus []string) ApiGetRouteLogsByRouteRequest {
 	r.responseStatus = &responseStatus
 	return r
@@ -462,13 +480,17 @@ func (r ApiGetRouteLogsByRouteRequest) Execute() ([]RouteLog, *http.Response, er
 }
 
 /*
-GetRouteLogsByRoute Method for GetRouteLogsByRoute
+GetRouteLogsByRoute List a route's logs
 
-Get Route Logs by RouteUID
+List a route's attempts to send events, newest first, with each one's event, response
+status, body and duration. Filter by device, notefile, date, success or HTTP status. For
+one event, use `GetRouteLogsByEvent`.
+
+Paginated. Returns 404 if the route doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param routeUID
+	@param routeUID RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`. List with `GetRoutes`.
 	@return ApiGetRouteLogsByRouteRequest
 */
 func (a *RouteAPIService) GetRouteLogsByRoute(ctx context.Context, projectOrProductUID string, routeUID string) ApiGetRouteLogsByRouteRequest {
@@ -656,9 +678,10 @@ func (r ApiGetRoutesRequest) Execute() ([]NotehubRouteSummary, *http.Response, e
 }
 
 /*
-GetRoutes Method for GetRoutes
+GetRoutes List routes
 
-Get all Routes within a Project
+List a project's routes with their type and label and whether they're disabled, without
+their settings. For a route's settings, use `GetRoute`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -776,13 +799,17 @@ func (r ApiUpdateRouteRequest) Execute() (*NotehubRoute, *http.Response, error) 
 }
 
 /*
-UpdateRoute Method for UpdateRoute
+UpdateRoute Update a route
 
-Update route by UID
+Change a route's settings. Fields you leave out keep their values, and a secret sent back
+as `(omitted)` is kept, but leaving out `notes` clears it.
+
+Requires the Owner or Developer role. Returns 404 if the route doesn't exist, and 400 for
+invalid settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param routeUID
+	@param routeUID RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`. List with `GetRoutes`.
 	@return ApiUpdateRouteRequest
 */
 func (a *RouteAPIService) UpdateRoute(ctx context.Context, projectOrProductUID string, routeUID string) ApiUpdateRouteRequest {

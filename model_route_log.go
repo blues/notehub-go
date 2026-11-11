@@ -20,21 +20,21 @@ var _ MappedNullable = &RouteLog{}
 
 // RouteLog struct for RouteLog
 type RouteLog struct {
-	// If true, an error was returned when routing
+	// True if the attempt failed.
 	Attn *bool `json:"attn,omitempty"`
-	// The date of the logs.
+	// When the attempt was made, in RFC 3339 format.
 	Date *string `json:"date,omitempty"`
-	// The duration of the route in milliseconds
+	// How long the attempt took, in milliseconds.
 	Duration *int32 `json:"duration,omitempty"`
-	// The EventUID.
+	// EventUID of the event that was sent.
 	EventUid *string `json:"event_uid,omitempty"`
-	// The routeUID.
+	// RouteUID of the route.
 	RouteUid *string `json:"route_uid,omitempty"`
-	// The status of the event.
+	// The destination's response status, such as `200`.
 	Status *string `json:"status,omitempty"`
-	// The response body of the route.
+	// The destination's response body, or an error message.
 	Text *string `json:"text,omitempty"`
-	// The URL of the route.
+	// The URL the event was sent to.
 	Url                  *string `json:"url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

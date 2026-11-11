@@ -70,7 +70,7 @@ func (r ApiGetEventsRequest) DeviceUID(deviceUID []string) ApiGetEventsRequest {
 	return r
 }
 
-// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// SensorUID to filter by, matched exactly. Repeat for more than one.
 func (r ApiGetEventsRequest) SensorUID(sensorUID []string) ApiGetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -98,29 +98,31 @@ func (r ApiGetEventsRequest) EndDate(endDate int64) ApiGetEventsRequest {
 	return r
 }
 
-// Which date to filter on, either &#39;captured&#39; or &#39;uploaded&#39;.  This will apply to the startDate and endDate parameters
+// Which time &#x60;startDate&#x60; and &#x60;endDate&#x60; filter on. - &#x60;captured&#x60;: when the Notecard created the event - &#x60;uploaded&#x60;: when Notehub received it
 func (r ApiGetEventsRequest) DateType(dateType string) ApiGetEventsRequest {
 	r.dateType = &dateType
 	return r
 }
 
+// If true, return only events from system notefiles, such as &#x60;_session.qo&#x60; and &#x60;_health.qo&#x60;.
 func (r ApiGetEventsRequest) SystemFilesOnly(systemFilesOnly bool) ApiGetEventsRequest {
 	r.systemFilesOnly = &systemFilesOnly
 	return r
 }
 
+// Comma-separated notefiles, e.g. &#x60;data.qo,_health.qo&#x60;. Don&#39;t combine with &#x60;systemFilesOnly&#x60;.
 func (r ApiGetEventsRequest) Files(files string) ApiGetEventsRequest {
 	r.files = &files
 	return r
 }
 
-// Response format (JSON or CSV)
+// Response format. - &#x60;json&#x60;: a JSON object with &#x60;events&#x60; - &#x60;csv&#x60;: CSV, with the columns in &#x60;selectFields&#x60;
 func (r ApiGetEventsRequest) Format(format string) ApiGetEventsRequest {
 	r.format = &format
 	return r
 }
 
-// Filter by Serial Number
+// Serial number to filter by. Repeat for more than one.
 func (r ApiGetEventsRequest) SerialNumber(serialNumber []string) ApiGetEventsRequest {
 	r.serialNumber = &serialNumber
 	return r
@@ -132,19 +134,19 @@ func (r ApiGetEventsRequest) FleetUID(fleetUID []string) ApiGetEventsRequest {
 	return r
 }
 
-// Filter by SessionUID
+// SessionUID to filter by. Repeat for more than one.
 func (r ApiGetEventsRequest) SessionUID(sessionUID []string) ApiGetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by EventUID
+// EventUID to filter by. Repeat for more than one.
 func (r ApiGetEventsRequest) EventUID(eventUID []string) ApiGetEventsRequest {
 	r.eventUID = &eventUID
 	return r
 }
 
-// Comma-separated list of fields to select from JSON payload (e.g., \&quot;field1,field2.subfield,field3\&quot;), this will reflect the columns in the CSV output.
+// Comma-separated event fields to return, e.g. &#x60;device,when,body.temp&#x60;. Also sets the CSV columns.
 func (r ApiGetEventsRequest) SelectFields(selectFields string) ApiGetEventsRequest {
 	r.selectFields = &selectFields
 	return r
@@ -155,9 +157,14 @@ func (r ApiGetEventsRequest) Execute() (*GetEvents200Response, *http.Response, e
 }
 
 /*
-GetEvents Method for GetEvents
+GetEvents List events in a project
 
-Get Events of a Project
+List a project's events, filtered by device, notefile, date, fleet, session and more. Use
+`cursor` to read events in the order Notehub stored them and to poll for new ones. Set
+`format=csv` for CSV. For one fleet, use `GetFleetEvents`.
+
+Paginated. Returns 403 if the organization is suspended, and 500 if the query times out;
+narrow the filters and retry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -428,7 +435,7 @@ func (r ApiGetFleetEventsRequest) DeviceUID(deviceUID []string) ApiGetFleetEvent
 	return r
 }
 
-// A SensorUID to filter events by, matched exactly against the event sensor field. The value may carry any prefix.
+// SensorUID to filter by, matched exactly. Repeat for more than one.
 func (r ApiGetFleetEventsRequest) SensorUID(sensorUID []string) ApiGetFleetEventsRequest {
 	r.sensorUID = &sensorUID
 	return r
@@ -456,47 +463,49 @@ func (r ApiGetFleetEventsRequest) EndDate(endDate int64) ApiGetFleetEventsReques
 	return r
 }
 
-// Which date to filter on, either &#39;captured&#39; or &#39;uploaded&#39;.  This will apply to the startDate and endDate parameters
+// Which time &#x60;startDate&#x60; and &#x60;endDate&#x60; filter on. - &#x60;captured&#x60;: when the Notecard created the event - &#x60;uploaded&#x60;: when Notehub received it
 func (r ApiGetFleetEventsRequest) DateType(dateType string) ApiGetFleetEventsRequest {
 	r.dateType = &dateType
 	return r
 }
 
+// If true, return only events from system notefiles, such as &#x60;_session.qo&#x60; and &#x60;_health.qo&#x60;.
 func (r ApiGetFleetEventsRequest) SystemFilesOnly(systemFilesOnly bool) ApiGetFleetEventsRequest {
 	r.systemFilesOnly = &systemFilesOnly
 	return r
 }
 
+// Comma-separated notefiles, e.g. &#x60;data.qo,_health.qo&#x60;. Don&#39;t combine with &#x60;systemFilesOnly&#x60;.
 func (r ApiGetFleetEventsRequest) Files(files string) ApiGetFleetEventsRequest {
 	r.files = &files
 	return r
 }
 
-// Response format (JSON or CSV)
+// Response format. - &#x60;json&#x60;: a JSON object with &#x60;events&#x60; - &#x60;csv&#x60;: CSV, with the columns in &#x60;selectFields&#x60;
 func (r ApiGetFleetEventsRequest) Format(format string) ApiGetFleetEventsRequest {
 	r.format = &format
 	return r
 }
 
-// Filter by Serial Number
+// Serial number to filter by. Repeat for more than one.
 func (r ApiGetFleetEventsRequest) SerialNumber(serialNumber []string) ApiGetFleetEventsRequest {
 	r.serialNumber = &serialNumber
 	return r
 }
 
-// Filter by SessionUID
+// SessionUID to filter by. Repeat for more than one.
 func (r ApiGetFleetEventsRequest) SessionUID(sessionUID []string) ApiGetFleetEventsRequest {
 	r.sessionUID = &sessionUID
 	return r
 }
 
-// Filter by EventUID
+// EventUID to filter by. Repeat for more than one.
 func (r ApiGetFleetEventsRequest) EventUID(eventUID []string) ApiGetFleetEventsRequest {
 	r.eventUID = &eventUID
 	return r
 }
 
-// Comma-separated list of fields to select from JSON payload (e.g., \&quot;field1,field2.subfield,field3\&quot;), this will reflect the columns in the CSV output.
+// Comma-separated event fields to return, e.g. &#x60;device,when,body.temp&#x60;. Also sets the CSV columns.
 func (r ApiGetFleetEventsRequest) SelectFields(selectFields string) ApiGetFleetEventsRequest {
 	r.selectFields = &selectFields
 	return r
@@ -507,9 +516,13 @@ func (r ApiGetFleetEventsRequest) Execute() (*GetEvents200Response, *http.Respon
 }
 
 /*
-GetFleetEvents Method for GetFleetEvents
+GetFleetEvents List events in a fleet
 
-Get Events of a Fleet
+List the events from one fleet, with the same filters, `cursor` and CSV output as
+`GetEvents`.
+
+Paginated. Returns 403 if the organization is suspended, and 500 if the query times out;
+narrow the filters and retry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -738,13 +751,16 @@ func (r ApiGetRouteLogsByEventRequest) Execute() ([]RouteLog, *http.Response, er
 }
 
 /*
-GetRouteLogsByEvent Method for GetRouteLogsByEvent
+GetRouteLogsByEvent Get an event's route logs
 
-Get Route Logs by EventUID
+Get the log of every attempt to send one event to each route, with the response status,
+body and duration. For a route's logs across events, use `GetRouteLogsByRoute`.
+
+Returns 404 if the event doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param eventUID
+	@param eventUID EventUID, e.g. `4506f411-dea6-44a0-9743-1130f57d7747`.
 	@return ApiGetRouteLogsByEventRequest
 */
 func (a *EventAPIService) GetRouteLogsByEvent(ctx context.Context, projectOrProductUID string, eventUID string) ApiGetRouteLogsByEventRequest {

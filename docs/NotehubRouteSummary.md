@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name         | Type                     | Description | Notes                                                            |
-| ------------ | ------------------------ | ----------- | ---------------------------------------------------------------- |
-| **Disabled** | Pointer to **bool**      |             | [optional] [default to false]                                    |
-| **Label**    | Pointer to **string**    |             | [optional] [default to "success route"]                          |
-| **Modified** | Pointer to **time.Time** |             | [optional] [readonly]                                            |
-| **Type**     | Pointer to **string**    |             | [optional] [default to "http"]                                   |
-| **Uid**      | Pointer to **string**    |             | [optional] [default to "route:8d65a087d5d290ce5bdf03aeff2becc0"] |
+| Name         | Type                     | Description                                        | Notes                                                            |
+| ------------ | ------------------------ | -------------------------------------------------- | ---------------------------------------------------------------- |
+| **Disabled** | Pointer to **bool**      | True if the route is turned off and sends nothing. | [optional] [default to false]                                    |
+| **Label**    | Pointer to **string**    | Route name.                                        | [optional] [default to "success route"]                          |
+| **Modified** | Pointer to **time.Time** | When the route was last changed.                   | [optional] [readonly]                                            |
+| **Type**     | Pointer to **string**    | Route type; see &#x60;NotehubRoute.type&#x60;.     | [optional] [default to "http"]                                   |
+| **Uid**      | Pointer to **string**    | RouteUID.                                          | [optional] [default to "route:8d65a087d5d290ce5bdf03aeff2becc0"] |
 
 ## Methods
 
