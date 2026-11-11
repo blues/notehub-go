@@ -160,6 +160,7 @@ docs/QubitroRoute.md
 docs/RadRoute.md
 docs/Repository.md
 docs/RepositoryListResponse.md
+docs/RepositoryRecord.md
 docs/RepositoryTokenRequest.md
 docs/RepositoryTokenResponse.md
 docs/Role.md
@@ -341,6 +342,7 @@ model_qubitro_route.go
 model_rad_route.go
 model_repository.go
 model_repository_list_response.go
+model_repository_record.go
 model_repository_token_request.go
 model_repository_token_response.go
 model_role.go
