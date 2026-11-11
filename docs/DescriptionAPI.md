@@ -2,20 +2,22 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                     | HTTP request                                                                | Description |
-| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ----------- |
-| [**DeleteGlobalDescription**](DescriptionAPI.md#DeleteGlobalDescription)   | **Delete** /v1/description/{descriptionName}                                |
-| [**DeleteProjectDescription**](DescriptionAPI.md#DeleteProjectDescription) | **Delete** /v1/projects/{projectOrProductUID}/description/{descriptionName} |
-| [**GetGlobalDescription**](DescriptionAPI.md#GetGlobalDescription)         | **Get** /v1/description/{descriptionName}                                   |
-| [**GetProjectDescription**](DescriptionAPI.md#GetProjectDescription)       | **Get** /v1/projects/{projectOrProductUID}/description/{descriptionName}    |
-| [**ListGlobalDescriptions**](DescriptionAPI.md#ListGlobalDescriptions)     | **Get** /v1/description                                                     |
-| [**ListProjectDescriptions**](DescriptionAPI.md#ListProjectDescriptions)   | **Get** /v1/projects/{projectOrProductUID}/description                      |
-| [**SetGlobalDescription**](DescriptionAPI.md#SetGlobalDescription)         | **Post** /v1/description/{descriptionName}                                  |
-| [**SetProjectDescription**](DescriptionAPI.md#SetProjectDescription)       | **Post** /v1/projects/{projectOrProductUID}/description/{descriptionName}   |
+| Method                                                                     | HTTP request                                                                | Description                                    |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ---------------------------------------------- |
+| [**DeleteGlobalDescription**](DescriptionAPI.md#DeleteGlobalDescription)   | **Delete** /v1/description/{descriptionName}                                | Delete a global description record             |
+| [**DeleteProjectDescription**](DescriptionAPI.md#DeleteProjectDescription) | **Delete** /v1/projects/{projectOrProductUID}/description/{descriptionName} | Delete a project description record            |
+| [**GetGlobalDescription**](DescriptionAPI.md#GetGlobalDescription)         | **Get** /v1/description/{descriptionName}                                   | Get a global description record                |
+| [**GetProjectDescription**](DescriptionAPI.md#GetProjectDescription)       | **Get** /v1/projects/{projectOrProductUID}/description/{descriptionName}    | Get a project description record               |
+| [**ListGlobalDescriptions**](DescriptionAPI.md#ListGlobalDescriptions)     | **Get** /v1/description                                                     | List global description records                |
+| [**ListProjectDescriptions**](DescriptionAPI.md#ListProjectDescriptions)   | **Get** /v1/projects/{projectOrProductUID}/description                      | List a project&#39;s description records       |
+| [**SetGlobalDescription**](DescriptionAPI.md#SetGlobalDescription)         | **Post** /v1/description/{descriptionName}                                  | Create or replace a global description record  |
+| [**SetProjectDescription**](DescriptionAPI.md#SetProjectDescription)       | **Post** /v1/projects/{projectOrProductUID}/description/{descriptionName}   | Create or replace a project description record |
 
 ## DeleteGlobalDescription
 
 > DeleteGlobalDescription(ctx, descriptionName).Execute()
+
+Delete a global description record
 
 ### Example
 
@@ -30,7 +32,7 @@ import (
 )
 
 func main() {
-	descriptionName := "_health.qo" // string |
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -44,10 +46,10 @@ func main() {
 
 ### Path Parameters
 
-| Name                | Type                | Description                                                                 | Notes |
-| ------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **descriptionName** | **string**          |                                                                             |
+| Name                | Type                | Description                                                                                                     | Notes |
+| ------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **descriptionName** | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -77,6 +79,8 @@ Other parameters are passed through a pointer to a apiDeleteGlobalDescriptionReq
 
 > DeleteProjectDescription(ctx, projectOrProductUID, descriptionName).Execute()
 
+Delete a project description record
+
 ### Example
 
 ```go
@@ -91,7 +95,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	descriptionName := "_health.qo" // string |
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -105,11 +109,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **descriptionName**     | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                     | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **projectOrProductUID** | **string**          |                                                                                                                 |
+| **descriptionName**     | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -139,6 +143,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectDescriptionRe
 
 > *os.File GetGlobalDescription(ctx, descriptionName).Execute()
 
+Get a global description record
+
 ### Example
 
 ```go
@@ -152,7 +158,7 @@ import (
 )
 
 func main() {
-	descriptionName := "_health.qo" // string |
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -168,10 +174,10 @@ func main() {
 
 ### Path Parameters
 
-| Name                | Type                | Description                                                                 | Notes |
-| ------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **descriptionName** | **string**          |                                                                             |
+| Name                | Type                | Description                                                                                                     | Notes |
+| ------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **descriptionName** | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -201,6 +207,8 @@ Other parameters are passed through a pointer to a apiGetGlobalDescriptionReques
 
 > *os.File GetProjectDescription(ctx, projectOrProductUID, descriptionName).Execute()
 
+Get a project description record
+
 ### Example
 
 ```go
@@ -215,7 +223,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	descriptionName := "_health.qo" // string |
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -231,11 +239,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **descriptionName**     | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                     | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **projectOrProductUID** | **string**          |                                                                                                                 |
+| **descriptionName**     | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -264,6 +272,8 @@ Other parameters are passed through a pointer to a apiGetProjectDescriptionReque
 ## ListGlobalDescriptions
 
 > DescriptionRecordList ListGlobalDescriptions(ctx).Execute()
+
+List global description records
 
 ### Example
 
@@ -319,6 +329,8 @@ Other parameters are passed through a pointer to a apiListGlobalDescriptionsRequ
 ## ListProjectDescriptions
 
 > DescriptionRecordList ListProjectDescriptions(ctx, projectOrProductUID).Execute()
+
+List a project's description records
 
 ### Example
 
@@ -382,6 +394,8 @@ Other parameters are passed through a pointer to a apiListProjectDescriptionsReq
 
 > DescriptionRecord SetGlobalDescription(ctx, descriptionName).Body(body).Execute()
 
+Create or replace a global description record
+
 ### Example
 
 ```go
@@ -395,8 +409,8 @@ import (
 )
 
 func main() {
-	descriptionName := "_health.qo" // string |
-	body := os.NewFile(1234, "some_file") // *os.File | The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
+	body := os.NewFile(1234, "some_file") // *os.File | The document to store, up to 10 MB. Send its Content-Type, such as `text/markdown`; Markdown isn't detected.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -412,10 +426,10 @@ func main() {
 
 ### Path Parameters
 
-| Name                | Type                | Description                                                                 | Notes |
-| ------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **descriptionName** | **string**          |                                                                             |
+| Name                | Type                | Description                                                                                                     | Notes |
+| ------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **descriptionName** | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -424,7 +438,7 @@ Other parameters are passed through a pointer to a apiSetGlobalDescriptionReques
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | ***os.File** | The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text). |
+**body** | ***os.File** | The document to store, up to 10 MB. Send its Content-Type, such as &#x60;text/markdown&#x60;; Markdown isn&#39;t detected. |
 
 ### Return type
 
@@ -447,6 +461,8 @@ Other parameters are passed through a pointer to a apiSetGlobalDescriptionReques
 
 > DescriptionRecord SetProjectDescription(ctx, projectOrProductUID, descriptionName).Body(body).Execute()
 
+Create or replace a project description record
+
 ### Example
 
 ```go
@@ -461,8 +477,8 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	descriptionName := "_health.qo" // string |
-	body := os.NewFile(1234, "some_file") // *os.File | The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+	descriptionName := "_health.qo" // string | Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
+	body := os.NewFile(1234, "some_file") // *os.File | The document to store, up to 10 MB. Send its Content-Type, such as `text/markdown`; Markdown isn't detected.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -478,11 +494,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **descriptionName**     | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                     | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                     |
+| **projectOrProductUID** | **string**          |                                                                                                                 |
+| **descriptionName**     | **string**          | Record name, 1-128 letters, digits, &#x60;.&#x60;, &#x60;_&#x60; or &#x60;-&#x60;, e.g. &#x60;_health.qo&#x60;. |
 
 ### Other Parameters
 
@@ -491,7 +507,7 @@ Other parameters are passed through a pointer to a apiSetProjectDescriptionReque
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | ***os.File** | The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text). |
+**body** | ***os.File** | The document to store, up to 10 MB. Send its Content-Type, such as &#x60;text/markdown&#x60;; Markdown isn&#39;t detected. |
 
 ### Return type
 
