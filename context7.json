@@ -12,9 +12,9 @@
     "Authorize Notehub API requests to https://api.notefile.net with an Authorization: Bearer header carrying a Notehub personal access token or an OAuth bearer token. In notehub-go, set it on each call's context with notehub.ContextAccessToken.",
     "The examples in docs/ call operations with a bare context.Background(), which sends no Authorization header. Pass context.WithValue(context.Background(), notehub.ContextAccessToken, token) instead.",
     "Create a client with notehub.NewAPIClient(notehub.NewConfiguration()). Services are client fields with an API suffix, e.g. client.DeviceAPI, client.ProjectAPI, client.EventAPI, client.RouteAPI.",
-    "Each operation is a builder: pass ctx and required path parameters, chain optional parameters, then call Execute(), which returns (result, *http.Response, error), e.g. client.DeviceAPI.GetDevices(ctx, projectUID).PageSize(50).Execute().",
+    "Each operation is a builder: pass ctx and required path parameters, chain optional parameters, then call Execute(). It returns (result, *http.Response, error), or (*http.Response, error) for operations without a response body, such as DeleteProject.",
     "Devices, Notes, Notefiles, and device environment variables are on DeviceAPI; fleets, products, firmware, DFU, and project environment variables are on ProjectAPI; events are on EventAPI; routes are on RouteAPI.",
-    "Model struct fields are pointers. Read them with getters such as GetDevices() and GetHasMore(), and take pointers to literal values with helpers such as notehub.PtrString and notehub.PtrInt32.",
+    "Required model fields are plain values (Project.Label is a string); optional fields are pointers. Read either with getters such as GetHasMore(), set them with setters such as SetLabel(), and use helpers such as notehub.PtrString only for pointer fields.",
     "Copy service, method, parameter, and model names exactly from this SDK's docs/ files or the Notehub API reference (https://dev.blues.io/api-reference/notehub-api/); do not invent methods, parameters, or response fields."
   ]
 }
