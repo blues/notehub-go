@@ -14,7 +14,7 @@
     "Create a client with notehub.NewAPIClient(notehub.NewConfiguration()). Services are client fields with an API suffix, e.g. client.DeviceAPI, client.ProjectAPI, client.EventAPI, client.RouteAPI.",
     "Each operation is a builder: pass ctx and required path parameters, chain optional parameters, then call Execute(). It returns (result, *http.Response, error), or (*http.Response, error) for operations without a response body, such as DeleteProject.",
     "Devices, Notes, Notefiles, and device environment variables are on DeviceAPI; fleets, products, firmware, DFU, and project environment variables are on ProjectAPI; events are on EventAPI; routes are on RouteAPI.",
-    "Required model fields are plain values (Project.Label is a string); optional fields are pointers. Read either with getters such as GetHasMore(), set them with setters such as SetLabel(), and use helpers such as notehub.PtrString only for pointer fields.",
+    "Model fields keep their declared types: required fields are plain values; optional ones are pointers, Nullable* wrappers such as NullableLocation, or slices. Use getters and setters such as GetBestLocation() and SetLabel(), not the fields directly.",
     "Copy service, method, parameter, and model names exactly from this SDK's docs/ files or the Notehub API reference (https://dev.blues.io/api-reference/notehub-api/); do not invent methods, parameters, or response fields."
   ]
 }
