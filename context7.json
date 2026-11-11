@@ -1,0 +1,20 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "url": "https://context7.com/blues/notehub-go",
+  "public_key": "pk_nVFOrz6sC1j4Aqx8A32xw",
+  "projectTitle": "notehub-go: Go client for the Blues Notehub API",
+  "description": "notehub-go, the Go module github.com/blues/notehub-go with package name notehub, is the Go client library for the Blues Notehub REST API at https://api.notefile.net, generated from the Notehub OpenAPI specification. It provides API services, request builders, and models for Notehub projects, devices, fleets, events, routes, environment variables, firmware updates, monitors, jobs, and usage data.",
+  "folders": [
+    "docs"
+  ],
+  "rules": [
+    "Install with go get github.com/blues/notehub-go and import it as notehub \"github.com/blues/notehub-go\". The package name is notehub; the generated examples in docs/ alias it as openapiclient.",
+    "Authorize Notehub API requests to https://api.notefile.net with an Authorization: Bearer header carrying a Notehub personal access token or an OAuth bearer token. In notehub-go, set it on each call's context with notehub.ContextAccessToken.",
+    "The examples in docs/ call operations with a bare context.Background(), which sends no Authorization header. Pass context.WithValue(context.Background(), notehub.ContextAccessToken, token) instead.",
+    "Create a client with notehub.NewAPIClient(notehub.NewConfiguration()). Services are client fields with an API suffix, e.g. client.DeviceAPI, client.ProjectAPI, client.EventAPI, client.RouteAPI.",
+    "Each operation is a builder: pass ctx and required path parameters, chain optional parameters, then call Execute(), which returns (result, *http.Response, error), e.g. client.DeviceAPI.GetDevices(ctx, projectUID).PageSize(50).Execute().",
+    "Devices, Notes, Notefiles, and device environment variables are on DeviceAPI; fleets, products, firmware, DFU, and project environment variables are on ProjectAPI; events are on EventAPI; routes are on RouteAPI.",
+    "Model struct fields are pointers. Read them with getters such as GetDevices() and GetHasMore(), and take pointers to literal values with helpers such as notehub.PtrString and notehub.PtrInt32.",
+    "Copy service, method, parameter, and model names exactly from this SDK's docs/ files or the Notehub API reference (https://dev.blues.io/api-reference/notehub-api/); do not invent methods, parameters, or response fields."
+  ]
+}
