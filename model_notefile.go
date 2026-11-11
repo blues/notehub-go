@@ -22,8 +22,9 @@ var _ MappedNullable = &Notefile{}
 // Notefile struct for Notefile
 type Notefile struct {
 	// Notefile id (e.g., \"test.qi\", \"config.db\").
-	Id                   string  `json:"id"`
-	Notes                []Note  `json:"notes"`
+	Id    string `json:"id"`
+	Notes []Note `json:"notes"`
+	// The notefile's body template, if it has one.
 	Template             *string `json:"template,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

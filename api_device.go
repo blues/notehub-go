@@ -45,15 +45,20 @@ func (r ApiAddDbNoteRequest) Execute() (*http.Response, error) {
 }
 
 /*
-AddDbNote Method for AddDbNote
+AddDbNote Add a note to a .db notefile
 
-Add a Note to a .db notefile.  if noteID is '-' then payload is ignored and empty notefile is created
+Add a note with the given ID to a database notefile on a device, synced to the Notecard on
+its next sync. To change an existing note, use `UpdateDbNote`; to queue a note in a `.qi`
+notefile, use `AddQiNote`.
+
+Requires the Owner or Developer role. Returns 400 unless the notefile ends in `.db` or
+`.dbs`, or if `payload` isn't valid base64.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
-	@param noteID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	@param noteID Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	@return ApiAddDbNoteRequest
 */
 func (a *DeviceAPIService) AddDbNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiAddDbNoteRequest {
@@ -168,14 +173,19 @@ func (r ApiAddQiNoteRequest) Execute() (*http.Response, error) {
 }
 
 /*
-AddQiNote Method for AddQiNote
+AddQiNote Queue a note for a Notecard
 
-Adds a Note to a Notefile, creating the Notefile if it doesn't yet exist.
+Add a note to an inbound queue (`.qi`) notefile on a device, creating the notefile if
+needed. The Notecard receives it on its next sync. For a `.db` notefile, use `AddDbNote`;
+to reach a connected Notecard immediately, use `SignalDevice`.
+
+Requires the Owner or Developer role. Returns 400 unless the notefile ends in `.qi` or
+`.qis`, or if `payload` isn't valid base64.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
 	@return ApiAddQiNoteRequest
 */
 func (a *DeviceAPIService) AddQiNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string) ApiAddQiNoteRequest {
@@ -281,14 +291,17 @@ func (r ApiCreateNotefileRequest) Execute() (*http.Response, error) {
 }
 
 /*
-CreateNotefile Method for CreateNotefile
+CreateNotefile Create an empty notefile
 
-Creates an empty Notefile on the device.
+Create an empty notefile on a device. `AddQiNote` creates a notefile when needed, so this is
+only required for an empty one.
+
+Requires the Owner or Developer role. Returns 400 if the notefile already exists.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
 	@return ApiCreateNotefileRequest
 */
 func (a *DeviceAPIService) CreateNotefile(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string) ApiCreateNotefileRequest {
@@ -496,9 +509,12 @@ func (r ApiDeleteDeviceEnvironmentVariableRequest) Execute() (*EnvironmentVariab
 }
 
 /*
-DeleteDeviceEnvironmentVariable Method for DeleteDeviceEnvironmentVariable
+DeleteDeviceEnvironmentVariable Delete a device environment variable
 
-Delete environment variable of a device
+Delete one device environment variable and return the ones left. Fleet and project
+variables with the same name then apply. Deleting a variable that doesn't exist succeeds.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -617,15 +633,18 @@ func (r ApiDeleteNoteRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteNote Method for DeleteNote
+DeleteNote Delete a note
 
-Delete a note from a .db or .qi notefile
+Delete one note from a notefile on a device. To delete whole notefiles, use
+`DeleteNotefiles`.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
-	@param noteID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	@param noteID Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	@return ApiDeleteNoteRequest
 */
 func (a *DeviceAPIService) DeleteNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiDeleteNoteRequest {
@@ -723,6 +742,7 @@ type ApiDeleteNotefilesRequest struct {
 	deleteNotefilesRequest *DeleteNotefilesRequest
 }
 
+// The notefiles to delete.
 func (r ApiDeleteNotefilesRequest) DeleteNotefilesRequest(deleteNotefilesRequest DeleteNotefilesRequest) ApiDeleteNotefilesRequest {
 	r.deleteNotefilesRequest = &deleteNotefilesRequest
 	return r
@@ -733,9 +753,11 @@ func (r ApiDeleteNotefilesRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteNotefiles Method for DeleteNotefiles
+DeleteNotefiles Delete notefiles
 
-Deletes Notefiles and the Notes they contain.
+Delete notefiles and all their notes from a device. To delete one note, use `DeleteNote`.
+
+Requires the Owner or Developer role. Returns 400 if `files` is empty.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1056,13 +1078,13 @@ type ApiGetDbNoteRequest struct {
 	deleted             *bool
 }
 
-// Whether to delete the note from the DB notefile
+// If true, delete the note after returning it. Requires the Owner or Developer role.
 func (r ApiGetDbNoteRequest) Delete(delete bool) ApiGetDbNoteRequest {
 	r.delete = &delete
 	return r
 }
 
-// Whether to return deleted notes
+// If true, also return the note if it has been deleted.
 func (r ApiGetDbNoteRequest) Deleted(deleted bool) ApiGetDbNoteRequest {
 	r.deleted = &deleted
 	return r
@@ -1073,15 +1095,19 @@ func (r ApiGetDbNoteRequest) Execute() (*GetDbNote200Response, *http.Response, e
 }
 
 /*
-GetDbNote Method for GetDbNote
+GetDbNote Get a note
 
-Get a note from a .db or .qi notefile
+Get one note's body, payload and time from a notefile on a device. To get every note in a
+notefile, use `GetNotefile`.
+
+With `delete=true`, the note is deleted after it is read, which requires the Owner or
+Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
-	@param noteID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	@param noteID Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	@return ApiGetDbNoteRequest
 */
 func (a *DeviceAPIService) GetDbNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiGetDbNoteRequest {
@@ -1319,7 +1345,11 @@ func (r ApiGetDeviceEnvironmentHierarchyRequest) Execute() (*EnvTreeJsonNode, *h
 }
 
 /*
-GetDeviceEnvironmentHierarchy Get environment variable hierarchy for a device
+GetDeviceEnvironmentHierarchy Get a device's environment hierarchy
+
+Get a device's environment variables and the fleet and project variables it inherits, as
+a tree. Each variable has its precedence and whether it is used or overridden. For just the
+resolved values, use `GetDeviceEnvironmentVariables`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1425,9 +1455,12 @@ func (r ApiGetDeviceEnvironmentVariablesRequest) Execute() (*GetDeviceEnvironmen
 }
 
 /*
-GetDeviceEnvironmentVariables Method for GetDeviceEnvironmentVariables
+GetDeviceEnvironmentVariables Get device environment variables
 
-Get environment variables of a device
+Get a device's own environment variables, its `env.default` values, and its effective
+values. Effective values merge in project and fleet variables, which device variables
+override. To see where each value comes from, use
+`GetDeviceEnvironmentHierarchy`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1537,7 +1570,7 @@ type ApiGetDeviceEnvironmentVariablesByPinRequest struct {
 	xAuthToken *string
 }
 
-// For accessing endpoints by Device pin.
+// The device&#39;s PIN, used instead of an API token.
 func (r ApiGetDeviceEnvironmentVariablesByPinRequest) XAuthToken(xAuthToken string) ApiGetDeviceEnvironmentVariablesByPinRequest {
 	r.xAuthToken = &xAuthToken
 	return r
@@ -1548,9 +1581,13 @@ func (r ApiGetDeviceEnvironmentVariablesByPinRequest) Execute() (*GetDeviceEnvir
 }
 
 /*
-GetDeviceEnvironmentVariablesByPin Method for GetDeviceEnvironmentVariablesByPin
+GetDeviceEnvironmentVariablesByPin Get device environment variables using a PIN
 
-Get environment variables of a device with device pin authorization
+Get a device's environment variables using its PIN instead of an API token. Pass the PIN in
+`X-Auth-Token`. Made for device dashboard pages; with a token, use
+`GetDeviceEnvironmentVariables`, which also returns effective values.
+
+Returns 401 if the project's device dashboard URL has no `[pin]`, or the PIN is wrong.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -3422,19 +3459,19 @@ type ApiGetNotefileRequest struct {
 	delete              *bool
 }
 
-// The maximum number of Notes to return in the request.
+// The most notes to return.
 func (r ApiGetNotefileRequest) Max(max int32) ApiGetNotefileRequest {
 	r.max = &max
 	return r
 }
 
-// true to return deleted notes.
+// If true, also return deleted notes.
 func (r ApiGetNotefileRequest) Deleted(deleted bool) ApiGetNotefileRequest {
 	r.deleted = &deleted
 	return r
 }
 
-// true to delete the notes returned by the request.
+// If true, delete the notes this request returns. Requires the Owner or Developer role.
 func (r ApiGetNotefileRequest) Delete(delete bool) ApiGetNotefileRequest {
 	r.delete = &delete
 	return r
@@ -3445,14 +3482,19 @@ func (r ApiGetNotefileRequest) Execute() (*GetNotefile200Response, *http.Respons
 }
 
 /*
-GetNotefile Method for GetNotefile
+GetNotefile Get the notes in a notefile
 
-For .qi files, returns the queued up notes.  For .db files, returns all notes in the notefile
+Get the notes in one notefile on a device. For a `.qi` notefile, that's the notes still
+queued; for a `.db` notefile, every note. To list all of a device's notefiles with their notes,
+use `ListNotefiles`.
+
+With `delete=true`, the returned notes are deleted, which requires the Owner or Developer
+role. Returns 400 if `notefileID` has no valid notefile extension.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
 	@return ApiGetNotefileRequest
 */
 func (a *DeviceAPIService) GetNotefile(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string) ApiGetNotefileRequest {
@@ -3570,7 +3612,7 @@ type ApiListNotefilesRequest struct {
 	pending             *bool
 }
 
-// One or more files to obtain change information from.
+// Notefiles to include, e.g. &#x60;config.db&#x60;. If omitted, all are listed.
 func (r ApiListNotefilesRequest) Files(files []string) ApiListNotefilesRequest {
 	r.files = &files
 	return r
@@ -3587,9 +3629,12 @@ func (r ApiListNotefilesRequest) Execute() ([]Notefile, *http.Response, error) {
 }
 
 /*
-ListNotefiles Method for ListNotefiles
+ListNotefiles List a device's notefiles and notes
 
-Lists .qi and .db files for the device
+List a device's notefiles with the notes in each, sorted `.qo`, then `.qi`, then `.db`.
+`.qo` notefiles are listed without notes, since Notehub empties them as it processes
+them. Most system notefiles (names starting with `_`) are left out. For one notefile, use
+`GetNotefile`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3845,7 +3890,7 @@ type ApiSetDeviceEnvironmentVariablesRequest struct {
 	environmentVariables *EnvironmentVariables
 }
 
-// Environment variables to be added to the device
+// The variables to add or change, and optional notes.
 func (r ApiSetDeviceEnvironmentVariablesRequest) EnvironmentVariables(environmentVariables EnvironmentVariables) ApiSetDeviceEnvironmentVariablesRequest {
 	r.environmentVariables = &environmentVariables
 	return r
@@ -3856,9 +3901,13 @@ func (r ApiSetDeviceEnvironmentVariablesRequest) Execute() (*EnvironmentVariable
 }
 
 /*
-SetDeviceEnvironmentVariables Method for SetDeviceEnvironmentVariables
+SetDeviceEnvironmentVariables Set device environment variables
 
-Set environment variables of a device
+Add or change a device's environment variables; variables you don't send keep their values.
+A value of `""` or `-` deletes that variable. Setting `_fw`, `_fwc` or `_fwm` starts a
+host, Notecard or modem firmware update.
+
+Requires the Owner or Developer role. Returns 400 if a note's key isn't a variable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3974,13 +4023,13 @@ type ApiSetDeviceEnvironmentVariablesByPinRequest struct {
 	environmentVariables *EnvironmentVariables
 }
 
-// For accessing endpoints by Device pin.
+// The device&#39;s PIN, used instead of an API token.
 func (r ApiSetDeviceEnvironmentVariablesByPinRequest) XAuthToken(xAuthToken string) ApiSetDeviceEnvironmentVariablesByPinRequest {
 	r.xAuthToken = &xAuthToken
 	return r
 }
 
-// Environment variables to be added to the device
+// The variables to add or change, and optional notes.
 func (r ApiSetDeviceEnvironmentVariablesByPinRequest) EnvironmentVariables(environmentVariables EnvironmentVariables) ApiSetDeviceEnvironmentVariablesByPinRequest {
 	r.environmentVariables = &environmentVariables
 	return r
@@ -3991,9 +4040,13 @@ func (r ApiSetDeviceEnvironmentVariablesByPinRequest) Execute() (*EnvironmentVar
 }
 
 /*
-SetDeviceEnvironmentVariablesByPin Method for SetDeviceEnvironmentVariablesByPin
+SetDeviceEnvironmentVariablesByPin Set device environment variables using a PIN
 
-Set environment variables of a device with device pin authorization
+Add or change a device's environment variables using its PIN instead of an API token. Pass
+the PIN in `X-Auth-Token`. Works like `SetDeviceEnvironmentVariables`: a value
+of `""` or `-` deletes that variable.
+
+Returns 401 if the project's device dashboard URL has no `[pin]`, or the PIN is wrong.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -4258,15 +4311,19 @@ func (r ApiUpdateDbNoteRequest) Execute() (*http.Response, error) {
 }
 
 /*
-UpdateDbNote Method for UpdateDbNote
+UpdateDbNote Update a note in a .db notefile
 
-Update a note in a .db or .qi notefile
+Replace the body and payload of a note in a database notefile on a device, synced to the
+Notecard on its next sync. To add a new note, use `AddDbNote`.
+
+Requires the Owner or Developer role. Returns 400 unless the notefile ends in `.db` or
+`.dbs`, or if `payload` isn't valid base64.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param notefileID
-	@param noteID
+	@param notefileID Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	@param noteID Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	@return ApiUpdateDbNoteRequest
 */
 func (a *DeviceAPIService) UpdateDbNote(ctx context.Context, projectOrProductUID string, deviceUID string, notefileID string, noteID string) ApiUpdateDbNoteRequest {
