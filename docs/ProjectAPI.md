@@ -11,7 +11,7 @@ All URIs are relative to *https://api.notefile.net*
 | [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       | Create a project                                         |
 | [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         | Create a project secret                                  |
 | [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    | Remove a device from fleets                              |
-| [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            |
+| [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            | Delete host firmware                                     |
 | [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             | Delete a fleet                                           |
 | [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} | Delete a fleet environment variable                      |
 | [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         | Delete a product                                         |
@@ -19,15 +19,15 @@ All URIs are relative to *https://api.notefile.net*
 | [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   | Delete a project environment variable                    |
 | [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          | Delete a project secret                                  |
 | [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   | Disable the global event transformation                  |
-| [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
+| [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               | Download host firmware                                   |
 | [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    | Enable the global event transformation                   |
 | [**GetAWSRoleConfig**](ProjectAPI.md#GetAWSRoleConfig)                                 | **Get** /v1/projects/{projectOrProductUID}/aws-role-config                                  | Get AWS role configuration for role-based authentication |
-| [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   |
-| [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    |
+| [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   | Get a device&#39;s firmware update history               |
+| [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    | Get a device&#39;s firmware update status                |
 | [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       | List a device&#39;s fleets                               |
-| [**GetDevicesDfuHistory**](ProjectAPI.md#GetDevicesDfuHistory)                         | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/history                       |
-| [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        |
-| [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         |
+| [**GetDevicesDfuHistory**](ProjectAPI.md#GetDevicesDfuHistory)                         | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/history                       | List devices&#39; firmware update history                |
+| [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        | List devices&#39; firmware status                        |
+| [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         | List firmware                                            |
 | [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Get a fleet                                              |
 | [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get a fleet&#39;s environment hierarchy                  |
 | [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Get fleet environment variables                          |
@@ -41,14 +41,14 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          | List project members                                     |
 | [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          | List project secrets                                     |
 | [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        | List projects                                            |
-| [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     |
+| [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     | Start or cancel firmware updates                         |
 | [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Set fleet environment variables                          |
 | [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           | Set the global event transformation                      |
 | [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            | Set project environment variables                        |
-| [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              |
+| [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              | Update host firmware metadata                            |
 | [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Update a fleet                                           |
 | [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             | Update a project secret                                  |
-| [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
+| [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               | Upload firmware                                          |
 
 ## AddDeviceToFleets
 
@@ -519,6 +519,8 @@ Other parameters are passed through a pointer to a apiDeleteDeviceFromFleetsRequ
 ## DeleteFirmware
 
 > DeleteFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
+
+Delete host firmware
 
 ### Example
 
@@ -1034,6 +1036,8 @@ Other parameters are passed through a pointer to a apiDisableGlobalEventTransfor
 
 > *os.File DownloadFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
 
+Download host firmware
+
 ### Example
 
 ```go
@@ -1048,7 +1052,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 	filename := "filename_example" // string |
 
 	configuration := openapiclient.NewConfiguration()
@@ -1065,12 +1069,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **filename**            | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
+| **filename**            | **string**          |                                                                                            |
 
 ### Other Parameters
 
@@ -1226,6 +1230,8 @@ Other parameters are passed through a pointer to a apiGetAWSRoleConfigRequest st
 
 > DeviceDfuHistory GetDeviceDfuHistory(ctx, projectOrProductUID, deviceUID, firmwareType).Execute()
 
+Get a device's firmware update history
+
 ### Example
 
 ```go
@@ -1241,7 +1247,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1257,12 +1263,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **deviceUID**           | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1292,6 +1298,8 @@ Other parameters are passed through a pointer to a apiGetDeviceDfuHistoryRequest
 
 > DeviceDfuStatus GetDeviceDfuStatus(ctx, projectOrProductUID, deviceUID, firmwareType).Execute()
 
+Get a device's firmware update status
+
 ### Example
 
 ```go
@@ -1307,7 +1315,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1323,12 +1331,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **deviceUID**           | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1424,6 +1432,8 @@ Other parameters are passed through a pointer to a apiGetDeviceFleetsRequest str
 
 > DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
+List devices' firmware update history
+
 ### Example
 
 ```go
@@ -1438,7 +1448,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
@@ -1468,11 +1478,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1517,6 +1527,8 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 > DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 
+List devices' firmware status
+
 ### Example
 
 ```go
@@ -1531,7 +1543,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
@@ -1561,11 +1573,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1610,6 +1622,8 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 
 > []FirmwareInfo GetFirmwareInfo(ctx, projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).SortBy(sortBy).SortOrder(sortOrder).Execute()
 
+List firmware
+
 ### Example
 
 ```go
@@ -1624,13 +1638,13 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	product := "product_example" // string |  (optional)
-	firmwareType := "firmwareType_example" // string |  (optional)
-	version := "version_example" // string |  (optional)
-	target := "target_example" // string |  (optional)
-	filename := "notecard-7.2.2.16518$20240410043100.bin" // string |  (optional)
-	md5 := "md5_example" // string |  (optional)
-	unpublished := true // bool |  (optional)
+	product := "product_example" // string | Only firmware whose product contains this text. (optional)
+	firmwareType := "firmwareType_example" // string | Only list `host` or `notecard` firmware. Omit for both. (optional)
+	version := "version_example" // string | Only firmware whose version contains this text. (optional)
+	target := "target_example" // string | Only firmware whose target contains this text. (optional)
+	filename := "notecard-7.2.2.16518$20240410043100.bin" // string | Only firmware whose stored filename contains this text. (optional)
+	md5 := "md5_example" // string | Only firmware whose MD5 hash contains this text. (optional)
+	unpublished := true // bool | If `true`, also list unpublished Notecard firmware. (optional)
 	sortBy := "sortBy_example" // string | Field to sort by (optional) (default to "created")
 	sortOrder := "sortOrder_example" // string | Sort order (asc for ascending, desc for descending) (optional) (default to "desc")
 
@@ -1660,13 +1674,13 @@ Other parameters are passed through a pointer to a apiGetFirmwareInfoRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**product** | **string** | |
-**firmwareType** | **string** | |
-**version** | **string** | |
-**target** | **string** | |
-**filename** | **string** | |
-**md5** | **string** | |
-**unpublished** | **bool** | |
+**product** | **string** | Only firmware whose product contains this text. |
+**firmwareType** | **string** | Only list &#x60;host&#x60; or &#x60;notecard&#x60; firmware. Omit for both. |
+**version** | **string** | Only firmware whose version contains this text. |
+**target** | **string** | Only firmware whose target contains this text. |
+**filename** | **string** | Only firmware whose stored filename contains this text. |
+**md5** | **string** | Only firmware whose MD5 hash contains this text. |
+**unpublished** | **bool** | If &#x60;true&#x60;, also list unpublished Notecard firmware. |
 **sortBy** | **string** | Field to sort by | [default to &quot;created&quot;]
 **sortOrder** | **string** | Sort order (asc for ascending, desc for descending) | [default to &quot;desc&quot;]
 
@@ -2522,6 +2536,8 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 > PerformDfuAction(ctx, projectOrProductUID, firmwareType, action).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).DfuActionRequest(dfuActionRequest).Execute()
 
+Start or cancel firmware updates
+
 ### Example
 
 ```go
@@ -2536,8 +2552,8 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	action := "action_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	action := "action_example" // string | - `update`: start updating to the firmware in `filename` - `cancel`: cancel any update in progress
 	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
@@ -2561,12 +2577,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **action**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                      | Notes |
+| ----------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                      |
+| **projectOrProductUID** | **string**          |                                                                                                                                  |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;.                                       |
+| **action**              | **string**          | - &#x60;update&#x60;: start updating to the firmware in &#x60;filename&#x60; - &#x60;cancel&#x60;: cancel any update in progress |
 
 ### Other Parameters
 
@@ -2808,6 +2824,8 @@ Other parameters are passed through a pointer to a apiSetProjectEnvironmentVaria
 
 > FirmwareInfo UpdateFirmware(ctx, projectOrProductUID, firmwareType, filename).UpdateHostFirmwareRequest(updateHostFirmwareRequest).Execute()
 
+Update host firmware metadata
+
 ### Example
 
 ```go
@@ -3015,6 +3033,8 @@ Other parameters are passed through a pointer to a apiUpdateProjectSecretRequest
 
 > FirmwareInfo UploadFirmware(ctx, projectOrProductUID, firmwareType, filename).Body(body).Version(version).Notes(notes).Execute()
 
+Upload firmware
+
 ### Example
 
 ```go
@@ -3029,8 +3049,8 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	filename := "filename_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	filename := "filename_example" // string | Name to store the file under. Notehub adds `$` and a timestamp before the extension, except for a Notecard firmware name that already contains `$`.
 	body := os.NewFile(1234, "some_file") // *os.File | contents of the firmware binary
 	version := "version_example" // string | Firmware version (optional). If not provided, the version will be extracted from firmware binary if available, otherwise left empty (optional)
 	notes := "notes_example" // string | Optional notes describing what's different about this firmware version (optional)
@@ -3049,12 +3069,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **filename**            | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                                                             | Notes |
+| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                                                             |
+| **projectOrProductUID** | **string**          |                                                                                                                                                                         |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;.                                                                              |
+| **filename**            | **string**          | Name to store the file under. Notehub adds &#x60;$&#x60; and a timestamp before the extension, except for a Notecard firmware name that already contains &#x60;$&#x60;. |
 
 ### Other Parameters
 

@@ -2,12 +2,12 @@
 
 ## Properties
 
-| Name       | Type                 | Description | Notes      |
-| ---------- | -------------------- | ----------- | ---------- |
-| **CellId** | Pointer to **int32** |             | [optional] |
-| **Lac**    | Pointer to **int32** |             | [optional] |
-| **Mcc**    | Pointer to **int32** |             | [optional] |
-| **Mnc**    | Pointer to **int32** |             | [optional] |
+| Name       | Type                 | Description          | Notes      |
+| ---------- | -------------------- | -------------------- | ---------- |
+| **CellId** | Pointer to **int32** | Cell ID.             | [optional] |
+| **Lac**    | Pointer to **int32** | Location area code.  | [optional] |
+| **Mcc**    | Pointer to **int32** | Mobile country code. | [optional] |
+| **Mnc**    | Pointer to **int32** | Mobile network code. | [optional] |
 
 ## Methods
 

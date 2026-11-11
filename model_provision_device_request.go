@@ -21,11 +21,11 @@ var _ MappedNullable = &ProvisionDeviceRequest{}
 
 // ProvisionDeviceRequest struct for ProvisionDeviceRequest
 type ProvisionDeviceRequest struct {
-	// The serial number to assign to the device.
+	// Serial number to give the device. Ignored if the device already has one.
 	DeviceSn *string `json:"device_sn,omitempty"`
-	// The fleetUIDs to provision the device to.
+	// FleetUIDs to put a new device in. If omitted or empty, the product's auto-provision fleets are used. Ignored if the device already exists.
 	FleetUids []string `json:"fleet_uids,omitempty"`
-	// The ProductUID that the device should use.
+	// ProductUID to provision the device under, e.g. `com.blues.bridge:sensors`. Must belong to this project.
 	ProductUid           string `json:"product_uid"`
 	AdditionalProperties map[string]interface{}
 }

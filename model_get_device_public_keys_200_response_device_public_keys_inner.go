@@ -21,8 +21,10 @@ var _ MappedNullable = &GetDevicePublicKeys200ResponseDevicePublicKeysInner{}
 // GetDevicePublicKeys200ResponseDevicePublicKeysInner struct for GetDevicePublicKeys200ResponseDevicePublicKeysInner
 type GetDevicePublicKeys200ResponseDevicePublicKeysInner struct {
 	// True if this device has been deleted. Only present when reading with a `cursor`.
-	Deleted              *bool   `json:"deleted,omitempty"`
-	Key                  *string `json:"key,omitempty"`
+	Deleted *bool `json:"deleted,omitempty"`
+	// The Notecard's public key in PEM format. Empty if it hasn't reported one.
+	Key *string `json:"key,omitempty"`
+	// DeviceUID, e.g. `dev:864475040509284`.
 	Uid                  *string `json:"uid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -7,7 +7,7 @@
 | **CurrentVersion**   | Pointer to **string**                                                      | Version of the firmware that was installed prior to this request | [optional] |
 | **Initiated**        | Pointer to **string**                                                      | RFC3339 datetime of when this update was requested               | [optional] |
 | **RequestedVersion** | Pointer to **string**                                                      | Version of the firmware that was requested to be installed       | [optional] |
-| **Updates**          | Pointer to [**[]DeviceDfuStateMachineNode**](DeviceDfuStateMachineNode.md) |                                                                  | [optional] |
+| **Updates**          | Pointer to [**[]DeviceDfuStateMachineNode**](DeviceDfuStateMachineNode.md) | Status updates reported for this firmware update.                | [optional] |
 
 ## Methods
 

@@ -20,7 +20,7 @@ var _ MappedNullable = &GetDeviceLatestEvents200Response{}
 
 // GetDeviceLatestEvents200Response struct for GetDeviceLatestEvents200Response
 type GetDeviceLatestEvents200Response struct {
-	// The set of latest events.  Will always include the current \"session.begin\" event.
+	// The most recent event from each notefile, sorted by notefile name.
 	LatestEvents         []Event `json:"latest_events,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

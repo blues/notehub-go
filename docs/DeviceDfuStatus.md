@@ -7,7 +7,7 @@
 | **Current**       | Pointer to [**DeviceDfuHistoryCurrent**](DeviceDfuHistoryCurrent.md) |                                                                                            | [optional] |
 | **Deleted**       | Pointer to **bool**                                                  | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;. | [optional] |
 | **DeviceUid**     | Pointer to **string**                                                | DeviceUID                                                                                  | [optional] |
-| **DfuInProgress** | Pointer to **bool**                                                  | true if there is a DFU currently in progress                                               | [optional] |
+| **DfuInProgress** | Pointer to **bool**                                                  | &#x60;true&#x60; while the device&#39;s latest firmware update hasn&#39;t finished.        | [optional] |
 | **Status**        | Pointer to [**DeviceDfuStateMachine**](DeviceDfuStateMachine.md)     |                                                                                            | [optional] |
 
 ## Methods

@@ -5,8 +5,8 @@
 | Name        | Type                  | Description                                                                                | Notes      |
 | ----------- | --------------------- | ------------------------------------------------------------------------------------------ | ---------- |
 | **Deleted** | Pointer to **bool**   | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;. | [optional] |
-| **Key**     | Pointer to **string** |                                                                                            | [optional] |
-| **Uid**     | Pointer to **string** |                                                                                            | [optional] |
+| **Key**     | Pointer to **string** | The Notecard&#39;s public key in PEM format. Empty if it hasn&#39;t reported one.          | [optional] |
+| **Uid**     | Pointer to **string** | DeviceUID, e.g. &#x60;dev:864475040509284&#x60;.                                           | [optional] |
 
 ## Methods
 

@@ -958,9 +958,13 @@ func (r ApiDeleteFirmwareRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteFirmware Method for DeleteFirmware
+DeleteFirmware Delete host firmware
 
-Delete a host firmware binary. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+Delete a host firmware file by its stored filename, including its `$` timestamp suffix.
+Notecard firmware can't be deleted.
+
+Requires the Owner or Developer role. Returns 404 if the file doesn't exist, and 400 for a
+sub-project, whose parent manages host firmware.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1849,13 +1853,16 @@ func (r ApiDownloadFirmwareRequest) Execute() (*os.File, *http.Response, error) 
 }
 
 /*
-DownloadFirmware Method for DownloadFirmware
+DownloadFirmware Download host firmware
 
-Download firmware binary
+Download a host firmware binary by its stored filename, including its `$` timestamp suffix.
+Notecard firmware can't be downloaded (400).
+
+Requires the Owner or Developer role. Returns 404 if the file doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@param filename
 	@return ApiDownloadFirmwareRequest
 */
@@ -2187,14 +2194,17 @@ func (r ApiGetDeviceDfuHistoryRequest) Execute() (*DeviceDfuHistory, *http.Respo
 }
 
 /*
-GetDeviceDfuHistory Method for GetDeviceDfuHistory
+GetDeviceDfuHistory Get a device's firmware update history
 
-Get device DFU history for host or Notecard firmware
+Get a device's current host or Notecard firmware version and every firmware update
+requested for it, newest first. For just the latest update, use `GetDeviceDfuStatus`.
+
+Returns 400 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDeviceDfuHistoryRequest
 */
 func (a *ProjectAPIService) GetDeviceDfuHistory(ctx context.Context, projectOrProductUID string, deviceUID string, firmwareType string) ApiGetDeviceDfuHistoryRequest {
@@ -2307,14 +2317,18 @@ func (r ApiGetDeviceDfuStatusRequest) Execute() (*DeviceDfuStatus, *http.Respons
 }
 
 /*
-GetDeviceDfuStatus Method for GetDeviceDfuStatus
+GetDeviceDfuStatus Get a device's firmware update status
 
-Get device DFU history for host or Notecard firmware
+Get a device's current host or Notecard firmware version and its latest firmware update.
+Includes whether an update is in progress. For every past update, use
+`GetDeviceDfuHistory`.
+
+Returns 400 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDeviceDfuStatusRequest
 */
 func (a *ProjectAPIService) GetDeviceDfuStatus(ctx context.Context, projectOrProductUID string, deviceUID string, firmwareType string) ApiGetDeviceDfuStatusRequest {
@@ -2638,13 +2652,18 @@ func (r ApiGetDevicesDfuHistoryRequest) Execute() (*DeviceDfuHistoryPage, *http.
 }
 
 /*
-GetDevicesDfuHistory Method for GetDevicesDfuHistory
+GetDevicesDfuHistory List devices' firmware update history
 
-Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
+List every host or Notecard firmware update requested for each matching device, newest
+first. Includes each device's current firmware version. For just the latest update, use
+`GetDevicesDfuStatus`.
+
+Paginated, by page or `cursor`. With a `cursor`, changes made through fleet or project
+firmware settings don't appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDevicesDfuHistoryRequest
 */
 func (a *ProjectAPIService) GetDevicesDfuHistory(ctx context.Context, projectOrProductUID string, firmwareType string) ApiGetDevicesDfuHistoryRequest {
@@ -2969,13 +2988,17 @@ func (r ApiGetDevicesDfuStatusRequest) Execute() (*DeviceDfuStatusPage, *http.Re
 }
 
 /*
-GetDevicesDfuStatus Method for GetDevicesDfuStatus
+GetDevicesDfuStatus List devices' firmware status
 
-Get host or Notecard DFU history for all devices that match the filter criteria. With a `cursor`, changes made through fleet or project firmware settings will not appear until the device itself is next updated.
+List the host or Notecard firmware version each matching device runs now, with its latest
+firmware update. Use this to find which firmware devices run.
+
+Paginated, by page or `cursor`. With a `cursor`, changes made through fleet or project
+firmware settings don't appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDevicesDfuStatusRequest
 */
 func (a *ProjectAPIService) GetDevicesDfuStatus(ctx context.Context, projectOrProductUID string, firmwareType string) ApiGetDevicesDfuStatusRequest {
@@ -3210,36 +3233,43 @@ type ApiGetFirmwareInfoRequest struct {
 	sortOrder           *string
 }
 
+// Only firmware whose product contains this text.
 func (r ApiGetFirmwareInfoRequest) Product(product string) ApiGetFirmwareInfoRequest {
 	r.product = &product
 	return r
 }
 
+// Only list &#x60;host&#x60; or &#x60;notecard&#x60; firmware. Omit for both.
 func (r ApiGetFirmwareInfoRequest) FirmwareType(firmwareType string) ApiGetFirmwareInfoRequest {
 	r.firmwareType = &firmwareType
 	return r
 }
 
+// Only firmware whose version contains this text.
 func (r ApiGetFirmwareInfoRequest) Version(version string) ApiGetFirmwareInfoRequest {
 	r.version = &version
 	return r
 }
 
+// Only firmware whose target contains this text.
 func (r ApiGetFirmwareInfoRequest) Target(target string) ApiGetFirmwareInfoRequest {
 	r.target = &target
 	return r
 }
 
+// Only firmware whose stored filename contains this text.
 func (r ApiGetFirmwareInfoRequest) Filename(filename string) ApiGetFirmwareInfoRequest {
 	r.filename = &filename
 	return r
 }
 
+// Only firmware whose MD5 hash contains this text.
 func (r ApiGetFirmwareInfoRequest) Md5(md5 string) ApiGetFirmwareInfoRequest {
 	r.md5 = &md5
 	return r
 }
 
+// If &#x60;true&#x60;, also list unpublished Notecard firmware.
 func (r ApiGetFirmwareInfoRequest) Unpublished(unpublished bool) ApiGetFirmwareInfoRequest {
 	r.unpublished = &unpublished
 	return r
@@ -3262,9 +3292,11 @@ func (r ApiGetFirmwareInfoRequest) Execute() ([]FirmwareInfo, *http.Response, er
 }
 
 /*
-GetFirmwareInfo Method for GetFirmwareInfo
+GetFirmwareInfo List firmware
 
-Get Available Firmware Information
+List the host firmware uploaded to the project and the Notecard firmware available to it.
+Text filters match substrings, and unpublished Notecard builds are left out unless
+`unpublished` is `true`. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4934,14 +4966,19 @@ func (r ApiPerformDfuActionRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PerformDfuAction Method for PerformDfuAction
+PerformDfuAction Start or cancel firmware updates
 
-Update/cancel host or notecard firmware updates
+Start or cancel a host or Notecard firmware update on every device matching the filters.
+With no filters, that is every device in the project. `update` sets each device's `_fw` or
+`_fwc` variable to `filename`.
+
+Requires the Owner or Developer role. `update` returns 404 if the file isn't found, and can
+return 400 if a matching device already has an update in progress.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
-	@param action
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
+	@param action - `update`: start updating to the firmware in `filename` - `cancel`: cancel any update in progress
 	@return ApiPerformDfuActionRequest
 */
 func (a *ProjectAPIService) PerformDfuAction(ctx context.Context, projectOrProductUID string, firmwareType string, action string) ApiPerformDfuActionRequest {
@@ -5517,9 +5554,13 @@ func (r ApiUpdateFirmwareRequest) Execute() (*FirmwareInfo, *http.Response, erro
 }
 
 /*
-UpdateFirmware Method for UpdateFirmware
+UpdateFirmware Update host firmware metadata
 
-Update the metadata of an existing host firmware entry. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+Change a host firmware file's `version`, `notes` or `info`; fields you leave out or send
+empty keep their values. Use the stored filename, including its `$` timestamp suffix.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent manages
+host firmware, and 404 if the file doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5937,14 +5978,19 @@ func (r ApiUploadFirmwareRequest) Execute() (*FirmwareInfo, *http.Response, erro
 }
 
 /*
-UploadFirmware Method for UploadFirmware
+UploadFirmware Upload firmware
 
-Upload firmware binary
+Upload a host or Notecard firmware binary. Notehub usually adds a timestamp to `filename`;
+use the returned `filename` from then on.
+
+Requires the Owner or Developer role. Returns 400 for host firmware on a sub-project, whose
+parent manages it, and 500 for a wrong file type or a file over the limit: 1.5 MB for host
+firmware, 2 MB for `notecard-s3-*` and 1 MB for other Notecard firmware.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
-	@param filename
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
+	@param filename Name to store the file under. Notehub adds `$` and a timestamp before the extension, except for a Notecard firmware name that already contains `$`.
 	@return ApiUploadFirmwareRequest
 */
 func (a *ProjectAPIService) UploadFirmware(ctx context.Context, projectOrProductUID string, firmwareType string, filename string) ApiUploadFirmwareRequest {

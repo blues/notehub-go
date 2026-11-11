@@ -25,7 +25,7 @@ type DeviceDfuStatus struct {
 	Deleted *bool `json:"deleted,omitempty"`
 	// DeviceUID
 	DeviceUid *string `json:"device_uid,omitempty"`
-	// true if there is a DFU currently in progress
+	// `true` while the device's latest firmware update hasn't finished.
 	DfuInProgress        *bool                  `json:"dfu_in_progress,omitempty"`
 	Status               *DeviceDfuStateMachine `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}

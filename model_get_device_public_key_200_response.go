@@ -21,7 +21,9 @@ var _ MappedNullable = &GetDevicePublicKey200Response{}
 
 // GetDevicePublicKey200Response struct for GetDevicePublicKey200Response
 type GetDevicePublicKey200Response struct {
-	Key                  string `json:"key"`
+	// The Notecard's public key in PEM format. Empty if it hasn't reported one.
+	Key string `json:"key"`
+	// DeviceUID, e.g. `dev:864475040509284`.
 	Uid                  string `json:"uid"`
 	AdditionalProperties map[string]interface{}
 }

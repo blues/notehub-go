@@ -24,7 +24,8 @@ type DeviceDfuHistory struct {
 	// True if this device has been deleted. Only present when reading with a `cursor`.
 	Deleted *bool `json:"deleted,omitempty"`
 	// DeviceUID
-	DeviceUid            *string                 `json:"device_uid,omitempty"`
+	DeviceUid *string `json:"device_uid,omitempty"`
+	// Every firmware update requested for this device, newest first.
 	History              []DeviceDfuStateMachine `json:"history,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

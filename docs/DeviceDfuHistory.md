@@ -7,7 +7,7 @@
 | **Current**   | Pointer to [**DeviceDfuHistoryCurrent**](DeviceDfuHistoryCurrent.md) |                                                                                            | [optional] |
 | **Deleted**   | Pointer to **bool**                                                  | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;. | [optional] |
 | **DeviceUid** | Pointer to **string**                                                | DeviceUID                                                                                  | [optional] |
-| **History**   | Pointer to [**[]DeviceDfuStateMachine**](DeviceDfuStateMachine.md)   |                                                                                            | [optional] |
+| **History**   | Pointer to [**[]DeviceDfuStateMachine**](DeviceDfuStateMachine.md)   | Every firmware update requested for this device, newest first.                             | [optional] |
 
 ## Methods
 

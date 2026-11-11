@@ -388,9 +388,12 @@ func (r ApiDeleteDeviceRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteDevice Method for DeleteDevice
+DeleteDevice Delete a device
 
-Delete Device
+Delete a device and its notefiles from a project. Its events are kept. A Notecard that
+syncs again is added back as a new device; to block it instead, use `DisableDevice`.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -839,9 +842,12 @@ func (r ApiDisableDeviceRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DisableDevice Method for DisableDevice
+DisableDevice Disable a device
 
-Disable Device
+Stop a device from connecting to Notehub, ending any open session. The device and its
+data stay in the project; undo with `EnableDevice`. Does nothing if it's already disabled.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -943,9 +949,13 @@ func (r ApiEnableDeviceRequest) Execute() (*http.Response, error) {
 }
 
 /*
-EnableDevice Method for EnableDevice
+EnableDevice Enable a device
 
-Enable Device
+Re-enable a device turned off with `DisableDevice`, so it can connect to Notehub again.
+Does nothing if the device is already enabled.
+
+Requires the Owner or Developer role. Returns 409 if the device's cellular service was
+deactivated; it must be reactivated instead.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1191,9 +1201,11 @@ func (r ApiGetDeviceRequest) Execute() (*Device, *http.Response, error) {
 }
 
 /*
-GetDevice Method for GetDevice
+GetDevice Get a device
 
-Get Device
+Get one device's details: serial number, product, fleets, locations, firmware versions,
+SIM usage and DFU state. To find devices by tag, serial number or other fields, use
+`GetDevices`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1666,7 +1678,7 @@ func (r ApiGetDeviceHealthLogRequest) EndDate(endDate int64) ApiGetDeviceHealthL
 	return r
 }
 
-// Return only specified log types
+// Return only these kinds of entry. If omitted, all entries are returned. - &#x60;boot&#x60;: the device restarted - &#x60;dfu_completed&#x60;: a host firmware update finished
 func (r ApiGetDeviceHealthLogRequest) LogType(logType []string) ApiGetDeviceHealthLogRequest {
 	r.logType = &logType
 	return r
@@ -1677,9 +1689,13 @@ func (r ApiGetDeviceHealthLogRequest) Execute() (*GetDeviceHealthLog200Response,
 }
 
 /*
-GetDeviceHealthLog Method for GetDeviceHealthLog
+GetDeviceHealthLog Get a device's health log
 
-Get Device Health Log
+Get a device's health log: timestamped status messages such as restarts and completed
+firmware updates. Only the latest 100 entries are kept.
+
+To filter by date, pass both `startDate` and `endDate`; `startDate` alone returns 400, and
+the same value for both returns every entry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1823,9 +1839,13 @@ func (r ApiGetDeviceJourneyRequest) Execute() (*GetDeviceJourney200Response, *ht
 }
 
 /*
-GetDeviceJourney Method for GetDeviceJourney
+GetDeviceJourney Get a journey and its events
 
-Get a single journey for a device along with its events. The events array is paginated via `pageSize` / `pageNum`; use `journey.has_more` to detect additional pages.
+Get one journey's start and end time and its events, oldest first. Only events with a
+location are included, and a run of events at the same location is reduced to the first.
+
+The events are paginated; `journey.has_more` is true if there are more. Returns 404 if the
+journey doesn't exist, and 403 if the organization is suspended.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1970,9 +1990,14 @@ func (r ApiGetDeviceJourneysRequest) Execute() (*GetDeviceJourneys200Response, *
 }
 
 /*
-GetDeviceJourneys Method for GetDeviceJourneys
+GetDeviceJourneys List a device's journeys
 
-Get the list of journeys for a device, derived from events whose body contains `journey` and `jcount` fields. Returns journey metadata only (no event payloads). Capped at 100 most recent journeys; `has_more` is true when the cap is hit.
+List a device's journeys, newest first, without their events. A journey is the events
+whose body has the same `journey` value and a `jcount` field; one-event journeys are left
+out. For a journey's events, use `GetDeviceJourney`.
+
+Returns at most 100; `has_more` is true if there are more. `startDate` and `endDate` filter
+on the journey's start. Returns 403 if the organization is suspended.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2092,9 +2117,12 @@ func (r ApiGetDeviceLatestEventsRequest) Execute() (*GetDeviceLatestEvents200Res
 }
 
 /*
-GetDeviceLatestEvents Method for GetDeviceLatestEvents
+GetDeviceLatestEvents Get a device's latest event per notefile
 
-Get Device Latest Events
+Get the most recent event from each of a device's notefiles, sorted by notefile name.
+`_env.qo` is left out. To search a device's event history, use `GetEvents`.
+
+Returns 403 if the organization is suspended.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2208,9 +2236,12 @@ func (r ApiGetDevicePlansRequest) Execute() (*GetDevicePlans200Response, *http.R
 }
 
 /*
-GetDevicePlans Method for GetDevicePlans
+GetDevicePlans Get a device's cellular data plans
 
-Get Data Plans associated with the device, this include the primary sim, any external sim, as well as any satellite connections.
+Get the data plan of each cellular SIM in a device: plan type, data used and remaining, and
+expiry. Covers the built-in SIM and any external SIM, but not satellite plans.
+
+Returns 404 if the device has no cellular or satellite SIM.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2324,9 +2355,10 @@ func (r ApiGetDevicePublicKeyRequest) Execute() (*GetDevicePublicKey200Response,
 }
 
 /*
-GetDevicePublicKey Method for GetDevicePublicKey
+GetDevicePublicKey Get a device's public key
 
-Get Device Public Key
+Get one Notecard's public key, in PEM format. For every device in the project, use
+`GetDevicePublicKeys`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2458,9 +2490,11 @@ func (r ApiGetDevicePublicKeysRequest) Execute() (*GetDevicePublicKeys200Respons
 }
 
 /*
-GetDevicePublicKeys Method for GetDevicePublicKeys
+GetDevicePublicKeys List public keys of all devices
 
-Get Device Public Keys of a Project
+List the public key of every device in a project. For one device, use `GetDevicePublicKey`.
+
+Paginated. Deleted devices are included only when reading with a `cursor`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2617,7 +2651,7 @@ func (r ApiGetDeviceSessionsRequest) EndDate(endDate int64) ApiGetDeviceSessions
 	return r
 }
 
-// When true, filters results to only show first sync sessions
+// If true, return only sessions whose &#x60;why_session_opened&#x60; begins with \&quot;first sync\&quot;.
 func (r ApiGetDeviceSessionsRequest) FirstSync(firstSync bool) ApiGetDeviceSessionsRequest {
 	r.firstSync = &firstSync
 	return r
@@ -2628,9 +2662,13 @@ func (r ApiGetDeviceSessionsRequest) Execute() (*GetDeviceSessions200Response, *
 }
 
 /*
-GetDeviceSessions Method for GetDeviceSessions
+GetDeviceSessions List a device's sessions
 
-Get Device Sessions
+List a device's sessions, its connections to Notehub. Each shows why it opened and closed,
+signal strength, location and data usage. `startDate` and `endDate` filter on when the
+session began.
+
+Paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2854,9 +2892,12 @@ func (r ApiGetDevicesRequest) Execute() (*GetDevices200Response, *http.Response,
 }
 
 /*
-GetDevices Method for GetDevices
+GetDevices List devices in a project
 
-Get Devices of a Project
+List the devices in a project, with optional filters such as tag, serial number, fleet,
+location and firmware version. For one fleet's devices, use `GetFleetDevices`.
+
+Paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3158,9 +3199,12 @@ func (r ApiGetFleetDevicesRequest) Execute() (*GetDevices200Response, *http.Resp
 }
 
 /*
-GetFleetDevices Method for GetFleetDevices
+GetFleetDevices List devices in a fleet
 
-Get Devices of a Fleet within a Project
+List the devices in one fleet, with the same filters as `GetDevices`. To list a device's
+fleets instead, use `GetDeviceFleets`.
+
+Paginated. Returns 404 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3669,7 +3713,7 @@ type ApiProvisionDeviceRequest struct {
 	provisionDeviceRequest *ProvisionDeviceRequest
 }
 
-// Provision a device to a specific ProductUID
+// The product, serial number and fleets for the device.
 func (r ApiProvisionDeviceRequest) ProvisionDeviceRequest(provisionDeviceRequest ProvisionDeviceRequest) ApiProvisionDeviceRequest {
 	r.provisionDeviceRequest = &provisionDeviceRequest
 	return r
@@ -3680,9 +3724,13 @@ func (r ApiProvisionDeviceRequest) Execute() (map[string]interface{}, *http.Resp
 }
 
 /*
-ProvisionDevice Method for ProvisionDevice
+ProvisionDevice Provision a Notecard
 
-Provision Device for a Project
+Add a Notecard to a project before it first connects, with its product, serial number and
+fleets. A device that already exists isn't reset and keeps its fleets.
+
+Requires the Owner or Developer role. Returns 404 if `product_uid` doesn't exist, and 400
+if it belongs to another project or `deviceUID` isn't a valid Notecard DeviceUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4064,7 +4112,7 @@ type ApiSignalDeviceRequest struct {
 	body                *Body
 }
 
-// Body or payload of signal to be sent to the device
+// The signal to send.
 func (r ApiSignalDeviceRequest) Body(body Body) ApiSignalDeviceRequest {
 	r.body = &body
 	return r
@@ -4075,9 +4123,14 @@ func (r ApiSignalDeviceRequest) Execute() (*SignalDevice200Response, *http.Respo
 }
 
 /*
-SignalDevice Method for SignalDevice
+SignalDevice Send a signal to a connected Notecard
 
-Send a signal from Notehub to a Notecard.
+Send a JSON object straight to a Notecard, which the host can read with `hub.signal`.
+It's delivered only if the Notecard is connected to Notehub at that moment, and is never
+queued; `connected` in the response says whether it was. To queue data for the next sync,
+use `AddQiNote` instead.
+
+Requires the Owner or Developer role. Returns 400 if the body has a `type` field.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

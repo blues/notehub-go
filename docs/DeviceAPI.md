@@ -7,33 +7,33 @@ All URIs are relative to *https://api.notefile.net*
 | [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}   |
 | [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}            |
 | [**CreateNotefile**](DeviceAPI.md#CreateNotefile)                                         | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notefiles/{notefileID}        |
-| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                             |
+| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                             | Delete a device                                 |
 | [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key} |
 | [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID} |
 | [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                       |
-| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                       |
-| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                        |
+| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                       | Disable a device                                |
+| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                        | Enable a device                                 |
 | [**GetDbNote**](DeviceAPI.md#GetDbNote)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
-| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                |
+| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                | Get a device                                    |
 | [**GetDeviceEnvironmentHierarchy**](DeviceAPI.md#GetDeviceEnvironmentHierarchy)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_hierarchy          | Get environment variable hierarchy for a device |
 | [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
 | [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
-| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     |
-| [**GetDeviceJourney**](DeviceAPI.md#GetDeviceJourney)                                     | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}           |
-| [**GetDeviceJourneys**](DeviceAPI.md#GetDeviceJourneys)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys                       |
-| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         |
-| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          |
-| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     |
-| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                |
-| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                       |
-| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            |
-| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          |
+| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     | Get a device&#39;s health log                   |
+| [**GetDeviceJourney**](DeviceAPI.md#GetDeviceJourney)                                     | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}           | Get a journey and its events                    |
+| [**GetDeviceJourneys**](DeviceAPI.md#GetDeviceJourneys)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys                       | List a device&#39;s journeys                    |
+| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         | Get a device&#39;s latest event per notefile    |
+| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          | Get a device&#39;s cellular data plans          |
+| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     | Get a device&#39;s public key                   |
+| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                | List public keys of all devices                 |
+| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                       | List a device&#39;s sessions                    |
+| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            | List devices in a project                       |
+| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          | List devices in a fleet                         |
 | [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             |
 | [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                          |
-| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     |
+| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     | Provision a Notecard                            |
 | [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
 | [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
-| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                        |
+| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                        | Send a signal to a connected Notecard           |
 | [**UpdateDbNote**](DeviceAPI.md#UpdateDbNote)                                             | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
 
 ## AddDbNote
@@ -239,6 +239,8 @@ Other parameters are passed through a pointer to a apiCreateNotefileRequest stru
 ## DeleteDevice
 
 > DeleteDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Delete a device
 
 ### Example
 
@@ -499,6 +501,8 @@ Other parameters are passed through a pointer to a apiDeleteNotefilesRequest str
 
 > DisableDevice(ctx, projectOrProductUID, deviceUID).Execute()
 
+Disable a device
+
 ### Example
 
 ```go
@@ -560,6 +564,8 @@ Other parameters are passed through a pointer to a apiDisableDeviceRequest struc
 ## EnableDevice
 
 > EnableDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Enable a device
 
 ### Example
 
@@ -695,6 +701,8 @@ Other parameters are passed through a pointer to a apiGetDbNoteRequest struct vi
 ## GetDevice
 
 > Device GetDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Get a device
 
 ### Example
 
@@ -957,6 +965,8 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 
 > GetDeviceHealthLog200Response GetDeviceHealthLog(ctx, projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).LogType(logType).Execute()
 
+Get a device's health log
+
 ### Example
 
 ```go
@@ -974,7 +984,7 @@ func main() {
 	deviceUID := "dev:000000000000000" // string |
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	logType := []string{"LogType_example"} // []string | Return only specified log types (optional)
+	logType := []string{"LogType_example"} // []string | Return only these kinds of entry. If omitted, all entries are returned. - `boot`: the device restarted - `dfu_completed`: a host firmware update finished  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1005,7 +1015,7 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**logType** | **[]string** | Return only specified log types |
+**logType** | **[]string** | Return only these kinds of entry. If omitted, all entries are returned. - &#x60;boot&#x60;: the device restarted - &#x60;dfu_completed&#x60;: a host firmware update finished |
 
 ### Return type
 
@@ -1027,6 +1037,8 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 ## GetDeviceJourney
 
 > GetDeviceJourney200Response GetDeviceJourney(ctx, projectOrProductUID, deviceUID, journeyID).PageSize(pageSize).PageNum(pageNum).Execute()
+
+Get a journey and its events
 
 ### Example
 
@@ -1099,6 +1111,8 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneyRequest st
 
 > GetDeviceJourneys200Response GetDeviceJourneys(ctx, projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).Execute()
 
+List a device's journeys
+
 ### Example
 
 ```go
@@ -1168,6 +1182,8 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneysRequest s
 
 > GetDeviceLatestEvents200Response GetDeviceLatestEvents(ctx, projectOrProductUID, deviceUID).Execute()
 
+Get a device's latest event per notefile
+
 ### Example
 
 ```go
@@ -1231,6 +1247,8 @@ Other parameters are passed through a pointer to a apiGetDeviceLatestEventsReque
 ## GetDevicePlans
 
 > GetDevicePlans200Response GetDevicePlans(ctx, projectOrProductUID, deviceUID).Execute()
+
+Get a device's cellular data plans
 
 ### Example
 
@@ -1296,6 +1314,8 @@ Other parameters are passed through a pointer to a apiGetDevicePlansRequest stru
 
 > GetDevicePublicKey200Response GetDevicePublicKey(ctx, projectOrProductUID, deviceUID).Execute()
 
+Get a device's public key
+
 ### Example
 
 ```go
@@ -1359,6 +1379,8 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeyRequest 
 ## GetDevicePublicKeys
 
 > GetDevicePublicKeys200Response GetDevicePublicKeys(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).Execute()
+
+List public keys of all devices
 
 ### Example
 
@@ -1429,6 +1451,8 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeysRequest
 
 > GetDeviceSessions200Response GetDeviceSessions(ctx, projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
 
+List a device's sessions
+
 ### Example
 
 ```go
@@ -1449,7 +1473,7 @@ func main() {
 	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	firstSync := true // bool | When true, filters results to only show first sync sessions (optional) (default to false)
+	firstSync := true // bool | If true, return only sessions whose `why_session_opened` begins with \"first sync\". (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1483,7 +1507,7 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 **cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**firstSync** | **bool** | When true, filters results to only show first sync sessions | [default to false]
+**firstSync** | **bool** | If true, return only sessions whose &#x60;why_session_opened&#x60; begins with \&quot;first sync\&quot;. | [default to false]
 
 ### Return type
 
@@ -1505,6 +1529,8 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 ## GetDevices
 
 > GetDevices200Response GetDevices(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices in a project
 
 ### Example
 
@@ -1592,6 +1618,8 @@ Other parameters are passed through a pointer to a apiGetDevicesRequest struct v
 ## GetFleetDevices
 
 > GetDevices200Response GetFleetDevices(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices in a fleet
 
 ### Example
 
@@ -1822,6 +1850,8 @@ Other parameters are passed through a pointer to a apiListNotefilesRequest struc
 
 > map[string]interface{} ProvisionDevice(ctx, projectOrProductUID, deviceUID).ProvisionDeviceRequest(provisionDeviceRequest).Execute()
 
+Provision a Notecard
+
 ### Example
 
 ```go
@@ -1837,7 +1867,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	provisionDeviceRequest := *openapiclient.NewProvisionDeviceRequest("ProductUid_example") // ProvisionDeviceRequest | Provision a device to a specific ProductUID
+	provisionDeviceRequest := *openapiclient.NewProvisionDeviceRequest("ProductUid_example") // ProvisionDeviceRequest | The product, serial number and fleets for the device.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1866,7 +1896,7 @@ Other parameters are passed through a pointer to a apiProvisionDeviceRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**provisionDeviceRequest** | [**ProvisionDeviceRequest**](ProvisionDeviceRequest.md) | Provision a device to a specific ProductUID |
+**provisionDeviceRequest** | [**ProvisionDeviceRequest**](ProvisionDeviceRequest.md) | The product, serial number and fleets for the device. |
 
 ### Return type
 
@@ -2025,6 +2055,8 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 > SignalDevice200Response SignalDevice(ctx, projectOrProductUID, deviceUID).Body(body).Execute()
 
+Send a signal to a connected Notecard
+
 ### Example
 
 ```go
@@ -2040,7 +2072,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	body := *openapiclient.NewBody() // Body | Body or payload of signal to be sent to the device
+	body := *openapiclient.NewBody() // Body | The signal to send.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2069,7 +2101,7 @@ Other parameters are passed through a pointer to a apiSignalDeviceRequest struct
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | [**Body**](Body.md) | Body or payload of signal to be sent to the device |
+**body** | [**Body**](Body.md) | The signal to send. |
 
 ### Return type
 
