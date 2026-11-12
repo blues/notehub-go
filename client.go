@@ -53,8 +53,6 @@ type APIClient struct {
 
 	AuthorizationAPI *AuthorizationAPIService
 
-	BillingAccountAPI *BillingAccountAPIService
-
 	DescriptionAPI *DescriptionAPIService
 
 	DeviceAPI *DeviceAPIService
@@ -72,6 +70,8 @@ type APIClient struct {
 	ProjectAPI *ProjectAPIService
 
 	RouteAPI *RouteAPIService
+
+	SkillsAPI *SkillsAPIService
 
 	UsageAPI *UsageAPIService
 
@@ -96,7 +96,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.AlertAPI = (*AlertAPIService)(&c.common)
 	c.AuthorizationAPI = (*AuthorizationAPIService)(&c.common)
-	c.BillingAccountAPI = (*BillingAccountAPIService)(&c.common)
 	c.DescriptionAPI = (*DescriptionAPIService)(&c.common)
 	c.DeviceAPI = (*DeviceAPIService)(&c.common)
 	c.EventAPI = (*EventAPIService)(&c.common)
@@ -106,6 +105,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ProjectAPI = (*ProjectAPIService)(&c.common)
 	c.RouteAPI = (*RouteAPIService)(&c.common)
+	c.SkillsAPI = (*SkillsAPIService)(&c.common)
 	c.UsageAPI = (*UsageAPIService)(&c.common)
 	c.WebhookAPI = (*WebhookAPIService)(&c.common)
 

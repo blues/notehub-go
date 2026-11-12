@@ -22,11 +22,11 @@ var _ MappedNullable = &FirmwareInfo{}
 type FirmwareInfo struct {
 	// The date the firmware was built.
 	Built *string `json:"built,omitempty"`
-	// The date the firmware was created.
+	// Upload time, as Unix epoch seconds in a string.
 	Created *string `json:"created,omitempty"`
-	// A description of the firmware.
+	// Not currently filled in.
 	Description *string `json:"description,omitempty"`
-	// The name of the firmware file.
+	// Stored filename, with the `$` timestamp suffix Notehub adds on upload. Use it in other firmware and DFU operations.
 	Filename *string `json:"filename,omitempty"`
 	// User-defined metadata
 	Info map[string]interface{} `json:"info,omitempty"`
@@ -38,13 +38,13 @@ type FirmwareInfo struct {
 	Organization *string `json:"organization,omitempty"`
 	// The product that the firmware is for.
 	Product *string `json:"product,omitempty"`
-	// True if the firmware is published.
+	// `true` for all host firmware, and for Notecard firmware that Blues has published.
 	Published *bool `json:"published,omitempty"`
 	// A list of tags associated with the firmware.
 	Tags *string `json:"tags,omitempty"`
 	// The target device for the firmware.
 	Target *string `json:"target,omitempty"`
-	// The type of firmware.
+	// `host` or `notecard`.
 	Type *string `json:"type,omitempty"`
 	// The version of the firmware.
 	Version              *string `json:"version,omitempty"`

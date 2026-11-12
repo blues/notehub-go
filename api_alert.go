@@ -29,6 +29,7 @@ type ApiGetAlertsRequest struct {
 	projectOrProductUID string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	monitorUID          *string
 }
 
@@ -42,6 +43,13 @@ func (r ApiGetAlertsRequest) PageNum(pageNum int32) ApiGetAlertsRequest {
 	return r
 }
 
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetAlertsRequest) Cursor(cursor string) ApiGetAlertsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// Return only this monitor&#39;s alerts.
 func (r ApiGetAlertsRequest) MonitorUID(monitorUID string) ApiGetAlertsRequest {
 	r.monitorUID = &monitorUID
 	return r
@@ -52,9 +60,12 @@ func (r ApiGetAlertsRequest) Execute() (*GetAlerts200Response, *http.Response, e
 }
 
 /*
-GetAlerts Method for GetAlerts
+GetAlerts List alerts
 
-Get list of defined Alerts
+List the alerts a project's monitors have raised, with each one's value, device and the
+notifications sent. Set `monitorUID` for one monitor's alerts.
+
+Paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -94,7 +105,7 @@ func (a *AlertAPIService) GetAlertsExecute(r ApiGetAlertsRequest) (*GetAlerts200
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -104,6 +115,9 @@ func (a *AlertAPIService) GetAlertsExecute(r ApiGetAlertsRequest) (*GetAlerts200
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.monitorUID != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "monitorUID", r.monitorUID, "form", "")

@@ -2,10 +2,11 @@
 
 ## Properties
 
-| Name    | Type                  | Description | Notes      |
-| ------- | --------------------- | ----------- | ---------- |
-| **Key** | Pointer to **string** |             | [optional] |
-| **Uid** | Pointer to **string** |             | [optional] |
+| Name        | Type                  | Description                                                                                | Notes      |
+| ----------- | --------------------- | ------------------------------------------------------------------------------------------ | ---------- |
+| **Deleted** | Pointer to **bool**   | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;. | [optional] |
+| **Key**     | Pointer to **string** | The Notecard&#39;s public key in PEM format. Empty if it hasn&#39;t reported one.          | [optional] |
+| **Uid**     | Pointer to **string** | DeviceUID, e.g. &#x60;dev:864475040509284&#x60;.                                           | [optional] |
 
 ## Methods
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewGetDevicePublicKeys200ResponseDevicePublicKeysInnerWithDefaults instantiates a new GetDevicePublicKeys200ResponseDevicePublicKeysInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDeleted
+
+`func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *GetDevicePublicKeys200ResponseDevicePublicKeysInner) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 ### GetKey
 

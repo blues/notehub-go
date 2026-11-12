@@ -42,9 +42,14 @@ func (r ApiCreateLegacyWebhookEventRequest) Execute() (*http.Response, error) {
 }
 
 /*
-CreateLegacyWebhookEvent Method for CreateLegacyWebhookEvent
+CreateLegacyWebhookEvent Add a note-shaped event from a device (legacy)
 
-Legacy endpoint for sending an event from a webhook, associated with the given device (provisioning it if necessary). The request body is a Note-shaped object containing the notefile name, body, and optional payload.
+Legacy: add an event from a device, adding the device to the project if it's new. The body
+is note-shaped: `file`, `body`, an optional base64 `payload`, and other event fields such as
+`when` and `sn`. No webhook transform applies. New integrations should use
+`CreateWebhookDeviceEventByProduct`.
+
+Requires the Owner or Developer role. Returns 400 if there's no `body` or `payload`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -157,13 +162,18 @@ func (r ApiCreateWebhookRequest) Execute() (*http.Response, error) {
 }
 
 /*
-CreateWebhook Method for CreateWebhook
+CreateWebhook Create a webhook
 
-Creates a webhook for the specified product with the given name. The name | must be unique within the project.
+Create an inbound webhook that outside services post to with `CreateWebhookEventByProduct`.
+Its events go to the notefile `<webhookUID>.qo` unless its JSONata `transform` sets `file`.
+Use a lower-case ID; the event endpoints look it up in lower case.
+
+Requires the Owner or Developer role. Returns 409 if the ID is taken, and 400 if it has characters other than
+letters, digits, `-` and `_`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiCreateWebhookRequest
 */
 func (a *WebhookAPIService) CreateWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiCreateWebhookRequest {
@@ -263,7 +273,7 @@ type ApiCreateWebhookDeviceEventByProductRequest struct {
 	requestBody *map[string]interface{}
 }
 
-// The event body (arbitrary JSON)
+// Any JSON object; it becomes the event body, or the transform&#39;s input.
 func (r ApiCreateWebhookDeviceEventByProductRequest) RequestBody(requestBody map[string]interface{}) ApiCreateWebhookDeviceEventByProductRequest {
 	r.requestBody = &requestBody
 	return r
@@ -274,13 +284,17 @@ func (r ApiCreateWebhookDeviceEventByProductRequest) Execute() (*http.Response, 
 }
 
 /*
-CreateWebhookDeviceEventByProduct Method for CreateWebhookDeviceEventByProduct
+CreateWebhookDeviceEventByProduct Send a device's event through a webhook
 
-Sends an event to be processed by the specified webhook, addressed by productUID, associated with the given device (provisioning it if necessary). The entire request body becomes the event body. The webhook's configured JSONata transform, if any, is applied before routing.
+Post JSON to a webhook as one device's event, like `CreateWebhookEventByProduct`, adding the
+device if it's new. The DeviceUID is lower-cased and gets `dev:ext:` unless it has its own
+sub-prefix, so `dev:abc` becomes `dev:ext:abc`, not an existing Notecard.
+
+Requires the Owner or Developer role. Returns 400 if the transform fails, and 500 if the webhook is disabled.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@param deviceUID
 	@return ApiCreateWebhookDeviceEventByProductRequest
 */
@@ -382,7 +396,7 @@ type ApiCreateWebhookEventByProductRequest struct {
 	requestBody *map[string]interface{}
 }
 
-// The event body (arbitrary JSON)
+// Any JSON object; it becomes the event body, or the transform&#39;s input.
 func (r ApiCreateWebhookEventByProductRequest) RequestBody(requestBody map[string]interface{}) ApiCreateWebhookEventByProductRequest {
 	r.requestBody = &requestBody
 	return r
@@ -393,13 +407,18 @@ func (r ApiCreateWebhookEventByProductRequest) Execute() (*http.Response, error)
 }
 
 /*
-CreateWebhookEventByProduct Method for CreateWebhookEventByProduct
+CreateWebhookEventByProduct Send an event through a webhook
 
-Sends an event to be processed by the specified webhook, addressed by productUID. The entire request body becomes the event body. The webhook's configured JSONata transform, if any, is applied before routing. The event is not associated with a specific device.
+Post JSON to a webhook. The body becomes the event body, in `<webhookUID>.qo`, from
+`dev:ext:webhook`; a `transform` can change all three, but must set `body`. For a specific
+device, use `CreateWebhookDeviceEventByProduct`.
+
+Requires the Owner or Developer role. Returns 400 if the transform fails or sets no `body`,
+and 500 if the webhook is disabled.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiCreateWebhookEventByProductRequest
 */
 func (a *WebhookAPIService) CreateWebhookEventByProduct(ctx context.Context, productUID string, webhookUID string) ApiCreateWebhookEventByProductRequest {
@@ -502,13 +521,16 @@ func (r ApiDeleteWebhookRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteWebhook Method for DeleteWebhook
+DeleteWebhook Delete a webhook
 
-Deletes the specified webhook
+Delete a webhook's settings. Posts to its ID are still accepted, just without a
+transform; to stop accepting them, set `disabled` with `UpdateWebhook` instead.
+
+Requires the Owner or Developer role. Returns 404 if the webhook doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiDeleteWebhookRequest
 */
 func (a *WebhookAPIService) DeleteWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiDeleteWebhookRequest {
@@ -606,13 +628,15 @@ func (r ApiGetWebhookRequest) Execute() (*WebhookSettings, *http.Response, error
 }
 
 /*
-GetWebhook Method for GetWebhook
+GetWebhook Get a webhook
 
-Retrieves the configuration settings for the specified webhook
+Get one webhook's transform and whether it's disabled.
+
+Requires the Owner or Developer role. Returns 404 if the webhook doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiGetWebhookRequest
 */
 func (a *WebhookAPIService) GetWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiGetWebhookRequest {
@@ -722,13 +746,16 @@ func (r ApiGetWebhookSettingsByProductRequest) Execute() (*WebhookSettings, *htt
 }
 
 /*
-GetWebhookSettingsByProduct Method for GetWebhookSettingsByProduct
+GetWebhookSettingsByProduct Get a webhook by ProductUID
 
-Retrieves the configuration settings for the specified webhook, addressed by productUID.
+Get one webhook's settings, like `GetWebhook`, but addressed by ProductUID instead of the
+project.
+
+Requires the Owner or Developer role. Returns 500, not 404, if the webhook doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiGetWebhookSettingsByProductRequest
 */
 func (a *WebhookAPIService) GetWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiGetWebhookSettingsByProductRequest {
@@ -837,9 +864,12 @@ func (r ApiGetWebhooksRequest) Execute() (*GetWebhooks200Response, *http.Respons
 }
 
 /*
-GetWebhooks Method for GetWebhooks
+GetWebhooks List webhooks
 
-Retrieves all webhooks for the specified project
+List a project's inbound webhooks with their transforms and whether they're disabled. An
+inbound webhook lets an outside service post data that Notehub turns into events.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -946,7 +976,7 @@ type ApiUpdateLegacyWebhookSessionRequest struct {
 	requestBody *map[string]interface{}
 }
 
-// Optional session metadata.
+// Session fields, such as &#x60;why_session_opened&#x60;, &#x60;why_session_closed&#x60; and signal or location values.
 func (r ApiUpdateLegacyWebhookSessionRequest) RequestBody(requestBody map[string]interface{}) ApiUpdateLegacyWebhookSessionRequest {
 	r.requestBody = &requestBody
 	return r
@@ -957,9 +987,13 @@ func (r ApiUpdateLegacyWebhookSessionRequest) Execute() (*http.Response, error) 
 }
 
 /*
-UpdateLegacyWebhookSession Method for UpdateLegacyWebhookSession
+UpdateLegacyWebhookSession Open or close a webhook device's session (legacy)
 
-Legacy endpoint for opening or updating a webhook session for the given device (provisioning the device if necessary). Used by external services that need to maintain a callable session against a device behind a webhook.
+Legacy: open, update or close a webhook device's session, adding the device if it's new.
+The body is a session: set `why_session_opened` to open one, `why_session_closed` to close
+it, both to close and reopen, or neither to update the open session.
+
+Requires the Owner or Developer role. Returns 400 when updating with no session open.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -1069,13 +1103,16 @@ func (r ApiUpdateWebhookRequest) Execute() (*http.Response, error) {
 }
 
 /*
-UpdateWebhook Method for UpdateWebhook
+UpdateWebhook Update a webhook
 
-Updates the configuration settings for the specified webhook. | Webhook will be created if it does not exist. Update body will completely replace the existing settings.
+Replace a webhook's settings, creating the webhook if it doesn't exist. Send every field:
+a missing `transform` is cleared and a missing `disabled` enables the webhook.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiUpdateWebhookRequest
 */
 func (a *WebhookAPIService) UpdateWebhook(ctx context.Context, projectOrProductUID string, webhookUID string) ApiUpdateWebhookRequest {
@@ -1184,13 +1221,17 @@ func (r ApiUpdateWebhookSettingsByProductRequest) Execute() (*http.Response, err
 }
 
 /*
-UpdateWebhookSettingsByProduct Method for UpdateWebhookSettingsByProduct
+UpdateWebhookSettingsByProduct Update a webhook by ProductUID
 
-Updates the configuration settings for the specified webhook, addressed by productUID. Update body will completely replace the existing settings.
+Replace a webhook's settings, like `UpdateWebhook`, but addressed by ProductUID. Creates the
+webhook if it doesn't exist.
+
+Requires the Owner or Developer role. Returns 400 if the ID has characters other than letters, digits, `-` and
+`_`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
-	@param webhookUID Webhook UID
+	@param webhookUID Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	@return ApiUpdateWebhookSettingsByProductRequest
 */
 func (a *WebhookAPIService) UpdateWebhookSettingsByProduct(ctx context.Context, productUID string, webhookUID string) ApiUpdateWebhookSettingsByProductRequest {

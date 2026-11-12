@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name          | Type         | Description                         | Notes |
-| ------------- | ------------ | ----------------------------------- | ----- |
-| **FleetUids** | **[]string** | The fleetUIDs to add to the device. |
+| Name          | Type         | Description                     | Notes |
+| ------------- | ------------ | ------------------------------- | ----- |
+| **FleetUids** | **[]string** | FleetUIDs to add the device to. |
 
 ## Methods
 

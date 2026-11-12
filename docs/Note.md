@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name        | Type                       | Description                                                              | Notes      |
-| ----------- | -------------------------- | ------------------------------------------------------------------------ | ---------- |
-| **Body**    | **map[string]interface{}** | Arbitrary user-defined JSON for the note.                                |
-| **Edge**    | Pointer to **bool**        | True if originated from an edge source.                                  | [optional] |
-| **Id**      | **string**                 | Note name/identifier (e.g., \&quot;1:435\&quot;, \&quot;my_note\&quot;). |
-| **Payload** | Pointer to **string**      | Optional base64-encoded payload.                                         | [optional] |
-| **Pending** | Pointer to **bool**        | True if the note is pending delivery or processing.                      | [optional] |
-| **Time**    | **int64**                  | Unix epoch seconds.                                                      |
-| **Where**   | Pointer to **string**      | Optional location/metadata string.                                       | [optional] |
+| Name        | Type                       | Description                                                                               | Notes      |
+| ----------- | -------------------------- | ----------------------------------------------------------------------------------------- | ---------- |
+| **Body**    | **map[string]interface{}** | Arbitrary user-defined JSON for the note.                                                 |
+| **Edge**    | Pointer to **bool**        | True if originated from an edge source.                                                   | [optional] |
+| **Id**      | **string**                 | Note name/identifier (e.g., \&quot;1:435\&quot;, \&quot;my_note\&quot;).                  |
+| **Payload** | Pointer to **string**      | Optional base64-encoded payload.                                                          | [optional] |
+| **Pending** | Pointer to **bool**        | True if the note is pending delivery or processing.                                       | [optional] |
+| **Time**    | **int64**                  | Unix epoch seconds.                                                                       |
+| **Where**   | Pointer to **string**      | Place name where the note was created, from its latitude and longitude. Empty if unknown. | [optional] |
 
 ## Methods
 

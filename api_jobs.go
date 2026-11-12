@@ -35,13 +35,15 @@ func (r ApiCancelJobRunRequest) Execute() (*CancelJobRun200Response, *http.Respo
 }
 
 /*
-CancelJobRun Method for CancelJobRun
+CancelJobRun Cancel a job run
 
-Cancel a running job execution
+Ask a running job to stop. `successful` is false if the run couldn't be cancelled.
+
+Requires the Owner or Developer role. Returns 404 if the run doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param reportUID Unique identifier for a job run report
+	@param reportUID Job run UID, as returned by `RunJob`.
 	@return ApiCancelJobRunRequest
 */
 func (a *JobsAPIService) CancelJobRun(ctx context.Context, projectOrProductUID string, reportUID string) ApiCancelJobRunRequest {
@@ -147,7 +149,7 @@ type ApiCreateJobRequest struct {
 	jobDefinition       *JobDefinition
 }
 
-// Name for the job
+// Job name, shown in lists. It doesn&#39;t have to be unique.
 func (r ApiCreateJobRequest) Name(name string) ApiCreateJobRequest {
 	r.name = &name
 	return r
@@ -164,9 +166,14 @@ func (r ApiCreateJobRequest) Execute() (*CreateJob201Response, *http.Response, e
 }
 
 /*
-CreateJob Method for CreateJob
+CreateJob Create a batch job
 
-Create a new batch job with an optional name
+Create a batch job from a definition that selects devices and the changes to make to them. It
+doesn't run until `RunJob`. Each call creates a new job with its own UID; names needn't be
+unique.
+
+Requires the Owner or Developer role. Returns 400 without a `name`; an invalid definition
+returns 500.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -286,13 +293,15 @@ func (r ApiDeleteJobRequest) Execute() (*DeleteJob200Response, *http.Response, e
 }
 
 /*
-DeleteJob Method for DeleteJob
+DeleteJob Delete a batch job
 
-Delete a batch job
+Delete a batch job.
+
+Requires the Owner or Developer role. Returns 404 if the job doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param jobUID Unique identifier for a batch job
+	@param jobUID Batch job UID, as returned by `CreateJob`.
 	@return ApiDeleteJobRequest
 */
 func (a *JobsAPIService) DeleteJob(ctx context.Context, projectOrProductUID string, jobUID string) ApiDeleteJobRequest {
@@ -402,13 +411,15 @@ func (r ApiDeleteJobRunRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteJobRun Method for DeleteJobRun
+DeleteJobRun Delete a job run
 
-Delete the results of a job run
+Delete a job run and its results. Deleting a run that doesn't exist also succeeds.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param reportUID Unique identifier for a job run report
+	@param reportUID Job run UID, as returned by `RunJob`.
 	@return ApiDeleteJobRunRequest
 */
 func (a *JobsAPIService) DeleteJobRun(ctx context.Context, projectOrProductUID string, reportUID string) ApiDeleteJobRunRequest {
@@ -506,13 +517,15 @@ func (r ApiGetJobRequest) Execute() (*JobDetail, *http.Response, error) {
 }
 
 /*
-GetJob Method for GetJob
+GetJob Get a batch job
 
-Get a specific batch job definition
+Get one batch job's definition and its latest run's status.
+
+Returns 404 if the job doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param jobUID Unique identifier for a batch job
+	@param jobUID Batch job UID, as returned by `CreateJob`.
 	@return ApiGetJobRequest
 */
 func (a *JobsAPIService) GetJob(ctx context.Context, projectOrProductUID string, jobUID string) ApiGetJobRequest {
@@ -629,13 +642,15 @@ func (r ApiGetJobRunRequest) Execute() (*JobRun, *http.Response, error) {
 }
 
 /*
-GetJobRun Method for GetJobRun
+GetJobRun Get a job run
 
-Get the result of a job execution
+Get a job run's status and, with `view=detail`, its full results.
+
+Returns 404 if the run doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param reportUID Unique identifier for a job run report
+	@param reportUID Job run UID, as returned by `RunJob`.
 	@return ApiGetJobRunRequest
 */
 func (a *JobsAPIService) GetJobRun(ctx context.Context, projectOrProductUID string, reportUID string) ApiGetJobRunRequest {
@@ -749,13 +764,13 @@ type ApiGetJobRunsRequest struct {
 	dryRun              *bool
 }
 
-// Filter runs by status
+// Return only runs with this status.
 func (r ApiGetJobRunsRequest) Status(status string) ApiGetJobRunsRequest {
 	r.status = &status
 	return r
 }
 
-// Filter runs by dry run flag
+// If set, return only dry runs (&#x60;true&#x60;) or only real runs (&#x60;false&#x60;).
 func (r ApiGetJobRunsRequest) DryRun(dryRun bool) ApiGetJobRunsRequest {
 	r.dryRun = &dryRun
 	return r
@@ -766,13 +781,15 @@ func (r ApiGetJobRunsRequest) Execute() (*GetJobRuns200Response, *http.Response,
 }
 
 /*
-GetJobRuns Method for GetJobRuns
+GetJobRuns List a job's runs
 
-List all runs for a specific job
+List a batch job's runs, optionally filtered by status or dry-run flag.
+
+Returns 404 if the job doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param jobUID Unique identifier for a batch job
+	@param jobUID Batch job UID, as returned by `CreateJob`.
 	@return ApiGetJobRunsRequest
 */
 func (a *JobsAPIService) GetJobRuns(ctx context.Context, projectOrProductUID string, jobUID string) ApiGetJobRunsRequest {
@@ -887,9 +904,10 @@ func (r ApiGetJobsRequest) Execute() (*GetJobs200Response, *http.Response, error
 }
 
 /*
-GetJobs Method for GetJobs
+GetJobs List batch jobs
 
-List all batch jobs for a project
+List a project's batch jobs with their latest run's status. A batch job applies changes, such as
+environment variables, to a selected set of devices.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -996,7 +1014,7 @@ type ApiRunJobRequest struct {
 	dryRun              *bool
 }
 
-// Run job in dry-run mode without making actual changes
+// If true, report what the job would change without changing anything.
 func (r ApiRunJobRequest) DryRun(dryRun bool) ApiRunJobRequest {
 	r.dryRun = &dryRun
 	return r
@@ -1007,13 +1025,17 @@ func (r ApiRunJobRequest) Execute() (*RunJob200Response, *http.Response, error) 
 }
 
 /*
-RunJob Method for RunJob
+RunJob Run a batch job
 
-Execute a batch job
+Start a run of a batch job and return its run UID. The run continues in the background, and
+`GetJobRun` shows its progress. With `dry_run=true`, it reports what would change without
+changing anything.
+
+Requires the Owner or Developer role. Returns 404 if the job doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param jobUID Unique identifier for a batch job
+	@param jobUID Batch job UID, as returned by `CreateJob`.
 	@return ApiRunJobRequest
 */
 func (a *JobsAPIService) RunJob(ctx context.Context, projectOrProductUID string, jobUID string) ApiRunJobRequest {

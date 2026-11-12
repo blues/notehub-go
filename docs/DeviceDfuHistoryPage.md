@@ -2,10 +2,11 @@
 
 ## Properties
 
-| Name        | Type                                                     | Description | Notes                         |
-| ----------- | -------------------------------------------------------- | ----------- | ----------------------------- |
-| **Devices** | Pointer to [**[]DeviceDfuHistory**](DeviceDfuHistory.md) |             | [optional]                    |
-| **HasMore** | Pointer to **bool**                                      |             | [optional] [default to false] |
+| Name           | Type                                                     | Description                                                                                                                                                                              | Notes                         |
+| -------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| **Devices**    | Pointer to [**[]DeviceDfuHistory**](DeviceDfuHistory.md) |                                                                                                                                                                                          | [optional]                    |
+| **HasMore**    | Pointer to **bool**                                      |                                                                                                                                                                                          | [optional] [default to false] |
+| **NextCursor** | Pointer to **string**                                    | Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes. | [optional]                    |
 
 ## Methods
 
@@ -75,5 +76,30 @@ SetHasMore sets HasMore field to given value.
 `func (o *DeviceDfuHistoryPage) HasHasMore() bool`
 
 HasHasMore returns a boolean if a field has been set.
+
+### GetNextCursor
+
+`func (o *DeviceDfuHistoryPage) GetNextCursor() string`
+
+GetNextCursor returns the NextCursor field if non-nil, zero value otherwise.
+
+### GetNextCursorOk
+
+`func (o *DeviceDfuHistoryPage) GetNextCursorOk() (*string, bool)`
+
+GetNextCursorOk returns a tuple with the NextCursor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextCursor
+
+`func (o *DeviceDfuHistoryPage) SetNextCursor(v string)`
+
+SetNextCursor sets NextCursor field to given value.
+
+### HasNextCursor
+
+`func (o *DeviceDfuHistoryPage) HasNextCursor() bool`
+
+HasNextCursor returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

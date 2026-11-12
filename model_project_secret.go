@@ -24,13 +24,13 @@ var _ MappedNullable = &ProjectSecret{}
 type ProjectSecret struct {
 	// When the secret was first created.
 	Created time.Time `json:"created"`
-	// The actor who created the secret.
+	// UID of the user or OAuth client that created the secret.
 	CreatedBy string `json:"created_by"`
-	// When the secret was last updated.
+	// When the secret's value was last set.
 	Modified *time.Time `json:"modified,omitempty"`
-	// The actor who last updated the secret.
+	// UID of the user or OAuth client that last set the secret's value.
 	ModifiedBy *string `json:"modified_by,omitempty"`
-	// The secret name (alphanumeric and underscores only).
+	// The secret's name. Routes and alerts reference it as `[$$name]`.
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

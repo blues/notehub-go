@@ -20,6 +20,7 @@ var _ MappedNullable = &Body{}
 
 // Body struct for Body
 type Body struct {
+	// The JSON object to send to the Notecard. Must not have a `type` field, which the Notecard reserves.
 	Body                 map[string]interface{} `json:"body,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

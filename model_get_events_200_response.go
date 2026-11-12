@@ -24,6 +24,8 @@ type GetEvents200Response struct {
 	Events []Event `json:"events"`
 	// True if there are more events
 	HasMore bool `json:"has_more"`
+	// Pass this value as the cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	NextCursor *string `json:"next_cursor,omitempty"`
 	// The UID of the last event returned
 	Through              *string `json:"through,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -98,6 +100,38 @@ func (o *GetEvents200Response) SetHasMore(v bool) {
 	o.HasMore = v
 }
 
+// GetNextCursor returns the NextCursor field value if set, zero value otherwise.
+func (o *GetEvents200Response) GetNextCursor() string {
+	if o == nil || IsNil(o.NextCursor) {
+		var ret string
+		return ret
+	}
+	return *o.NextCursor
+}
+
+// GetNextCursorOk returns a tuple with the NextCursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetEvents200Response) GetNextCursorOk() (*string, bool) {
+	if o == nil || IsNil(o.NextCursor) {
+		return nil, false
+	}
+	return o.NextCursor, true
+}
+
+// HasNextCursor returns a boolean if a field has been set.
+func (o *GetEvents200Response) HasNextCursor() bool {
+	if o != nil && !IsNil(o.NextCursor) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextCursor gets a reference to the given string and assigns it to the NextCursor field.
+func (o *GetEvents200Response) SetNextCursor(v string) {
+	o.NextCursor = &v
+}
+
 // GetThrough returns the Through field value if set, zero value otherwise.
 func (o *GetEvents200Response) GetThrough() string {
 	if o == nil || IsNil(o.Through) {
@@ -142,6 +176,9 @@ func (o GetEvents200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["events"] = o.Events
 	toSerialize["has_more"] = o.HasMore
+	if !IsNil(o.NextCursor) {
+		toSerialize["next_cursor"] = o.NextCursor
+	}
 	if !IsNil(o.Through) {
 		toSerialize["through"] = o.Through
 	}
@@ -191,6 +228,7 @@ func (o *GetEvents200Response) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "events")
 		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
 		delete(additionalProperties, "through")
 		o.AdditionalProperties = additionalProperties
 	}

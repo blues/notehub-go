@@ -20,7 +20,7 @@ var _ MappedNullable = &SignalDevice200Response{}
 
 // SignalDevice200Response struct for SignalDevice200Response
 type SignalDevice200Response struct {
-	// true if the Notecard is connected to Notehub.
+	// True if the Notecard was connected and the signal was delivered. False means it was dropped.
 	Connected            *bool `json:"connected,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -22,25 +22,25 @@ var _ MappedNullable = &Alert{}
 type Alert struct {
 	// The source of the alert
 	AlertSource *string `json:"alert_source,omitempty"`
-	// The time the alert was created
+	// When the alert was raised, as a Unix timestamp in seconds.
 	CreatedAt *int64           `json:"created_at,omitempty"`
 	Data      []AlertDataInner `json:"data,omitempty"`
-	// Device UID
+	// DeviceUID
 	DeviceUid *string `json:"device_uid,omitempty"`
-	// The field name that triggered the alert
+	// The monitor's `source_selector`.
 	FieldName *string `json:"field_name,omitempty"`
 	// Monitor Name
 	MonitorName *string `json:"monitor_name,omitempty"`
-	// The type of monitor that triggered the alert
+	// The `source_type` of the monitor that raised the alert.
 	MonitorType *string `json:"monitor_type,omitempty"`
-	// Monitor UID
+	// MonitorUID
 	MonitorUid    *string                   `json:"monitor_uid,omitempty"`
 	Notifications []AlertNotificationsInner `json:"notifications,omitempty"`
 	// If true, the alert has been resolved
 	Resolved *bool `json:"resolved,omitempty"`
 	// The UID of the source of the alert
 	Source *string `json:"source,omitempty"`
-	// Alert UID
+	// AlertUID
 	Uid *string `json:"uid,omitempty"`
 	// The value that triggered the alert
 	Value *float32 `json:"value,omitempty"`

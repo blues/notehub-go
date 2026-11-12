@@ -29,17 +29,22 @@ type ApiGetOrganizationRequest struct {
 	organizationUID string
 }
 
-func (r ApiGetOrganizationRequest) Execute() (*GetBillingAccount200Response, *http.Response, error) {
+func (r ApiGetOrganizationRequest) Execute() (*GetOrganization200Response, *http.Response, error) {
 	return r.ApiService.GetOrganizationExecute(r)
 }
 
 /*
-GetOrganization Method for GetOrganization
+GetOrganization Get an organization
 
-Get Organization Information
+Get an organization's name, owner, contact email and current plan. The plan has its type, event
+capacity, billing period and remaining balance. For the daily history, use
+`GetOrganizationBalanceHistory`.
+
+Requires the `org_admin`, `billing_manager` or `org_support` role in the organization. Returns
+403 if your membership is deactivated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param organizationUID
+	@param organizationUID Organization UID. List with `GetOrganizations`.
 	@return ApiGetOrganizationRequest
 */
 func (a *OrganizationAPIService) GetOrganization(ctx context.Context, organizationUID string) ApiGetOrganizationRequest {
@@ -52,13 +57,13 @@ func (a *OrganizationAPIService) GetOrganization(ctx context.Context, organizati
 
 // Execute executes the request
 //
-//	@return GetBillingAccount200Response
-func (a *OrganizationAPIService) GetOrganizationExecute(r ApiGetOrganizationRequest) (*GetBillingAccount200Response, *http.Response, error) {
+//	@return GetOrganization200Response
+func (a *OrganizationAPIService) GetOrganizationExecute(r ApiGetOrganizationRequest) (*GetOrganization200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetBillingAccount200Response
+		localVarReturnValue *GetOrganization200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationAPIService.GetOrganization")
@@ -155,17 +160,21 @@ func (r ApiGetOrganizationBalanceHistoryRequest) EndDate(endDate int64) ApiGetOr
 	return r
 }
 
-func (r ApiGetOrganizationBalanceHistoryRequest) Execute() (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
+func (r ApiGetOrganizationBalanceHistoryRequest) Execute() (*GetOrganizationBalanceHistory200Response, *http.Response, error) {
 	return r.ApiService.GetOrganizationBalanceHistoryExecute(r)
 }
 
 /*
-GetOrganizationBalanceHistory Method for GetOrganizationBalanceHistory
+GetOrganizationBalanceHistory Get an organization's daily balance
 
-Get Organization Balance history
+Get an organization's events used and remaining event capacity for each day. The range is
+`startDate` to `endDate`, which default to the start of the billing period and today.
+
+Requires the `org_admin`, `billing_manager` or `org_support` role in the organization. Returns
+400 if `startDate` is after `endDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param organizationUID
+	@param organizationUID Organization UID. List with `GetOrganizations`.
 	@return ApiGetOrganizationBalanceHistoryRequest
 */
 func (a *OrganizationAPIService) GetOrganizationBalanceHistory(ctx context.Context, organizationUID string) ApiGetOrganizationBalanceHistoryRequest {
@@ -178,13 +187,13 @@ func (a *OrganizationAPIService) GetOrganizationBalanceHistory(ctx context.Conte
 
 // Execute executes the request
 //
-//	@return GetBillingAccountBalanceHistory200Response
-func (a *OrganizationAPIService) GetOrganizationBalanceHistoryExecute(r ApiGetOrganizationBalanceHistoryRequest) (*GetBillingAccountBalanceHistory200Response, *http.Response, error) {
+//	@return GetOrganizationBalanceHistory200Response
+func (a *OrganizationAPIService) GetOrganizationBalanceHistoryExecute(r ApiGetOrganizationBalanceHistoryRequest) (*GetOrganizationBalanceHistory200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetBillingAccountBalanceHistory200Response
+		localVarReturnValue *GetOrganizationBalanceHistory200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OrganizationAPIService.GetOrganizationBalanceHistory")
@@ -277,9 +286,11 @@ func (r ApiGetOrganizationsRequest) Execute() (*GetOrganizations200Response, *ht
 }
 
 /*
-GetOrganizations Method for GetOrganizations
+GetOrganizations List your organizations
 
-Get Organizations accessible by the api_key
+List the organizations you belong to, with your role in each. A scoped token gets an empty list.
+
+Returns 401 if your email address isn't verified.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetOrganizationsRequest

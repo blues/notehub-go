@@ -21,7 +21,9 @@ var _ MappedNullable = &GetDeviceSessions200Response{}
 
 // GetDeviceSessions200Response struct for GetDeviceSessions200Response
 type GetDeviceSessions200Response struct {
-	HasMore              bool            `json:"has_more"`
+	HasMore bool `json:"has_more"`
+	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	NextCursor           *string         `json:"next_cursor,omitempty"`
 	Sessions             []DeviceSession `json:"sessions"`
 	AdditionalProperties map[string]interface{}
 }
@@ -71,6 +73,38 @@ func (o *GetDeviceSessions200Response) SetHasMore(v bool) {
 	o.HasMore = v
 }
 
+// GetNextCursor returns the NextCursor field value if set, zero value otherwise.
+func (o *GetDeviceSessions200Response) GetNextCursor() string {
+	if o == nil || IsNil(o.NextCursor) {
+		var ret string
+		return ret
+	}
+	return *o.NextCursor
+}
+
+// GetNextCursorOk returns a tuple with the NextCursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetDeviceSessions200Response) GetNextCursorOk() (*string, bool) {
+	if o == nil || IsNil(o.NextCursor) {
+		return nil, false
+	}
+	return o.NextCursor, true
+}
+
+// HasNextCursor returns a boolean if a field has been set.
+func (o *GetDeviceSessions200Response) HasNextCursor() bool {
+	if o != nil && !IsNil(o.NextCursor) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextCursor gets a reference to the given string and assigns it to the NextCursor field.
+func (o *GetDeviceSessions200Response) SetNextCursor(v string) {
+	o.NextCursor = &v
+}
+
 // GetSessions returns the Sessions field value
 func (o *GetDeviceSessions200Response) GetSessions() []DeviceSession {
 	if o == nil {
@@ -106,6 +140,9 @@ func (o GetDeviceSessions200Response) MarshalJSON() ([]byte, error) {
 func (o GetDeviceSessions200Response) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["has_more"] = o.HasMore
+	if !IsNil(o.NextCursor) {
+		toSerialize["next_cursor"] = o.NextCursor
+	}
 	toSerialize["sessions"] = o.Sessions
 
 	for key, value := range o.AdditionalProperties {
@@ -152,6 +189,7 @@ func (o *GetDeviceSessions200Response) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
 		delete(additionalProperties, "sessions")
 		o.AdditionalProperties = additionalProperties
 	}

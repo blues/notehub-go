@@ -2,36 +2,37 @@
 
 ## Properties
 
-| Name                     | Type                                                         | Description                                                                  | Notes      |
-| ------------------------ | ------------------------------------------------------------ | ---------------------------------------------------------------------------- | ---------- |
-| **BestId**               | Pointer to **string**                                        | The best ID for the device, preference for the serial number over device UID | [optional] |
-| **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
-| **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |                                                                              | [optional] |
-| **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |                                                                              | [optional] |
-| **Dfu**                  | Pointer to [**NullableDFUEnv**](DFUEnv.md)                   |                                                                              | [optional] |
-| **Disabled**             | Pointer to **bool**                                          |                                                                              | [optional] |
-| **FirmwareHost**         | Pointer to **string**                                        |                                                                              | [optional] |
-| **FirmwareNotecard**     | Pointer to **string**                                        |                                                                              | [optional] |
-| **FleetUids**            | **[]string**                                                 |                                                                              |
-| **GpsLocation**          | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
-| **HealthLog**            | Pointer to [**[]HealthLog**](HealthLog.md)                   |                                                                              | [optional] |
-| **LastActivity**         | Pointer to **NullableTime**                                  |                                                                              | [optional] |
-| **ProductUid**           | **string**                                                   |                                                                              |
-| **Provisioned**          | **time.Time**                                                |                                                                              |
-| **RecentEventCount**     | Pointer to **[]int32**                                       |                                                                              | [optional] |
-| **RecentSessionCount**   | Pointer to **[]int32**                                       |                                                                              | [optional] |
-| **RecentSessionSeconds** | Pointer to **[]int32**                                       |                                                                              | [optional] |
-| **RecentWhen**           | Pointer to **NullableTime**                                  |                                                                              | [optional] |
-| **Sensors**              | Pointer to [**[]DeviceSensor**](DeviceSensor.md)             |                                                                              | [optional] |
-| **SerialNumber**         | Pointer to **string**                                        |                                                                              | [optional] |
-| **Sku**                  | Pointer to **string**                                        |                                                                              | [optional] |
-| **Tags**                 | Pointer to **string**                                        |                                                                              | [optional] |
-| **Temperature**          | **float64**                                                  |                                                                              |
-| **TowerInfo**            | Pointer to [**NullableDeviceTowerInfo**](DeviceTowerInfo.md) |                                                                              | [optional] |
-| **TowerLocation**        | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
-| **TriangulatedLocation** | Pointer to [**NullableLocation**](Location.md)               |                                                                              | [optional] |
-| **Uid**                  | **string**                                                   |                                                                              |
-| **Voltage**              | **float64**                                                  |                                                                              |
+| Name                     | Type                                                         | Description                                                                                                                       | Notes      |
+| ------------------------ | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **BestId**               | Pointer to **string**                                        | The serial number if set, otherwise the DeviceUID. Use it as a display name.                                                      | [optional] |
+| **BestLocation**         | Pointer to [**NullableLocation**](Location.md)               |                                                                                                                                   | [optional] |
+| **CellularUsage**        | Pointer to [**[]SimUsage**](SimUsage.md)                     |                                                                                                                                   | [optional] |
+| **Contact**              | Pointer to [**NullableContact**](Contact.md)                 |                                                                                                                                   | [optional] |
+| **Deleted**              | Pointer to **bool**                                          | True if this device has been deleted. Only present when reading with a &#x60;cursor&#x60;.                                        | [optional] |
+| **Dfu**                  | Pointer to [**NullableDFUEnv**](DFUEnv.md)                   |                                                                                                                                   | [optional] |
+| **Disabled**             | Pointer to **bool**                                          | True if the device was disabled with &#x60;DisableDevice&#x60; and can&#39;t connect.                                             | [optional] |
+| **FirmwareHost**         | Pointer to **string**                                        | Host firmware version, as reported by the device. Usually a JSON string.                                                          | [optional] |
+| **FirmwareNotecard**     | Pointer to **string**                                        | Notecard firmware version, as reported by the device.                                                                             | [optional] |
+| **FleetUids**            | **[]string**                                                 | FleetUIDs of the fleets the device is in.                                                                                         |
+| **GpsLocation**          | Pointer to [**NullableLocation**](Location.md)               |                                                                                                                                   | [optional] |
+| **HealthLog**            | Pointer to [**[]HealthLog**](HealthLog.md)                   | Not returned by &#x60;GetDevice&#x60;, &#x60;GetDevices&#x60; or &#x60;GetFleetDevices&#x60;; use &#x60;GetDeviceHealthLog&#x60;. | [optional] |
+| **LastActivity**         | Pointer to **NullableTime**                                  | When the device was last active in a session. Null if it has never connected.                                                     | [optional] |
+| **ProductUid**           | **string**                                                   | ProductUID the device uses, e.g. &#x60;com.blues.bridge:sensors&#x60;.                                                            |
+| **Provisioned**          | **time.Time**                                                | When the device was added to the project.                                                                                         |
+| **RecentEventCount**     | Pointer to **[]int32**                                       | Not returned by &#x60;GetDevice&#x60;, &#x60;GetDevices&#x60; or &#x60;GetFleetDevices&#x60;.                                     | [optional] |
+| **RecentSessionCount**   | Pointer to **[]int32**                                       | Not returned by &#x60;GetDevice&#x60;, &#x60;GetDevices&#x60; or &#x60;GetFleetDevices&#x60;.                                     | [optional] |
+| **RecentSessionSeconds** | Pointer to **[]int32**                                       | Not returned by &#x60;GetDevice&#x60;, &#x60;GetDevices&#x60; or &#x60;GetFleetDevices&#x60;.                                     | [optional] |
+| **RecentWhen**           | Pointer to **NullableTime**                                  | Not returned by &#x60;GetDevice&#x60;, &#x60;GetDevices&#x60; or &#x60;GetFleetDevices&#x60;.                                     | [optional] |
+| **Sensors**              | Pointer to [**[]DeviceSensor**](DeviceSensor.md)             |                                                                                                                                   | [optional] |
+| **SerialNumber**         | Pointer to **string**                                        | Serial number, from the &#x60;_sn&#x60; environment variable if set. Empty if none.                                               | [optional] |
+| **Sku**                  | Pointer to **string**                                        | Notecard SKU, e.g. &#x60;NOTE-WBNAW&#x60;.                                                                                        | [optional] |
+| **Tags**                 | Pointer to **string**                                        | Comma-separated tags, from the &#x60;_tags&#x60; environment variable. Empty if none.                                             | [optional] |
+| **Temperature**          | **float64**                                                  | Last reported Notecard temperature, in degrees Celsius.                                                                           |
+| **TowerInfo**            | Pointer to [**NullableDeviceTowerInfo**](DeviceTowerInfo.md) |                                                                                                                                   | [optional] |
+| **TowerLocation**        | Pointer to [**NullableLocation**](Location.md)               |                                                                                                                                   | [optional] |
+| **TriangulatedLocation** | Pointer to [**NullableLocation**](Location.md)               |                                                                                                                                   | [optional] |
+| **Uid**                  | **string**                                                   | DeviceUID, e.g. &#x60;dev:864475040509284&#x60;.                                                                                  |
+| **Voltage**              | **float64**                                                  | Last reported supply voltage, in volts.                                                                                           |
 
 ## Methods
 
@@ -175,6 +176,31 @@ SetContactNil sets the value for Contact to be an explicit nil
 `func (o *Device) UnsetContact()`
 
 UnsetContact ensures that no value is present for Contact, not even an explicit nil
+
+### GetDeleted
+
+`func (o *Device) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *Device) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *Device) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *Device) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 ### GetDfu
 

@@ -22,7 +22,7 @@ var _ MappedNullable = &RepositoryTokenRequest{}
 type RepositoryTokenRequest struct {
 	// Access intent for the vended credentials. Only `read` is supported today; `write` and `admin` are reserved for future use.
 	Intent *string `json:"intent,omitempty"`
-	// Requested credential lifetime in seconds. Clamped server-side to [60, 3600]. Defaults to 900 (15 minutes) if omitted.
+	// Requested credential lifetime in seconds. Clamped server-side to [60, 3600], or to [60, 900] for a scoped token. Defaults to 900 (15 minutes) if omitted.
 	TtlSeconds           *int32 `json:"ttl_seconds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

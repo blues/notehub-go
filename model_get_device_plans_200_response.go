@@ -20,6 +20,7 @@ var _ MappedNullable = &GetDevicePlans200Response{}
 
 // GetDevicePlans200Response struct for GetDevicePlans200Response
 type GetDevicePlans200Response struct {
+	// One entry per cellular SIM. Empty for a device with only a satellite connection.
 	CellularPlans        []CellularPlan `json:"cellular_plans,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

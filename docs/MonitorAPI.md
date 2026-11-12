@@ -2,17 +2,19 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                           | HTTP request                                                        | Description |
-| ------------------------------------------------ | ------------------------------------------------------------------- | ----------- |
-| [**CreateMonitor**](MonitorAPI.md#CreateMonitor) | **Post** /v1/projects/{projectOrProductUID}/monitors                |
-| [**DeleteMonitor**](MonitorAPI.md#DeleteMonitor) | **Delete** /v1/projects/{projectOrProductUID}/monitors/{monitorUID} |
-| [**GetMonitor**](MonitorAPI.md#GetMonitor)       | **Get** /v1/projects/{projectOrProductUID}/monitors/{monitorUID}    |
-| [**GetMonitors**](MonitorAPI.md#GetMonitors)     | **Get** /v1/projects/{projectOrProductUID}/monitors                 |
-| [**UpdateMonitor**](MonitorAPI.md#UpdateMonitor) | **Put** /v1/projects/{projectOrProductUID}/monitors/{monitorUID}    |
+| Method                                           | HTTP request                                                        | Description      |
+| ------------------------------------------------ | ------------------------------------------------------------------- | ---------------- |
+| [**CreateMonitor**](MonitorAPI.md#CreateMonitor) | **Post** /v1/projects/{projectOrProductUID}/monitors                | Create a monitor |
+| [**DeleteMonitor**](MonitorAPI.md#DeleteMonitor) | **Delete** /v1/projects/{projectOrProductUID}/monitors/{monitorUID} | Delete a monitor |
+| [**GetMonitor**](MonitorAPI.md#GetMonitor)       | **Get** /v1/projects/{projectOrProductUID}/monitors/{monitorUID}    | Get a monitor    |
+| [**GetMonitors**](MonitorAPI.md#GetMonitors)     | **Get** /v1/projects/{projectOrProductUID}/monitors                 | List monitors    |
+| [**UpdateMonitor**](MonitorAPI.md#UpdateMonitor) | **Put** /v1/projects/{projectOrProductUID}/monitors/{monitorUID}    | Update a monitor |
 
 ## CreateMonitor
 
 > Monitor CreateMonitor(ctx, projectOrProductUID).CreateMonitor(createMonitor).Execute()
+
+Create a monitor
 
 ### Example
 
@@ -79,6 +81,8 @@ Other parameters are passed through a pointer to a apiCreateMonitorRequest struc
 
 > Monitor DeleteMonitor(ctx, projectOrProductUID, monitorUID).Execute()
 
+Delete a monitor
+
 ### Example
 
 ```go
@@ -93,7 +97,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string |
+	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string | MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -109,11 +113,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **monitorUID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                             | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.             |
+| **projectOrProductUID** | **string**          |                                                                                         |
+| **monitorUID**          | **string**          | MonitorUID, &#x60;monitor:&#x60; followed by a UUID. List with &#x60;GetMonitors&#x60;. |
 
 ### Other Parameters
 
@@ -143,6 +147,8 @@ Other parameters are passed through a pointer to a apiDeleteMonitorRequest struc
 
 > Monitor GetMonitor(ctx, projectOrProductUID, monitorUID).Execute()
 
+Get a monitor
+
 ### Example
 
 ```go
@@ -157,7 +163,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string |
+	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string | MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -173,11 +179,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **monitorUID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                             | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.             |
+| **projectOrProductUID** | **string**          |                                                                                         |
+| **monitorUID**          | **string**          | MonitorUID, &#x60;monitor:&#x60; followed by a UUID. List with &#x60;GetMonitors&#x60;. |
 
 ### Other Parameters
 
@@ -206,6 +212,8 @@ Other parameters are passed through a pointer to a apiGetMonitorRequest struct v
 ## GetMonitors
 
 > []Monitor GetMonitors(ctx, projectOrProductUID).Execute()
+
+List monitors
 
 ### Example
 
@@ -269,6 +277,8 @@ Other parameters are passed through a pointer to a apiGetMonitorsRequest struct 
 
 > Monitor UpdateMonitor(ctx, projectOrProductUID, monitorUID).Monitor(monitor).Execute()
 
+Update a monitor
+
 ### Example
 
 ```go
@@ -283,7 +293,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string |
+	monitorUID := "monitor:8bAdf00d-000f-51c-af-01d5eaf00dbad" // string | MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 	monitor := *openapiclient.NewMonitor() // Monitor | Body or payload of monitor to be created
 
 	configuration := openapiclient.NewConfiguration()
@@ -300,11 +310,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **monitorUID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                             | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.             |
+| **projectOrProductUID** | **string**          |                                                                                         |
+| **monitorUID**          | **string**          | MonitorUID, &#x60;monitor:&#x60; followed by a UUID. List with &#x60;GetMonitors&#x60;. |
 
 ### Other Parameters
 

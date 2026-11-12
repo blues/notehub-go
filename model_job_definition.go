@@ -23,7 +23,7 @@ type JobDefinition struct {
 	// Human-readable description of the job
 	Comment         *string           `json:"comment,omitempty"`
 	DefaultRequests *BatchJobRequests `json:"default_requests,omitempty"`
-	// Device-specific request overrides, keyed by device UID
+	// Device-specific request overrides, keyed by DeviceUID
 	DeviceRequests       *map[string]BatchJobRequests `json:"device_requests,omitempty"`
 	ReportOptions        *JobDefinitionReportOptions  `json:"report_options,omitempty"`
 	Select               *JobDefinitionSelect         `json:"select,omitempty"`

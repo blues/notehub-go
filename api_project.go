@@ -33,7 +33,7 @@ type ApiAddDeviceToFleetsRequest struct {
 	addDeviceToFleetsRequest *AddDeviceToFleetsRequest
 }
 
-// The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+// The fleets to add the device to.
 func (r ApiAddDeviceToFleetsRequest) AddDeviceToFleetsRequest(addDeviceToFleetsRequest AddDeviceToFleetsRequest) ApiAddDeviceToFleetsRequest {
 	r.addDeviceToFleetsRequest = &addDeviceToFleetsRequest
 	return r
@@ -44,9 +44,12 @@ func (r ApiAddDeviceToFleetsRequest) Execute() (*GetDeviceFleets200Response, *ht
 }
 
 /*
-AddDeviceToFleets Method for AddDeviceToFleets
+AddDeviceToFleets Add a device to fleets
 
-Add Device to Fleets
+Add a device to one or more fleets, keeping the fleets it's already in, and return all its
+fleets. Fleets it's already in are skipped, so a retry is safe.
+
+Requires the Owner or Developer role. Returns 400 if a fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -160,7 +163,7 @@ type ApiCloneProjectRequest struct {
 	cloneProjectRequest *CloneProjectRequest
 }
 
-// Project to be cloned
+// The new project&#39;s name and organization, and what to leave out of the copy.
 func (r ApiCloneProjectRequest) CloneProjectRequest(cloneProjectRequest CloneProjectRequest) ApiCloneProjectRequest {
 	r.cloneProjectRequest = &cloneProjectRequest
 	return r
@@ -171,9 +174,14 @@ func (r ApiCloneProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-CloneProject Method for CloneProject
+CloneProject Clone a project
 
-Clone a Project
+Create a new project as a copy of this one. Settings, environment variables,
+transformation, fleets, routes and host firmware are copied; devices, products and members
+aren't. Copied fleets get new FleetUIDs.
+
+Requires the Owner role (400 otherwise), a verified email address (401 otherwise), and
+permission to create projects in the target organization (403 otherwise).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -284,7 +292,7 @@ type ApiCreateFleetRequest struct {
 	createFleetRequest  *CreateFleetRequest
 }
 
-// Fleet to be added
+// The new fleet&#39;s name and settings.
 func (r ApiCreateFleetRequest) CreateFleetRequest(createFleetRequest CreateFleetRequest) ApiCreateFleetRequest {
 	r.createFleetRequest = &createFleetRequest
 	return r
@@ -295,9 +303,12 @@ func (r ApiCreateFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-CreateFleet Method for CreateFleet
+CreateFleet Create a fleet
 
-Create Fleet
+Create a fleet in the project. Connectivity assurance is on unless
+`connectivity_assurance.enabled` is `false`. A second call creates another fleet.
+
+Requires the Owner or Developer role. Returns 400 if `label` is missing or empty.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -408,7 +419,7 @@ type ApiCreateProductRequest struct {
 	createProductRequest *CreateProductRequest
 }
 
-// Product to be created
+// The new product&#39;s UID suffix, name and provisioning settings.
 func (r ApiCreateProductRequest) CreateProductRequest(createProductRequest CreateProductRequest) ApiCreateProductRequest {
 	r.createProductRequest = &createProductRequest
 	return r
@@ -419,9 +430,14 @@ func (r ApiCreateProductRequest) Execute() (*Product, *http.Response, error) {
 }
 
 /*
-CreateProduct Method for CreateProduct
+CreateProduct Create a product
 
-Create Product within a Project
+Add a ProductUID to the project, formed from the caller's reversed email and `product_uid`.
+For `jane@acme.com` and `sensors` it is `com.acme.jane:sensors`.
+
+Requires the Owner or Developer role and a verified email address (400 otherwise). Returns
+404 if an `auto_provision_fleets` entry isn't a fleet in this project, and 500 if
+`product_uid` is invalid or already taken.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -531,7 +547,7 @@ type ApiCreateProjectRequest struct {
 	createProjectRequest *CreateProjectRequest
 }
 
-// Project to be created
+// The new project&#39;s name and organization.
 func (r ApiCreateProjectRequest) CreateProjectRequest(createProjectRequest CreateProjectRequest) ApiCreateProjectRequest {
 	r.createProjectRequest = &createProjectRequest
 	return r
@@ -542,9 +558,13 @@ func (r ApiCreateProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-CreateProject Method for CreateProject
+CreateProject Create a project
 
-Create a Project
+Create a project in an organization, with one default fleet, no products, and the caller
+as its Owner. A second call creates another project.
+
+Requires a verified email address (401 otherwise) and permission to create projects in the
+organization (403 otherwise).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateProjectRequest
@@ -662,9 +682,13 @@ func (r ApiCreateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response
 }
 
 /*
-CreateProjectSecret Method for CreateProjectSecret
+CreateProjectSecret Create a project secret
 
-Create a new project secret
+Store a secret value that routes and alerts can reference as `[$$name]` without exposing
+it. The value can't be read back.
+
+Requires the Owner or Developer role. Returns 409 if the name is taken, and 400 if it's
+invalid.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -798,7 +822,7 @@ type ApiDeleteDeviceFromFleetsRequest struct {
 	deleteDeviceFromFleetsRequest *DeleteDeviceFromFleetsRequest
 }
 
-// The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+// The fleets to remove the device from.
 func (r ApiDeleteDeviceFromFleetsRequest) DeleteDeviceFromFleetsRequest(deleteDeviceFromFleetsRequest DeleteDeviceFromFleetsRequest) ApiDeleteDeviceFromFleetsRequest {
 	r.deleteDeviceFromFleetsRequest = &deleteDeviceFromFleetsRequest
 	return r
@@ -809,9 +833,12 @@ func (r ApiDeleteDeviceFromFleetsRequest) Execute() (*GetDeviceFleets200Response
 }
 
 /*
-DeleteDeviceFromFleets Method for DeleteDeviceFromFleets
+DeleteDeviceFromFleets Remove a device from fleets
 
-Remove Device from Fleets
+Remove a device from one or more fleets and return the fleets it's still in. Fleets it
+isn't in are ignored, so a retry is safe.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -931,9 +958,13 @@ func (r ApiDeleteFirmwareRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteFirmware Method for DeleteFirmware
+DeleteFirmware Delete host firmware
 
-Delete a host firmware binary. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+Delete a host firmware file by its stored filename, including its `$` timestamp suffix.
+Notecard firmware can't be deleted.
+
+Requires the Owner or Developer role. Returns 404 if the file doesn't exist, and 400 for a
+sub-project, whose parent manages host firmware.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1038,9 +1069,14 @@ func (r ApiDeleteFleetRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteFleet Method for DeleteFleet
+DeleteFleet Delete a fleet
 
-Delete Fleet
+Delete a fleet and remove it from all its devices. The devices stay in the project; the
+fleet's environment variables are deleted. To remove one device from a fleet, use
+`DeleteDeviceFromFleets`.
+
+Requires the Owner or Developer role. Returns 400 if the fleet does not exist, including on
+a retry.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1143,14 +1179,17 @@ func (r ApiDeleteFleetEnvironmentVariableRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-DeleteFleetEnvironmentVariable Method for DeleteFleetEnvironmentVariable
+DeleteFleetEnvironmentVariable Delete a fleet environment variable
 
-Delete environment variables of a fleet
+Delete one fleet environment variable and return the ones left.
+
+Requires the Owner or Developer role. Returns 404 if the fleet or the variable doesn't
+exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param fleetUID
-	@param key The environment variable key to delete.
+	@param key Name of the environment variable to delete.
 	@return ApiDeleteFleetEnvironmentVariableRequest
 */
 func (a *ProjectAPIService) DeleteFleetEnvironmentVariable(ctx context.Context, projectOrProductUID string, fleetUID string, key string) ApiDeleteFleetEnvironmentVariableRequest {
@@ -1262,9 +1301,12 @@ func (r ApiDeleteProductRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProduct Method for DeleteProduct
+DeleteProduct Delete a product
 
-Delete a product
+Remove a ProductUID from the project. Accepts the UID with or without the `product:`
+prefix.
+
+Requires the Owner or Developer role. Returns 404 if the project has no such ProductUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1365,9 +1407,12 @@ func (r ApiDeleteProjectRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProject Method for DeleteProject
+DeleteProject Delete a project
 
-Delete a Project by ProjectUID
+Delete a project, its ProductUIDs, and every member's access to it. Can't be undone
+through the API.
+
+Requires the Owner or Developer role. Returns 200 with no body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1466,13 +1511,16 @@ func (r ApiDeleteProjectEnvironmentVariableRequest) Execute() (*EnvironmentVaria
 }
 
 /*
-DeleteProjectEnvironmentVariable Method for DeleteProjectEnvironmentVariable
+DeleteProjectEnvironmentVariable Delete a project environment variable
 
-Delete an environment variable of a project by key
+Delete one project environment variable and return the ones left. Deleting a variable that
+doesn't exist still succeeds.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param key The environment variable key to delete.
+	@param key Name of the environment variable to delete.
 	@return ApiDeleteProjectEnvironmentVariableRequest
 */
 func (a *ProjectAPIService) DeleteProjectEnvironmentVariable(ctx context.Context, projectOrProductUID string, key string) ApiDeleteProjectEnvironmentVariableRequest {
@@ -1582,13 +1630,16 @@ func (r ApiDeleteProjectSecretRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProjectSecret Method for DeleteProjectSecret
+DeleteProjectSecret Delete a project secret
 
-Delete a project secret by name
+Delete a project secret. Routes and alerts that still reference it can no longer resolve
+it.
+
+Requires the Owner or Developer role. Returns 404 if the secret doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param secretName The name of the secret.
+	@param secretName Name of the secret, as listed by `GetProjectSecrets`.
 	@return ApiDeleteProjectSecretRequest
 */
 func (a *ProjectAPIService) DeleteProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiDeleteProjectSecretRequest {
@@ -1696,9 +1747,13 @@ func (r ApiDisableGlobalEventTransformationRequest) Execute() (*http.Response, e
 }
 
 /*
-DisableGlobalEventTransformation Method for DisableGlobalEventTransformation
+DisableGlobalEventTransformation Disable the global event transformation
 
-Disable the project-level event JSONata transformation
+Stop applying the project's global event transformation to new events. The expression is
+kept, so `EnableGlobalEventTransformation` can turn it back on.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent's
+transformation applies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -1798,13 +1853,16 @@ func (r ApiDownloadFirmwareRequest) Execute() (*os.File, *http.Response, error) 
 }
 
 /*
-DownloadFirmware Method for DownloadFirmware
+DownloadFirmware Download host firmware
 
-Download firmware binary
+Download a host firmware binary by its stored filename, including its `$` timestamp suffix.
+Notecard firmware can't be downloaded (400).
+
+Requires the Owner or Developer role. Returns 404 if the file doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@param filename
 	@return ApiDownloadFirmwareRequest
 */
@@ -1916,9 +1974,13 @@ func (r ApiEnableGlobalEventTransformationRequest) Execute() (*http.Response, er
 }
 
 /*
-EnableGlobalEventTransformation Method for EnableGlobalEventTransformation
+EnableGlobalEventTransformation Enable the global event transformation
 
-Enable the project-level event JSONata transformation
+Resume applying the project's global event transformation to new events, without changing
+the expression. Undoes `DisableGlobalEventTransformation`.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent's
+transformation applies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2018,8 +2080,9 @@ func (r ApiGetAWSRoleConfigRequest) Execute() (*AWSRoleConfig, *http.Response, e
 /*
 GetAWSRoleConfig Get AWS role configuration for role-based authentication
 
-Returns the AWS Account ID and External ID needed to configure an IAM role
-trust policy for role-based authentication on AWS routes.
+Get the AWS account ID and External ID for the IAM role trust policy used by AWS routes
+with role-based authentication. The External ID is created on the first call and stays the
+same after that.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2131,14 +2194,17 @@ func (r ApiGetDeviceDfuHistoryRequest) Execute() (*DeviceDfuHistory, *http.Respo
 }
 
 /*
-GetDeviceDfuHistory Method for GetDeviceDfuHistory
+GetDeviceDfuHistory Get a device's firmware update history
 
-Get device DFU history for host or Notecard firmware
+Get a device's current host or Notecard firmware version and every firmware update
+requested for it, newest first. For just the latest update, use `GetDeviceDfuStatus`.
+
+Returns 400 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDeviceDfuHistoryRequest
 */
 func (a *ProjectAPIService) GetDeviceDfuHistory(ctx context.Context, projectOrProductUID string, deviceUID string, firmwareType string) ApiGetDeviceDfuHistoryRequest {
@@ -2251,14 +2317,18 @@ func (r ApiGetDeviceDfuStatusRequest) Execute() (*DeviceDfuStatus, *http.Respons
 }
 
 /*
-GetDeviceDfuStatus Method for GetDeviceDfuStatus
+GetDeviceDfuStatus Get a device's firmware update status
 
-Get device DFU history for host or Notecard firmware
+Get a device's current host or Notecard firmware version and its latest firmware update.
+Includes whether an update is in progress. For every past update, use
+`GetDeviceDfuHistory`.
+
+Returns 400 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
 	@param deviceUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDeviceDfuStatusRequest
 */
 func (a *ProjectAPIService) GetDeviceDfuStatus(ctx context.Context, projectOrProductUID string, deviceUID string, firmwareType string) ApiGetDeviceDfuStatusRequest {
@@ -2370,9 +2440,12 @@ func (r ApiGetDeviceFleetsRequest) Execute() (*GetDeviceFleets200Response, *http
 }
 
 /*
-GetDeviceFleets Method for GetDeviceFleets
+GetDeviceFleets List a device's fleets
 
-Get Device Fleets
+List the fleets a device belongs to, with only each fleet's UID, label and creation time.
+For a fleet's full details use `GetFleet`.
+
+Returns 404 if the device isn't in the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -2481,6 +2554,7 @@ type ApiGetDevicesDfuHistoryRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2504,6 +2578,12 @@ func (r ApiGetDevicesDfuHistoryRequest) PageNum(pageNum int32) ApiGetDevicesDfuH
 	return r
 }
 
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuHistoryRequest) Cursor(cursor string) ApiGetDevicesDfuHistoryRequest {
+	r.cursor = &cursor
+	return r
+}
+
 func (r ApiGetDevicesDfuHistoryRequest) SortBy(sortBy string) ApiGetDevicesDfuHistoryRequest {
 	r.sortBy = &sortBy
 	return r
@@ -2514,7 +2594,7 @@ func (r ApiGetDevicesDfuHistoryRequest) SortOrder(sortOrder string) ApiGetDevice
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuHistoryRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2555,7 +2635,7 @@ func (r ApiGetDevicesDfuHistoryRequest) HostFirmware(hostFirmware []string) ApiG
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuHistoryRequest) ProductUID(productUID []string) ApiGetDevicesDfuHistoryRequest {
 	r.productUID = &productUID
 	return r
@@ -2572,13 +2652,18 @@ func (r ApiGetDevicesDfuHistoryRequest) Execute() (*DeviceDfuHistoryPage, *http.
 }
 
 /*
-GetDevicesDfuHistory Method for GetDevicesDfuHistory
+GetDevicesDfuHistory List devices' firmware update history
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+List every host or Notecard firmware update requested for each matching device, newest
+first. Includes each device's current firmware version. For just the latest update, use
+`GetDevicesDfuStatus`.
+
+Paginated, by page or `cursor`. With a `cursor`, changes made through fleet or project
+firmware settings don't appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDevicesDfuHistoryRequest
 */
 func (a *ProjectAPIService) GetDevicesDfuHistory(ctx context.Context, projectOrProductUID string, firmwareType string) ApiGetDevicesDfuHistoryRequest {
@@ -2617,7 +2702,7 @@ func (a *ProjectAPIService) GetDevicesDfuHistoryExecute(r ApiGetDevicesDfuHistor
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2627,6 +2712,9 @@ func (a *ProjectAPIService) GetDevicesDfuHistoryExecute(r ApiGetDevicesDfuHistor
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
@@ -2802,6 +2890,7 @@ type ApiGetDevicesDfuStatusRequest struct {
 	firmwareType        string
 	pageSize            *int32
 	pageNum             *int32
+	cursor              *string
 	sortBy              *string
 	sortOrder           *string
 	deviceUID           *[]string
@@ -2825,6 +2914,12 @@ func (r ApiGetDevicesDfuStatusRequest) PageNum(pageNum int32) ApiGetDevicesDfuSt
 	return r
 }
 
+// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+func (r ApiGetDevicesDfuStatusRequest) Cursor(cursor string) ApiGetDevicesDfuStatusRequest {
+	r.cursor = &cursor
+	return r
+}
+
 func (r ApiGetDevicesDfuStatusRequest) SortBy(sortBy string) ApiGetDevicesDfuStatusRequest {
 	r.sortBy = &sortBy
 	return r
@@ -2835,7 +2930,7 @@ func (r ApiGetDevicesDfuStatusRequest) SortOrder(sortOrder string) ApiGetDevices
 	return r
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiGetDevicesDfuStatusRequest) DeviceUID(deviceUID []string) ApiGetDevicesDfuStatusRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -2876,7 +2971,7 @@ func (r ApiGetDevicesDfuStatusRequest) HostFirmware(hostFirmware []string) ApiGe
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiGetDevicesDfuStatusRequest) ProductUID(productUID []string) ApiGetDevicesDfuStatusRequest {
 	r.productUID = &productUID
 	return r
@@ -2893,13 +2988,17 @@ func (r ApiGetDevicesDfuStatusRequest) Execute() (*DeviceDfuStatusPage, *http.Re
 }
 
 /*
-GetDevicesDfuStatus Method for GetDevicesDfuStatus
+GetDevicesDfuStatus List devices' firmware status
 
-Get host or Notecard DFU history for all devices that match the filter criteria
+List the host or Notecard firmware version each matching device runs now, with its latest
+firmware update. Use this to find which firmware devices run.
+
+Paginated, by page or `cursor`. With a `cursor`, changes made through fleet or project
+firmware settings don't appear until the device itself is next updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
 	@return ApiGetDevicesDfuStatusRequest
 */
 func (a *ProjectAPIService) GetDevicesDfuStatus(ctx context.Context, projectOrProductUID string, firmwareType string) ApiGetDevicesDfuStatusRequest {
@@ -2938,7 +3037,7 @@ func (a *ProjectAPIService) GetDevicesDfuStatusExecute(r ApiGetDevicesDfuStatusR
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
 	} else {
-		var defaultValue int32 = 50
+		var defaultValue int32 = 1000
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
 		r.pageSize = &defaultValue
 	}
@@ -2948,6 +3047,9 @@ func (a *ProjectAPIService) GetDevicesDfuStatusExecute(r ApiGetDevicesDfuStatusR
 		var defaultValue int32 = 1
 		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
 		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
 	}
 	if r.sortBy != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sortBy", r.sortBy, "form", "")
@@ -3131,36 +3233,43 @@ type ApiGetFirmwareInfoRequest struct {
 	sortOrder           *string
 }
 
+// Only firmware whose product contains this text.
 func (r ApiGetFirmwareInfoRequest) Product(product string) ApiGetFirmwareInfoRequest {
 	r.product = &product
 	return r
 }
 
+// Only list &#x60;host&#x60; or &#x60;notecard&#x60; firmware. Omit for both.
 func (r ApiGetFirmwareInfoRequest) FirmwareType(firmwareType string) ApiGetFirmwareInfoRequest {
 	r.firmwareType = &firmwareType
 	return r
 }
 
+// Only firmware whose version contains this text.
 func (r ApiGetFirmwareInfoRequest) Version(version string) ApiGetFirmwareInfoRequest {
 	r.version = &version
 	return r
 }
 
+// Only firmware whose target contains this text.
 func (r ApiGetFirmwareInfoRequest) Target(target string) ApiGetFirmwareInfoRequest {
 	r.target = &target
 	return r
 }
 
+// Only firmware whose stored filename contains this text.
 func (r ApiGetFirmwareInfoRequest) Filename(filename string) ApiGetFirmwareInfoRequest {
 	r.filename = &filename
 	return r
 }
 
+// Only firmware whose MD5 hash contains this text.
 func (r ApiGetFirmwareInfoRequest) Md5(md5 string) ApiGetFirmwareInfoRequest {
 	r.md5 = &md5
 	return r
 }
 
+// If &#x60;true&#x60;, also list unpublished Notecard firmware.
 func (r ApiGetFirmwareInfoRequest) Unpublished(unpublished bool) ApiGetFirmwareInfoRequest {
 	r.unpublished = &unpublished
 	return r
@@ -3183,9 +3292,11 @@ func (r ApiGetFirmwareInfoRequest) Execute() ([]FirmwareInfo, *http.Response, er
 }
 
 /*
-GetFirmwareInfo Method for GetFirmwareInfo
+GetFirmwareInfo List firmware
 
-Get Available Firmware Information
+List the host firmware uploaded to the project and the Notecard firmware available to it.
+Text filters match substrings, and unpublished Notecard builds are left out unless
+`unpublished` is `true`. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3331,9 +3442,12 @@ func (r ApiGetFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-GetFleet Method for GetFleet
+GetFleet Get a fleet
 
-Get Fleet
+Get one fleet's label, smart rule, watchdog and environment variables. Doesn't include
+`smart_rule_enabled`.
+
+Returns 404 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3439,7 +3553,12 @@ func (r ApiGetFleetEnvironmentHierarchyRequest) Execute() (*EnvTreeJsonNode, *ht
 }
 
 /*
-GetFleetEnvironmentHierarchy Get environment variable hierarchy for a device
+GetFleetEnvironmentHierarchy Get a fleet's environment hierarchy
+
+Get a fleet's environment variables and the project variables it inherits, as a tree. Each
+variable has its precedence and whether it is used or overridden.
+
+Returns 500 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3545,9 +3664,12 @@ func (r ApiGetFleetEnvironmentVariablesRequest) Execute() (*EnvironmentVariables
 }
 
 /*
-GetFleetEnvironmentVariables Method for GetFleetEnvironmentVariables
+GetFleetEnvironmentVariables Get fleet environment variables
 
-Get environment variables of a fleet
+Get the environment variables set on a fleet, with their notes. They override project
+variables, and device variables override them.
+
+Returns 404 if the fleet doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3660,9 +3782,10 @@ func (r ApiGetFleetsRequest) Execute() (*GetDeviceFleets200Response, *http.Respo
 }
 
 /*
-GetFleets Method for GetFleets
+GetFleets List fleets
 
-Get Project Fleets
+List the project's fleets with each one's label, smart rule, watchdog and environment
+variables. Doesn't include `smart_rule_enabled`. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3772,7 +3895,10 @@ func (r ApiGetNotefileSchemasRequest) Execute() ([]NotefileSchema, *http.Respons
 }
 
 /*
-GetNotefileSchemas Get variable format for a notefile
+GetNotefileSchemas List Notefile schemas
+
+List the project's Notefiles, each with the event `body` fields Notehub has seen in it and
+their JSON types. Inferred from received events.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3874,9 +4000,11 @@ func (r ApiGetProductsRequest) Execute() (*GetProducts200Response, *http.Respons
 }
 
 /*
-GetProducts Method for GetProducts
+GetProducts List a project's products
 
-Get Products within a Project
+List the project's ProductUIDs, each with its label, auto-provision fleets, and whether new
+devices start disabled. UIDs here include the `product:` prefix; `CreateProduct` returns
+them without it. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -3986,9 +4114,10 @@ func (r ApiGetProjectRequest) Execute() (*Project, *http.Response, error) {
 }
 
 /*
-GetProject Method for GetProject
+GetProject Get a project
 
-Get a Project by ProjectUID
+Get a project's label, creation time, contacts, and the caller's `role` in it. Accepts a
+ProductUID in place of the ProjectUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4098,12 +4227,13 @@ func (r ApiGetProjectByProductRequest) Execute() (*Project, *http.Response, erro
 }
 
 /*
-GetProjectByProduct Method for GetProjectByProduct
+GetProjectByProduct Get the project for a ProductUID
 
-Get a Project by ProductUID
+Get the project that a ProductUID belongs to. Returns the same object as `GetProject`,
+which also accepts a ProductUID in place of a ProjectUID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param productUID
+	@param productUID ProductUID, e.g. `com.blues.airnote`, with or without the `product:` prefix.
 	@return ApiGetProjectByProductRequest
 */
 func (a *ProjectAPIService) GetProjectByProduct(ctx context.Context, productUID string) ApiGetProjectByProductRequest {
@@ -4210,7 +4340,11 @@ func (r ApiGetProjectEnvironmentHierarchyRequest) Execute() (*EnvTreeJsonNode, *
 }
 
 /*
-GetProjectEnvironmentHierarchy Get environment variable hierarchy for a device
+GetProjectEnvironmentHierarchy Get the project environment hierarchy
+
+Get the project's environment variables as a one-node environment hierarchy tree. The fleet
+and device hierarchy operations use the same format; for plain key/value pairs, use
+`GetProjectEnvironmentVariables`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4312,9 +4446,11 @@ func (r ApiGetProjectEnvironmentVariablesRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-GetProjectEnvironmentVariables Method for GetProjectEnvironmentVariables
+GetProjectEnvironmentVariables Get project environment variables
 
-Get environment variables of a project
+Get the environment variables set on the project, with their notes. Fleet and device
+variables override these; for what a device actually sees, use
+`GetDeviceEnvironmentVariables`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4424,9 +4560,10 @@ func (r ApiGetProjectMembersRequest) Execute() (*GetProjectMembers200Response, *
 }
 
 /*
-GetProjectMembers Method for GetProjectMembers
+GetProjectMembers List project members
 
-Get Project Members
+List the project's members with each one's name and role. Emails are filled in only when
+the caller is an Owner. Not paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4536,9 +4673,10 @@ func (r ApiGetProjectSecretsRequest) Execute() (*GetProjectSecretsResponse, *htt
 }
 
 /*
-GetProjectSecrets Method for GetProjectSecrets
+GetProjectSecrets List project secrets
 
-Get all secrets for a project (metadata only, values are never returned)
+List the project's secrets by name, with who created and last changed each one and when.
+Values are never returned.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -4647,9 +4785,10 @@ func (r ApiGetProjectsRequest) Execute() (*GetProjects200Response, *http.Respons
 }
 
 /*
-GetProjects Method for GetProjects
+GetProjects List projects
 
-Get Projects accessible by the api_key
+List every project the caller is a member of, with the caller's `role` in each. Not
+paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetProjectsRequest
@@ -4763,7 +4902,7 @@ type ApiPerformDfuActionRequest struct {
 	dfuActionRequest    *DfuActionRequest
 }
 
-// A Device UID.
+// A DeviceUID.
 func (r ApiPerformDfuActionRequest) DeviceUID(deviceUID []string) ApiPerformDfuActionRequest {
 	r.deviceUID = &deviceUID
 	return r
@@ -4804,7 +4943,7 @@ func (r ApiPerformDfuActionRequest) HostFirmware(hostFirmware []string) ApiPerfo
 	return r
 }
 
-// Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
+// ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally.
 func (r ApiPerformDfuActionRequest) ProductUID(productUID []string) ApiPerformDfuActionRequest {
 	r.productUID = &productUID
 	return r
@@ -4827,14 +4966,19 @@ func (r ApiPerformDfuActionRequest) Execute() (*http.Response, error) {
 }
 
 /*
-PerformDfuAction Method for PerformDfuAction
+PerformDfuAction Start or cancel firmware updates
 
-Update/cancel host or notecard firmware updates
+Start or cancel a host or Notecard firmware update on every device matching the filters.
+With no filters, that is every device in the project. `update` sets each device's `_fw` or
+`_fwc` variable to `filename`.
+
+Requires the Owner or Developer role. `update` returns 404 if the file isn't found, and can
+return 400 if a matching device already has an update in progress.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
-	@param action
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
+	@param action - `update`: start updating to the firmware in `filename` - `cancel`: cancel any update in progress
 	@return ApiPerformDfuActionRequest
 */
 func (a *ProjectAPIService) PerformDfuAction(ctx context.Context, projectOrProductUID string, firmwareType string, action string) ApiPerformDfuActionRequest {
@@ -5023,7 +5167,7 @@ type ApiSetFleetEnvironmentVariablesRequest struct {
 	environmentVariables *EnvironmentVariables
 }
 
-// Environment variables to be added to the fleet
+// The variables to add or change, and optional notes.
 func (r ApiSetFleetEnvironmentVariablesRequest) EnvironmentVariables(environmentVariables EnvironmentVariables) ApiSetFleetEnvironmentVariablesRequest {
 	r.environmentVariables = &environmentVariables
 	return r
@@ -5034,9 +5178,14 @@ func (r ApiSetFleetEnvironmentVariablesRequest) Execute() (*EnvironmentVariables
 }
 
 /*
-SetFleetEnvironmentVariables Method for SetFleetEnvironmentVariables
+SetFleetEnvironmentVariables Set fleet environment variables
 
-Set environment variables of a fleet
+Add or change a fleet's environment variables; variables you don't send keep their values.
+A value of `""` or `-` deletes that variable. Setting `_fw`, `_fwc` or `_fwm` starts a
+host, Notecard or modem firmware update.
+
+Requires the Owner or Developer role. Returns 404 if the fleet doesn't exist, and 400 if a
+note's key isn't a variable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5150,7 +5299,7 @@ type ApiSetGlobalEventTransformationRequest struct {
 	body                *string
 }
 
-// JSONata expression which will be applied to each event before it is persisted and routed
+// JSONata expression as plain text. An empty body clears the transformation.
 func (r ApiSetGlobalEventTransformationRequest) Body(body string) ApiSetGlobalEventTransformationRequest {
 	r.body = &body
 	return r
@@ -5161,9 +5310,15 @@ func (r ApiSetGlobalEventTransformationRequest) Execute() (*http.Response, error
 }
 
 /*
-SetGlobalEventTransformation Method for SetGlobalEventTransformation
+SetGlobalEventTransformation Set the global event transformation
 
-Set the project-level event JSONata transformation
+Set the project's JSONata expression that rewrites each new event before it's stored and
+routed. It can change `body`, `payload`, `details`, `file` and `note`, or drop the event
+with `$doNotRoute()`; an event it fails on is kept with `error` set. Doesn't enable or
+disable it.
+
+Requires the Owner or Developer role. Returns 400 if it doesn't compile, or for a
+sub-project, which uses its parent's.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5272,9 +5427,13 @@ func (r ApiSetProjectEnvironmentVariablesRequest) Execute() (*EnvironmentVariabl
 }
 
 /*
-SetProjectEnvironmentVariables Method for SetProjectEnvironmentVariables
+SetProjectEnvironmentVariables Set project environment variables
 
-Set environment variables of a project
+Add or change project environment variables; variables you don't send keep their values. A
+value of `""` or `-` deletes that variable. Setting `_fw`, `_fwc` or `_fwm` starts a host,
+Notecard or modem firmware update.
+
+Requires the Owner or Developer role. Returns 400 if a note's key isn't a variable.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5395,9 +5554,13 @@ func (r ApiUpdateFirmwareRequest) Execute() (*FirmwareInfo, *http.Response, erro
 }
 
 /*
-UpdateFirmware Method for UpdateFirmware
+UpdateFirmware Update host firmware metadata
 
-Update the metadata of an existing host firmware entry. The filename must be the full stored filename including the timestamp suffix (e.g. test$20260324190911.bin) as returned by the firmware upload or list endpoints.
+Change a host firmware file's `version`, `notes` or `info`; fields you leave out or send
+empty keep their values. Use the stored filename, including its `$` timestamp suffix.
+
+Requires the Owner or Developer role. Returns 400 for a sub-project, whose parent manages
+host firmware, and 404 if the file doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5515,7 +5678,7 @@ type ApiUpdateFleetRequest struct {
 	updateFleetRequest  *UpdateFleetRequest
 }
 
-// Fleet details to update
+// The fields to change. Fields left out keep their values, except &#x60;smart_rule_enabled&#x60;.
 func (r ApiUpdateFleetRequest) UpdateFleetRequest(updateFleetRequest UpdateFleetRequest) ApiUpdateFleetRequest {
 	r.updateFleetRequest = &updateFleetRequest
 	return r
@@ -5526,9 +5689,14 @@ func (r ApiUpdateFleetRequest) Execute() (*Fleet, *http.Response, error) {
 }
 
 /*
-UpdateFleet Method for UpdateFleet
+UpdateFleet Update a fleet
 
-Update Fleet
+Change a fleet's label, smart rule, watchdog or connectivity assurance, or add and remove
+devices. Always send `smart_rule_enabled`; leaving it out turns the smart rule off. Empty
+`label` or `smart_rule` keeps the current value; `-` clears `smart_rule`.
+
+Requires the Owner or Developer role. Returns 400 for an unknown fleet or `label` of `-`,
+and for a bad DeviceUID after saving the other changes.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -5653,13 +5821,16 @@ func (r ApiUpdateProjectSecretRequest) Execute() (*ProjectSecret, *http.Response
 }
 
 /*
-UpdateProjectSecret Method for UpdateProjectSecret
+UpdateProjectSecret Update a project secret
 
-Update the value of an existing project secret
+Replace the value of an existing project secret. Routes and alerts that reference it use the
+new value from then on.
+
+Requires the Owner or Developer role. Returns 404 if the secret doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param secretName The name of the secret.
+	@param secretName Name of the secret, as listed by `GetProjectSecrets`.
 	@return ApiUpdateProjectSecretRequest
 */
 func (a *ProjectAPIService) UpdateProjectSecret(ctx context.Context, projectOrProductUID string, secretName string) ApiUpdateProjectSecretRequest {
@@ -5807,14 +5978,19 @@ func (r ApiUploadFirmwareRequest) Execute() (*FirmwareInfo, *http.Response, erro
 }
 
 /*
-UploadFirmware Method for UploadFirmware
+UploadFirmware Upload firmware
 
-Upload firmware binary
+Upload a host or Notecard firmware binary. Notehub usually adds a timestamp to `filename`;
+use the returned `filename` from then on.
+
+Requires the Owner or Developer role. Returns 400 for host firmware on a sub-project, whose
+parent manages it, and 500 for a wrong file type or a file over the limit: 1.5 MB for host
+firmware, 2 MB for `notecard-s3-*` and 1 MB for other Notecard firmware.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param firmwareType
-	@param filename
+	@param firmwareType Which firmware: `host` (the host microcontroller's) or `notecard`.
+	@param filename Name to store the file under. Notehub adds `$` and a timestamp before the extension, except for a Notecard firmware name that already contains `$`.
 	@return ApiUploadFirmwareRequest
 */
 func (a *ProjectAPIService) UploadFirmware(ctx context.Context, projectOrProductUID string, firmwareType string, filename string) ApiUploadFirmwareRequest {

@@ -18,11 +18,15 @@ import (
 // checks if the DeviceTowerInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeviceTowerInfo{}
 
-// DeviceTowerInfo struct for DeviceTowerInfo
+// DeviceTowerInfo The cell tower the device last used. Null if unknown.
 type DeviceTowerInfo struct {
-	CellId               *int32 `json:"cell_id,omitempty"`
-	Lac                  *int32 `json:"lac,omitempty"`
-	Mcc                  *int32 `json:"mcc,omitempty"`
+	// Cell ID.
+	CellId *int32 `json:"cell_id,omitempty"`
+	// Location area code.
+	Lac *int32 `json:"lac,omitempty"`
+	// Mobile country code.
+	Mcc *int32 `json:"mcc,omitempty"`
+	// Mobile network code.
 	Mnc                  *int32 `json:"mnc,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

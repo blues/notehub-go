@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name          | Type         | Description                              | Notes |
-| ------------- | ------------ | ---------------------------------------- | ----- |
-| **FleetUids** | **[]string** | The fleetUIDs to remove from the device. |
+| Name          | Type         | Description                          | Notes |
+| ------------- | ------------ | ------------------------------------ | ----- |
+| **FleetUids** | **[]string** | FleetUIDs to remove the device from. |
 
 ## Methods
 

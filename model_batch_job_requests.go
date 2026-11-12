@@ -29,15 +29,15 @@ type BatchJobRequests struct {
 	Disable *bool `json:"disable,omitempty"`
 	// Enable the device
 	Enable *bool `json:"enable,omitempty"`
-	// Fleet UIDs to assign to the device if it has no fleets
+	// FleetUIDs to assign to the device if it has no fleets
 	FleetsToDefault []string `json:"fleets_to_default,omitempty"`
-	// Fleet UIDs to add the device to
+	// FleetUIDs to add the device to
 	FleetsToJoin []string `json:"fleets_to_join,omitempty"`
-	// Fleet UIDs to remove the device from
+	// FleetUIDs to remove the device from
 	FleetsToLeave []string `json:"fleets_to_leave,omitempty"`
 	// note.add/note.update/note.delete requests to perform against the device's own notefiles. When both default_requests and a device's device_requests specify note_reqs, they merge by identity (req, file, note): a device-specific entry with the same identity as a default entry replaces it; entries unique to either side (no collision) all still apply.
 	NoteReqs []BatchJobNoteRequest `json:"note_reqs,omitempty"`
-	// Product UID to provision the device with if not already provisioned
+	// ProductUID to provision the device with if not already provisioned
 	ProvisionProduct *string `json:"provision_product,omitempty"`
 	// Set the device serial number only if not already set
 	SnToDefault *string `json:"sn_to_default,omitempty"`

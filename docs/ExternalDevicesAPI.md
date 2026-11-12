@@ -2,15 +2,17 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                   | HTTP request                                                             | Description |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ----------- |
-| [**CreateEventExtDevice**](ExternalDevicesAPI.md#CreateEventExtDevice)   | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/event         |
-| [**ExtDeviceSessionClose**](ExternalDevicesAPI.md#ExtDeviceSessionClose) | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/session/close |
-| [**ExtDeviceSessionOpen**](ExternalDevicesAPI.md#ExtDeviceSessionOpen)   | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/session/open  |
+| Method                                                                   | HTTP request                                                             | Description                            |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | -------------------------------------- |
+| [**CreateEventExtDevice**](ExternalDevicesAPI.md#CreateEventExtDevice)   | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/event         | Add an event from an external device   |
+| [**ExtDeviceSessionClose**](ExternalDevicesAPI.md#ExtDeviceSessionClose) | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/session/close | Close an external device&#39;s session |
+| [**ExtDeviceSessionOpen**](ExternalDevicesAPI.md#ExtDeviceSessionOpen)   | **Post** /v1/products/{productUID}/ext-devices/{deviceUID}/session/open  | Open an external device&#39;s session  |
 
 ## CreateEventExtDevice
 
 > CreateEventExtDevice(ctx, productUID, deviceUID).Event(event).Execute()
+
+Add an event from an external device
 
 ### Example
 
@@ -27,7 +29,7 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	event := *openapiclient.NewEvent() // Event | Event Object
+	event := *openapiclient.NewEvent() // Event | The event. `file`, `body` and `payload` are the usual fields.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -54,7 +56,7 @@ Other parameters are passed through a pointer to a apiCreateEventExtDeviceReques
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**event** | [**Event**](Event.md) | Event Object |
+**event** | [**Event**](Event.md) | The event. &#x60;file&#x60;, &#x60;body&#x60; and &#x60;payload&#x60; are the usual fields. |
 
 ### Return type
 
@@ -77,6 +79,8 @@ Other parameters are passed through a pointer to a apiCreateEventExtDeviceReques
 
 > ExtDeviceSessionClose(ctx, productUID, deviceUID).DeviceSession(deviceSession).Execute()
 
+Close an external device's session
+
 ### Example
 
 ```go
@@ -92,7 +96,7 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	deviceSession := *openapiclient.NewDeviceSession() // DeviceSession | Session Object
+	deviceSession := *openapiclient.NewDeviceSession() // DeviceSession | Session fields, such as `why_session_opened` or `why_session_closed`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +123,7 @@ Other parameters are passed through a pointer to a apiExtDeviceSessionCloseReque
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deviceSession** | [**DeviceSession**](DeviceSession.md) | Session Object |
+**deviceSession** | [**DeviceSession**](DeviceSession.md) | Session fields, such as &#x60;why_session_opened&#x60; or &#x60;why_session_closed&#x60;. |
 
 ### Return type
 
@@ -142,6 +146,8 @@ Other parameters are passed through a pointer to a apiExtDeviceSessionCloseReque
 
 > ExtDeviceSessionOpen(ctx, productUID, deviceUID).DeviceSession(deviceSession).Execute()
 
+Open an external device's session
+
 ### Example
 
 ```go
@@ -157,7 +163,7 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	deviceSession := *openapiclient.NewDeviceSession() // DeviceSession | Session Object
+	deviceSession := *openapiclient.NewDeviceSession() // DeviceSession | Session fields, such as `why_session_opened` or `why_session_closed`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -184,7 +190,7 @@ Other parameters are passed through a pointer to a apiExtDeviceSessionOpenReques
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deviceSession** | [**DeviceSession**](DeviceSession.md) | Session Object |
+**deviceSession** | [**DeviceSession**](DeviceSession.md) | Session fields, such as &#x60;why_session_opened&#x60; or &#x60;why_session_closed&#x60;. |
 
 ### Return type
 

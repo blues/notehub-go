@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name           | Type                                                 | Description                                            | Notes      |
-| -------------- | ---------------------------------------------------- | ------------------------------------------------------ | ---------- |
-| **Items**      | Pointer to [**[]SchemaProperty**](SchemaProperty.md) | Used if type is array                                  | [optional] |
-| **Name**       | Pointer to **string**                                | Name of the field (optional for array/object children) | [optional] |
-| **Properties** | Pointer to [**[]SchemaProperty**](SchemaProperty.md) | Used if type is object                                 | [optional] |
-| **Type**       | **string**                                           |                                                        |
-| **UpdatedAt**  | Pointer to **time.Time**                             |                                                        | [optional] |
+| Name           | Type                                                 | Description                                                              | Notes      |
+| -------------- | ---------------------------------------------------- | ------------------------------------------------------------------------ | ---------- |
+| **Items**      | Pointer to [**[]SchemaProperty**](SchemaProperty.md) | For an array, the type of its elements, inferred from the first element. | [optional] |
+| **Name**       | Pointer to **string**                                | Name of the field (optional for array/object children)                   | [optional] |
+| **Properties** | Pointer to [**[]SchemaProperty**](SchemaProperty.md) | For an object, its fields.                                               | [optional] |
+| **Type**       | **string**                                           | The field&#39;s JSON type.                                               |
+| **UpdatedAt**  | Pointer to **time.Time**                             | When Notehub recorded this field, usually when it first appeared.        | [optional] |
 
 ## Methods
 

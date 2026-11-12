@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name            | Type                    | Description                                                                                                                                                         | Notes      |
-| --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **FleetUids**   | Pointer to **[]string** |                                                                                                                                                                     | [optional] |
-| **Name**        | Pointer to **string**   | repository name                                                                                                                                                     | [optional] |
-| **Password**    | Pointer to **string**   | read-only password for the database, also used as X-Repository-Token header for subsequent API calls. This value is only served once when the repository is created | [optional] |
-| **ProjectUids** | Pointer to **[]string** |                                                                                                                                                                     | [optional] |
-| **Uid**         | Pointer to **string**   | The unique identifier for the data repository                                                                                                                       | [optional] |
-| **User**        | Pointer to **string**   | read-only user for database                                                                                                                                         | [optional] |
+| Name            | Type                    | Description                                                                                                                     | Notes      |
+| --------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **FleetUids**   | Pointer to **[]string** |                                                                                                                                 | [optional] |
+| **Name**        | Pointer to **string**   | Repository name.                                                                                                                | [optional] |
+| **Password**    | Pointer to **string**   | The repository key, for &#x60;X-Repository-Key&#x60; and as the database password. Returned only here, never to a scoped token. | [optional] |
+| **ProjectUids** | Pointer to **[]string** |                                                                                                                                 | [optional] |
+| **Uid**         | Pointer to **string**   | Repository UID, e.g. &#x60;repo:2606f411-dea6-44a0-9743-1130f57d77d8&#x60;.                                                     | [optional] |
+| **User**        | Pointer to **string**   | Read-only database user that goes with &#x60;password&#x60;.                                                                    | [optional] |
 
 ## Methods
 

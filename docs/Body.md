@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name     | Type                                  | Description | Notes      |
-| -------- | ------------------------------------- | ----------- | ---------- |
-| **Body** | Pointer to **map[string]interface{}** |             | [optional] |
+| Name     | Type                                  | Description                                                                                                   | Notes      |
+| -------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Body** | Pointer to **map[string]interface{}** | The JSON object to send to the Notecard. Must not have a &#x60;type&#x60; field, which the Notecard reserves. | [optional] |
 
 ## Methods
 

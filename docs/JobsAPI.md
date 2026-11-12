@@ -2,21 +2,23 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                      | HTTP request                                                             | Description |
-| ------------------------------------------- | ------------------------------------------------------------------------ | ----------- |
-| [**CancelJobRun**](JobsAPI.md#CancelJobRun) | **Post** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}/cancel |
-| [**CreateJob**](JobsAPI.md#CreateJob)       | **Post** /v1/projects/{projectOrProductUID}/jobs                         |
-| [**DeleteJob**](JobsAPI.md#DeleteJob)       | **Delete** /v1/projects/{projectOrProductUID}/jobs/{jobUID}              |
-| [**DeleteJobRun**](JobsAPI.md#DeleteJobRun) | **Delete** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}      |
-| [**GetJob**](JobsAPI.md#GetJob)             | **Get** /v1/projects/{projectOrProductUID}/jobs/{jobUID}                 |
-| [**GetJobRun**](JobsAPI.md#GetJobRun)       | **Get** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}         |
-| [**GetJobRuns**](JobsAPI.md#GetJobRuns)     | **Get** /v1/projects/{projectOrProductUID}/jobs/{jobUID}/runs            |
-| [**GetJobs**](JobsAPI.md#GetJobs)           | **Get** /v1/projects/{projectOrProductUID}/jobs                          |
-| [**RunJob**](JobsAPI.md#RunJob)             | **Post** /v1/projects/{projectOrProductUID}/jobs/{jobUID}/run            |
+| Method                                      | HTTP request                                                             | Description           |
+| ------------------------------------------- | ------------------------------------------------------------------------ | --------------------- |
+| [**CancelJobRun**](JobsAPI.md#CancelJobRun) | **Post** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}/cancel | Cancel a job run      |
+| [**CreateJob**](JobsAPI.md#CreateJob)       | **Post** /v1/projects/{projectOrProductUID}/jobs                         | Create a batch job    |
+| [**DeleteJob**](JobsAPI.md#DeleteJob)       | **Delete** /v1/projects/{projectOrProductUID}/jobs/{jobUID}              | Delete a batch job    |
+| [**DeleteJobRun**](JobsAPI.md#DeleteJobRun) | **Delete** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}      | Delete a job run      |
+| [**GetJob**](JobsAPI.md#GetJob)             | **Get** /v1/projects/{projectOrProductUID}/jobs/{jobUID}                 | Get a batch job       |
+| [**GetJobRun**](JobsAPI.md#GetJobRun)       | **Get** /v1/projects/{projectOrProductUID}/jobs/runs/{reportUID}         | Get a job run         |
+| [**GetJobRuns**](JobsAPI.md#GetJobRuns)     | **Get** /v1/projects/{projectOrProductUID}/jobs/{jobUID}/runs            | List a job&#39;s runs |
+| [**GetJobs**](JobsAPI.md#GetJobs)           | **Get** /v1/projects/{projectOrProductUID}/jobs                          | List batch jobs       |
+| [**RunJob**](JobsAPI.md#RunJob)             | **Post** /v1/projects/{projectOrProductUID}/jobs/{jobUID}/run            | Run a batch job       |
 
 ## CancelJobRun
 
 > CancelJobRun200Response CancelJobRun(ctx, projectOrProductUID, reportUID).Execute()
+
+Cancel a job run
 
 ### Example
 
@@ -32,7 +34,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	reportUID := "my-reconciliation-job-1707654321000" // string | Unique identifier for a job run report
+	reportUID := "my-reconciliation-job-1707654321000" // string | Job run UID, as returned by `RunJob`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -52,7 +54,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **reportUID**           | **string**          | Unique identifier for a job run report                                      |
+| **reportUID**           | **string**          | Job run UID, as returned by &#x60;RunJob&#x60;.                             |
 
 ### Other Parameters
 
@@ -82,6 +84,8 @@ Other parameters are passed through a pointer to a apiCancelJobRunRequest struct
 
 > CreateJob201Response CreateJob(ctx, projectOrProductUID).Name(name).JobDefinition(jobDefinition).Execute()
 
+Create a batch job
+
 ### Example
 
 ```go
@@ -96,7 +100,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	name := "name_example" // string | Name for the job
+	name := "name_example" // string | Job name, shown in lists. It doesn't have to be unique.
 	jobDefinition := *openapiclient.NewJobDefinition() // JobDefinition | The batch job definition
 
 	configuration := openapiclient.NewConfiguration()
@@ -125,7 +129,7 @@ Other parameters are passed through a pointer to a apiCreateJobRequest struct vi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**name** | **string** | Name for the job |
+**name** | **string** | Job name, shown in lists. It doesn&#39;t have to be unique. |
 **jobDefinition** | [**JobDefinition**](JobDefinition.md) | The batch job definition |
 
 ### Return type
@@ -149,6 +153,8 @@ Other parameters are passed through a pointer to a apiCreateJobRequest struct vi
 
 > DeleteJob200Response DeleteJob(ctx, projectOrProductUID, jobUID).Execute()
 
+Delete a batch job
+
 ### Example
 
 ```go
@@ -163,7 +169,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	jobUID := "my-reconciliation-job" // string | Unique identifier for a batch job
+	jobUID := "my-reconciliation-job" // string | Batch job UID, as returned by `CreateJob`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -183,7 +189,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **jobUID**              | **string**          | Unique identifier for a batch job                                           |
+| **jobUID**              | **string**          | Batch job UID, as returned by &#x60;CreateJob&#x60;.                        |
 
 ### Other Parameters
 
@@ -213,6 +219,8 @@ Other parameters are passed through a pointer to a apiDeleteJobRequest struct vi
 
 > DeleteJobRun(ctx, projectOrProductUID, reportUID).Execute()
 
+Delete a job run
+
 ### Example
 
 ```go
@@ -227,7 +235,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	reportUID := "my-reconciliation-job-1707654321000" // string | Unique identifier for a job run report
+	reportUID := "my-reconciliation-job-1707654321000" // string | Job run UID, as returned by `RunJob`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -245,7 +253,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **reportUID**           | **string**          | Unique identifier for a job run report                                      |
+| **reportUID**           | **string**          | Job run UID, as returned by &#x60;RunJob&#x60;.                             |
 
 ### Other Parameters
 
@@ -275,6 +283,8 @@ Other parameters are passed through a pointer to a apiDeleteJobRunRequest struct
 
 > JobDetail GetJob(ctx, projectOrProductUID, jobUID).Execute()
 
+Get a batch job
+
 ### Example
 
 ```go
@@ -289,7 +299,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	jobUID := "my-reconciliation-job" // string | Unique identifier for a batch job
+	jobUID := "my-reconciliation-job" // string | Batch job UID, as returned by `CreateJob`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -309,7 +319,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **jobUID**              | **string**          | Unique identifier for a batch job                                           |
+| **jobUID**              | **string**          | Batch job UID, as returned by &#x60;CreateJob&#x60;.                        |
 
 ### Other Parameters
 
@@ -339,6 +349,8 @@ Other parameters are passed through a pointer to a apiGetJobRequest struct via t
 
 > JobRun GetJobRun(ctx, projectOrProductUID, reportUID).View(view).Execute()
 
+Get a job run
+
 ### Example
 
 ```go
@@ -353,7 +365,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	reportUID := "my-reconciliation-job-1707654321000" // string | Unique identifier for a job run report
+	reportUID := "my-reconciliation-job-1707654321000" // string | Job run UID, as returned by `RunJob`.
 	view := "view_example" // string | Controls the level of detail returned: 'summary' returns metadata only, 'detail' returns the full result payload (optional) (default to "summary")
 
 	configuration := openapiclient.NewConfiguration()
@@ -374,7 +386,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **reportUID**           | **string**          | Unique identifier for a job run report                                      |
+| **reportUID**           | **string**          | Job run UID, as returned by &#x60;RunJob&#x60;.                             |
 
 ### Other Parameters
 
@@ -406,6 +418,8 @@ Other parameters are passed through a pointer to a apiGetJobRunRequest struct vi
 
 > GetJobRuns200Response GetJobRuns(ctx, projectOrProductUID, jobUID).Status(status).DryRun(dryRun).Execute()
 
+List a job's runs
+
 ### Example
 
 ```go
@@ -420,9 +434,9 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	jobUID := "my-reconciliation-job" // string | Unique identifier for a batch job
-	status := "status_example" // string | Filter runs by status (optional)
-	dryRun := true // bool | Filter runs by dry run flag (optional)
+	jobUID := "my-reconciliation-job" // string | Batch job UID, as returned by `CreateJob`.
+	status := "status_example" // string | Return only runs with this status. (optional)
+	dryRun := true // bool | If set, return only dry runs (`true`) or only real runs (`false`). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -442,7 +456,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **jobUID**              | **string**          | Unique identifier for a batch job                                           |
+| **jobUID**              | **string**          | Batch job UID, as returned by &#x60;CreateJob&#x60;.                        |
 
 ### Other Parameters
 
@@ -451,8 +465,8 @@ Other parameters are passed through a pointer to a apiGetJobRunsRequest struct v
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**status** | **string** | Filter runs by status |
-**dryRun** | **bool** | Filter runs by dry run flag |
+**status** | **string** | Return only runs with this status. |
+**dryRun** | **bool** | If set, return only dry runs (&#x60;true&#x60;) or only real runs (&#x60;false&#x60;). |
 
 ### Return type
 
@@ -474,6 +488,8 @@ Other parameters are passed through a pointer to a apiGetJobRunsRequest struct v
 ## GetJobs
 
 > GetJobs200Response GetJobs(ctx, projectOrProductUID).Execute()
+
+List batch jobs
 
 ### Example
 
@@ -537,6 +553,8 @@ Other parameters are passed through a pointer to a apiGetJobsRequest struct via 
 
 > RunJob200Response RunJob(ctx, projectOrProductUID, jobUID).DryRun(dryRun).Execute()
 
+Run a batch job
+
 ### Example
 
 ```go
@@ -551,8 +569,8 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	jobUID := "my-reconciliation-job" // string | Unique identifier for a batch job
-	dryRun := true // bool | Run job in dry-run mode without making actual changes (optional) (default to false)
+	jobUID := "my-reconciliation-job" // string | Batch job UID, as returned by `CreateJob`.
+	dryRun := true // bool | If true, report what the job would change without changing anything. (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -572,7 +590,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **jobUID**              | **string**          | Unique identifier for a batch job                                           |
+| **jobUID**              | **string**          | Batch job UID, as returned by &#x60;CreateJob&#x60;.                        |
 
 ### Other Parameters
 
@@ -581,7 +599,7 @@ Other parameters are passed through a pointer to a apiRunJobRequest struct via t
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**dryRun** | **bool** | Run job in dry-run mode without making actual changes | [default to false]
+**dryRun** | **bool** | If true, report what the job would change without changing anything. | [default to false]
 
 ### Return type
 

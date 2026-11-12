@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name      | Type                  | Description   | Notes      |
-| --------- | --------------------- | ------------- | ---------- |
-| **Email** | Pointer to **string** | Email Address | [optional] |
+| Name      | Type                  | Description                                    | Notes      |
+| --------- | --------------------- | ---------------------------------------------- | ---------- |
+| **Email** | Pointer to **string** | Email address, or several separated by commas. | [optional] |
 
 ## Methods
 

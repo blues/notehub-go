@@ -21,11 +21,15 @@ var _ MappedNullable = &Product{}
 
 // Product struct for Product
 type Product struct {
-	AutoProvisionFleets     []string `json:"auto_provision_fleets,omitempty"`
-	DisableDevicesByDefault bool     `json:"disable_devices_by_default"`
-	Label                   string   `json:"label"`
-	Uid                     string   `json:"uid"`
-	AdditionalProperties    map[string]interface{}
+	// FleetUIDs that devices are added to when first provisioned with this ProductUID.
+	AutoProvisionFleets []string `json:"auto_provision_fleets,omitempty"`
+	// If `true`, devices provisioned with this ProductUID start out disabled.
+	DisableDevicesByDefault bool `json:"disable_devices_by_default"`
+	// Product name shown in Notehub.
+	Label string `json:"label"`
+	// ProductUID, e.g. `com.blues.bridge:sensors`. `GetProducts` returns it with a `product:` prefix.
+	Uid                  string `json:"uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Product Product

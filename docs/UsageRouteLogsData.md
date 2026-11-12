@@ -7,7 +7,7 @@
 | **AvgLatencyMs**     | Pointer to **NullableFloat64** | Average routing latency in milliseconds for route logs with recorded duration | [optional] |
 | **FailedRoutes**     | **int64**                      |                                                                               |
 | **Period**           | **time.Time**                  |                                                                               |
-| **Route**            | Pointer to **string**          | The route UID (only present when aggregate is &#39;route&#39;)                | [optional] |
+| **Route**            | Pointer to **string**          | The routeUID (only present when aggregate is &#39;route&#39;)                 | [optional] |
 | **SuccessfulRoutes** | **int64**                      |                                                                               |
 | **TotalRoutes**      | **int64**                      |                                                                               |
 

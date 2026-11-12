@@ -2,43 +2,45 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                                    | HTTP request                                                                                  | Description                                     |
-| ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}   |
-| [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}            |
-| [**CreateNotefile**](DeviceAPI.md#CreateNotefile)                                         | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notefiles/{notefileID}        |
-| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                             |
-| [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key} |
-| [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID} |
-| [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                       |
-| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                       |
-| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                        |
-| [**GetDbNote**](DeviceAPI.md#GetDbNote)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
-| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                |
-| [**GetDeviceEnvironmentHierarchy**](DeviceAPI.md#GetDeviceEnvironmentHierarchy)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_hierarchy          | Get environment variable hierarchy for a device |
-| [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
-| [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
-| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     |
-| [**GetDeviceJourney**](DeviceAPI.md#GetDeviceJourney)                                     | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}           |
-| [**GetDeviceJourneys**](DeviceAPI.md#GetDeviceJourneys)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys                       |
-| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         |
-| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          |
-| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     |
-| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                |
-| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                       |
-| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            |
-| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          |
-| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             |
-| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                          |
-| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     |
-| [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          |
-| [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          |
-| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                        |
-| [**UpdateDbNote**](DeviceAPI.md#UpdateDbNote)                                             | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    |
+| Method                                                                                    | HTTP request                                                                                  | Description                                  |
+| ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| [**AddDbNote**](DeviceAPI.md#AddDbNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}   | Add a note to a .db notefile                 |
+| [**AddQiNote**](DeviceAPI.md#AddQiNote)                                                   | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}            | Queue a note for a Notecard                  |
+| [**CreateNotefile**](DeviceAPI.md#CreateNotefile)                                         | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notefiles/{notefileID}        | Create an empty notefile                     |
+| [**DeleteDevice**](DeviceAPI.md#DeleteDevice)                                             | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                             | Delete a device                              |
+| [**DeleteDeviceEnvironmentVariable**](DeviceAPI.md#DeleteDeviceEnvironmentVariable)       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables/{key} | Delete a device environment variable         |
+| [**DeleteNote**](DeviceAPI.md#DeleteNote)                                                 | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID} | Delete a note                                |
+| [**DeleteNotefiles**](DeviceAPI.md#DeleteNotefiles)                                       | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                       | Delete notefiles                             |
+| [**DisableDevice**](DeviceAPI.md#DisableDevice)                                           | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/disable                       | Disable a device                             |
+| [**EnableDevice**](DeviceAPI.md#EnableDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/enable                        | Enable a device                              |
+| [**GetDbNote**](DeviceAPI.md#GetDbNote)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    | Get a note                                   |
+| [**GetDevice**](DeviceAPI.md#GetDevice)                                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}                                | Get a device                                 |
+| [**GetDeviceEnvironmentHierarchy**](DeviceAPI.md#GetDeviceEnvironmentHierarchy)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_hierarchy          | Get a device&#39;s environment hierarchy     |
+| [**GetDeviceEnvironmentVariables**](DeviceAPI.md#GetDeviceEnvironmentVariables)           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          | Get device environment variables             |
+| [**GetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#GetDeviceEnvironmentVariablesByPin) | **Get** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          | Get device environment variables using a PIN |
+| [**GetDeviceHealthLog**](DeviceAPI.md#GetDeviceHealthLog)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/health-log                     | Get a device&#39;s health log                |
+| [**GetDeviceJourney**](DeviceAPI.md#GetDeviceJourney)                                     | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys/{journeyID}           | Get a journey and its events                 |
+| [**GetDeviceJourneys**](DeviceAPI.md#GetDeviceJourneys)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/journeys                       | List a device&#39;s journeys                 |
+| [**GetDeviceLatestEvents**](DeviceAPI.md#GetDeviceLatestEvents)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/latest                         | Get a device&#39;s latest event per notefile |
+| [**GetDevicePlans**](DeviceAPI.md#GetDevicePlans)                                         | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/plans                          | Get a device&#39;s cellular data plans       |
+| [**GetDevicePublicKey**](DeviceAPI.md#GetDevicePublicKey)                                 | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/public-key                     | Get a device&#39;s public key                |
+| [**GetDevicePublicKeys**](DeviceAPI.md#GetDevicePublicKeys)                               | **Get** /v1/projects/{projectOrProductUID}/devices/public-keys                                | List public keys of all devices              |
+| [**GetDeviceSessions**](DeviceAPI.md#GetDeviceSessions)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/sessions                       | List a device&#39;s sessions                 |
+| [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            | List devices in a project                    |
+| [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          | List devices in a fleet                      |
+| [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             | Get the notes in a notefile                  |
+| [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                          | List a device&#39;s notefiles and notes      |
+| [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     | Provision a Notecard                         |
+| [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          | Set device environment variables             |
+| [**SetDeviceEnvironmentVariablesByPin**](DeviceAPI.md#SetDeviceEnvironmentVariablesByPin) | **Put** /v1/products/{productUID}/devices/{deviceUID}/environment_variables_with_pin          | Set device environment variables using a PIN |
+| [**SignalDevice**](DeviceAPI.md#SignalDevice)                                             | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/signal                        | Send a signal to a connected Notecard        |
+| [**UpdateDbNote**](DeviceAPI.md#UpdateDbNote)                                             | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}/{noteID}    | Update a note in a .db notefile              |
 
 ## AddDbNote
 
 > AddDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
+
+Add a note to a .db notefile
 
 ### Example
 
@@ -55,8 +57,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	noteID := "noteID_example" // string |
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	noteID := "noteID_example" // string | Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
@@ -71,13 +73,13 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
-| **noteID**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                 |
+| **projectOrProductUID** | **string**          |                                                                                                                             |
+| **deviceUID**           | **string**          |                                                                                                                             |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;.                              |
+| **noteID**              | **string**          | Note ID within the notefile, e.g. &#x60;my_note&#x60;. Notes in a &#x60;.qi&#x60; notefile have IDs like &#x60;1:435&#x60;. |
 
 ### Other Parameters
 
@@ -109,6 +111,8 @@ Other parameters are passed through a pointer to a apiAddDbNoteRequest struct vi
 
 > AddQiNote(ctx, projectOrProductUID, deviceUID, notefileID).NoteInput(noteInput).Execute()
 
+Queue a note for a Notecard
+
 ### Example
 
 ```go
@@ -124,7 +128,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
 	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
@@ -139,12 +143,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                    | Notes |
+| ----------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                    |
+| **projectOrProductUID** | **string**          |                                                                                                |
+| **deviceUID**           | **string**          |                                                                                                |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;. |
 
 ### Other Parameters
 
@@ -176,6 +180,8 @@ Other parameters are passed through a pointer to a apiAddQiNoteRequest struct vi
 
 > CreateNotefile(ctx, projectOrProductUID, deviceUID, notefileID).Execute()
 
+Create an empty notefile
+
 ### Example
 
 ```go
@@ -191,7 +197,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -205,12 +211,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                    | Notes |
+| ----------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                    |
+| **projectOrProductUID** | **string**          |                                                                                                |
+| **deviceUID**           | **string**          |                                                                                                |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;. |
 
 ### Other Parameters
 
@@ -239,6 +245,8 @@ Other parameters are passed through a pointer to a apiCreateNotefileRequest stru
 ## DeleteDevice
 
 > DeleteDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Delete a device
 
 ### Example
 
@@ -301,6 +309,8 @@ Other parameters are passed through a pointer to a apiDeleteDeviceRequest struct
 ## DeleteDeviceEnvironmentVariable
 
 > EnvironmentVariables DeleteDeviceEnvironmentVariable(ctx, projectOrProductUID, deviceUID, key).Execute()
+
+Delete a device environment variable
 
 ### Example
 
@@ -368,6 +378,8 @@ Other parameters are passed through a pointer to a apiDeleteDeviceEnvironmentVar
 
 > DeleteNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Execute()
 
+Delete a note
+
 ### Example
 
 ```go
@@ -383,8 +395,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	noteID := "noteID_example" // string |
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	noteID := "noteID_example" // string | Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -398,13 +410,13 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
-| **noteID**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                 |
+| **projectOrProductUID** | **string**          |                                                                                                                             |
+| **deviceUID**           | **string**          |                                                                                                                             |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;.                              |
+| **noteID**              | **string**          | Note ID within the notefile, e.g. &#x60;my_note&#x60;. Notes in a &#x60;.qi&#x60; notefile have IDs like &#x60;1:435&#x60;. |
 
 ### Other Parameters
 
@@ -434,6 +446,8 @@ Other parameters are passed through a pointer to a apiDeleteNoteRequest struct v
 
 > DeleteNotefiles(ctx, projectOrProductUID, deviceUID).DeleteNotefilesRequest(deleteNotefilesRequest).Execute()
 
+Delete notefiles
+
 ### Example
 
 ```go
@@ -449,7 +463,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	deleteNotefilesRequest := *openapiclient.NewDeleteNotefilesRequest() // DeleteNotefilesRequest |
+	deleteNotefilesRequest := *openapiclient.NewDeleteNotefilesRequest() // DeleteNotefilesRequest | The notefiles to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -476,7 +490,7 @@ Other parameters are passed through a pointer to a apiDeleteNotefilesRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deleteNotefilesRequest** | [**DeleteNotefilesRequest**](DeleteNotefilesRequest.md) | |
+**deleteNotefilesRequest** | [**DeleteNotefilesRequest**](DeleteNotefilesRequest.md) | The notefiles to delete. |
 
 ### Return type
 
@@ -498,6 +512,8 @@ Other parameters are passed through a pointer to a apiDeleteNotefilesRequest str
 ## DisableDevice
 
 > DisableDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Disable a device
 
 ### Example
 
@@ -561,6 +577,8 @@ Other parameters are passed through a pointer to a apiDisableDeviceRequest struc
 
 > EnableDevice(ctx, projectOrProductUID, deviceUID).Execute()
 
+Enable a device
+
 ### Example
 
 ```go
@@ -623,6 +641,8 @@ Other parameters are passed through a pointer to a apiEnableDeviceRequest struct
 
 > GetDbNote200Response GetDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).Delete(delete).Deleted(deleted).Execute()
 
+Get a note
+
 ### Example
 
 ```go
@@ -638,10 +658,10 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	noteID := "noteID_example" // string |
-	delete := true // bool | Whether to delete the note from the DB notefile (optional)
-	deleted := true // bool | Whether to return deleted notes (optional)
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	noteID := "noteID_example" // string | Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
+	delete := true // bool | If true, delete the note after returning it. Requires the Owner or Developer role. (optional)
+	deleted := true // bool | If true, also return the note if it has been deleted. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -657,13 +677,13 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
-| **noteID**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                 |
+| **projectOrProductUID** | **string**          |                                                                                                                             |
+| **deviceUID**           | **string**          |                                                                                                                             |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;.                              |
+| **noteID**              | **string**          | Note ID within the notefile, e.g. &#x60;my_note&#x60;. Notes in a &#x60;.qi&#x60; notefile have IDs like &#x60;1:435&#x60;. |
 
 ### Other Parameters
 
@@ -672,8 +692,8 @@ Other parameters are passed through a pointer to a apiGetDbNoteRequest struct vi
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**delete** | **bool** | Whether to delete the note from the DB notefile |
-**deleted** | **bool** | Whether to return deleted notes |
+**delete** | **bool** | If true, delete the note after returning it. Requires the Owner or Developer role. |
+**deleted** | **bool** | If true, also return the note if it has been deleted. |
 
 ### Return type
 
@@ -695,6 +715,8 @@ Other parameters are passed through a pointer to a apiGetDbNoteRequest struct vi
 ## GetDevice
 
 > Device GetDevice(ctx, projectOrProductUID, deviceUID).Execute()
+
+Get a device
 
 ### Example
 
@@ -760,7 +782,7 @@ Other parameters are passed through a pointer to a apiGetDeviceRequest struct vi
 
 > EnvTreeJsonNode GetDeviceEnvironmentHierarchy(ctx, projectOrProductUID, deviceUID).Execute()
 
-Get environment variable hierarchy for a device
+Get a device's environment hierarchy
 
 ### Example
 
@@ -826,6 +848,8 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentHierar
 
 > GetDeviceEnvironmentVariablesByPin200Response GetDeviceEnvironmentVariables(ctx, projectOrProductUID, deviceUID).Execute()
 
+Get device environment variables
+
 ### Example
 
 ```go
@@ -890,6 +914,8 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 
 > GetDeviceEnvironmentVariablesByPin200Response GetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).XAuthToken(xAuthToken).Execute()
 
+Get device environment variables using a PIN
+
 ### Example
 
 ```go
@@ -905,7 +931,7 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	xAuthToken := "xAuthToken_example" // string | For accessing endpoints by Device pin.
+	xAuthToken := "xAuthToken_example" // string | The device's PIN, used instead of an API token.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -934,7 +960,7 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**xAuthToken** | **string** | For accessing endpoints by Device pin. |
+**xAuthToken** | **string** | The device&#39;s PIN, used instead of an API token. |
 
 ### Return type
 
@@ -957,6 +983,8 @@ Other parameters are passed through a pointer to a apiGetDeviceEnvironmentVariab
 
 > GetDeviceHealthLog200Response GetDeviceHealthLog(ctx, projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).LogType(logType).Execute()
 
+Get a device's health log
+
 ### Example
 
 ```go
@@ -974,7 +1002,7 @@ func main() {
 	deviceUID := "dev:000000000000000" // string |
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	logType := []string{"LogType_example"} // []string | Return only specified log types (optional)
+	logType := []string{"LogType_example"} // []string | Return only these kinds of entry. If omitted, all entries are returned. - `boot`: the device restarted - `dfu_completed`: a host firmware update finished  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1005,7 +1033,7 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**logType** | **[]string** | Return only specified log types |
+**logType** | **[]string** | Return only these kinds of entry. If omitted, all entries are returned. - &#x60;boot&#x60;: the device restarted - &#x60;dfu_completed&#x60;: a host firmware update finished |
 
 ### Return type
 
@@ -1028,6 +1056,8 @@ Other parameters are passed through a pointer to a apiGetDeviceHealthLogRequest 
 
 > GetDeviceJourney200Response GetDeviceJourney(ctx, projectOrProductUID, deviceUID, journeyID).PageSize(pageSize).PageNum(pageNum).Execute()
 
+Get a journey and its events
+
 ### Example
 
 ```go
@@ -1044,7 +1074,7 @@ func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
 	journeyID := int64(789) // int64 | Identifier of the journey, taken from the numeric `journey` field in the event body (a Unix timestamp marking the start of the journey).
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1075,7 +1105,7 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneyRequest st
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
 
 ### Return type
@@ -1098,6 +1128,8 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneyRequest st
 ## GetDeviceJourneys
 
 > GetDeviceJourneys200Response GetDeviceJourneys(ctx, projectOrProductUID, deviceUID).StartDate(startDate).EndDate(endDate).Execute()
+
+List a device's journeys
 
 ### Example
 
@@ -1168,6 +1200,8 @@ Other parameters are passed through a pointer to a apiGetDeviceJourneysRequest s
 
 > GetDeviceLatestEvents200Response GetDeviceLatestEvents(ctx, projectOrProductUID, deviceUID).Execute()
 
+Get a device's latest event per notefile
+
 ### Example
 
 ```go
@@ -1231,6 +1265,8 @@ Other parameters are passed through a pointer to a apiGetDeviceLatestEventsReque
 ## GetDevicePlans
 
 > GetDevicePlans200Response GetDevicePlans(ctx, projectOrProductUID, deviceUID).Execute()
+
+Get a device's cellular data plans
 
 ### Example
 
@@ -1296,6 +1332,8 @@ Other parameters are passed through a pointer to a apiGetDevicePlansRequest stru
 
 > GetDevicePublicKey200Response GetDevicePublicKey(ctx, projectOrProductUID, deviceUID).Execute()
 
+Get a device's public key
+
 ### Example
 
 ```go
@@ -1358,7 +1396,9 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeyRequest 
 
 ## GetDevicePublicKeys
 
-> GetDevicePublicKeys200Response GetDevicePublicKeys(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Execute()
+> GetDevicePublicKeys200Response GetDevicePublicKeys(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).Execute()
+
+List public keys of all devices
 
 ### Example
 
@@ -1374,12 +1414,13 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetDevicePublicKeys(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetDevicePublicKeys(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDevicePublicKeys``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1403,8 +1444,9 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeysRequest
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 
 ### Return type
 
@@ -1425,7 +1467,9 @@ Other parameters are passed through a pointer to a apiGetDevicePublicKeysRequest
 
 ## GetDeviceSessions
 
-> GetDeviceSessions200Response GetDeviceSessions(ctx, projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
+> GetDeviceSessions200Response GetDeviceSessions(ctx, projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
+
+List a device's sessions
 
 ### Example
 
@@ -1442,15 +1486,16 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
-	firstSync := true // bool | When true, filters results to only show first sync sessions (optional) (default to false)
+	firstSync := true // bool | If true, return only sessions whose `why_session_opened` begins with \"first sync\". (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetDeviceSessions(context.Background(), projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetDeviceSessions(context.Background(), projectOrProductUID, deviceUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDeviceSessions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1475,11 +1520,12 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
 **endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
-**firstSync** | **bool** | When true, filters results to only show first sync sessions | [default to false]
+**firstSync** | **bool** | If true, return only sessions whose &#x60;why_session_opened&#x60; begins with \&quot;first sync\&quot;. | [default to false]
 
 ### Return type
 
@@ -1500,7 +1546,9 @@ Other parameters are passed through a pointer to a apiGetDeviceSessionsRequest s
 
 ## GetDevices
 
-> GetDevices200Response GetDevices(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> GetDevices200Response GetDevices(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices in a project
 
 ### Example
 
@@ -1516,21 +1564,22 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := []string{"Inner_example"} // []string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetDevices(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetDevices(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetDevices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1554,16 +1603,17 @@ Other parameters are passed through a pointer to a apiGetDevicesRequest struct v
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
-**deviceUID** | **[]string** | A Device UID. |
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **[]string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -1585,7 +1635,9 @@ Other parameters are passed through a pointer to a apiGetDevicesRequest struct v
 
 ## GetFleetDevices
 
-> GetDevices200Response GetFleetDevices(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> GetDevices200Response GetFleetDevices(ctx, projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices in a fleet
 
 ### Example
 
@@ -1602,20 +1654,21 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeviceAPI.GetFleetDevices(context.Background(), projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.DeviceAPI.GetFleetDevices(context.Background(), projectOrProductUID, fleetUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetFleetDevices``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1640,15 +1693,16 @@ Other parameters are passed through a pointer to a apiGetFleetDevicesRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
-**deviceUID** | **[]string** | A Device UID. |
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -1672,6 +1726,8 @@ Other parameters are passed through a pointer to a apiGetFleetDevicesRequest str
 
 > GetNotefile200Response GetNotefile(ctx, projectOrProductUID, deviceUID, notefileID).Max(max).Deleted(deleted).Delete(delete).Execute()
 
+Get the notes in a notefile
+
 ### Example
 
 ```go
@@ -1687,10 +1743,10 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	max := int32(56) // int32 | The maximum number of Notes to return in the request. (optional)
-	deleted := true // bool | true to return deleted notes. (optional)
-	delete := true // bool | true to delete the notes returned by the request. (optional)
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	max := int32(56) // int32 | The most notes to return. (optional)
+	deleted := true // bool | If true, also return deleted notes. (optional)
+	delete := true // bool | If true, delete the notes this request returns. Requires the Owner or Developer role. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1706,12 +1762,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                    | Notes |
+| ----------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                    |
+| **projectOrProductUID** | **string**          |                                                                                                |
+| **deviceUID**           | **string**          |                                                                                                |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;. |
 
 ### Other Parameters
 
@@ -1720,9 +1776,9 @@ Other parameters are passed through a pointer to a apiGetNotefileRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**max** | **int32** | The maximum number of Notes to return in the request. |
-**deleted** | **bool** | true to return deleted notes. |
-**delete** | **bool** | true to delete the notes returned by the request. |
+**max** | **int32** | The most notes to return. |
+**deleted** | **bool** | If true, also return deleted notes. |
+**delete** | **bool** | If true, delete the notes this request returns. Requires the Owner or Developer role. |
 
 ### Return type
 
@@ -1745,6 +1801,8 @@ Other parameters are passed through a pointer to a apiGetNotefileRequest struct 
 
 > []Notefile ListNotefiles(ctx, projectOrProductUID, deviceUID).Files(files).Pending(pending).Execute()
 
+List a device's notefiles and notes
+
 ### Example
 
 ```go
@@ -1760,7 +1818,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	files := []string{"Inner_example"} // []string | One or more files to obtain change information from. (optional)
+	files := []string{"Inner_example"} // []string | Notefiles to include, e.g. `config.db`. If omitted, all are listed. (optional)
 	pending := true // bool | show only files that are pending sync to the Notecard (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1790,7 +1848,7 @@ Other parameters are passed through a pointer to a apiListNotefilesRequest struc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**files** | **[]string** | One or more files to obtain change information from. |
+**files** | **[]string** | Notefiles to include, e.g. &#x60;config.db&#x60;. If omitted, all are listed. |
 **pending** | **bool** | show only files that are pending sync to the Notecard |
 
 ### Return type
@@ -1814,6 +1872,8 @@ Other parameters are passed through a pointer to a apiListNotefilesRequest struc
 
 > map[string]interface{} ProvisionDevice(ctx, projectOrProductUID, deviceUID).ProvisionDeviceRequest(provisionDeviceRequest).Execute()
 
+Provision a Notecard
+
 ### Example
 
 ```go
@@ -1829,7 +1889,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	provisionDeviceRequest := *openapiclient.NewProvisionDeviceRequest("ProductUid_example") // ProvisionDeviceRequest | Provision a device to a specific ProductUID
+	provisionDeviceRequest := *openapiclient.NewProvisionDeviceRequest("ProductUid_example") // ProvisionDeviceRequest | The product, serial number and fleets for the device.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1858,7 +1918,7 @@ Other parameters are passed through a pointer to a apiProvisionDeviceRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**provisionDeviceRequest** | [**ProvisionDeviceRequest**](ProvisionDeviceRequest.md) | Provision a device to a specific ProductUID |
+**provisionDeviceRequest** | [**ProvisionDeviceRequest**](ProvisionDeviceRequest.md) | The product, serial number and fleets for the device. |
 
 ### Return type
 
@@ -1881,6 +1941,8 @@ Other parameters are passed through a pointer to a apiProvisionDeviceRequest str
 
 > EnvironmentVariables SetDeviceEnvironmentVariables(ctx, projectOrProductUID, deviceUID).EnvironmentVariables(environmentVariables).Execute()
 
+Set device environment variables
+
 ### Example
 
 ```go
@@ -1896,7 +1958,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | Environment variables to be added to the device
+	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | The variables to add or change, and optional notes.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1925,7 +1987,7 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | Environment variables to be added to the device |
+**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | The variables to add or change, and optional notes. |
 
 ### Return type
 
@@ -1948,6 +2010,8 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 > EnvironmentVariables SetDeviceEnvironmentVariablesByPin(ctx, productUID, deviceUID).XAuthToken(xAuthToken).EnvironmentVariables(environmentVariables).Execute()
 
+Set device environment variables using a PIN
+
 ### Example
 
 ```go
@@ -1963,8 +2027,8 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	xAuthToken := "xAuthToken_example" // string | For accessing endpoints by Device pin.
-	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | Environment variables to be added to the device
+	xAuthToken := "xAuthToken_example" // string | The device's PIN, used instead of an API token.
+	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | The variables to add or change, and optional notes.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1993,8 +2057,8 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**xAuthToken** | **string** | For accessing endpoints by Device pin. |
-**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | Environment variables to be added to the device |
+**xAuthToken** | **string** | The device&#39;s PIN, used instead of an API token. |
+**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | The variables to add or change, and optional notes. |
 
 ### Return type
 
@@ -2017,6 +2081,8 @@ Other parameters are passed through a pointer to a apiSetDeviceEnvironmentVariab
 
 > SignalDevice200Response SignalDevice(ctx, projectOrProductUID, deviceUID).Body(body).Execute()
 
+Send a signal to a connected Notecard
+
 ### Example
 
 ```go
@@ -2032,7 +2098,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	body := *openapiclient.NewBody() // Body | Body or payload of signal to be sent to the device
+	body := *openapiclient.NewBody() // Body | The signal to send.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2061,7 +2127,7 @@ Other parameters are passed through a pointer to a apiSignalDeviceRequest struct
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | [**Body**](Body.md) | Body or payload of signal to be sent to the device |
+**body** | [**Body**](Body.md) | The signal to send. |
 
 ### Return type
 
@@ -2084,6 +2150,8 @@ Other parameters are passed through a pointer to a apiSignalDeviceRequest struct
 
 > UpdateDbNote(ctx, projectOrProductUID, deviceUID, notefileID, noteID).NoteInput(noteInput).Execute()
 
+Update a note in a .db notefile
+
 ### Example
 
 ```go
@@ -2099,8 +2167,8 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	notefileID := "notefileID_example" // string |
-	noteID := "noteID_example" // string |
+	notefileID := "notefileID_example" // string | Notefile name, including its extension, e.g. `config.db` or `commands.qi`.
+	noteID := "noteID_example" // string | Note ID within the notefile, e.g. `my_note`. Notes in a `.qi` notefile have IDs like `1:435`.
 	noteInput := *openapiclient.NewNoteInput() // NoteInput | Body or payload of note to be added to the device
 
 	configuration := openapiclient.NewConfiguration()
@@ -2115,13 +2183,13 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **notefileID**          | **string**          |                                                                             |
-| **noteID**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                 |
+| **projectOrProductUID** | **string**          |                                                                                                                             |
+| **deviceUID**           | **string**          |                                                                                                                             |
+| **notefileID**          | **string**          | Notefile name, including its extension, e.g. &#x60;config.db&#x60; or &#x60;commands.qi&#x60;.                              |
+| **noteID**              | **string**          | Note ID within the notefile, e.g. &#x60;my_note&#x60;. Notes in a &#x60;.qi&#x60; notefile have IDs like &#x60;1:435&#x60;. |
 
 ### Other Parameters
 

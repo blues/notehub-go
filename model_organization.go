@@ -21,9 +21,11 @@ var _ MappedNullable = &Organization{}
 
 // Organization struct for Organization
 type Organization struct {
-	Name                 string           `json:"name"`
-	Role                 OrganizationRole `json:"role"`
-	Uid                  string           `json:"uid"`
+	// Organization name.
+	Name string           `json:"name"`
+	Role OrganizationRole `json:"role"`
+	// Organization UID.
+	Uid                  string `json:"uid"`
 	AdditionalProperties map[string]interface{}
 }
 

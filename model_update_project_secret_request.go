@@ -21,7 +21,7 @@ var _ MappedNullable = &UpdateProjectSecretRequest{}
 
 // UpdateProjectSecretRequest struct for UpdateProjectSecretRequest
 type UpdateProjectSecretRequest struct {
-	// The new secret value (encrypted at rest, never returned).
+	// The new secret value. Encrypted at rest and never returned.
 	Value                string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }

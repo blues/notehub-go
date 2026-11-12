@@ -21,7 +21,7 @@ var _ MappedNullable = &DescriptionRecord{}
 
 // DescriptionRecord Metadata for a stored description record. The content itself is returned by GET on the record.
 type DescriptionRecord struct {
-	// The stored content type, either \"application/json\" or \"text/plain; charset=utf-8\".
+	// The Content-Type served on GET, as sent when the record was stored or detected from its content.
 	ContentType string `json:"content_type"`
 	// When the record was first created (Unix seconds).
 	CreatedAt int64 `json:"created_at"`
@@ -37,9 +37,9 @@ type DescriptionRecord struct {
 	ModifiedBy *string `json:"modified_by,omitempty"`
 	// The record name (letters, digits, '.', '_' or '-').
 	Name string `json:"name"`
-	// The owning project (app) UID for project-scoped records; empty for global.
+	// ProjectUID of the owning project, e.g. `app:2606f411-dea6-44a0-9743-1130f57d77d8`. Empty for a global record.
 	OwnerUid *string `json:"owner_uid,omitempty"`
-	// The ownership scope of the record (\"global\" or \"project\").
+	// Where the record is stored. - `project`: in one project - `global`: platform-wide, readable by every signed-in user
 	Scope                string `json:"scope"`
 	AdditionalProperties map[string]interface{}
 }

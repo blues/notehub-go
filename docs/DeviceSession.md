@@ -10,10 +10,10 @@
 | **Bssid**            | Pointer to **string**                            |                                                                                     | [optional] |
 | **Cell**             | Pointer to **string**                            | Cell ID where the session originated and quality (\&quot;mcc,mnc,lac,cellid\&quot;) | [optional] |
 | **Continuous**       | Pointer to **bool**                              | Was this a continuous connection?                                                   | [optional] |
-| **Device**           | Pointer to **string**                            | Device UID                                                                          | [optional] |
+| **Device**           | Pointer to **string**                            | DeviceUID                                                                           | [optional] |
 | **Events**           | Pointer to **int64**                             | Number of events routed                                                             | [optional] |
 | **FailedConnects**   | Pointer to **int64**                             | Number of failed connection attempts in the prior session                           | [optional] |
-| **Fleets**           | Pointer to **[]string**                          | Array of Fleet UIDs                                                                 | [optional] |
+| **Fleets**           | Pointer to **[]string**                          | Array of FleetUIDs                                                                  | [optional] |
 | **HpCyclesData**     | Pointer to **int64**                             |                                                                                     | [optional] |
 | **HpCyclesGps**      | Pointer to **int64**                             |                                                                                     | [optional] |
 | **HpCyclesTotal**    | Pointer to **int64**                             |                                                                                     | [optional] |
@@ -30,13 +30,13 @@
 | **PowerMah**         | Pointer to **float64**                           |                                                                                     | [optional] |
 | **PowerPrimary**     | Pointer to **bool**                              |                                                                                     | [optional] |
 | **PowerUsb**         | Pointer to **bool**                              |                                                                                     | [optional] |
-| **Product**          | Pointer to **string**                            | Product UID                                                                         | [optional] |
+| **Product**          | Pointer to **string**                            | ProductUID                                                                          | [optional] |
 | **Rat**              | Pointer to **string**                            |                                                                                     | [optional] |
 | **Rsrp**             | Pointer to **int32**                             |                                                                                     | [optional] |
 | **Rsrq**             | Pointer to **int32**                             |                                                                                     | [optional] |
 | **Rssi**             | Pointer to **int32**                             |                                                                                     | [optional] |
 | **Scan**             | Pointer to **string**                            |                                                                                     | [optional] |
-| **Session**          | Pointer to **string**                            | Session UID                                                                         | [optional] |
+| **Session**          | Pointer to **string**                            | SessionUID                                                                          | [optional] |
 | **SessionBegan**     | Pointer to **int64**                             | UNIX timestamp of session start                                                     | [optional] |
 | **SessionEnded**     | Pointer to **int64**                             | UNIX timestamp of session end                                                       | [optional] |
 | **Sinr**             | Pointer to **int32**                             |                                                                                     | [optional] |

@@ -4,55 +4,57 @@ All URIs are relative to *https://api.notefile.net*
 
 | Method                                                                                 | HTTP request                                                                                | Description                                              |
 | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
-| [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           |
-| [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          |
-| [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        |
-| [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       |
-| [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         |
-| [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    |
-| [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            |
-| [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             |
-| [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} |
-| [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         |
-| [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               |
-| [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   |
-| [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          |
-| [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   |
-| [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
-| [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    |
+| [**AddDeviceToFleets**](ProjectAPI.md#AddDeviceToFleets)                               | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       | Add a device to fleets                                   |
+| [**CloneProject**](ProjectAPI.md#CloneProject)                                         | **Post** /v1/projects/{projectOrProductUID}/clone                                           | Clone a project                                          |
+| [**CreateFleet**](ProjectAPI.md#CreateFleet)                                           | **Post** /v1/projects/{projectOrProductUID}/fleets                                          | Create a fleet                                           |
+| [**CreateProduct**](ProjectAPI.md#CreateProduct)                                       | **Post** /v1/projects/{projectOrProductUID}/products                                        | Create a product                                         |
+| [**CreateProject**](ProjectAPI.md#CreateProject)                                       | **Post** /v1/projects                                                                       | Create a project                                         |
+| [**CreateProjectSecret**](ProjectAPI.md#CreateProjectSecret)                           | **Post** /v1/projects/{projectOrProductUID}/secrets                                         | Create a project secret                                  |
+| [**DeleteDeviceFromFleets**](ProjectAPI.md#DeleteDeviceFromFleets)                     | **Delete** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                    | Remove a device from fleets                              |
+| [**DeleteFirmware**](ProjectAPI.md#DeleteFirmware)                                     | **Delete** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}            | Delete host firmware                                     |
+| [**DeleteFleet**](ProjectAPI.md#DeleteFleet)                                           | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                             | Delete a fleet                                           |
+| [**DeleteFleetEnvironmentVariable**](ProjectAPI.md#DeleteFleetEnvironmentVariable)     | **Delete** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables/{key} | Delete a fleet environment variable                      |
+| [**DeleteProduct**](ProjectAPI.md#DeleteProduct)                                       | **Delete** /v1/projects/{projectOrProductUID}/products/{productUID}                         | Delete a product                                         |
+| [**DeleteProject**](ProjectAPI.md#DeleteProject)                                       | **Delete** /v1/projects/{projectOrProductUID}                                               | Delete a project                                         |
+| [**DeleteProjectEnvironmentVariable**](ProjectAPI.md#DeleteProjectEnvironmentVariable) | **Delete** /v1/projects/{projectOrProductUID}/environment_variables/{key}                   | Delete a project environment variable                    |
+| [**DeleteProjectSecret**](ProjectAPI.md#DeleteProjectSecret)                           | **Delete** /v1/projects/{projectOrProductUID}/secrets/{secretName}                          | Delete a project secret                                  |
+| [**DisableGlobalEventTransformation**](ProjectAPI.md#DisableGlobalEventTransformation) | **Post** /v1/projects/{projectOrProductUID}/global-transformation/disable                   | Disable the global event transformation                  |
+| [**DownloadFirmware**](ProjectAPI.md#DownloadFirmware)                                 | **Get** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               | Download host firmware                                   |
+| [**EnableGlobalEventTransformation**](ProjectAPI.md#EnableGlobalEventTransformation)   | **Post** /v1/projects/{projectOrProductUID}/global-transformation/enable                    | Enable the global event transformation                   |
 | [**GetAWSRoleConfig**](ProjectAPI.md#GetAWSRoleConfig)                                 | **Get** /v1/projects/{projectOrProductUID}/aws-role-config                                  | Get AWS role configuration for role-based authentication |
-| [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   |
-| [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    |
-| [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       |
-| [**GetDevicesDfuHistory**](ProjectAPI.md#GetDevicesDfuHistory)                         | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/history                       |
-| [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        |
-| [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         |
-| [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
-| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get environment variable hierarchy for a device          |
-| [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
-| [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           |
-| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | Get variable format for a notefile                       |
-| [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         |
-| [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  |
-| [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   |
-| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get environment variable hierarchy for a device          |
-| [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            |
-| [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          |
-| [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          |
-| [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        |
-| [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     |
-| [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          |
-| [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           |
-| [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            |
-| [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              |
-| [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                |
-| [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             |
-| [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               |
+| [**GetDeviceDfuHistory**](ProjectAPI.md#GetDeviceDfuHistory)                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/history   | Get a device&#39;s firmware update history               |
+| [**GetDeviceDfuStatus**](ProjectAPI.md#GetDeviceDfuStatus)                             | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/dfu/{firmwareType}/status    | Get a device&#39;s firmware update status                |
+| [**GetDeviceFleets**](ProjectAPI.md#GetDeviceFleets)                                   | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/fleets                       | List a device&#39;s fleets                               |
+| [**GetDevicesDfuHistory**](ProjectAPI.md#GetDevicesDfuHistory)                         | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/history                       | List devices&#39; firmware update history                |
+| [**GetDevicesDfuStatus**](ProjectAPI.md#GetDevicesDfuStatus)                           | **Get** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/status                        | List devices&#39; firmware status                        |
+| [**GetFirmwareInfo**](ProjectAPI.md#GetFirmwareInfo)                                   | **Get** /v1/projects/{projectOrProductUID}/firmware                                         | List firmware                                            |
+| [**GetFleet**](ProjectAPI.md#GetFleet)                                                 | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Get a fleet                                              |
+| [**GetFleetEnvironmentHierarchy**](ProjectAPI.md#GetFleetEnvironmentHierarchy)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_hierarchy          | Get a fleet&#39;s environment hierarchy                  |
+| [**GetFleetEnvironmentVariables**](ProjectAPI.md#GetFleetEnvironmentVariables)         | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Get fleet environment variables                          |
+| [**GetFleets**](ProjectAPI.md#GetFleets)                                               | **Get** /v1/projects/{projectOrProductUID}/fleets                                           | List fleets                                              |
+| [**GetNotefileSchemas**](ProjectAPI.md#GetNotefileSchemas)                             | **Get** /v1/projects/{projectOrProductUID}/schemas                                          | List Notefile schemas                                    |
+| [**GetProducts**](ProjectAPI.md#GetProducts)                                           | **Get** /v1/projects/{projectOrProductUID}/products                                         | List a project&#39;s products                            |
+| [**GetProject**](ProjectAPI.md#GetProject)                                             | **Get** /v1/projects/{projectOrProductUID}                                                  | Get a project                                            |
+| [**GetProjectByProduct**](ProjectAPI.md#GetProjectByProduct)                           | **Get** /v1/products/{productUID}/project                                                   | Get the project for a ProductUID                         |
+| [**GetProjectEnvironmentHierarchy**](ProjectAPI.md#GetProjectEnvironmentHierarchy)     | **Get** /v1/projects/{projectOrProductUID}/environment_hierarchy                            | Get the project environment hierarchy                    |
+| [**GetProjectEnvironmentVariables**](ProjectAPI.md#GetProjectEnvironmentVariables)     | **Get** /v1/projects/{projectOrProductUID}/environment_variables                            | Get project environment variables                        |
+| [**GetProjectMembers**](ProjectAPI.md#GetProjectMembers)                               | **Get** /v1/projects/{projectOrProductUID}/members                                          | List project members                                     |
+| [**GetProjectSecrets**](ProjectAPI.md#GetProjectSecrets)                               | **Get** /v1/projects/{projectOrProductUID}/secrets                                          | List project secrets                                     |
+| [**GetProjects**](ProjectAPI.md#GetProjects)                                           | **Get** /v1/projects                                                                        | List projects                                            |
+| [**PerformDfuAction**](ProjectAPI.md#PerformDfuAction)                                 | **Post** /v1/projects/{projectOrProductUID}/dfu/{firmwareType}/{action}                     | Start or cancel firmware updates                         |
+| [**SetFleetEnvironmentVariables**](ProjectAPI.md#SetFleetEnvironmentVariables)         | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/environment_variables          | Set fleet environment variables                          |
+| [**SetGlobalEventTransformation**](ProjectAPI.md#SetGlobalEventTransformation)         | **Post** /v1/projects/{projectOrProductUID}/global-transformation                           | Set the global event transformation                      |
+| [**SetProjectEnvironmentVariables**](ProjectAPI.md#SetProjectEnvironmentVariables)     | **Put** /v1/projects/{projectOrProductUID}/environment_variables                            | Set project environment variables                        |
+| [**UpdateFirmware**](ProjectAPI.md#UpdateFirmware)                                     | **Post** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}              | Update host firmware metadata                            |
+| [**UpdateFleet**](ProjectAPI.md#UpdateFleet)                                           | **Put** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}                                | Update a fleet                                           |
+| [**UpdateProjectSecret**](ProjectAPI.md#UpdateProjectSecret)                           | **Put** /v1/projects/{projectOrProductUID}/secrets/{secretName}                             | Update a project secret                                  |
+| [**UploadFirmware**](ProjectAPI.md#UploadFirmware)                                     | **Put** /v1/projects/{projectOrProductUID}/firmware/{firmwareType}/{filename}               | Upload firmware                                          |
 
 ## AddDeviceToFleets
 
 > GetDeviceFleets200Response AddDeviceToFleets(ctx, projectOrProductUID, deviceUID).AddDeviceToFleetsRequest(addDeviceToFleetsRequest).Execute()
+
+Add a device to fleets
 
 ### Example
 
@@ -69,7 +71,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	addDeviceToFleetsRequest := *openapiclient.NewAddDeviceToFleetsRequest([]string{"FleetUids_example"}) // AddDeviceToFleetsRequest | The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+	addDeviceToFleetsRequest := *openapiclient.NewAddDeviceToFleetsRequest([]string{"FleetUids_example"}) // AddDeviceToFleetsRequest | The fleets to add the device to.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -98,7 +100,7 @@ Other parameters are passed through a pointer to a apiAddDeviceToFleetsRequest s
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**addDeviceToFleetsRequest** | [**AddDeviceToFleetsRequest**](AddDeviceToFleetsRequest.md) | The fleets to add to the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error. |
+**addDeviceToFleetsRequest** | [**AddDeviceToFleetsRequest**](AddDeviceToFleetsRequest.md) | The fleets to add the device to. |
 
 ### Return type
 
@@ -121,6 +123,8 @@ Other parameters are passed through a pointer to a apiAddDeviceToFleetsRequest s
 
 > Project CloneProject(ctx, projectOrProductUID).CloneProjectRequest(cloneProjectRequest).Execute()
 
+Clone a project
+
 ### Example
 
 ```go
@@ -135,7 +139,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	cloneProjectRequest := *openapiclient.NewCloneProjectRequest("BillingAccountUid_example", "Label_example") // CloneProjectRequest | Project to be cloned
+	cloneProjectRequest := *openapiclient.NewCloneProjectRequest("BillingAccountUid_example", "Label_example") // CloneProjectRequest | The new project's name and organization, and what to leave out of the copy.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -163,7 +167,7 @@ Other parameters are passed through a pointer to a apiCloneProjectRequest struct
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**cloneProjectRequest** | [**CloneProjectRequest**](CloneProjectRequest.md) | Project to be cloned |
+**cloneProjectRequest** | [**CloneProjectRequest**](CloneProjectRequest.md) | The new project&#39;s name and organization, and what to leave out of the copy. |
 
 ### Return type
 
@@ -186,6 +190,8 @@ Other parameters are passed through a pointer to a apiCloneProjectRequest struct
 
 > Fleet CreateFleet(ctx, projectOrProductUID).CreateFleetRequest(createFleetRequest).Execute()
 
+Create a fleet
+
 ### Example
 
 ```go
@@ -200,7 +206,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	createFleetRequest := *openapiclient.NewCreateFleetRequest() // CreateFleetRequest | Fleet to be added
+	createFleetRequest := *openapiclient.NewCreateFleetRequest() // CreateFleetRequest | The new fleet's name and settings.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -228,7 +234,7 @@ Other parameters are passed through a pointer to a apiCreateFleetRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**createFleetRequest** | [**CreateFleetRequest**](CreateFleetRequest.md) | Fleet to be added |
+**createFleetRequest** | [**CreateFleetRequest**](CreateFleetRequest.md) | The new fleet&#39;s name and settings. |
 
 ### Return type
 
@@ -251,6 +257,8 @@ Other parameters are passed through a pointer to a apiCreateFleetRequest struct 
 
 > Product CreateProduct(ctx, projectOrProductUID).CreateProductRequest(createProductRequest).Execute()
 
+Create a product
+
 ### Example
 
 ```go
@@ -265,7 +273,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	createProductRequest := *openapiclient.NewCreateProductRequest("Label_example", "ProductUid_example") // CreateProductRequest | Product to be created
+	createProductRequest := *openapiclient.NewCreateProductRequest("Label_example", "ProductUid_example") // CreateProductRequest | The new product's UID suffix, name and provisioning settings.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -293,7 +301,7 @@ Other parameters are passed through a pointer to a apiCreateProductRequest struc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**createProductRequest** | [**CreateProductRequest**](CreateProductRequest.md) | Product to be created |
+**createProductRequest** | [**CreateProductRequest**](CreateProductRequest.md) | The new product&#39;s UID suffix, name and provisioning settings. |
 
 ### Return type
 
@@ -316,6 +324,8 @@ Other parameters are passed through a pointer to a apiCreateProductRequest struc
 
 > Project CreateProject(ctx).CreateProjectRequest(createProjectRequest).Execute()
 
+Create a project
+
 ### Example
 
 ```go
@@ -329,7 +339,7 @@ import (
 )
 
 func main() {
-	createProjectRequest := *openapiclient.NewCreateProjectRequest("BillingAccountUid_example", "Label_example") // CreateProjectRequest | Project to be created
+	createProjectRequest := *openapiclient.NewCreateProjectRequest("BillingAccountUid_example", "Label_example") // CreateProjectRequest | The new project's name and organization.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -349,9 +359,9 @@ func main() {
 
 Other parameters are passed through a pointer to a apiCreateProjectRequest struct via the builder pattern
 
-| Name                     | Type                                                | Description           | Notes |
-| ------------------------ | --------------------------------------------------- | --------------------- | ----- |
-| **createProjectRequest** | [**CreateProjectRequest**](CreateProjectRequest.md) | Project to be created |
+| Name                     | Type                                                | Description                                  | Notes |
+| ------------------------ | --------------------------------------------------- | -------------------------------------------- | ----- |
+| **createProjectRequest** | [**CreateProjectRequest**](CreateProjectRequest.md) | The new project&#39;s name and organization. |
 
 ### Return type
 
@@ -373,6 +383,8 @@ Other parameters are passed through a pointer to a apiCreateProjectRequest struc
 ## CreateProjectSecret
 
 > ProjectSecret CreateProjectSecret(ctx, projectOrProductUID).CreateProjectSecretRequest(createProjectSecretRequest).Execute()
+
+Create a project secret
 
 ### Example
 
@@ -439,6 +451,8 @@ Other parameters are passed through a pointer to a apiCreateProjectSecretRequest
 
 > GetDeviceFleets200Response DeleteDeviceFromFleets(ctx, projectOrProductUID, deviceUID).DeleteDeviceFromFleetsRequest(deleteDeviceFromFleetsRequest).Execute()
 
+Remove a device from fleets
+
 ### Example
 
 ```go
@@ -454,7 +468,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	deleteDeviceFromFleetsRequest := *openapiclient.NewDeleteDeviceFromFleetsRequest([]string{"FleetUids_example"}) // DeleteDeviceFromFleetsRequest | The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error.
+	deleteDeviceFromFleetsRequest := *openapiclient.NewDeleteDeviceFromFleetsRequest([]string{"FleetUids_example"}) // DeleteDeviceFromFleetsRequest | The fleets to remove the device from.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -483,7 +497,7 @@ Other parameters are passed through a pointer to a apiDeleteDeviceFromFleetsRequ
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deleteDeviceFromFleetsRequest** | [**DeleteDeviceFromFleetsRequest**](DeleteDeviceFromFleetsRequest.md) | The fleets to remove from the device. Note that the endpoint takes an array of fleetUIDs, to facilitate multi-fleet devices. Multi-fleet is not yet enabled on all SaaS plans - unless it is supported by the SaaS plan of the project, passing more than a single fleetUID in the array is an error. |
+**deleteDeviceFromFleetsRequest** | [**DeleteDeviceFromFleetsRequest**](DeleteDeviceFromFleetsRequest.md) | The fleets to remove the device from. |
 
 ### Return type
 
@@ -505,6 +519,8 @@ Other parameters are passed through a pointer to a apiDeleteDeviceFromFleetsRequ
 ## DeleteFirmware
 
 > DeleteFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
+
+Delete host firmware
 
 ### Example
 
@@ -570,6 +586,8 @@ Other parameters are passed through a pointer to a apiDeleteFirmwareRequest stru
 
 > DeleteFleet(ctx, projectOrProductUID, fleetUID).Execute()
 
+Delete a fleet
+
 ### Example
 
 ```go
@@ -632,6 +650,8 @@ Other parameters are passed through a pointer to a apiDeleteFleetRequest struct 
 
 > EnvironmentVariables DeleteFleetEnvironmentVariable(ctx, projectOrProductUID, fleetUID, key).Execute()
 
+Delete a fleet environment variable
+
 ### Example
 
 ```go
@@ -647,7 +667,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	key := "key_example" // string | The environment variable key to delete.
+	key := "key_example" // string | Name of the environment variable to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -668,7 +688,7 @@ func main() {
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
 | **fleetUID**            | **string**          |                                                                             |
-| **key**                 | **string**          | The environment variable key to delete.                                     |
+| **key**                 | **string**          | Name of the environment variable to delete.                                 |
 
 ### Other Parameters
 
@@ -697,6 +717,8 @@ Other parameters are passed through a pointer to a apiDeleteFleetEnvironmentVari
 ## DeleteProduct
 
 > DeleteProduct(ctx, projectOrProductUID, productUID).Execute()
+
+Delete a product
 
 ### Example
 
@@ -760,6 +782,8 @@ Other parameters are passed through a pointer to a apiDeleteProductRequest struc
 
 > DeleteProject(ctx, projectOrProductUID).Execute()
 
+Delete a project
+
 ### Example
 
 ```go
@@ -820,6 +844,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectRequest struc
 
 > EnvironmentVariables DeleteProjectEnvironmentVariable(ctx, projectOrProductUID, key).Execute()
 
+Delete a project environment variable
+
 ### Example
 
 ```go
@@ -834,7 +860,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	key := "key_example" // string | The environment variable key to delete.
+	key := "key_example" // string | Name of the environment variable to delete.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -854,7 +880,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **key**                 | **string**          | The environment variable key to delete.                                     |
+| **key**                 | **string**          | Name of the environment variable to delete.                                 |
 
 ### Other Parameters
 
@@ -884,6 +910,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectEnvironmentVa
 
 > DeleteProjectSecret(ctx, projectOrProductUID, secretName).Execute()
 
+Delete a project secret
+
 ### Example
 
 ```go
@@ -898,7 +926,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	secretName := "secretName_example" // string | The name of the secret.
+	secretName := "secretName_example" // string | Name of the secret, as listed by `GetProjectSecrets`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -916,7 +944,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **secretName**          | **string**          | The name of the secret.                                                     |
+| **secretName**          | **string**          | Name of the secret, as listed by &#x60;GetProjectSecrets&#x60;.             |
 
 ### Other Parameters
 
@@ -945,6 +973,8 @@ Other parameters are passed through a pointer to a apiDeleteProjectSecretRequest
 ## DisableGlobalEventTransformation
 
 > DisableGlobalEventTransformation(ctx, projectOrProductUID).Execute()
+
+Disable the global event transformation
 
 ### Example
 
@@ -1006,6 +1036,8 @@ Other parameters are passed through a pointer to a apiDisableGlobalEventTransfor
 
 > *os.File DownloadFirmware(ctx, projectOrProductUID, firmwareType, filename).Execute()
 
+Download host firmware
+
 ### Example
 
 ```go
@@ -1020,7 +1052,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 	filename := "filename_example" // string |
 
 	configuration := openapiclient.NewConfiguration()
@@ -1037,12 +1069,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **filename**            | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
+| **filename**            | **string**          |                                                                                            |
 
 ### Other Parameters
 
@@ -1071,6 +1103,8 @@ Other parameters are passed through a pointer to a apiDownloadFirmwareRequest st
 ## EnableGlobalEventTransformation
 
 > EnableGlobalEventTransformation(ctx, projectOrProductUID).Execute()
+
+Enable the global event transformation
 
 ### Example
 
@@ -1196,6 +1230,8 @@ Other parameters are passed through a pointer to a apiGetAWSRoleConfigRequest st
 
 > DeviceDfuHistory GetDeviceDfuHistory(ctx, projectOrProductUID, deviceUID, firmwareType).Execute()
 
+Get a device's firmware update history
+
 ### Example
 
 ```go
@@ -1211,7 +1247,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1227,12 +1263,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **deviceUID**           | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1262,6 +1298,8 @@ Other parameters are passed through a pointer to a apiGetDeviceDfuHistoryRequest
 
 > DeviceDfuStatus GetDeviceDfuStatus(ctx, projectOrProductUID, deviceUID, firmwareType).Execute()
 
+Get a device's firmware update status
+
 ### Example
 
 ```go
@@ -1277,7 +1315,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	deviceUID := "dev:000000000000000" // string |
-	firmwareType := "firmwareType_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1293,12 +1331,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **deviceUID**           | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **deviceUID**           | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1327,6 +1365,8 @@ Other parameters are passed through a pointer to a apiGetDeviceDfuStatusRequest 
 ## GetDeviceFleets
 
 > GetDeviceFleets200Response GetDeviceFleets(ctx, projectOrProductUID, deviceUID).Execute()
+
+List a device's fleets
 
 ### Example
 
@@ -1390,7 +1430,9 @@ Other parameters are passed through a pointer to a apiGetDeviceFleetsRequest str
 
 ## GetDevicesDfuHistory
 
-> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuHistoryPage GetDevicesDfuHistory(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices' firmware update history
 
 ### Example
 
@@ -1406,24 +1448,25 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuHistory(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1435,11 +1478,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1448,18 +1491,19 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -1481,7 +1525,9 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuHistoryReques
 
 ## GetDevicesDfuStatus
 
-> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+> DeviceDfuStatusPage GetDevicesDfuStatus(ctx, projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+
+List devices' firmware status
 
 ### Example
 
@@ -1497,24 +1543,25 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	pageSize := int32(56) // int32 |  (optional) (default to 50)
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
 	sortBy := "sortBy_example" // string |  (optional) (default to "captured")
 	sortOrder := "sortOrder_example" // string |  (optional) (default to "asc")
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
+	resp, r, err := apiClient.ProjectAPI.GetDevicesDfuStatus(context.Background(), projectOrProductUID, firmwareType).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).SortBy(sortBy).SortOrder(sortOrder).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ProjectAPI.GetDevicesDfuStatus``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1526,11 +1573,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------ | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                |
+| **projectOrProductUID** | **string**          |                                                                                            |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;. |
 
 ### Other Parameters
 
@@ -1539,18 +1586,19 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**pageSize** | **int32** | | [default to 50]
+**pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
 **sortBy** | **string** | | [default to &quot;captured&quot;]
 **sortOrder** | **string** | | [default to &quot;asc&quot;]
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 
 ### Return type
@@ -1574,6 +1622,8 @@ Other parameters are passed through a pointer to a apiGetDevicesDfuStatusRequest
 
 > []FirmwareInfo GetFirmwareInfo(ctx, projectOrProductUID).Product(product).FirmwareType(firmwareType).Version(version).Target(target).Filename(filename).Md5(md5).Unpublished(unpublished).SortBy(sortBy).SortOrder(sortOrder).Execute()
 
+List firmware
+
 ### Example
 
 ```go
@@ -1588,13 +1638,13 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	product := "product_example" // string |  (optional)
-	firmwareType := "firmwareType_example" // string |  (optional)
-	version := "version_example" // string |  (optional)
-	target := "target_example" // string |  (optional)
-	filename := "notecard-7.2.2.16518$20240410043100.bin" // string |  (optional)
-	md5 := "md5_example" // string |  (optional)
-	unpublished := true // bool |  (optional)
+	product := "product_example" // string | Only firmware whose product contains this text. (optional)
+	firmwareType := "firmwareType_example" // string | Only list `host` or `notecard` firmware. Omit for both. (optional)
+	version := "version_example" // string | Only firmware whose version contains this text. (optional)
+	target := "target_example" // string | Only firmware whose target contains this text. (optional)
+	filename := "notecard-7.2.2.16518$20240410043100.bin" // string | Only firmware whose stored filename contains this text. (optional)
+	md5 := "md5_example" // string | Only firmware whose MD5 hash contains this text. (optional)
+	unpublished := true // bool | If `true`, also list unpublished Notecard firmware. (optional)
 	sortBy := "sortBy_example" // string | Field to sort by (optional) (default to "created")
 	sortOrder := "sortOrder_example" // string | Sort order (asc for ascending, desc for descending) (optional) (default to "desc")
 
@@ -1624,13 +1674,13 @@ Other parameters are passed through a pointer to a apiGetFirmwareInfoRequest str
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**product** | **string** | |
-**firmwareType** | **string** | |
-**version** | **string** | |
-**target** | **string** | |
-**filename** | **string** | |
-**md5** | **string** | |
-**unpublished** | **bool** | |
+**product** | **string** | Only firmware whose product contains this text. |
+**firmwareType** | **string** | Only list &#x60;host&#x60; or &#x60;notecard&#x60; firmware. Omit for both. |
+**version** | **string** | Only firmware whose version contains this text. |
+**target** | **string** | Only firmware whose target contains this text. |
+**filename** | **string** | Only firmware whose stored filename contains this text. |
+**md5** | **string** | Only firmware whose MD5 hash contains this text. |
+**unpublished** | **bool** | If &#x60;true&#x60;, also list unpublished Notecard firmware. |
 **sortBy** | **string** | Field to sort by | [default to &quot;created&quot;]
 **sortOrder** | **string** | Sort order (asc for ascending, desc for descending) | [default to &quot;desc&quot;]
 
@@ -1654,6 +1704,8 @@ Other parameters are passed through a pointer to a apiGetFirmwareInfoRequest str
 ## GetFleet
 
 > Fleet GetFleet(ctx, projectOrProductUID, fleetUID).Execute()
+
+Get a fleet
 
 ### Example
 
@@ -1719,7 +1771,7 @@ Other parameters are passed through a pointer to a apiGetFleetRequest struct via
 
 > EnvTreeJsonNode GetFleetEnvironmentHierarchy(ctx, projectOrProductUID, fleetUID).Execute()
 
-Get environment variable hierarchy for a device
+Get a fleet's environment hierarchy
 
 ### Example
 
@@ -1785,6 +1837,8 @@ Other parameters are passed through a pointer to a apiGetFleetEnvironmentHierarc
 
 > EnvironmentVariables GetFleetEnvironmentVariables(ctx, projectOrProductUID, fleetUID).Execute()
 
+Get fleet environment variables
+
 ### Example
 
 ```go
@@ -1849,6 +1903,8 @@ Other parameters are passed through a pointer to a apiGetFleetEnvironmentVariabl
 
 > GetDeviceFleets200Response GetFleets(ctx, projectOrProductUID).Execute()
 
+List fleets
+
 ### Example
 
 ```go
@@ -1911,7 +1967,7 @@ Other parameters are passed through a pointer to a apiGetFleetsRequest struct vi
 
 > []NotefileSchema GetNotefileSchemas(ctx, projectOrProductUID).Execute()
 
-Get variable format for a notefile
+List Notefile schemas
 
 ### Example
 
@@ -1975,6 +2031,8 @@ Other parameters are passed through a pointer to a apiGetNotefileSchemasRequest 
 
 > GetProducts200Response GetProducts(ctx, projectOrProductUID).Execute()
 
+List a project's products
+
 ### Example
 
 ```go
@@ -2036,6 +2094,8 @@ Other parameters are passed through a pointer to a apiGetProductsRequest struct 
 ## GetProject
 
 > Project GetProject(ctx, projectOrProductUID).Execute()
+
+Get a project
 
 ### Example
 
@@ -2099,6 +2159,8 @@ Other parameters are passed through a pointer to a apiGetProjectRequest struct v
 
 > Project GetProjectByProduct(ctx, productUID).Execute()
 
+Get the project for a ProductUID
+
 ### Example
 
 ```go
@@ -2112,7 +2174,7 @@ import (
 )
 
 func main() {
-	productUID := "com.blues.airnote" // string |
+	productUID := "com.blues.airnote" // string | ProductUID, e.g. `com.blues.airnote`, with or without the `product:` prefix.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2128,10 +2190,10 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
+| Name           | Type                | Description                                                                                      | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------------ | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                      |
+| **productUID** | **string**          | ProductUID, e.g. &#x60;com.blues.airnote&#x60;, with or without the &#x60;product:&#x60; prefix. |
 
 ### Other Parameters
 
@@ -2161,7 +2223,7 @@ Other parameters are passed through a pointer to a apiGetProjectByProductRequest
 
 > EnvTreeJsonNode GetProjectEnvironmentHierarchy(ctx, projectOrProductUID).Execute()
 
-Get environment variable hierarchy for a device
+Get the project environment hierarchy
 
 ### Example
 
@@ -2225,6 +2287,8 @@ Other parameters are passed through a pointer to a apiGetProjectEnvironmentHiera
 
 > EnvironmentVariables GetProjectEnvironmentVariables(ctx, projectOrProductUID).Execute()
 
+Get project environment variables
+
 ### Example
 
 ```go
@@ -2286,6 +2350,8 @@ Other parameters are passed through a pointer to a apiGetProjectEnvironmentVaria
 ## GetProjectMembers
 
 > GetProjectMembers200Response GetProjectMembers(ctx, projectOrProductUID).Execute()
+
+List project members
 
 ### Example
 
@@ -2349,6 +2415,8 @@ Other parameters are passed through a pointer to a apiGetProjectMembersRequest s
 
 > GetProjectSecretsResponse GetProjectSecrets(ctx, projectOrProductUID).Execute()
 
+List project secrets
+
 ### Example
 
 ```go
@@ -2411,6 +2479,8 @@ Other parameters are passed through a pointer to a apiGetProjectSecretsRequest s
 
 > GetProjects200Response GetProjects(ctx).Execute()
 
+List projects
+
 ### Example
 
 ```go
@@ -2466,6 +2536,8 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 > PerformDfuAction(ctx, projectOrProductUID, firmwareType, action).DeviceUID(deviceUID).Tag(tag).SerialNumber(serialNumber).FleetUID(fleetUID).NotecardFirmware(notecardFirmware).Location(location).HostFirmware(hostFirmware).ProductUID(productUID).Sku(sku).DfuActionRequest(dfuActionRequest).Execute()
 
+Start or cancel firmware updates
+
 ### Example
 
 ```go
@@ -2480,16 +2552,16 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	action := "action_example" // string |
-	deviceUID := []string{"Inner_example"} // []string | A Device UID. (optional)
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	action := "action_example" // string | - `update`: start updating to the firmware in `filename` - `cancel`: cancel any update in progress
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	tag := []string{"Inner_example"} // []string | Tag filter. Matches the whole tag, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. For example, `51*` matches tags starting with `51`. (optional)
 	serialNumber := []string{"Inner_example"} // []string | Serial number filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	fleetUID := "fleetUID_example" // string |  (optional)
 	notecardFirmware := []string{"Inner_example"} // []string | Firmware version filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	location := []string{"Inner_example"} // []string | Location filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	hostFirmware := []string{"Inner_example"} // []string | Host firmware filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
-	productUID := []string{"Inner_example"} // []string | Product UID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
+	productUID := []string{"Inner_example"} // []string | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	sku := []string{"Inner_example"} // []string | SKU filter. Matches any value containing the filter text. Use `*` as a wildcard and `\\*` to match a literal `*`; all other characters, including `%` and `_`, match literally. (optional)
 	dfuActionRequest := *openapiclient.NewDfuActionRequest() // DfuActionRequest | Which firmware in the case of an update action (optional)
 
@@ -2505,12 +2577,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **action**              | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                      | Notes |
+| ----------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                      |
+| **projectOrProductUID** | **string**          |                                                                                                                                  |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;.                                       |
+| **action**              | **string**          | - &#x60;update&#x60;: start updating to the firmware in &#x60;filename&#x60; - &#x60;cancel&#x60;: cancel any update in progress |
 
 ### Other Parameters
 
@@ -2519,14 +2591,14 @@ Other parameters are passed through a pointer to a apiPerformDfuActionRequest st
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**deviceUID** | **[]string** | A Device UID. |
+**deviceUID** | **[]string** | A DeviceUID. |
 **tag** | **[]string** | Tag filter. Matches the whole tag, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. For example, &#x60;51_&#x60; matches tags starting with &#x60;51&#x60;. |
 **serialNumber** | **[]string** | Serial number filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
 **fleetUID** | **string** | |
 **notecardFirmware** | **[]string** | Firmware version filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **location** | **[]string** | Location filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **hostFirmware** | **[]string** | Host firmware filter. Matches any value containing the filter text. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;\_&#x60;, match literally. |
-**productUID** | **[]string** | Product UID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
+**productUID** | **[]string** | ProductUID filter. Matches any value containing the filter text, case-insensitive. Use &#x60;_&#x60; as a wildcard and &#x60;\\_&#x60; to match a literal &#x60;_&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **sku** | **[]string** | SKU filter. Matches any value containing the filter text. Use &#x60;*&#x60; as a wildcard and &#x60;\\*&#x60; to match a literal &#x60;\*&#x60;; all other characters, including &#x60;%&#x60; and &#x60;_&#x60;, match literally. |
 **dfuActionRequest** | [**DfuActionRequest**](DfuActionRequest.md) | Which firmware in the case of an update action |
 
@@ -2551,6 +2623,8 @@ Other parameters are passed through a pointer to a apiPerformDfuActionRequest st
 
 > EnvironmentVariables SetFleetEnvironmentVariables(ctx, projectOrProductUID, fleetUID).EnvironmentVariables(environmentVariables).Execute()
 
+Set fleet environment variables
+
 ### Example
 
 ```go
@@ -2566,7 +2640,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | Environment variables to be added to the fleet
+	environmentVariables := *openapiclient.NewEnvironmentVariables(map[string]string{"key": "Inner_example"}) // EnvironmentVariables | The variables to add or change, and optional notes.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2595,7 +2669,7 @@ Other parameters are passed through a pointer to a apiSetFleetEnvironmentVariabl
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | Environment variables to be added to the fleet |
+**environmentVariables** | [**EnvironmentVariables**](EnvironmentVariables.md) | The variables to add or change, and optional notes. |
 
 ### Return type
 
@@ -2618,6 +2692,8 @@ Other parameters are passed through a pointer to a apiSetFleetEnvironmentVariabl
 
 > SetGlobalEventTransformation(ctx, projectOrProductUID).Body(body).Execute()
 
+Set the global event transformation
+
 ### Example
 
 ```go
@@ -2632,7 +2708,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	body := "body_example" // string | JSONata expression which will be applied to each event before it is persisted and routed
+	body := "body_example" // string | JSONata expression as plain text. An empty body clears the transformation.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2658,7 +2734,7 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**body** | **string** | JSONata expression which will be applied to each event before it is persisted and routed |
+**body** | **string** | JSONata expression as plain text. An empty body clears the transformation. |
 
 ### Return type
 
@@ -2680,6 +2756,8 @@ Other parameters are passed through a pointer to a apiSetGlobalEventTransformati
 ## SetProjectEnvironmentVariables
 
 > EnvironmentVariables SetProjectEnvironmentVariables(ctx, projectOrProductUID).EnvironmentVariables(environmentVariables).Execute()
+
+Set project environment variables
 
 ### Example
 
@@ -2745,6 +2823,8 @@ Other parameters are passed through a pointer to a apiSetProjectEnvironmentVaria
 ## UpdateFirmware
 
 > FirmwareInfo UpdateFirmware(ctx, projectOrProductUID, firmwareType, filename).UpdateHostFirmwareRequest(updateHostFirmwareRequest).Execute()
+
+Update host firmware metadata
 
 ### Example
 
@@ -2815,6 +2895,8 @@ Other parameters are passed through a pointer to a apiUpdateFirmwareRequest stru
 
 > Fleet UpdateFleet(ctx, projectOrProductUID, fleetUID).UpdateFleetRequest(updateFleetRequest).Execute()
 
+Update a fleet
+
 ### Example
 
 ```go
@@ -2830,7 +2912,7 @@ import (
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	fleetUID := "fleetUID_example" // string |
-	updateFleetRequest := *openapiclient.NewUpdateFleetRequest() // UpdateFleetRequest | Fleet details to update
+	updateFleetRequest := *openapiclient.NewUpdateFleetRequest() // UpdateFleetRequest | The fields to change. Fields left out keep their values, except `smart_rule_enabled`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2859,7 +2941,7 @@ Other parameters are passed through a pointer to a apiUpdateFleetRequest struct 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**updateFleetRequest** | [**UpdateFleetRequest**](UpdateFleetRequest.md) | Fleet details to update |
+**updateFleetRequest** | [**UpdateFleetRequest**](UpdateFleetRequest.md) | The fields to change. Fields left out keep their values, except &#x60;smart_rule_enabled&#x60;. |
 
 ### Return type
 
@@ -2882,6 +2964,8 @@ Other parameters are passed through a pointer to a apiUpdateFleetRequest struct 
 
 > ProjectSecret UpdateProjectSecret(ctx, projectOrProductUID, secretName).UpdateProjectSecretRequest(updateProjectSecretRequest).Execute()
 
+Update a project secret
+
 ### Example
 
 ```go
@@ -2896,7 +2980,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	secretName := "secretName_example" // string | The name of the secret.
+	secretName := "secretName_example" // string | Name of the secret, as listed by `GetProjectSecrets`.
 	updateProjectSecretRequest := *openapiclient.NewUpdateProjectSecretRequest("Value_example") // UpdateProjectSecretRequest |
 
 	configuration := openapiclient.NewConfiguration()
@@ -2917,7 +3001,7 @@ func main() {
 | ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
 | **projectOrProductUID** | **string**          |                                                                             |
-| **secretName**          | **string**          | The name of the secret.                                                     |
+| **secretName**          | **string**          | Name of the secret, as listed by &#x60;GetProjectSecrets&#x60;.             |
 
 ### Other Parameters
 
@@ -2949,6 +3033,8 @@ Other parameters are passed through a pointer to a apiUpdateProjectSecretRequest
 
 > FirmwareInfo UploadFirmware(ctx, projectOrProductUID, firmwareType, filename).Body(body).Version(version).Notes(notes).Execute()
 
+Upload firmware
+
 ### Example
 
 ```go
@@ -2963,8 +3049,8 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	firmwareType := "firmwareType_example" // string |
-	filename := "filename_example" // string |
+	firmwareType := "firmwareType_example" // string | Which firmware: `host` (the host microcontroller's) or `notecard`.
+	filename := "filename_example" // string | Name to store the file under. Notehub adds `$` and a timestamp before the extension, except for a Notecard firmware name that already contains `$`.
 	body := os.NewFile(1234, "some_file") // *os.File | contents of the firmware binary
 	version := "version_example" // string | Firmware version (optional). If not provided, the version will be extracted from firmware binary if available, otherwise left empty (optional)
 	notes := "notes_example" // string | Optional notes describing what's different about this firmware version (optional)
@@ -2983,12 +3069,12 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **firmwareType**        | **string**          |                                                                             |
-| **filename**            | **string**          |                                                                             |
+| Name                    | Type                | Description                                                                                                                                                             | Notes |
+| ----------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                                                                                             |
+| **projectOrProductUID** | **string**          |                                                                                                                                                                         |
+| **firmwareType**        | **string**          | Which firmware: &#x60;host&#x60; (the host microcontroller&#39;s) or &#x60;notecard&#x60;.                                                                              |
+| **filename**            | **string**          | Name to store the file under. Notehub adds &#x60;$&#x60; and a timestamp before the extension, except for a Notecard firmware name that already contains &#x60;$&#x60;. |
 
 ### Other Parameters
 

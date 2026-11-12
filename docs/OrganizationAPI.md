@@ -2,15 +2,17 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                                | HTTP request                                                | Description |
-| ------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ----------- |
-| [**GetOrganization**](OrganizationAPI.md#GetOrganization)                             | **Get** /v1/organizations/{organizationUID}                 |
-| [**GetOrganizationBalanceHistory**](OrganizationAPI.md#GetOrganizationBalanceHistory) | **Get** /v1/organizations/{organizationUID}/balance-history |
-| [**GetOrganizations**](OrganizationAPI.md#GetOrganizations)                           | **Get** /v1/organizations                                   |
+| Method                                                                                | HTTP request                                                | Description                             |
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------- |
+| [**GetOrganization**](OrganizationAPI.md#GetOrganization)                             | **Get** /v1/organizations/{organizationUID}                 | Get an organization                     |
+| [**GetOrganizationBalanceHistory**](OrganizationAPI.md#GetOrganizationBalanceHistory) | **Get** /v1/organizations/{organizationUID}/balance-history | Get an organization&#39;s daily balance |
+| [**GetOrganizations**](OrganizationAPI.md#GetOrganizations)                           | **Get** /v1/organizations                                   | List your organizations                 |
 
 ## GetOrganization
 
-> GetBillingAccount200Response GetOrganization(ctx, organizationUID).Execute()
+> GetOrganization200Response GetOrganization(ctx, organizationUID).Execute()
+
+Get an organization
 
 ### Example
 
@@ -25,7 +27,7 @@ import (
 )
 
 func main() {
-	organizationUID := "00000000-0000-0000-000000000001" // string |
+	organizationUID := "00000000-0000-0000-000000000001" // string | Organization UID. List with `GetOrganizations`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -34,7 +36,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationAPI.GetOrganization``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetOrganization`: GetBillingAccount200Response
+	// response from `GetOrganization`: GetOrganization200Response
 	fmt.Fprintf(os.Stdout, "Response from `OrganizationAPI.GetOrganization`: %v\n", resp)
 }
 ```
@@ -44,7 +46,7 @@ func main() {
 | Name                | Type                | Description                                                                 | Notes |
 | ------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **organizationUID** | **string**          |                                                                             |
+| **organizationUID** | **string**          | Organization UID. List with &#x60;GetOrganizations&#x60;.                   |
 
 ### Other Parameters
 
@@ -55,7 +57,7 @@ Other parameters are passed through a pointer to a apiGetOrganizationRequest str
 
 ### Return type
 
-[**GetBillingAccount200Response**](GetBillingAccount200Response.md)
+[**GetOrganization200Response**](GetOrganization200Response.md)
 
 ### Authorization
 
@@ -72,7 +74,9 @@ Other parameters are passed through a pointer to a apiGetOrganizationRequest str
 
 ## GetOrganizationBalanceHistory
 
-> GetBillingAccountBalanceHistory200Response GetOrganizationBalanceHistory(ctx, organizationUID).StartDate(startDate).EndDate(endDate).Execute()
+> GetOrganizationBalanceHistory200Response GetOrganizationBalanceHistory(ctx, organizationUID).StartDate(startDate).EndDate(endDate).Execute()
+
+Get an organization's daily balance
 
 ### Example
 
@@ -87,7 +91,7 @@ import (
 )
 
 func main() {
-	organizationUID := "00000000-0000-0000-000000000001" // string |
+	organizationUID := "00000000-0000-0000-000000000001" // string | Organization UID. List with `GetOrganizations`.
 	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
 	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
 
@@ -98,7 +102,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationAPI.GetOrganizationBalanceHistory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetOrganizationBalanceHistory`: GetBillingAccountBalanceHistory200Response
+	// response from `GetOrganizationBalanceHistory`: GetOrganizationBalanceHistory200Response
 	fmt.Fprintf(os.Stdout, "Response from `OrganizationAPI.GetOrganizationBalanceHistory`: %v\n", resp)
 }
 ```
@@ -108,7 +112,7 @@ func main() {
 | Name                | Type                | Description                                                                 | Notes |
 | ------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
 | **ctx**             | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **organizationUID** | **string**          |                                                                             |
+| **organizationUID** | **string**          | Organization UID. List with &#x60;GetOrganizations&#x60;.                   |
 
 ### Other Parameters
 
@@ -122,7 +126,7 @@ Other parameters are passed through a pointer to a apiGetOrganizationBalanceHist
 
 ### Return type
 
-[**GetBillingAccountBalanceHistory200Response**](GetBillingAccountBalanceHistory200Response.md)
+[**GetOrganizationBalanceHistory200Response**](GetOrganizationBalanceHistory200Response.md)
 
 ### Authorization
 
@@ -140,6 +144,8 @@ Other parameters are passed through a pointer to a apiGetOrganizationBalanceHist
 ## GetOrganizations
 
 > GetOrganizations200Response GetOrganizations(ctx).Execute()
+
+List your organizations
 
 ### Example
 
