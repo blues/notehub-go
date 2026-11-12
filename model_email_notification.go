@@ -20,7 +20,7 @@ var _ MappedNullable = &EmailNotification{}
 
 // EmailNotification struct for EmailNotification
 type EmailNotification struct {
-	// Email Address
+	// Email address, or several separated by commas.
 	Email                *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

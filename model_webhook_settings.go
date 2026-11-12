@@ -20,11 +20,11 @@ var _ MappedNullable = &WebhookSettings{}
 
 // WebhookSettings struct for WebhookSettings
 type WebhookSettings struct {
-	// Flag indicating if the webhook is disabled
+	// If true, posts to the webhook return an error and create no events.
 	Disabled *bool `json:"disabled,omitempty"`
-	// Webhook ID
+	// Webhook ID, also the default notefile name (`<id>.qo`). Letters, digits, `-` and `_`.
 	Id *string `json:"id,omitempty"`
-	// Transformation to be applied to the event
+	// JSONata expression applied to the event, with the post under `body`. Its output replaces the event and must set `body`. `$doNotRoute()` drops it.
 	Transform            *string `json:"transform,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

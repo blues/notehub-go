@@ -22,9 +22,9 @@ var _ MappedNullable = &SlackBearerNotification{}
 type SlackBearerNotification struct {
 	// The channel to send the message to.
 	Channel *string `json:"channel,omitempty"`
-	// text or blocks
+	// How `text` is read. - `text`: plain message text - `blocks`: a Slack Block Kit JSON definition
 	MessageType *string `json:"message_type,omitempty"`
-	// The text of the message, or the blocks definition
+	// The message, or Block Kit JSON. Event placeholders such as `[.body.temp]` aren't allowed.
 	Text *string `json:"text,omitempty"`
 	// The bearer token for the Slack app.
 	Token                *string `json:"token,omitempty"`

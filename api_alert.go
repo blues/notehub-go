@@ -49,6 +49,7 @@ func (r ApiGetAlertsRequest) Cursor(cursor string) ApiGetAlertsRequest {
 	return r
 }
 
+// Return only this monitor&#39;s alerts.
 func (r ApiGetAlertsRequest) MonitorUID(monitorUID string) ApiGetAlertsRequest {
 	r.monitorUID = &monitorUID
 	return r
@@ -59,9 +60,12 @@ func (r ApiGetAlertsRequest) Execute() (*GetAlerts200Response, *http.Response, e
 }
 
 /*
-GetAlerts Method for GetAlerts
+GetAlerts List alerts
 
-Get list of defined Alerts
+List the alerts a project's monitors have raised, with each one's value, device and the
+notifications sent. Set `monitorUID` for one monitor's alerts.
+
+Paginated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
