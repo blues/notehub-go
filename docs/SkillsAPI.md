@@ -2,18 +2,18 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                      | HTTP request                                                     | Description                                       |
-| ------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
-| [**DeleteSkill**](SkillsAPI.md#DeleteSkill) | **Delete** /v1/projects/{projectOrProductUID}/skills/{skillName} | Delete a Project Skill (Product Skill)            |
-| [**GetSkill**](SkillsAPI.md#GetSkill)       | **Get** /v1/projects/{projectOrProductUID}/skills/{skillName}    | Read a Project Skill (Product Skill)              |
-| [**GetSkills**](SkillsAPI.md#GetSkills)     | **Get** /v1/projects/{projectOrProductUID}/skills                | List Project Skills (Product Skills)              |
-| [**PutSkill**](SkillsAPI.md#PutSkill)       | **Put** /v1/projects/{projectOrProductUID}/skills/{skillName}    | Create or replace a Project Skill (Product Skill) |
+| Method                                      | HTTP request                                                     | Description                       |
+| ------------------------------------------- | ---------------------------------------------------------------- | --------------------------------- |
+| [**DeleteSkill**](SkillsAPI.md#DeleteSkill) | **Delete** /v1/projects/{projectOrProductUID}/skills/{skillName} | Delete a project skill            |
+| [**GetSkill**](SkillsAPI.md#GetSkill)       | **Get** /v1/projects/{projectOrProductUID}/skills/{skillName}    | Get a project skill               |
+| [**GetSkills**](SkillsAPI.md#GetSkills)     | **Get** /v1/projects/{projectOrProductUID}/skills                | List project skills               |
+| [**PutSkill**](SkillsAPI.md#PutSkill)       | **Put** /v1/projects/{projectOrProductUID}/skills/{skillName}    | Create or replace a project skill |
 
 ## DeleteSkill
 
 > DeleteSkill(ctx, projectOrProductUID, skillName).IfMatch(ifMatch).Execute()
 
-Delete a Project Skill (Product Skill)
+Delete a project skill
 
 ### Example
 
@@ -80,7 +80,7 @@ Other parameters are passed through a pointer to a apiDeleteSkillRequest struct 
 
 > Skill GetSkill(ctx, projectOrProductUID, skillName).IfMatch(ifMatch).IfNoneMatch(ifNoneMatch).Execute()
 
-Read a Project Skill (Product Skill)
+Get a project skill
 
 ### Example
 
@@ -151,7 +151,7 @@ Other parameters are passed through a pointer to a apiGetSkillRequest struct via
 
 > SkillSet GetSkills(ctx, projectOrProductUID).IncludeContent(includeContent).IfNoneMatch(ifNoneMatch).Execute()
 
-List Project Skills (Product Skills)
+List project skills
 
 ### Example
 
@@ -220,7 +220,7 @@ Other parameters are passed through a pointer to a apiGetSkillsRequest struct vi
 
 > SkillWriteResult PutSkill(ctx, projectOrProductUID, skillName).SkillWrite(skillWrite).IfMatch(ifMatch).IfNoneMatch(ifNoneMatch).Execute()
 
-Create or replace a Project Skill (Product Skill)
+Create or replace a project skill
 
 ### Example
 

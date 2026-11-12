@@ -57,9 +57,12 @@ func (r ApiOAuth2ClientCredentialsRequest) Execute() (*OAuth2TokenResponse, *htt
 }
 
 /*
-OAuth2ClientCredentials Issue an OAuth 2.0 access token (Client Credentials)
+OAuth2ClientCredentials Get an access token with OAuth client credentials
 
-Exchanges client credentials for an access token. Parameters must be sent as application/x-www-form-urlencoded.
+Exchange an OAuth client's ID and secret for a bearer access token, using the OAuth 2.0 client
+credentials grant. Send the parameters form-encoded, not as JSON.
+
+Returns 401 for a bad client ID or secret, and 403 for a scope the client can't have.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiOAuth2ClientCredentialsRequest

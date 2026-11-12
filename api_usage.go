@@ -34,7 +34,7 @@ type ApiGetApiUsageRequest struct {
 	limit               *int32
 }
 
-// Period type for aggregation
+// The length of time each data point covers.
 func (r ApiGetApiUsageRequest) Period(period string) ApiGetApiUsageRequest {
 	r.period = &period
 	return r
@@ -52,7 +52,7 @@ func (r ApiGetApiUsageRequest) EndDate(endDate int64) ApiGetApiUsageRequest {
 	return r
 }
 
-// Limit the number of data points returned
+// The most data points to return. If there are more, &#x60;truncated&#x60; is true.
 func (r ApiGetApiUsageRequest) Limit(limit int32) ApiGetApiUsageRequest {
 	r.limit = &limit
 	return r
@@ -63,9 +63,12 @@ func (r ApiGetApiUsageRequest) Execute() (*GetApiUsage200Response, *http.Respons
 }
 
 /*
-GetApiUsage Method for GetApiUsage
+GetApiUsage Get billable API usage
 
-Get billable Notehub API request usage for a project, broken down by endpoint and time period, when endDate is 0 or unspecified the current time is implied. Only requests that are billed against the project's plan are counted
+Count a project's billable Notehub API requests per day, week or month, by endpoint. Only
+requests billed against the project's plan are counted.
+
+Returns 400 if `startDate` is after `endDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -194,7 +197,7 @@ type ApiGetDataUsageRequest struct {
 	aggregate           *string
 }
 
-// Period type for aggregation
+// The length of time each data point covers.
 func (r ApiGetDataUsageRequest) Period(period string) ApiGetDataUsageRequest {
 	r.period = &period
 	return r
@@ -224,13 +227,13 @@ func (r ApiGetDataUsageRequest) FleetUID(fleetUID []string) ApiGetDataUsageReque
 	return r
 }
 
-// Limit the number of data points returned
+// The most data points to return. If there are more, &#x60;truncated&#x60; is true.
 func (r ApiGetDataUsageRequest) Limit(limit int32) ApiGetDataUsageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Aggregation level for results
+// How to group the counts, such as per device or one total for the project.
 func (r ApiGetDataUsageRequest) Aggregate(aggregate string) ApiGetDataUsageRequest {
 	r.aggregate = &aggregate
 	return r
@@ -241,9 +244,13 @@ func (r ApiGetDataUsageRequest) Execute() (*GetDataUsage200Response, *http.Respo
 }
 
 /*
-GetDataUsage Method for GetDataUsage
+GetDataUsage Get cellular and satellite data usage
 
-Get data usage in bytes for a project with time range and period aggregation
+Get the cellular and satellite data a project's devices used, in bytes. It's counted per day,
+week or month, by device, fleet or the whole project. If there are more data points than
+`limit`, the rest are dropped and `truncated` is true.
+
+Returns 400 for an unknown device, or if `endDate` is before `startDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -404,7 +411,7 @@ type ApiGetEventsUsageRequest struct {
 	includeNotefiles    *bool
 }
 
-// Period type for aggregation
+// The length of time each data point covers.
 func (r ApiGetEventsUsageRequest) Period(period string) ApiGetEventsUsageRequest {
 	r.period = &period
 	return r
@@ -434,31 +441,31 @@ func (r ApiGetEventsUsageRequest) FleetUID(fleetUID []string) ApiGetEventsUsageR
 	return r
 }
 
-// Limit the number of data points returned
+// The most data points to return. If there are more, &#x60;truncated&#x60; is true.
 func (r ApiGetEventsUsageRequest) Limit(limit int32) ApiGetEventsUsageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Aggregation level for results
+// How to group the counts, such as per device or one total for the project.
 func (r ApiGetEventsUsageRequest) Aggregate(aggregate string) ApiGetEventsUsageRequest {
 	r.aggregate = &aggregate
 	return r
 }
 
-// Filter to specific notefiles
+// Count only events from these notefiles.
 func (r ApiGetEventsUsageRequest) Notefile(notefile []string) ApiGetEventsUsageRequest {
 	r.notefile = &notefile
 	return r
 }
 
-// When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects.
+// If true, return only summarized data, without filling in the latest day. Faster for large projects.
 func (r ApiGetEventsUsageRequest) SkipRecentData(skipRecentData bool) ApiGetEventsUsageRequest {
 	r.skipRecentData = &skipRecentData
 	return r
 }
 
-// Include per-notefile event counts in the response
+// If true, include event counts for each notefile.
 func (r ApiGetEventsUsageRequest) IncludeNotefiles(includeNotefiles bool) ApiGetEventsUsageRequest {
 	r.includeNotefiles = &includeNotefiles
 	return r
@@ -469,9 +476,13 @@ func (r ApiGetEventsUsageRequest) Execute() (*UsageEventsResponse, *http.Respons
 }
 
 /*
-GetEventsUsage Method for GetEventsUsage
+GetEventsUsage Get event usage
 
-Get events usage for a project with time range and period aggregation, when endDate is 0 or unspecified the current time is implied
+Count a project's events per day, week or month, by device, fleet or the whole project,
+optionally per notefile. Summaries lag; with `period=day` and no `endDate`, the latest day is
+filled in from recent events unless `skipRecentData` is true.
+
+Returns 400 if `startDate` is after `endDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -654,7 +665,7 @@ type ApiGetRouteLogsUsageRequest struct {
 	skipRecentData      *bool
 }
 
-// Period type for aggregation
+// The length of time each data point covers.
 func (r ApiGetRouteLogsUsageRequest) Period(period string) ApiGetRouteLogsUsageRequest {
 	r.period = &period
 	return r
@@ -678,19 +689,19 @@ func (r ApiGetRouteLogsUsageRequest) RouteUID(routeUID []string) ApiGetRouteLogs
 	return r
 }
 
-// Limit the number of data points returned
+// The most data points to return. If there are more, &#x60;truncated&#x60; is true.
 func (r ApiGetRouteLogsUsageRequest) Limit(limit int32) ApiGetRouteLogsUsageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Aggregation level for results
+// How to group the counts, per route or one total for the project.
 func (r ApiGetRouteLogsUsageRequest) Aggregate(aggregate string) ApiGetRouteLogsUsageRequest {
 	r.aggregate = &aggregate
 	return r
 }
 
-// When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects.
+// If true, return only summarized data, without filling in the latest day. Faster for large projects.
 func (r ApiGetRouteLogsUsageRequest) SkipRecentData(skipRecentData bool) ApiGetRouteLogsUsageRequest {
 	r.skipRecentData = &skipRecentData
 	return r
@@ -701,9 +712,11 @@ func (r ApiGetRouteLogsUsageRequest) Execute() (*GetRouteLogsUsage200Response, *
 }
 
 /*
-GetRouteLogsUsage Method for GetRouteLogsUsage
+GetRouteLogsUsage Get route log usage
 
-Get route logs usage for a project with time range and period aggregation, when endDate is 0 or unspecified the current time is implied
+Count a project's attempts to send events to routes per day, week or month, by route or for the
+whole project. If there are more data points than `limit`, the rest are dropped and `truncated`
+is true.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -858,7 +871,7 @@ type ApiGetSessionsUsageRequest struct {
 	skipRecentData      *bool
 }
 
-// Period type for aggregation
+// The length of time each data point covers.
 func (r ApiGetSessionsUsageRequest) Period(period string) ApiGetSessionsUsageRequest {
 	r.period = &period
 	return r
@@ -888,19 +901,19 @@ func (r ApiGetSessionsUsageRequest) FleetUID(fleetUID []string) ApiGetSessionsUs
 	return r
 }
 
-// Limit the number of data points returned
+// The most data points to return. If there are more, &#x60;truncated&#x60; is true.
 func (r ApiGetSessionsUsageRequest) Limit(limit int32) ApiGetSessionsUsageRequest {
 	r.limit = &limit
 	return r
 }
 
-// Aggregation level for results
+// How to group the counts, such as per device or one total for the project.
 func (r ApiGetSessionsUsageRequest) Aggregate(aggregate string) ApiGetSessionsUsageRequest {
 	r.aggregate = &aggregate
 	return r
 }
 
-// When true, skips fetching recent data from raw event tables and only returns data from summary tables. Use this for better performance on large projects.
+// If true, return only summarized data, without filling in the latest day. Faster for large projects.
 func (r ApiGetSessionsUsageRequest) SkipRecentData(skipRecentData bool) ApiGetSessionsUsageRequest {
 	r.skipRecentData = &skipRecentData
 	return r
@@ -911,9 +924,12 @@ func (r ApiGetSessionsUsageRequest) Execute() (*GetSessionsUsage200Response, *ht
 }
 
 /*
-GetSessionsUsage Method for GetSessionsUsage
+GetSessionsUsage Get session usage
 
-Get sessions usage for a project with time range and period aggregation, when endDate is 0 or unspecified the current time is implied
+Count a project's device sessions per day, week or month, by device, fleet or the whole project.
+If there are more data points than `limit`, the rest are dropped and `truncated` is true.
+
+Returns 400 if `startDate` is after `endDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

@@ -42,9 +42,12 @@ func (r ApiDeleteSkillRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteSkill Delete a Project Skill (Product Skill)
+DeleteSkill Delete a project skill
 
-Skill Training: delete a skill and all its stored versions. Requires If-Match: "revision" from GetSkill. Subproject writes must target the parent project.
+Delete a skill and all its stored versions. Requires `If-Match` set to the revision from
+`GetSkill`.
+
+Requires the Owner or Developer role. Subprojects must write to their parent project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -208,9 +211,13 @@ func (r ApiGetSkillRequest) Execute() (*Skill, *http.Response, error) {
 }
 
 /*
-GetSkill Read a Project Skill (Product Skill)
+GetSkill Get a project skill
 
-Read one skill with metadata and exact Markdown content. Use links.self from GetSkills, or URL-encode the entire skill name as one path parameter. If-Match requires a revision; If-None-Match skips unchanged content.
+Get one skill's metadata and exact Markdown content. Use `links.self` from `GetSkills`, or
+URL-encode the whole skill name as one path parameter. `If-Match` requires a revision;
+`If-None-Match` skips unchanged content.
+
+Any role can read it, and so can anonymous callers when the project's default access is Viewer.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -398,9 +405,14 @@ func (r ApiGetSkillsRequest) Execute() (*SkillSet, *http.Response, error) {
 }
 
 /*
-GetSkills List Project Skills (Product Skills)
+GetSkills List project skills
 
-List all skill metadata. Set includeContent=true to include exact Markdown content in one consistent snapshot. No pagination; an empty project returns skills: []. On 413, list metadata and use GetSkill for individual documents. Subprojects read their parent's skills.
+List a project's skills, the Markdown guides agents read, with metadata only unless
+`includeContent=true`. Not paginated; a project with none returns `skills: []`. On 413, list
+metadata and use `GetSkill` for each document. Subprojects read their parent's skills.
+
+Any role can read them, and so can anonymous callers when the project's default access is
+Viewer.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -574,9 +586,13 @@ func (r ApiPutSkillRequest) Execute() (*SkillWriteResult, *http.Response, error)
 }
 
 /*
-PutSkill Create or replace a Project Skill (Product Skill)
+PutSkill Create or replace a project skill
 
-Skill Training: create with If-None-Match: *, or replace with If-Match: "revision" from GetSkill. Send content and optional kinds. Omit kinds to preserve them; [] clears them. An identical write returns unchanged. Subproject writes must target the parent project.
+Create a skill with `If-None-Match: *`, or replace it with `If-Match` set to the revision from
+`GetSkill`. Send `content` and optional `kinds`; omit `kinds` to keep them, or send `[]` to
+clear them. An identical write returns unchanged.
+
+Requires the Owner or Developer role. Subprojects must write to their parent project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID

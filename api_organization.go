@@ -34,12 +34,17 @@ func (r ApiGetOrganizationRequest) Execute() (*GetOrganization200Response, *http
 }
 
 /*
-GetOrganization Method for GetOrganization
+GetOrganization Get an organization
 
-Get Organization Information
+Get an organization's name, owner, contact email and current plan. The plan has its type, event
+capacity, billing period and remaining balance. For the daily history, use
+`GetOrganizationBalanceHistory`.
+
+Requires the `org_admin`, `billing_manager` or `org_support` role in the organization. Returns
+403 if your membership is deactivated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param organizationUID
+	@param organizationUID Organization UID. List with `GetOrganizations`.
 	@return ApiGetOrganizationRequest
 */
 func (a *OrganizationAPIService) GetOrganization(ctx context.Context, organizationUID string) ApiGetOrganizationRequest {
@@ -160,12 +165,16 @@ func (r ApiGetOrganizationBalanceHistoryRequest) Execute() (*GetOrganizationBala
 }
 
 /*
-GetOrganizationBalanceHistory Method for GetOrganizationBalanceHistory
+GetOrganizationBalanceHistory Get an organization's daily balance
 
-Get Organization Balance history
+Get an organization's events used and remaining event capacity for each day. The range is
+`startDate` to `endDate`, which default to the start of the billing period and today.
+
+Requires the `org_admin`, `billing_manager` or `org_support` role in the organization. Returns
+400 if `startDate` is after `endDate`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param organizationUID
+	@param organizationUID Organization UID. List with `GetOrganizations`.
 	@return ApiGetOrganizationBalanceHistoryRequest
 */
 func (a *OrganizationAPIService) GetOrganizationBalanceHistory(ctx context.Context, organizationUID string) ApiGetOrganizationBalanceHistoryRequest {
@@ -277,9 +286,11 @@ func (r ApiGetOrganizationsRequest) Execute() (*GetOrganizations200Response, *ht
 }
 
 /*
-GetOrganizations Method for GetOrganizations
+GetOrganizations List your organizations
 
-Get Organizations accessible by the api_key
+List the organizations you belong to, with your role in each. A scoped token gets an empty list.
+
+Returns 401 if your email address isn't verified.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetOrganizationsRequest

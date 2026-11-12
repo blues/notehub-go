@@ -22,7 +22,7 @@ var _ MappedNullable = &GetSessionsUsage200Response{}
 // GetSessionsUsage200Response struct for GetSessionsUsage200Response
 type GetSessionsUsage200Response struct {
 	Sessions []UsageSessionsData `json:"sessions"`
-	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	// True if there were more data points than `limit`; only the first `limit` are returned.
 	Truncated            bool `json:"truncated"`
 	AdditionalProperties map[string]interface{}
 }

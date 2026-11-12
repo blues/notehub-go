@@ -2,15 +2,15 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                     | HTTP request           | Description                                          |
-| -------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------- |
-| [**OAuth2ClientCredentials**](AuthorizationAPI.md#OAuth2ClientCredentials) | **Post** /oauth2/token | Issue an OAuth 2.0 access token (Client Credentials) |
+| Method                                                                     | HTTP request           | Description                                       |
+| -------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------- |
+| [**OAuth2ClientCredentials**](AuthorizationAPI.md#OAuth2ClientCredentials) | **Post** /oauth2/token | Get an access token with OAuth client credentials |
 
 ## OAuth2ClientCredentials
 
 > OAuth2TokenResponse OAuth2ClientCredentials(ctx).ClientId(clientId).ClientSecret(clientSecret).GrantType(grantType).Scope(scope).Execute()
 
-Issue an OAuth 2.0 access token (Client Credentials)
+Get an access token with OAuth client credentials
 
 ### Example
 

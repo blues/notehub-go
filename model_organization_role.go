@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// OrganizationRole the model 'OrganizationRole'
+// OrganizationRole Your role in the organization.
 type OrganizationRole string
 
 // List of OrganizationRole
