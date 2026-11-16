@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name           | Type                                                     | Description                                                                                                                                                                              | Notes                         |
-| -------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| **Devices**    | Pointer to [**[]DeviceDfuHistory**](DeviceDfuHistory.md) |                                                                                                                                                                                          | [optional]                    |
-| **HasMore**    | Pointer to **bool**                                      |                                                                                                                                                                                          | [optional] [default to false] |
-| **NextCursor** | Pointer to **string**                                    | Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes. | [optional]                    |
+| Name           | Type                                                     | Description                                                                                                                                                                                                                       | Notes                         |
+| -------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| **Devices**    | Pointer to [**[]DeviceDfuHistory**](DeviceDfuHistory.md) |                                                                                                                                                                                                                                   | [optional]                    |
+| **HasMore**    | Pointer to **bool**                                      |                                                                                                                                                                                                                                   | [optional] [default to false] |
+| **NextCursor** | Pointer to **string**                                    | Pass this value (epoch microseconds, optionally &#x60;.N&#x60;) as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes. | [optional]                    |
 
 ## Methods
 

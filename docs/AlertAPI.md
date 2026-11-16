@@ -28,7 +28,7 @@ func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
 	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
+	cursor := "cursor_example" // string | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by `.N`. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; `.N` is the serial of the last row read at that microsecond, so nothing repeats or is skipped.  (optional)
 	monitorUID := "monitorUID_example" // string | Return only this monitor's alerts. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetAlertsRequest struct vi
 
 **pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
-**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
+**cursor** | **string** | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by &#x60;.N&#x60;. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; &#x60;.N&#x60; is the serial of the last row read at that microsecond, so nothing repeats or is skipped. |
 **monitorUID** | **string** | Return only this monitor&#39;s alerts. |
 
 ### Return type

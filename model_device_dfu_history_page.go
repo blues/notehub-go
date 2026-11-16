@@ -22,7 +22,7 @@ var _ MappedNullable = &DeviceDfuHistoryPage{}
 type DeviceDfuHistoryPage struct {
 	Devices []DeviceDfuHistory `json:"devices,omitempty"`
 	HasMore *bool              `json:"has_more,omitempty"`
-	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	// Pass this value (epoch microseconds, optionally `.N`) as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
 	NextCursor           *string `json:"next_cursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

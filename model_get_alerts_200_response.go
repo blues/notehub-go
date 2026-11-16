@@ -25,7 +25,7 @@ type GetAlerts200Response struct {
 	Alerts []Alert `json:"alerts"`
 	// True if there are more alerts
 	HasMore bool `json:"has_more"`
-	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	// Pass this value (epoch microseconds, optionally `.N`) as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
 	NextCursor           *string `json:"next_cursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

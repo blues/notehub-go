@@ -23,7 +23,7 @@ var _ MappedNullable = &GetDevicePublicKeys200Response{}
 type GetDevicePublicKeys200Response struct {
 	DevicePublicKeys []GetDevicePublicKeys200ResponseDevicePublicKeysInner `json:"device_public_keys"`
 	HasMore          bool                                                  `json:"has_more"`
-	// Pass this opaque value as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
+	// Pass this value (epoch microseconds, optionally `.N`) as a cursor parameter to start a search from where the last search left off. Returned even when there are no more results, so it can be used to poll for changes.
 	NextCursor           *string `json:"next_cursor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

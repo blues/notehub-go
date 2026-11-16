@@ -43,7 +43,7 @@ func (r ApiGetAlertsRequest) PageNum(pageNum int32) ApiGetAlertsRequest {
 	return r
 }
 
-// If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).
+// If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by &#x60;.N&#x60;. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; &#x60;.N&#x60; is the serial of the last row read at that microsecond, so nothing repeats or is skipped.
 func (r ApiGetAlertsRequest) Cursor(cursor string) ApiGetAlertsRequest {
 	r.cursor = &cursor
 	return r

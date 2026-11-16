@@ -231,7 +231,7 @@ func main() {
 	routeUID := "route:cbd20093cba58392c9f9bbdd0cdeb1a0" // string | RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`. List with `GetRoutes`.
 	pageSize := int32(56) // int32 |  (optional) (default to 1000)
 	pageNum := int32(56) // int32 |  (optional) (default to 1)
-	cursor := "cursor_example" // string | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header).  (optional)
+	cursor := "cursor_example" // string | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by `.N`. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; `.N` is the serial of the last row read at that microsecond, so nothing repeats or is skipped.  (optional)
 	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
 	sortBy := "sortBy_example" // string | Field to sort by. - `date`: when the attempt was made - `event`: the order the events arrived in, then the attempt time  (optional) (default to "date")
 	sortOrder := "sortOrder_example" // string | Sort direction. - `asc`: oldest first - `desc`: newest first  (optional) (default to "desc")
@@ -272,7 +272,7 @@ Other parameters are passed through a pointer to a apiGetRouteLogsByRouteRequest
 
 **pageSize** | **int32** | | [default to 1000]
 **pageNum** | **int32** | | [default to 1]
-**cursor** | **string** | If supplied, the results will be returned in ascending order of modification time. To start from a specific time, specify cursor as Unix epoch microseconds (UTC) or 0 to start from the beginning. Or, to start where the last search left off, set cursor to the returned value of next_cursor (or the X-Next-Cursor header). |
+**cursor** | **string** | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by &#x60;.N&#x60;. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; &#x60;.N&#x60; is the serial of the last row read at that microsecond, so nothing repeats or is skipped. |
 **deviceUID** | **[]string** | A DeviceUID. |
 **sortBy** | **string** | Field to sort by. - &#x60;date&#x60;: when the attempt was made - &#x60;event&#x60;: the order the events arrived in, then the attempt time | [default to &quot;date&quot;]
 **sortOrder** | **string** | Sort direction. - &#x60;asc&#x60;: oldest first - &#x60;desc&#x60;: newest first | [default to &quot;desc&quot;]
