@@ -29,6 +29,7 @@ All URIs are relative to *https://api.notefile.net*
 | [**GetDevices**](DeviceAPI.md#GetDevices)                                                 | **Get** /v1/projects/{projectOrProductUID}/devices                                            | List devices in a project                    |
 | [**GetFleetDevices**](DeviceAPI.md#GetFleetDevices)                                       | **Get** /v1/projects/{projectOrProductUID}/fleets/{fleetUID}/devices                          | List devices in a fleet                      |
 | [**GetNotefile**](DeviceAPI.md#GetNotefile)                                               | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/notes/{notefileID}             | Get the notes in a notefile                  |
+| [**GetSessions**](DeviceAPI.md#GetSessions)                                               | **Get** /v1/projects/{projectOrProductUID}/sessions                                           | List sessions in a project                   |
 | [**ListNotefiles**](DeviceAPI.md#ListNotefiles)                                           | **Get** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/files                          | List a device&#39;s notefiles and notes      |
 | [**ProvisionDevice**](DeviceAPI.md#ProvisionDevice)                                       | **Post** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/provision                     | Provision a Notecard                         |
 | [**SetDeviceEnvironmentVariables**](DeviceAPI.md#SetDeviceEnvironmentVariables)           | **Put** /v1/projects/{projectOrProductUID}/devices/{deviceUID}/environment_variables          | Set device environment variables             |
@@ -1783,6 +1784,87 @@ Other parameters are passed through a pointer to a apiGetNotefileRequest struct 
 ### Return type
 
 [**GetNotefile200Response**](GetNotefile200Response.md)
+
+### Authorization
+
+[personalAccessToken](../README.md#personalAccessToken)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+## GetSessions
+
+> GetDeviceSessions200Response GetSessions(ctx, projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).DeviceUID(deviceUID).FleetUID(fleetUID).Execute()
+
+List sessions in a project
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/blues/notehub-go"
+)
+
+func main() {
+	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
+	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	pageNum := int32(56) // int32 |  (optional) (default to 1)
+	cursor := "cursor_example" // string | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by `.N`. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; `.N` is the serial of the last row read at that microsecond, so nothing repeats or is skipped.  (optional)
+	startDate := int64(1628631763) // int64 | Start date for filtering results, specified as a Unix timestamp (optional)
+	endDate := int64(1657894210) // int64 | End date for filtering results, specified as a Unix timestamp (optional)
+	firstSync := true // bool | If true, return only sessions whose `why_session_opened` begins with \"first sync\". (optional) (default to false)
+	deviceUID := []string{"Inner_example"} // []string | A DeviceUID. (optional)
+	fleetUID := []string{"Inner_example"} // []string |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeviceAPI.GetSessions(context.Background(), projectOrProductUID).PageSize(pageSize).PageNum(pageNum).Cursor(cursor).StartDate(startDate).EndDate(endDate).FirstSync(firstSync).DeviceUID(deviceUID).FleetUID(fleetUID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeviceAPI.GetSessions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSessions`: GetDeviceSessions200Response
+	fmt.Fprintf(os.Stdout, "Response from `DeviceAPI.GetSessions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+| Name                    | Type                | Description                                                                 | Notes |
+| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
+| **projectOrProductUID** | **string**          |                                                                             |
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSessionsRequest struct via the builder pattern
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+
+**pageSize** | **int32** | | [default to 1000]
+**pageNum** | **int32** | | [default to 1]
+**cursor** | **string** | If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by &#x60;.N&#x60;. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; &#x60;.N&#x60; is the serial of the last row read at that microsecond, so nothing repeats or is skipped. |
+**startDate** | **int64** | Start date for filtering results, specified as a Unix timestamp |
+**endDate** | **int64** | End date for filtering results, specified as a Unix timestamp |
+**firstSync** | **bool** | If true, return only sessions whose &#x60;why_session_opened&#x60; begins with \&quot;first sync\&quot;. | [default to false]
+**deviceUID** | **[]string** | A DeviceUID. |
+**fleetUID** | **[]string** | |
+
+### Return type
+
+[**GetDeviceSessions200Response**](GetDeviceSessions200Response.md)
 
 ### Authorization
 

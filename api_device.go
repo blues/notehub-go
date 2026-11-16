@@ -2703,7 +2703,7 @@ GetDeviceSessions List a device's sessions
 
 List a device's sessions, its connections to Notehub. Each shows why it opened and closed,
 signal strength, location and data usage. `startDate` and `endDate` filter on when the
-session began.
+session began. For every device's sessions, use `GetSessions`.
 
 Paginated.
 
@@ -3540,6 +3540,227 @@ func (a *DeviceAPIService) GetNotefileExecute(r ApiGetNotefileRequest) (*GetNote
 	}
 	if r.delete != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "delete", r.delete, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSessionsRequest struct {
+	ctx                 context.Context
+	ApiService          *DeviceAPIService
+	projectOrProductUID string
+	pageSize            *int32
+	pageNum             *int32
+	cursor              *string
+	startDate           *int64
+	endDate             *int64
+	firstSync           *bool
+	deviceUID           *[]string
+	fleetUID            *[]string
+}
+
+func (r ApiGetSessionsRequest) PageSize(pageSize int32) ApiGetSessionsRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+func (r ApiGetSessionsRequest) PageNum(pageNum int32) ApiGetSessionsRequest {
+	r.pageNum = &pageNum
+	return r
+}
+
+// If supplied, results are returned in ascending order of modification time. A cursor is a timestamp: Unix epoch microseconds (UTC), optionally followed by &#x60;.N&#x60;. To start at a time, pass the bare microsecond value (inclusive; e.g. now minus 30 days); 0 starts from the beginning. To resume, pass next_cursor (or X-Next-Cursor) back unchanged; &#x60;.N&#x60; is the serial of the last row read at that microsecond, so nothing repeats or is skipped.
+func (r ApiGetSessionsRequest) Cursor(cursor string) ApiGetSessionsRequest {
+	r.cursor = &cursor
+	return r
+}
+
+// Start date for filtering results, specified as a Unix timestamp
+func (r ApiGetSessionsRequest) StartDate(startDate int64) ApiGetSessionsRequest {
+	r.startDate = &startDate
+	return r
+}
+
+// End date for filtering results, specified as a Unix timestamp
+func (r ApiGetSessionsRequest) EndDate(endDate int64) ApiGetSessionsRequest {
+	r.endDate = &endDate
+	return r
+}
+
+// If true, return only sessions whose &#x60;why_session_opened&#x60; begins with \&quot;first sync\&quot;.
+func (r ApiGetSessionsRequest) FirstSync(firstSync bool) ApiGetSessionsRequest {
+	r.firstSync = &firstSync
+	return r
+}
+
+// A DeviceUID.
+func (r ApiGetSessionsRequest) DeviceUID(deviceUID []string) ApiGetSessionsRequest {
+	r.deviceUID = &deviceUID
+	return r
+}
+
+func (r ApiGetSessionsRequest) FleetUID(fleetUID []string) ApiGetSessionsRequest {
+	r.fleetUID = &fleetUID
+	return r
+}
+
+func (r ApiGetSessionsRequest) Execute() (*GetDeviceSessions200Response, *http.Response, error) {
+	return r.ApiService.GetSessionsExecute(r)
+}
+
+/*
+GetSessions List sessions in a project
+
+List the sessions of every device in a project, as `GetDeviceSessions` does for one device.
+`startDate` and `endDate` filter on when the session began. `deviceUID` and `fleetUID` each
+match any of their values; `fleetUID` matches the fleets recorded on the session.
+
+Paginated.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectOrProductUID
+	@return ApiGetSessionsRequest
+*/
+func (a *DeviceAPIService) GetSessions(ctx context.Context, projectOrProductUID string) ApiGetSessionsRequest {
+	return ApiGetSessionsRequest{
+		ApiService:          a,
+		ctx:                 ctx,
+		projectOrProductUID: projectOrProductUID,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GetDeviceSessions200Response
+func (a *DeviceAPIService) GetSessionsExecute(r ApiGetSessionsRequest) (*GetDeviceSessions200Response, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetDeviceSessions200Response
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeviceAPIService.GetSessions")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/v1/projects/{projectOrProductUID}/sessions"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectOrProductUID"+"}", url.PathEscape(parameterValueToString(r.projectOrProductUID, "projectOrProductUID")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.pageSize != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", r.pageSize, "form", "")
+	} else {
+		var defaultValue int32 = 1000
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageSize", defaultValue, "form", "")
+		r.pageSize = &defaultValue
+	}
+	if r.pageNum != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", r.pageNum, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pageNum", defaultValue, "form", "")
+		r.pageNum = &defaultValue
+	}
+	if r.cursor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.startDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "startDate", r.startDate, "form", "")
+	}
+	if r.endDate != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "endDate", r.endDate, "form", "")
+	}
+	if r.firstSync != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "firstSync", r.firstSync, "form", "")
+	} else {
+		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "firstSync", defaultValue, "form", "")
+		r.firstSync = &defaultValue
+	}
+	if r.deviceUID != nil {
+		t := *r.deviceUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "deviceUID", t, "form", "multi")
+		}
+	}
+	if r.fleetUID != nil {
+		t := *r.fleetUID
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "fleetUID", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
