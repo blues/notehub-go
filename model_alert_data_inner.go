@@ -24,7 +24,7 @@ type AlertDataInner struct {
 	AlertSource *string `json:"alert_source,omitempty"`
 	// The UID of the source of the alert
 	Source *string `json:"source,omitempty"`
-	// The type of source.
+	// The `source_type` of the monitor that raised the alert.
 	SourceType *string `json:"source_type,omitempty"`
 	// The UID of the source of the alert
 	SourceUid *string `json:"source_uid,omitempty"`

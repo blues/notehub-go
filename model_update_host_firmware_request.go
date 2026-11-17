@@ -20,11 +20,11 @@ var _ MappedNullable = &UpdateHostFirmwareRequest{}
 
 // UpdateHostFirmwareRequest Request body for updating host firmware metadata. All fields are optional; only provided fields will be updated.
 type UpdateHostFirmwareRequest struct {
-	// Arbitrary JSON metadata associated with this firmware entry.
+	// JSON metadata for this firmware. Replaces the stored object when present.
 	Info map[string]interface{} `json:"info,omitempty"`
-	// Notes describing this firmware version.
+	// New notes for this firmware. Empty keeps the current notes.
 	Notes *string `json:"notes,omitempty"`
-	// The firmware version string.
+	// New version string. Empty keeps the current version.
 	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

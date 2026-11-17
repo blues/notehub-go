@@ -2,10 +2,10 @@
 
 ## Properties
 
-| Name    | Type       | Description | Notes |
-| ------- | ---------- | ----------- | ----- |
-| **Key** | **string** |             |
-| **Uid** | **string** |             |
+| Name    | Type       | Description                                                                       | Notes |
+| ------- | ---------- | --------------------------------------------------------------------------------- | ----- |
+| **Key** | **string** | The Notecard&#39;s public key in PEM format. Empty if it hasn&#39;t reported one. |
+| **Uid** | **string** | DeviceUID, e.g. &#x60;dev:864475040509284&#x60;.                                  |
 
 ## Methods
 

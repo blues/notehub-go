@@ -31,7 +31,7 @@ type ApiCreateEventExtDeviceRequest struct {
 	event      *Event
 }
 
-// Event Object
+// The event. &#x60;file&#x60;, &#x60;body&#x60; and &#x60;payload&#x60; are the usual fields.
 func (r ApiCreateEventExtDeviceRequest) Event(event Event) ApiCreateEventExtDeviceRequest {
 	r.event = &event
 	return r
@@ -42,9 +42,14 @@ func (r ApiCreateEventExtDeviceRequest) Execute() (*http.Response, error) {
 }
 
 /*
-CreateEventExtDevice Method for CreateEventExtDevice
+CreateEventExtDevice Add an event from an external device
 
-Creates an event using specified webhook
+Add an event from a device that isn't a Notecard, adding the device to the project if it's new.
+The DeviceUID is lower-cased and gets `dev:ext:` unless it has its own sub-prefix, so `dev:123`
+becomes `dev:ext:123`. Notehub sets `when` to the current time and adds `.qo` to a `file` with
+no extension.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -147,7 +152,7 @@ type ApiExtDeviceSessionCloseRequest struct {
 	deviceSession *DeviceSession
 }
 
-// Session Object
+// Session fields, such as &#x60;why_session_opened&#x60; or &#x60;why_session_closed&#x60;.
 func (r ApiExtDeviceSessionCloseRequest) DeviceSession(deviceSession DeviceSession) ApiExtDeviceSessionCloseRequest {
 	r.deviceSession = &deviceSession
 	return r
@@ -158,9 +163,12 @@ func (r ApiExtDeviceSessionCloseRequest) Execute() (*http.Response, error) {
 }
 
 /*
-ExtDeviceSessionClose Method for ExtDeviceSessionClose
+ExtDeviceSessionClose Close an external device's session
 
-Closes the session for the specified device if open
+Close an external device's session, if one is open, adding the device if it's new. The DeviceUID
+gets `dev:ext:` as in `CreateEventExtDevice`.
+
+Requires the Owner or Developer role.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID
@@ -263,7 +271,7 @@ type ApiExtDeviceSessionOpenRequest struct {
 	deviceSession *DeviceSession
 }
 
-// Session Object
+// Session fields, such as &#x60;why_session_opened&#x60; or &#x60;why_session_closed&#x60;.
 func (r ApiExtDeviceSessionOpenRequest) DeviceSession(deviceSession DeviceSession) ApiExtDeviceSessionOpenRequest {
 	r.deviceSession = &deviceSession
 	return r
@@ -274,9 +282,13 @@ func (r ApiExtDeviceSessionOpenRequest) Execute() (*http.Response, error) {
 }
 
 /*
-ExtDeviceSessionOpen Method for ExtDeviceSessionOpen
+ExtDeviceSessionOpen Open an external device's session
 
-Create a Session for the specified device.  | If a session is currently open it will be closed and a new one opened.
+Open a session for an external device, adding the device if it's new. An open session is closed
+first, with `why_session_closed` as the reason. The DeviceUID gets `dev:ext:` as in
+`CreateEventExtDevice`.
+
+Requires the Owner or Developer role. Returns 500 if webhooks are disabled for the project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param productUID

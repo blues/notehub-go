@@ -41,9 +41,14 @@ func (r ApiCreateMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 }
 
 /*
-CreateMonitor Method for CreateMonitor
+CreateMonitor Create a monitor
 
-Create a new Monitor
+Create a monitor that raises an alert and notifies email or Slack when its condition holds.
+It can watch an event value (`event`, the default), devices going quiet (`heartbeat`), or
+data usage (`usage`).
+
+Requires the Owner or Developer role. Returns 403 if the project's plan doesn't allow the
+monitor, and 400 for invalid settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -159,13 +164,17 @@ func (r ApiDeleteMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 }
 
 /*
-DeleteMonitor Method for DeleteMonitor
+DeleteMonitor Delete a monitor
 
-Delete Monitor
+Delete a monitor so it stops raising alerts. Returns an empty monitor object. To pause it
+instead, set `disabled` with `UpdateMonitor`.
+
+Requires the Owner or Developer role. Returns 404 if the monitor never existed; deleting it
+again succeeds.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param monitorUID
+	@param monitorUID MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 	@return ApiDeleteMonitorRequest
 */
 func (a *MonitorAPIService) DeleteMonitor(ctx context.Context, projectOrProductUID string, monitorUID string) ApiDeleteMonitorRequest {
@@ -275,13 +284,16 @@ func (r ApiGetMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 }
 
 /*
-GetMonitor Method for GetMonitor
+GetMonitor Get a monitor
 
-Get Monitor
+Get one monitor's settings and whether it's in alert. Slack credentials in `alert_routes`
+come back as `(omitted)`.
+
+Returns 404 if the monitor never existed; a deleted monitor is still returned.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param monitorUID
+	@param monitorUID MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 	@return ApiGetMonitorRequest
 */
 func (a *MonitorAPIService) GetMonitor(ctx context.Context, projectOrProductUID string, monitorUID string) ApiGetMonitorRequest {
@@ -390,9 +402,10 @@ func (r ApiGetMonitorsRequest) Execute() ([]Monitor, *http.Response, error) {
 }
 
 /*
-GetMonitors Method for GetMonitors
+GetMonitors List monitors
 
-Get list of defined Monitors
+List a project's monitors with their settings and whether each is in alert. For the alerts
+they've raised, use `GetAlerts`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -510,13 +523,19 @@ func (r ApiUpdateMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 }
 
 /*
-UpdateMonitor Method for UpdateMonitor
+UpdateMonitor Update a monitor
 
-Update Monitor
+Replace a monitor's settings with the whole monitor, as `GetMonitor` returns it. Omitted
+fields are cleared or reset, except `source_type`, `fleet_filter`, `notefile_filter`,
+`condition_type`, `aggregate_window` and `alert_routes`. Slack credentials left as
+`(omitted)` are kept.
+
+Requires the Owner or Developer role. Returns 403 if the plan doesn't allow a new
+`source_type`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param monitorUID
+	@param monitorUID MonitorUID, `monitor:` followed by a UUID. List with `GetMonitors`.
 	@return ApiUpdateMonitorRequest
 */
 func (a *MonitorAPIService) UpdateMonitor(ctx context.Context, projectOrProductUID string, monitorUID string) ApiUpdateMonitorRequest {

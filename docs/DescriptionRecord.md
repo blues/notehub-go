@@ -2,18 +2,18 @@
 
 ## Properties
 
-| Name            | Type                  | Description                                                                                                     | Notes      |
-| --------------- | --------------------- | --------------------------------------------------------------------------------------------------------------- | ---------- |
-| **ContentType** | **string**            | The stored content type, either \&quot;application/json\&quot; or \&quot;text/plain; charset&#x3D;utf-8\&quot;. |
-| **CreatedAt**   | **int64**             | When the record was first created (Unix seconds).                                                               |
-| **CreatedBy**   | Pointer to **string** | The actor who created the record.                                                                               | [optional] |
-| **Length**      | **int64**             | The content length in bytes.                                                                                    |
-| **Md5**         | **string**            | The hex-encoded MD5 of the content.                                                                             |
-| **ModifiedAt**  | **int64**             | When the record was last updated (Unix seconds).                                                                |
-| **ModifiedBy**  | Pointer to **string** | The actor who last updated the record.                                                                          | [optional] |
-| **Name**        | **string**            | The record name (letters, digits, &#39;.&#39;, &#39;_&#39; or &#39;-&#39;).                                     |
-| **OwnerUid**    | Pointer to **string** | The owning project (app) UID for project-scoped records; empty for global.                                      | [optional] |
-| **Scope**       | **string**            | The ownership scope of the record (\&quot;global\&quot; or \&quot;project\&quot;).                              |
+| Name            | Type                  | Description                                                                                                                             | Notes      |
+| --------------- | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **ContentType** | **string**            | The Content-Type served on GET, as sent when the record was stored or detected from its content.                                        |
+| **CreatedAt**   | **int64**             | When the record was first created (Unix seconds).                                                                                       |
+| **CreatedBy**   | Pointer to **string** | The actor who created the record.                                                                                                       | [optional] |
+| **Length**      | **int64**             | The content length in bytes.                                                                                                            |
+| **Md5**         | **string**            | The hex-encoded MD5 of the content.                                                                                                     |
+| **ModifiedAt**  | **int64**             | When the record was last updated (Unix seconds).                                                                                        |
+| **ModifiedBy**  | Pointer to **string** | The actor who last updated the record.                                                                                                  | [optional] |
+| **Name**        | **string**            | The record name (letters, digits, &#39;.&#39;, &#39;_&#39; or &#39;-&#39;).                                                             |
+| **OwnerUid**    | Pointer to **string** | ProjectUID of the owning project, e.g. &#x60;app:2606f411-dea6-44a0-9743-1130f57d77d8&#x60;. Empty for a global record.                 | [optional] |
+| **Scope**       | **string**            | Where the record is stored. - &#x60;project&#x60;: in one project - &#x60;global&#x60;: platform-wide, readable by every signed-in user |
 
 ## Methods
 

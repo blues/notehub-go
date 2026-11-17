@@ -21,11 +21,12 @@ var _ MappedNullable = &CreateFleetRequest{}
 // CreateFleetRequest struct for CreateFleetRequest
 type CreateFleetRequest struct {
 	ConnectivityAssurance NullableFleetConnectivityAssurance `json:"connectivity_assurance,omitempty"`
-	// The label, or name,  for the Fleet.
+	// Fleet name shown in Notehub. Required.
 	Label *string `json:"label,omitempty"`
-	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule            *string `json:"smart_rule,omitempty"`
-	SmartRuleEnabled     *bool   `json:"smart_rule_enabled,omitempty"`
+	// JSONata expression for smart fleet membership: `1` adds the device, `-1` removes it, and `0` or an error leaves it unchanged.
+	SmartRule *string `json:"smart_rule,omitempty"`
+	// If `true`, `smart_rule` adds and removes devices. Default `false`.
+	SmartRuleEnabled     *bool `json:"smart_rule_enabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

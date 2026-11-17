@@ -2,22 +2,22 @@
 
 ## Properties
 
-| Name             | Type                                  | Description                                  | Notes      |
-| ---------------- | ------------------------------------- | -------------------------------------------- | ---------- |
-| **Built**        | Pointer to **string**                 | The date the firmware was built.             | [optional] |
-| **Created**      | Pointer to **string**                 | The date the firmware was created.           | [optional] |
-| **Description**  | Pointer to **string**                 | A description of the firmware.               | [optional] |
-| **Filename**     | Pointer to **string**                 | The name of the firmware file.               | [optional] |
-| **Info**         | Pointer to **map[string]interface{}** | User-defined metadata                        | [optional] |
-| **Md5**          | Pointer to **string**                 | The MD5 hash of the firmware file.           | [optional] |
-| **Notes**        | Pointer to **string**                 | User-defined notes                           | [optional] |
-| **Organization** | Pointer to **string**                 | The organization that owns the firmware.     | [optional] |
-| **Product**      | Pointer to **string**                 | The product that the firmware is for.        | [optional] |
-| **Published**    | Pointer to **bool**                   | True if the firmware is published.           | [optional] |
-| **Tags**         | Pointer to **string**                 | A list of tags associated with the firmware. | [optional] |
-| **Target**       | Pointer to **string**                 | The target device for the firmware.          | [optional] |
-| **Type**         | Pointer to **string**                 | The type of firmware.                        | [optional] |
-| **Version**      | Pointer to **string**                 | The version of the firmware.                 | [optional] |
+| Name             | Type                                  | Description                                                                                                                   | Notes      |
+| ---------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Built**        | Pointer to **string**                 | The date the firmware was built.                                                                                              | [optional] |
+| **Created**      | Pointer to **string**                 | Upload time, as Unix epoch seconds in a string.                                                                               | [optional] |
+| **Description**  | Pointer to **string**                 | Not currently filled in.                                                                                                      | [optional] |
+| **Filename**     | Pointer to **string**                 | Stored filename, with the &#x60;$&#x60; timestamp suffix Notehub adds on upload. Use it in other firmware and DFU operations. | [optional] |
+| **Info**         | Pointer to **map[string]interface{}** | User-defined metadata                                                                                                         | [optional] |
+| **Md5**          | Pointer to **string**                 | The MD5 hash of the firmware file.                                                                                            | [optional] |
+| **Notes**        | Pointer to **string**                 | User-defined notes                                                                                                            | [optional] |
+| **Organization** | Pointer to **string**                 | The organization that owns the firmware.                                                                                      | [optional] |
+| **Product**      | Pointer to **string**                 | The product that the firmware is for.                                                                                         | [optional] |
+| **Published**    | Pointer to **bool**                   | &#x60;true&#x60; for all host firmware, and for Notecard firmware that Blues has published.                                   | [optional] |
+| **Tags**         | Pointer to **string**                 | A list of tags associated with the firmware.                                                                                  | [optional] |
+| **Target**       | Pointer to **string**                 | The target device for the firmware.                                                                                           | [optional] |
+| **Type**         | Pointer to **string**                 | &#x60;host&#x60; or &#x60;notecard&#x60;.                                                                                     | [optional] |
+| **Version**      | Pointer to **string**                 | The version of the firmware.                                                                                                  | [optional] |
 
 ## Methods
 

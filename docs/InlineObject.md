@@ -2,16 +2,17 @@
 
 ## Properties
 
-| Name         | Type                 | Description                                       | Notes      |
-| ------------ | -------------------- | ------------------------------------------------- | ---------- |
-| **Template** | Pointer to **bool**  | true when a template is active on the Notefile.   | [optional] |
-| **Total**    | Pointer to **int32** | The total number of notes active on the Notefile. | [optional] |
+| Name           | Type                    | Description                                                                                                                                                                                                                                                                                                                                                                      | Notes |
+| -------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| **Events**     | [**[]Event**](Event.md) |                                                                                                                                                                                                                                                                                                                                                                                  |
+| **HasMore**    | **bool**                | True if there are more events                                                                                                                                                                                                                                                                                                                                                    |
+| **NextCursor** | **string**              | A legacy cursor, which can be obtained from the &#x60;next_cursor&#x60; value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this EventUID is not found, the parameter is ignored and the results set is the same as if the parameter was not included. |
 
 ## Methods
 
 ### NewInlineObject
 
-`func NewInlineObject() *InlineObject`
+`func NewInlineObject(events []Event, hasMore bool, nextCursor string, ) *InlineObject`
 
 NewInlineObject instantiates a new InlineObject object
 This constructor will assign default values to properties that have it defined,
@@ -26,54 +27,61 @@ NewInlineObjectWithDefaults instantiates a new InlineObject object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetTemplate
+### GetEvents
 
-`func (o *InlineObject) GetTemplate() bool`
+`func (o *InlineObject) GetEvents() []Event`
 
-GetTemplate returns the Template field if non-nil, zero value otherwise.
+GetEvents returns the Events field if non-nil, zero value otherwise.
 
-### GetTemplateOk
+### GetEventsOk
 
-`func (o *InlineObject) GetTemplateOk() (*bool, bool)`
+`func (o *InlineObject) GetEventsOk() (*[]Event, bool)`
 
-GetTemplateOk returns a tuple with the Template field if it's non-nil, zero value otherwise
+GetEventsOk returns a tuple with the Events field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTemplate
+### SetEvents
 
-`func (o *InlineObject) SetTemplate(v bool)`
+`func (o *InlineObject) SetEvents(v []Event)`
 
-SetTemplate sets Template field to given value.
+SetEvents sets Events field to given value.
 
-### HasTemplate
+### GetHasMore
 
-`func (o *InlineObject) HasTemplate() bool`
+`func (o *InlineObject) GetHasMore() bool`
 
-HasTemplate returns a boolean if a field has been set.
+GetHasMore returns the HasMore field if non-nil, zero value otherwise.
 
-### GetTotal
+### GetHasMoreOk
 
-`func (o *InlineObject) GetTotal() int32`
+`func (o *InlineObject) GetHasMoreOk() (*bool, bool)`
 
-GetTotal returns the Total field if non-nil, zero value otherwise.
-
-### GetTotalOk
-
-`func (o *InlineObject) GetTotalOk() (*int32, bool)`
-
-GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
+GetHasMoreOk returns a tuple with the HasMore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTotal
+### SetHasMore
 
-`func (o *InlineObject) SetTotal(v int32)`
+`func (o *InlineObject) SetHasMore(v bool)`
 
-SetTotal sets Total field to given value.
+SetHasMore sets HasMore field to given value.
 
-### HasTotal
+### GetNextCursor
 
-`func (o *InlineObject) HasTotal() bool`
+`func (o *InlineObject) GetNextCursor() string`
 
-HasTotal returns a boolean if a field has been set.
+GetNextCursor returns the NextCursor field if non-nil, zero value otherwise.
+
+### GetNextCursorOk
+
+`func (o *InlineObject) GetNextCursorOk() (*string, bool)`
+
+GetNextCursorOk returns a tuple with the NextCursor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextCursor
+
+`func (o *InlineObject) SetNextCursor(v string)`
+
+SetNextCursor sets NextCursor field to given value.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name             | Type                  | Description           | Notes      |
-| ---------------- | --------------------- | --------------------- | ---------- |
-| **Builder**      | Pointer to **string** | Firmware author       | [optional] |
-| **Built**        | Pointer to **string** | Firmware build date   | [optional] |
-| **Description**  | Pointer to **string** | Firmware description  | [optional] |
-| **Organization** | Pointer to **string** | Firmware organization | [optional] |
-| **Product**      | Pointer to **string** | Firmware product      | [optional] |
-| **Version**      | Pointer to **string** | Firmware version      | [optional] |
+| Name             | Type                  | Description                                                                                 | Notes      |
+| ---------------- | --------------------- | ------------------------------------------------------------------------------------------- | ---------- |
+| **Builder**      | Pointer to **string** | Firmware author                                                                             | [optional] |
+| **Built**        | Pointer to **string** | Firmware build date                                                                         | [optional] |
+| **Description**  | Pointer to **string** | Firmware description                                                                        | [optional] |
+| **Organization** | Pointer to **string** | Firmware organization                                                                       | [optional] |
+| **Product**      | Pointer to **string** | Firmware product                                                                            | [optional] |
+| **Version**      | Pointer to **string** | Firmware version the device runs, or &#x60;Unknown (device has not fully sync&#39;d)&#x60;. | [optional] |
 
 ## Methods
 

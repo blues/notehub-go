@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name        | Type                                  | Description                                                  | Notes      |
-| ----------- | ------------------------------------- | ------------------------------------------------------------ | ---------- |
-| **Info**    | Pointer to **map[string]interface{}** | Arbitrary JSON metadata associated with this firmware entry. | [optional] |
-| **Notes**   | Pointer to **string**                 | Notes describing this firmware version.                      | [optional] |
-| **Version** | Pointer to **string**                 | The firmware version string.                                 | [optional] |
+| Name        | Type                                  | Description                                                               | Notes      |
+| ----------- | ------------------------------------- | ------------------------------------------------------------------------- | ---------- |
+| **Info**    | Pointer to **map[string]interface{}** | JSON metadata for this firmware. Replaces the stored object when present. | [optional] |
+| **Notes**   | Pointer to **string**                 | New notes for this firmware. Empty keeps the current notes.               | [optional] |
+| **Version** | Pointer to **string**                 | New version string. Empty keeps the current version.                      | [optional] |
 
 ## Methods
 

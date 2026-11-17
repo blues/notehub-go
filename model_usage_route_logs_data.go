@@ -26,7 +26,7 @@ type UsageRouteLogsData struct {
 	AvgLatencyMs NullableFloat64 `json:"avg_latency_ms,omitempty"`
 	FailedRoutes int64           `json:"failed_routes"`
 	Period       time.Time       `json:"period"`
-	// The route UID (only present when aggregate is 'route')
+	// The routeUID (only present when aggregate is 'route')
 	Route                *string `json:"route,omitempty"`
 	SuccessfulRoutes     int64   `json:"successful_routes"`
 	TotalRoutes          int64   `json:"total_routes"`

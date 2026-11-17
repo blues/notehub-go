@@ -33,7 +33,7 @@ type Note struct {
 	Pending *bool `json:"pending,omitempty"`
 	// Unix epoch seconds.
 	Time int64 `json:"time"`
-	// Optional location/metadata string.
+	// Place name where the note was created, from its latitude and longitude. Empty if unknown.
 	Where                *string `json:"where,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -18,7 +18,7 @@ import (
 // checks if the DeviceDfuStateMachineNode type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeviceDfuStateMachineNode{}
 
-// DeviceDfuStateMachineNode Represents a single request to update the host or Notecard firmware
+// DeviceDfuStateMachineNode One status update in a host or Notecard firmware update.
 type DeviceDfuStateMachineNode struct {
 	// RFC3339 compatible datetime of when this status update happened
 	Datetime *string `json:"datetime,omitempty"`

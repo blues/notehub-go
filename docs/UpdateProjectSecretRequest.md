@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name      | Type       | Description                                               | Notes |
-| --------- | ---------- | --------------------------------------------------------- | ----- |
-| **Value** | **string** | The new secret value (encrypted at rest, never returned). |
+| Name      | Type       | Description                                                 | Notes |
+| --------- | ---------- | ----------------------------------------------------------- | ----- |
+| **Value** | **string** | The new secret value. Encrypted at rest and never returned. |
 
 ## Methods
 

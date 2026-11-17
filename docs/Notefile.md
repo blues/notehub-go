@@ -6,7 +6,7 @@
 | ------------ | --------------------- | ------------------------------------------------------------------- | ---------- |
 | **Id**       | **string**            | Notefile id (e.g., \&quot;test.qi\&quot;, \&quot;config.db\&quot;). |
 | **Notes**    | [**[]Note**](Note.md) |                                                                     |
-| **Template** | Pointer to **string** |                                                                     | [optional] |
+| **Template** | Pointer to **string** | The notefile&#39;s body template, if it has one.                    | [optional] |
 
 ## Methods
 

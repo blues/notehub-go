@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name            | Type                                                   | Description                                   | Notes      |
-| --------------- | ------------------------------------------------------ | --------------------------------------------- | ---------- |
-| **Archive**     | Pointer to [**NullableArchiveStats**](ArchiveStats.md) |                                               | [optional] |
-| **FleetUids**   | Pointer to **[]string**                                |                                               | [optional] |
-| **Name**        | Pointer to **string**                                  | repository name                               | [optional] |
-| **ProjectUids** | Pointer to **[]string**                                |                                               | [optional] |
-| **Uid**         | Pointer to **string**                                  | The unique identifier for the data repository | [optional] |
+| Name            | Type                                                   | Description                                                                 | Notes      |
+| --------------- | ------------------------------------------------------ | --------------------------------------------------------------------------- | ---------- |
+| **Archive**     | Pointer to [**NullableArchiveStats**](ArchiveStats.md) |                                                                             | [optional] |
+| **FleetUids**   | Pointer to **[]string**                                |                                                                             | [optional] |
+| **Name**        | Pointer to **string**                                  | Repository name.                                                            | [optional] |
+| **ProjectUids** | Pointer to **[]string**                                |                                                                             | [optional] |
+| **Uid**         | Pointer to **string**                                  | Repository UID, e.g. &#x60;repo:2606f411-dea6-44a0-9743-1130f57d77d8&#x60;. | [optional] |
 
 ## Methods
 

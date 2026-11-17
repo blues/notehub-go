@@ -23,18 +23,19 @@ var _ MappedNullable = &Fleet{}
 // Fleet struct for Fleet
 type Fleet struct {
 	ConnectivityAssurance NullableFleetConnectivityAssurance `json:"connectivity_assurance,omitempty"`
-	// RFC3339 timestamp in UTC
+	// When the fleet was created.
 	Created time.Time `json:"created"`
-	// The environment variables for this device that have been set using the Notehub API or UI.
+	// Environment variables set on this fleet. Not returned by `GetDeviceFleets`.
 	EnvironmentVariables *map[string]string `json:"environment_variables,omitempty"`
-	// Fleet label
+	// Fleet name shown in Notehub.
 	Label string `json:"label"`
-	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule        *string `json:"smart_rule,omitempty"`
-	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
-	// Fleet UID
+	// JSONata expression for smart fleet membership: `1` adds the device, `-1` removes it, and `0` or an error leaves it unchanged.
+	SmartRule *string `json:"smart_rule,omitempty"`
+	// Whether `smart_rule` adds and removes devices. Returned only by `CreateFleet` and `UpdateFleet`.
+	SmartRuleEnabled *bool `json:"smart_rule_enabled,omitempty"`
+	// FleetUID, e.g. `fleet:1042ddc5-3b2c-4cec-b1fb-d3040538094d`.
 	Uid string `json:"uid"`
-	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
+	// Minutes of inactivity before Notehub generates a watchdog event. `0` means no watchdog.
 	WatchdogMins         *int64 `json:"watchdog_mins,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

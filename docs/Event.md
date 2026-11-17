@@ -4,7 +4,7 @@
 
 | Name                 | Type                                  | Description                                                                                                                                           | Notes      |
 | -------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **App**              | Pointer to **string**                 | App UID (globally unique)                                                                                                                             | [optional] |
+| **App**              | Pointer to **string**                 | AppUID (globally unique)                                                                                                                              | [optional] |
 | **Bars**             | Pointer to **int32**                  | Bars. Only available on _session.qo events.                                                                                                           | [optional] |
 | **BestCountry**      | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
 | **BestId**           | Pointer to **string**                 | The device serial number, or the DeviceUID if the serial number is not set                                                                            | [optional] |
@@ -16,9 +16,10 @@
 | **BestTimezone**     | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
 | **Body**             | Pointer to **map[string]interface{}** | A JSON object containing event details                                                                                                                | [optional] |
 | **Bssid**            | Pointer to **string**                 | BSSID. Only available on _session.qo events.                                                                                                          | [optional] |
-| **Device**           | Pointer to **string**                 | Device UID (globally unique)                                                                                                                          | [optional] |
+| **Deleted**          | Pointer to **bool**                   | True if this event has been deleted. Only present when reading with a &#x60;cursor&#x60;.                                                             | [optional] |
+| **Device**           | Pointer to **string**                 | DeviceUID (globally unique)                                                                                                                           | [optional] |
 | **Environment**      | Pointer to **map[string]interface{}** | Routed environment variables beginning with \&quot;$\&quot;. Only available on _session.qo events.                                                    | [optional] |
-| **Event**            | Pointer to **string**                 | Event UID (globally unique)                                                                                                                           | [optional] |
+| **Event**            | Pointer to **string**                 | EventUID (globally unique)                                                                                                                            | [optional] |
 | **File**             | Pointer to **string**                 | The notefile associated with this event                                                                                                               | [optional] |
 | **Moved**            | Pointer to **int64**                  | The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.              | [optional] |
 | **Note**             | Pointer to **string**                 | The note ID in the notefile                                                                                                                           | [optional] |
@@ -26,15 +27,15 @@
 | **Orientation**      | Pointer to **string**                 | The orientation of the device. Only available on _session.qo events.                                                                                  | [optional] |
 | **Payload**          | Pointer to **string**                 | A base64-encoded binary payload                                                                                                                       | [optional] |
 | **Platform**         | Pointer to **bool**                   | Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data                                                 | [optional] |
-| **Product**          | Pointer to **string**                 | Product UID (globally unique)                                                                                                                         | [optional] |
+| **Product**          | Pointer to **string**                 | ProductUID (globally unique)                                                                                                                          | [optional] |
 | **Rat**              | Pointer to **string**                 | Rat. Only available on _session.qo events.                                                                                                            | [optional] |
 | **Received**         | Pointer to **float64**                | The unix timestamp when the event was received                                                                                                        | [optional] |
 | **Req**              | Pointer to **string**                 | The notecard request                                                                                                                                  | [optional] |
 | **Rsrp**             | Pointer to **int32**                  | RSRP. Only available on _session.qo events.                                                                                                           | [optional] |
 | **Rsrq**             | Pointer to **int32**                  | RSRQ. Only available on _session.qo events.                                                                                                           | [optional] |
 | **Rssi**             | Pointer to **int32**                  | Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events. | [optional] |
-| **Sensor**           | Pointer to **string**                 | Sensor UID, for events originating from a sensor attached to the device                                                                               | [optional] |
-| **Session**          | Pointer to **string**                 | Session UID (globally unique)                                                                                                                         | [optional] |
+| **Sensor**           | Pointer to **string**                 | SensorUID, for events originating from a sensor attached to the device                                                                                | [optional] |
+| **Session**          | Pointer to **string**                 | SessionUID (globally unique)                                                                                                                          | [optional] |
 | **Sinr**             | Pointer to **int32**                  | SINR. Only available on _session.qo events.                                                                                                           | [optional] |
 | **Sku**              | Pointer to **string**                 | SKU. Only available on _session.qo events.                                                                                                            | [optional] |
 | **Sn**               | Pointer to **string**                 | The device serial number                                                                                                                              | [optional] |
@@ -67,6 +68,7 @@
 | **WhereOlc**         | Pointer to **string**                 | Open Location Code                                                                                                                                    | [optional] |
 | **WhereTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
 | **WhereWhen**        | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
+| **WireLength**       | Pointer to **int64**                  | Approximate number of bytes that the note&#39;s body and payload occupied on the wire when transmitted from the device to Notehub                     | [optional] |
 
 ## Methods
 
@@ -386,6 +388,31 @@ SetBssid sets Bssid field to given value.
 `func (o *Event) HasBssid() bool`
 
 HasBssid returns a boolean if a field has been set.
+
+### GetDeleted
+
+`func (o *Event) GetDeleted() bool`
+
+GetDeleted returns the Deleted field if non-nil, zero value otherwise.
+
+### GetDeletedOk
+
+`func (o *Event) GetDeletedOk() (*bool, bool)`
+
+GetDeletedOk returns a tuple with the Deleted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeleted
+
+`func (o *Event) SetDeleted(v bool)`
+
+SetDeleted sets Deleted field to given value.
+
+### HasDeleted
+
+`func (o *Event) HasDeleted() bool`
+
+HasDeleted returns a boolean if a field has been set.
 
 ### GetDevice
 
@@ -1661,5 +1688,30 @@ SetWhereWhen sets WhereWhen field to given value.
 `func (o *Event) HasWhereWhen() bool`
 
 HasWhereWhen returns a boolean if a field has been set.
+
+### GetWireLength
+
+`func (o *Event) GetWireLength() int64`
+
+GetWireLength returns the WireLength field if non-nil, zero value otherwise.
+
+### GetWireLengthOk
+
+`func (o *Event) GetWireLengthOk() (*int64, bool)`
+
+GetWireLengthOk returns a tuple with the WireLength field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWireLength
+
+`func (o *Event) SetWireLength(v int64)`
+
+SetWireLength sets WireLength field to given value.
+
+### HasWireLength
+
+`func (o *Event) HasWireLength() bool`
+
+HasWireLength returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

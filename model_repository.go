@@ -22,10 +22,10 @@ var _ MappedNullable = &Repository{}
 type Repository struct {
 	Archive   NullableArchiveStats `json:"archive,omitempty"`
 	FleetUids []string             `json:"fleet_uids,omitempty"`
-	// repository name
+	// Repository name.
 	Name        *string  `json:"name,omitempty"`
 	ProjectUids []string `json:"project_uids,omitempty"`
-	// The unique identifier for the data repository
+	// Repository UID, e.g. `repo:2606f411-dea6-44a0-9743-1130f57d77d8`.
 	Uid                  *string `json:"uid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

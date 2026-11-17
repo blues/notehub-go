@@ -21,12 +21,18 @@ var _ MappedNullable = &Location{}
 
 // Location struct for Location
 type Location struct {
-	Country              string  `json:"country"`
-	Latitude             float64 `json:"latitude"`
-	Longitude            float64 `json:"longitude"`
-	Name                 string  `json:"name"`
-	Timezone             string  `json:"timezone"`
-	When                 string  `json:"when"`
+	// Two-letter country code, e.g. `US`.
+	Country string `json:"country"`
+	// Latitude in degrees.
+	Latitude float64 `json:"latitude"`
+	// Longitude in degrees.
+	Longitude float64 `json:"longitude"`
+	// Place name, e.g. `Waverly MI`.
+	Name string `json:"name"`
+	// IANA time zone, e.g. `America/Detroit`.
+	Timezone string `json:"timezone"`
+	// When the location was recorded, in RFC 3339 format. Empty if unknown.
+	When                 string `json:"when"`
 	AdditionalProperties map[string]interface{}
 }
 

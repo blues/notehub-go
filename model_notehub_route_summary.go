@@ -21,11 +21,16 @@ var _ MappedNullable = &NotehubRouteSummary{}
 
 // NotehubRouteSummary struct for NotehubRouteSummary
 type NotehubRouteSummary struct {
-	Disabled             *bool      `json:"disabled,omitempty"`
-	Label                *string    `json:"label,omitempty"`
-	Modified             *time.Time `json:"modified,omitempty"`
-	Type                 *string    `json:"type,omitempty"`
-	Uid                  *string    `json:"uid,omitempty"`
+	// True if the route is turned off and sends nothing.
+	Disabled *bool `json:"disabled,omitempty"`
+	// Route name.
+	Label *string `json:"label,omitempty"`
+	// When the route was last changed.
+	Modified *time.Time `json:"modified,omitempty"`
+	// Route type; see `NotehubRoute.type`.
+	Type *string `json:"type,omitempty"`
+	// RouteUID.
+	Uid                  *string `json:"uid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

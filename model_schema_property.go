@@ -22,14 +22,16 @@ var _ MappedNullable = &SchemaProperty{}
 
 // SchemaProperty struct for SchemaProperty
 type SchemaProperty struct {
-	// Used if type is array
+	// For an array, the type of its elements, inferred from the first element.
 	Items []SchemaProperty `json:"items,omitempty"`
 	// Name of the field (optional for array/object children)
 	Name *string `json:"name,omitempty"`
-	// Used if type is object
-	Properties           []SchemaProperty `json:"properties,omitempty"`
-	Type                 string           `json:"type"`
-	UpdatedAt            *time.Time       `json:"updated_at,omitempty"`
+	// For an object, its fields.
+	Properties []SchemaProperty `json:"properties,omitempty"`
+	// The field's JSON type.
+	Type string `json:"type"`
+	// When Notehub recorded this field, usually when it first appeared.
+	UpdatedAt            *time.Time `json:"updated_at,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 

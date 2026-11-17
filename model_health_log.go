@@ -22,8 +22,11 @@ var _ MappedNullable = &HealthLog{}
 
 // HealthLog struct for HealthLog
 type HealthLog struct {
-	Alert                bool      `json:"alert"`
-	Text                 string    `json:"text"`
+	// True if the entry was flagged as an alert.
+	Alert bool `json:"alert"`
+	// The log message. Restart entries begin with `boot`.
+	Text string `json:"text"`
+	// When the entry was recorded.
 	When                 time.Time `json:"when"`
 	AdditionalProperties map[string]interface{}
 }

@@ -35,12 +35,14 @@ func (r ApiDeleteGlobalDescriptionRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteGlobalDescription Method for DeleteGlobalDescription
+DeleteGlobalDescription Delete a global description record
 
-Delete a global description record by name (Blues staff only).
+Delete one platform-wide description record.
+
+Blues staff only; returns 403 for anyone else. Returns 404 if the record doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiDeleteGlobalDescriptionRequest
 */
 func (a *DescriptionAPIService) DeleteGlobalDescription(ctx context.Context, descriptionName string) ApiDeleteGlobalDescriptionRequest {
@@ -158,13 +160,15 @@ func (r ApiDeleteProjectDescriptionRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteProjectDescription Method for DeleteProjectDescription
+DeleteProjectDescription Delete a project description record
 
-Delete a project description record by name.
+Delete one of a project's description records.
+
+Requires the Owner or Developer role. Returns 404 if the record doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiDeleteProjectDescriptionRequest
 */
 func (a *DescriptionAPIService) DeleteProjectDescription(ctx context.Context, projectOrProductUID string, descriptionName string) ApiDeleteProjectDescriptionRequest {
@@ -272,12 +276,15 @@ func (r ApiGetGlobalDescriptionRequest) Execute() (*os.File, *http.Response, err
 }
 
 /*
-GetGlobalDescription Method for GetGlobalDescription
+GetGlobalDescription Get a global description record
 
-Get a global description record. Returns the raw content with its stored Content-Type.
+Get the content of one platform-wide description record, served with the Content-Type it was
+stored with. Any signed-in user can read it.
+
+Returns 404 if the record doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiGetGlobalDescriptionRequest
 */
 func (a *DescriptionAPIService) GetGlobalDescription(ctx context.Context, descriptionName string) ApiGetGlobalDescriptionRequest {
@@ -396,13 +403,16 @@ func (r ApiGetProjectDescriptionRequest) Execute() (*os.File, *http.Response, er
 }
 
 /*
-GetProjectDescription Method for GetProjectDescription
+GetProjectDescription Get a project description record
 
-Get a project description record. Returns the raw content with its stored Content-Type.
+Get the content of one of a project's description records, served with the Content-Type it
+was stored with. For the metadata of every record, use `ListProjectDescriptions`.
+
+Returns 404 if the record doesn't exist.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiGetProjectDescriptionRequest
 */
 func (a *DescriptionAPIService) GetProjectDescription(ctx context.Context, projectOrProductUID string, descriptionName string) ApiGetProjectDescriptionRequest {
@@ -521,9 +531,11 @@ func (r ApiListGlobalDescriptionsRequest) Execute() (*DescriptionRecordList, *ht
 }
 
 /*
-ListGlobalDescriptions Method for ListGlobalDescriptions
+ListGlobalDescriptions List global description records
 
-List metadata for all global description records.
+List the platform-wide description records that Blues publishes, without their content.
+Any signed-in user can read them. For a project's own records, use
+`ListProjectDescriptions`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListGlobalDescriptionsRequest
@@ -630,9 +642,12 @@ func (r ApiListProjectDescriptionsRequest) Execute() (*DescriptionRecordList, *h
 }
 
 /*
-ListProjectDescriptions Method for ListProjectDescriptions
+ListProjectDescriptions List a project's description records
 
-List metadata for all description records in a project.
+List a project's description records by name, with each one's content type, size and
+change history but not its content. A description record is a named document, such as
+Markdown, JSON or plain text, that explains the project's data. For Blues' platform-wide records,
+use `ListGlobalDescriptions`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
@@ -738,7 +753,7 @@ type ApiSetGlobalDescriptionRequest struct {
 	body            *os.File
 }
 
-// The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+// The document to store, up to 10 MB. Send its Content-Type, such as &#x60;text/markdown&#x60;; Markdown isn&#39;t detected.
 func (r ApiSetGlobalDescriptionRequest) Body(body *os.File) ApiSetGlobalDescriptionRequest {
 	r.body = body
 	return r
@@ -749,12 +764,16 @@ func (r ApiSetGlobalDescriptionRequest) Execute() (*DescriptionRecord, *http.Res
 }
 
 /*
-SetGlobalDescription Method for SetGlobalDescription
+SetGlobalDescription Create or replace a global description record
 
-Create or replace a global description record, Blues staff only (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+Store a platform-wide named document that every signed-in user can read, replacing any
+record with that name. The Content-Type is handled as in `SetProjectDescription`.
+
+Blues staff only; returns 403 for anyone else. Returns 400 if the content is over 10 MB or
+the name isn't valid.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiSetGlobalDescriptionRequest
 */
 func (a *DescriptionAPIService) SetGlobalDescription(ctx context.Context, descriptionName string) ApiSetGlobalDescriptionRequest {
@@ -885,7 +904,7 @@ type ApiSetProjectDescriptionRequest struct {
 	body                *os.File
 }
 
-// The description content (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+// The document to store, up to 10 MB. Send its Content-Type, such as &#x60;text/markdown&#x60;; Markdown isn&#39;t detected.
 func (r ApiSetProjectDescriptionRequest) Body(body *os.File) ApiSetProjectDescriptionRequest {
 	r.body = body
 	return r
@@ -896,13 +915,18 @@ func (r ApiSetProjectDescriptionRequest) Execute() (*DescriptionRecord, *http.Re
 }
 
 /*
-SetProjectDescription Method for SetProjectDescription
+SetProjectDescription Create or replace a project description record
 
-Create or replace a project description record (up to 10MB). The request Content-Type is stored and returned on GET; when omitted it is detected (JSON or text).
+Store a named document in a project, replacing any record with that name. The request's
+Content-Type is stored and served back by `GetProjectDescription`; if it's missing or
+`application/octet-stream`, the type is detected from the content.
+
+Requires the Owner or Developer role. Returns 400 if the content is over 10 MB or the name
+isn't valid.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectOrProductUID
-	@param descriptionName
+	@param descriptionName Record name, 1-128 letters, digits, `.`, `_` or `-`, e.g. `_health.qo`.
 	@return ApiSetProjectDescriptionRequest
 */
 func (a *DescriptionAPIService) SetProjectDescription(ctx context.Context, projectOrProductUID string, descriptionName string) ApiSetProjectDescriptionRequest {

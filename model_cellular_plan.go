@@ -23,12 +23,13 @@ type CellularPlan struct {
 	// Unix timestamp of when the SIM was activated
 	Activated *int64     `json:"activated,omitempty"`
 	DataUsage *DataUsage `json:"data_usage,omitempty"`
-	ExpiresAt *int64     `json:"expires_at,omitempty"`
+	// When the current plan expires, as a Unix timestamp in seconds. Omitted on the Essentials plan.
+	ExpiresAt *int64 `json:"expires_at,omitempty"`
 	// The Integrated Circuit Card Identifier of the SIM card
 	Iccid *string `json:"iccid,omitempty"`
 	// IMSI of the SIM card
 	Imsi *string `json:"imsi,omitempty"`
-	// Time this plan information was last updated
+	// When this plan information was last updated, as a Unix timestamp in seconds.
 	LastUpdated *int64 `json:"last_updated,omitempty"`
 	// Total bytes used by this SIM
 	LifetimeUsed *int64 `json:"lifetime_used,omitempty"`

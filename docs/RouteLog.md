@@ -2,16 +2,16 @@
 
 ## Properties
 
-| Name         | Type                  | Description                                 | Notes      |
-| ------------ | --------------------- | ------------------------------------------- | ---------- |
-| **Attn**     | Pointer to **bool**   | If true, an error was returned when routing | [optional] |
-| **Date**     | Pointer to **string** | The date of the logs.                       | [optional] |
-| **Duration** | Pointer to **int32**  | The duration of the route in milliseconds   | [optional] |
-| **EventUid** | Pointer to **string** | The event UID.                              | [optional] |
-| **RouteUid** | Pointer to **string** | The route UID.                              | [optional] |
-| **Status**   | Pointer to **string** | The status of the event.                    | [optional] |
-| **Text**     | Pointer to **string** | The response body of the route.             | [optional] |
-| **Url**      | Pointer to **string** | The URL of the route.                       | [optional] |
+| Name         | Type                  | Description                                                     | Notes      |
+| ------------ | --------------------- | --------------------------------------------------------------- | ---------- |
+| **Attn**     | Pointer to **bool**   | True if the attempt failed.                                     | [optional] |
+| **Date**     | Pointer to **string** | When the attempt was made, in RFC 3339 format.                  | [optional] |
+| **Duration** | Pointer to **int32**  | How long the attempt took, in milliseconds.                     | [optional] |
+| **EventUid** | Pointer to **string** | EventUID of the event that was sent.                            | [optional] |
+| **RouteUid** | Pointer to **string** | RouteUID of the route.                                          | [optional] |
+| **Status**   | Pointer to **string** | The destination&#39;s response status, such as &#x60;200&#x60;. | [optional] |
+| **Text**     | Pointer to **string** | The destination&#39;s response body, or an error message.       | [optional] |
+| **Url**      | Pointer to **string** | The URL the event was sent to.                                  | [optional] |
 
 ## Methods
 

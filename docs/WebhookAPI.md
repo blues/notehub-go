@@ -2,23 +2,25 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                                   | HTTP request                                                                       | Description |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------- |
-| [**CreateLegacyWebhookEvent**](WebhookAPI.md#CreateLegacyWebhookEvent)                   | **Post** /v1/products/{productUID}/devices/{deviceUID}/webhook-event               |
-| [**CreateWebhook**](WebhookAPI.md#CreateWebhook)                                         | **Post** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                  |
-| [**CreateWebhookDeviceEventByProduct**](WebhookAPI.md#CreateWebhookDeviceEventByProduct) | **Post** /v1/products/{productUID}/webhooks/{webhookUID}/devices/{deviceUID}/event |
-| [**CreateWebhookEventByProduct**](WebhookAPI.md#CreateWebhookEventByProduct)             | **Post** /v1/products/{productUID}/webhooks/{webhookUID}/event                     |
-| [**DeleteWebhook**](WebhookAPI.md#DeleteWebhook)                                         | **Delete** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                |
-| [**GetWebhook**](WebhookAPI.md#GetWebhook)                                               | **Get** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                   |
-| [**GetWebhookSettingsByProduct**](WebhookAPI.md#GetWebhookSettingsByProduct)             | **Get** /v1/products/{productUID}/webhooks/{webhookUID}/settings                   |
-| [**GetWebhooks**](WebhookAPI.md#GetWebhooks)                                             | **Get** /v1/projects/{projectOrProductUID}/webhooks                                |
-| [**UpdateLegacyWebhookSession**](WebhookAPI.md#UpdateLegacyWebhookSession)               | **Put** /v1/products/{productUID}/devices/{deviceUID}/webhook-session              |
-| [**UpdateWebhook**](WebhookAPI.md#UpdateWebhook)                                         | **Put** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                   |
-| [**UpdateWebhookSettingsByProduct**](WebhookAPI.md#UpdateWebhookSettingsByProduct)       | **Put** /v1/products/{productUID}/webhooks/{webhookUID}/settings                   |
+| Method                                                                                   | HTTP request                                                                       | Description                                           |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [**CreateLegacyWebhookEvent**](WebhookAPI.md#CreateLegacyWebhookEvent)                   | **Post** /v1/products/{productUID}/devices/{deviceUID}/webhook-event               | Add a note-shaped event from a device (legacy)        |
+| [**CreateWebhook**](WebhookAPI.md#CreateWebhook)                                         | **Post** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                  | Create a webhook                                      |
+| [**CreateWebhookDeviceEventByProduct**](WebhookAPI.md#CreateWebhookDeviceEventByProduct) | **Post** /v1/products/{productUID}/webhooks/{webhookUID}/devices/{deviceUID}/event | Send a device&#39;s event through a webhook           |
+| [**CreateWebhookEventByProduct**](WebhookAPI.md#CreateWebhookEventByProduct)             | **Post** /v1/products/{productUID}/webhooks/{webhookUID}/event                     | Send an event through a webhook                       |
+| [**DeleteWebhook**](WebhookAPI.md#DeleteWebhook)                                         | **Delete** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                | Delete a webhook                                      |
+| [**GetWebhook**](WebhookAPI.md#GetWebhook)                                               | **Get** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                   | Get a webhook                                         |
+| [**GetWebhookSettingsByProduct**](WebhookAPI.md#GetWebhookSettingsByProduct)             | **Get** /v1/products/{productUID}/webhooks/{webhookUID}/settings                   | Get a webhook by ProductUID                           |
+| [**GetWebhooks**](WebhookAPI.md#GetWebhooks)                                             | **Get** /v1/projects/{projectOrProductUID}/webhooks                                | List webhooks                                         |
+| [**UpdateLegacyWebhookSession**](WebhookAPI.md#UpdateLegacyWebhookSession)               | **Put** /v1/products/{productUID}/devices/{deviceUID}/webhook-session              | Open or close a webhook device&#39;s session (legacy) |
+| [**UpdateWebhook**](WebhookAPI.md#UpdateWebhook)                                         | **Put** /v1/projects/{projectOrProductUID}/webhooks/{webhookUID}                   | Update a webhook                                      |
+| [**UpdateWebhookSettingsByProduct**](WebhookAPI.md#UpdateWebhookSettingsByProduct)       | **Put** /v1/products/{productUID}/webhooks/{webhookUID}/settings                   | Update a webhook by ProductUID                        |
 
 ## CreateLegacyWebhookEvent
 
 > CreateLegacyWebhookEvent(ctx, productUID, deviceUID).RequestBody(requestBody).Execute()
+
+Add a note-shaped event from a device (legacy)
 
 ### Example
 
@@ -85,6 +87,8 @@ Other parameters are passed through a pointer to a apiCreateLegacyWebhookEventRe
 
 > CreateWebhook(ctx, projectOrProductUID, webhookUID).WebhookSettings(webhookSettings).Execute()
 
+Create a webhook
+
 ### Example
 
 ```go
@@ -99,7 +103,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -114,11 +118,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| Name                    | Type                | Description                                                                                 | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **projectOrProductUID** | **string**          |                                                                                             |
+| **webhookUID**          | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -150,6 +154,8 @@ Other parameters are passed through a pointer to a apiCreateWebhookRequest struc
 
 > CreateWebhookDeviceEventByProduct(ctx, productUID, webhookUID, deviceUID).RequestBody(requestBody).Execute()
 
+Send a device's event through a webhook
+
 ### Example
 
 ```go
@@ -164,9 +170,9 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	deviceUID := "dev:000000000000000" // string |
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | The event body (arbitrary JSON)
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | Any JSON object; it becomes the event body, or the transform's input.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -180,12 +186,12 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
-| **deviceUID**  | **string**          |                                                                             |
+| Name           | Type                | Description                                                                                 | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **productUID** | **string**          |                                                                                             |
+| **webhookUID** | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
+| **deviceUID**  | **string**          |                                                                                             |
 
 ### Other Parameters
 
@@ -194,7 +200,7 @@ Other parameters are passed through a pointer to a apiCreateWebhookDeviceEventBy
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**requestBody** | **map[string]interface{}** | The event body (arbitrary JSON) |
+**requestBody** | **map[string]interface{}** | Any JSON object; it becomes the event body, or the transform&#39;s input. |
 
 ### Return type
 
@@ -217,6 +223,8 @@ Other parameters are passed through a pointer to a apiCreateWebhookDeviceEventBy
 
 > CreateWebhookEventByProduct(ctx, productUID, webhookUID).RequestBody(requestBody).Execute()
 
+Send an event through a webhook
+
 ### Example
 
 ```go
@@ -231,8 +239,8 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | The event body (arbitrary JSON)
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | Any JSON object; it becomes the event body, or the transform's input.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -246,11 +254,11 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| Name           | Type                | Description                                                                                 | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **productUID** | **string**          |                                                                                             |
+| **webhookUID** | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -259,7 +267,7 @@ Other parameters are passed through a pointer to a apiCreateWebhookEventByProduc
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**requestBody** | **map[string]interface{}** | The event body (arbitrary JSON) |
+**requestBody** | **map[string]interface{}** | Any JSON object; it becomes the event body, or the transform&#39;s input. |
 
 ### Return type
 
@@ -282,6 +290,8 @@ Other parameters are passed through a pointer to a apiCreateWebhookEventByProduc
 
 > DeleteWebhook(ctx, projectOrProductUID, webhookUID).Execute()
 
+Delete a webhook
+
 ### Example
 
 ```go
@@ -296,7 +306,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -310,11 +320,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| Name                    | Type                | Description                                                                                 | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **projectOrProductUID** | **string**          |                                                                                             |
+| **webhookUID**          | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -344,6 +354,8 @@ Other parameters are passed through a pointer to a apiDeleteWebhookRequest struc
 
 > WebhookSettings GetWebhook(ctx, projectOrProductUID, webhookUID).Execute()
 
+Get a webhook
+
 ### Example
 
 ```go
@@ -358,7 +370,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -374,11 +386,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| Name                    | Type                | Description                                                                                 | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **projectOrProductUID** | **string**          |                                                                                             |
+| **webhookUID**          | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -408,6 +420,8 @@ Other parameters are passed through a pointer to a apiGetWebhookRequest struct v
 
 > WebhookSettings GetWebhookSettingsByProduct(ctx, productUID, webhookUID).Execute()
 
+Get a webhook by ProductUID
+
 ### Example
 
 ```go
@@ -422,7 +436,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -438,11 +452,11 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| Name           | Type                | Description                                                                                 | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **productUID** | **string**          |                                                                                             |
+| **webhookUID** | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -471,6 +485,8 @@ Other parameters are passed through a pointer to a apiGetWebhookSettingsByProduc
 ## GetWebhooks
 
 > GetWebhooks200Response GetWebhooks(ctx, projectOrProductUID).Execute()
+
+List webhooks
 
 ### Example
 
@@ -534,6 +550,8 @@ Other parameters are passed through a pointer to a apiGetWebhooksRequest struct 
 
 > UpdateLegacyWebhookSession(ctx, productUID, deviceUID).RequestBody(requestBody).Execute()
 
+Open or close a webhook device's session (legacy)
+
 ### Example
 
 ```go
@@ -549,7 +567,7 @@ import (
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
 	deviceUID := "dev:000000000000000" // string |
-	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | Optional session metadata. (optional)
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | Session fields, such as `why_session_opened`, `why_session_closed` and signal or location values. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -576,7 +594,7 @@ Other parameters are passed through a pointer to a apiUpdateLegacyWebhookSession
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
 
-**requestBody** | **map[string]interface{}** | Optional session metadata. |
+**requestBody** | **map[string]interface{}** | Session fields, such as &#x60;why_session_opened&#x60;, &#x60;why_session_closed&#x60; and signal or location values. |
 
 ### Return type
 
@@ -599,6 +617,8 @@ Other parameters are passed through a pointer to a apiUpdateLegacyWebhookSession
 
 > UpdateWebhook(ctx, projectOrProductUID, webhookUID).WebhookSettings(webhookSettings).Execute()
 
+Update a webhook
+
 ### Example
 
 ```go
@@ -613,7 +633,7 @@ import (
 
 func main() {
 	projectOrProductUID := "app:2606f411-dea6-44a0-9743-1130f57d77d8" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -628,11 +648,11 @@ func main() {
 
 ### Path Parameters
 
-| Name                    | Type                | Description                                                                 | Notes |
-| ----------------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **projectOrProductUID** | **string**          |                                                                             |
-| **webhookUID**          | **string**          | Webhook UID                                                                 |
+| Name                    | Type                | Description                                                                                 | Notes |
+| ----------------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**                 | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **projectOrProductUID** | **string**          |                                                                                             |
+| **webhookUID**          | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 
@@ -664,6 +684,8 @@ Other parameters are passed through a pointer to a apiUpdateWebhookRequest struc
 
 > UpdateWebhookSettingsByProduct(ctx, productUID, webhookUID).WebhookSettings(webhookSettings).Execute()
 
+Update a webhook by ProductUID
+
 ### Example
 
 ```go
@@ -678,7 +700,7 @@ import (
 
 func main() {
 	productUID := "com.blues.bridge:sensors" // string |
-	webhookUID := "Abc_123-2646f411-dc56-44a0-9743-4130f47a74h8" // string | Webhook UID
+	webhookUID := "ttn-uplink" // string | Webhook ID, e.g. `ttn-uplink`. Use lower case. List with `GetWebhooks`.
 	webhookSettings := *openapiclient.NewWebhookSettings() // WebhookSettings |
 
 	configuration := openapiclient.NewConfiguration()
@@ -693,11 +715,11 @@ func main() {
 
 ### Path Parameters
 
-| Name           | Type                | Description                                                                 | Notes |
-| -------------- | ------------------- | --------------------------------------------------------------------------- | ----- |
-| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc. |
-| **productUID** | **string**          |                                                                             |
-| **webhookUID** | **string**          | Webhook UID                                                                 |
+| Name           | Type                | Description                                                                                 | Notes |
+| -------------- | ------------------- | ------------------------------------------------------------------------------------------- | ----- |
+| **ctx**        | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.                 |
+| **productUID** | **string**          |                                                                                             |
+| **webhookUID** | **string**          | Webhook ID, e.g. &#x60;ttn-uplink&#x60;. Use lower case. List with &#x60;GetWebhooks&#x60;. |
 
 ### Other Parameters
 

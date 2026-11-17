@@ -2,74 +2,15 @@
 
 All URIs are relative to *https://api.notefile.net*
 
-| Method                                                                     | HTTP request           | Description                                          |
-| -------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------- |
-| [**Login**](AuthorizationAPI.md#Login)                                     | **Post** /auth/login   |
-| [**OAuth2ClientCredentials**](AuthorizationAPI.md#OAuth2ClientCredentials) | **Post** /oauth2/token | Issue an OAuth 2.0 access token (Client Credentials) |
-
-## Login
-
-> Login200Response Login(ctx).LoginRequest(loginRequest).Execute()
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/blues/notehub-go"
-)
-
-func main() {
-	loginRequest := *openapiclient.NewLoginRequest() // LoginRequest |
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuthorizationAPI.Login(context.Background()).LoginRequest(loginRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AuthorizationAPI.Login``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `Login`: Login200Response
-	fmt.Fprintf(os.Stdout, "Response from `AuthorizationAPI.Login`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiLoginRequest struct via the builder pattern
-
-| Name             | Type                                | Description | Notes |
-| ---------------- | ----------------------------------- | ----------- | ----- |
-| **loginRequest** | [**LoginRequest**](LoginRequest.md) |             |
-
-### Return type
-
-[**Login200Response**](Login200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
+| Method                                                                     | HTTP request           | Description                                       |
+| -------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------- |
+| [**OAuth2ClientCredentials**](AuthorizationAPI.md#OAuth2ClientCredentials) | **Post** /oauth2/token | Get an access token with OAuth client credentials |
 
 ## OAuth2ClientCredentials
 
 > OAuth2TokenResponse OAuth2ClientCredentials(ctx).ClientId(clientId).ClientSecret(clientSecret).GrantType(grantType).Scope(scope).Execute()
 
-Issue an OAuth 2.0 access token (Client Credentials)
+Get an access token with OAuth client credentials
 
 ### Example
 

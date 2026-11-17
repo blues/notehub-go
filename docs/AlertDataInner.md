@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name            | Type                   | Description                        | Notes      |
-| --------------- | ---------------------- | ---------------------------------- | ---------- |
-| **AlertSource** | Pointer to **string**  | The source of the alert            | [optional] |
-| **Source**      | Pointer to **string**  | The UID of the source of the alert | [optional] |
-| **SourceType**  | Pointer to **string**  | The type of source.                | [optional] |
-| **SourceUid**   | Pointer to **string**  | The UID of the source of the alert | [optional] |
-| **Value**       | Pointer to **float32** | The value that triggered the alert | [optional] |
-| **When**        | Pointer to **string**  | The time the alert was created     | [optional] |
+| Name            | Type                   | Description                                                       | Notes      |
+| --------------- | ---------------------- | ----------------------------------------------------------------- | ---------- |
+| **AlertSource** | Pointer to **string**  | The source of the alert                                           | [optional] |
+| **Source**      | Pointer to **string**  | The UID of the source of the alert                                | [optional] |
+| **SourceType**  | Pointer to **string**  | The &#x60;source_type&#x60; of the monitor that raised the alert. | [optional] |
+| **SourceUid**   | Pointer to **string**  | The UID of the source of the alert                                | [optional] |
+| **Value**       | Pointer to **float32** | The value that triggered the alert                                | [optional] |
+| **When**        | Pointer to **string**  | The time the alert was created                                    | [optional] |
 
 ## Methods
 

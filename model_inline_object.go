@@ -13,6 +13,7 @@ package notehub
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InlineObject type satisfies the MappedNullable interface at compile time
@@ -20,10 +21,11 @@ var _ MappedNullable = &InlineObject{}
 
 // InlineObject struct for InlineObject
 type InlineObject struct {
-	// true when a template is active on the Notefile.
-	Template *bool `json:"template,omitempty"`
-	// The total number of notes active on the Notefile.
-	Total                *int32 `json:"total,omitempty"`
+	Events []Event `json:"events"`
+	// True if there are more events
+	HasMore bool `json:"has_more"`
+	// A legacy cursor, which can be obtained from the `next_cursor` value from a previous call to this endpoint. The results set returned will include this event as its first result if the given identifier is actually the UID of an event. If this EventUID is not found, the parameter is ignored and the results set is the same as if the parameter was not included.
+	NextCursor           string `json:"next_cursor"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -33,8 +35,11 @@ type _InlineObject InlineObject
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInlineObject() *InlineObject {
+func NewInlineObject(events []Event, hasMore bool, nextCursor string) *InlineObject {
 	this := InlineObject{}
+	this.Events = events
+	this.HasMore = hasMore
+	this.NextCursor = nextCursor
 	return &this
 }
 
@@ -46,68 +51,76 @@ func NewInlineObjectWithDefaults() *InlineObject {
 	return &this
 }
 
-// GetTemplate returns the Template field value if set, zero value otherwise.
-func (o *InlineObject) GetTemplate() bool {
-	if o == nil || IsNil(o.Template) {
+// GetEvents returns the Events field value
+func (o *InlineObject) GetEvents() []Event {
+	if o == nil {
+		var ret []Event
+		return ret
+	}
+
+	return o.Events
+}
+
+// GetEventsOk returns a tuple with the Events field value
+// and a boolean to check if the value has been set.
+func (o *InlineObject) GetEventsOk() ([]Event, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Events, true
+}
+
+// SetEvents sets field value
+func (o *InlineObject) SetEvents(v []Event) {
+	o.Events = v
+}
+
+// GetHasMore returns the HasMore field value
+func (o *InlineObject) GetHasMore() bool {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Template
+
+	return o.HasMore
 }
 
-// GetTemplateOk returns a tuple with the Template field value if set, nil otherwise
+// GetHasMoreOk returns a tuple with the HasMore field value
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetTemplateOk() (*bool, bool) {
-	if o == nil || IsNil(o.Template) {
+func (o *InlineObject) GetHasMoreOk() (*bool, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Template, true
+	return &o.HasMore, true
 }
 
-// HasTemplate returns a boolean if a field has been set.
-func (o *InlineObject) HasTemplate() bool {
-	if o != nil && !IsNil(o.Template) {
-		return true
-	}
-
-	return false
+// SetHasMore sets field value
+func (o *InlineObject) SetHasMore(v bool) {
+	o.HasMore = v
 }
 
-// SetTemplate gets a reference to the given bool and assigns it to the Template field.
-func (o *InlineObject) SetTemplate(v bool) {
-	o.Template = &v
-}
-
-// GetTotal returns the Total field value if set, zero value otherwise.
-func (o *InlineObject) GetTotal() int32 {
-	if o == nil || IsNil(o.Total) {
-		var ret int32
+// GetNextCursor returns the NextCursor field value
+func (o *InlineObject) GetNextCursor() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Total
+
+	return o.NextCursor
 }
 
-// GetTotalOk returns a tuple with the Total field value if set, nil otherwise
+// GetNextCursorOk returns a tuple with the NextCursor field value
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetTotalOk() (*int32, bool) {
-	if o == nil || IsNil(o.Total) {
+func (o *InlineObject) GetNextCursorOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Total, true
+	return &o.NextCursor, true
 }
 
-// HasTotal returns a boolean if a field has been set.
-func (o *InlineObject) HasTotal() bool {
-	if o != nil && !IsNil(o.Total) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotal gets a reference to the given int32 and assigns it to the Total field.
-func (o *InlineObject) SetTotal(v int32) {
-	o.Total = &v
+// SetNextCursor sets field value
+func (o *InlineObject) SetNextCursor(v string) {
+	o.NextCursor = v
 }
 
 func (o InlineObject) MarshalJSON() ([]byte, error) {
@@ -120,12 +133,9 @@ func (o InlineObject) MarshalJSON() ([]byte, error) {
 
 func (o InlineObject) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Template) {
-		toSerialize["template"] = o.Template
-	}
-	if !IsNil(o.Total) {
-		toSerialize["total"] = o.Total
-	}
+	toSerialize["events"] = o.Events
+	toSerialize["has_more"] = o.HasMore
+	toSerialize["next_cursor"] = o.NextCursor
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -135,6 +145,29 @@ func (o InlineObject) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *InlineObject) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"events",
+		"has_more",
+		"next_cursor",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInlineObject := _InlineObject{}
 
 	err = json.Unmarshal(data, &varInlineObject)
@@ -148,8 +181,9 @@ func (o *InlineObject) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "template")
-		delete(additionalProperties, "total")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "has_more")
+		delete(additionalProperties, "next_cursor")
 		o.AdditionalProperties = additionalProperties
 	}
 

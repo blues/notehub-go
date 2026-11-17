@@ -20,17 +20,18 @@ var _ MappedNullable = &UpdateFleetRequest{}
 
 // UpdateFleetRequest struct for UpdateFleetRequest
 type UpdateFleetRequest struct {
-	// List of DeviceUIDs to add to fleet
+	// DeviceUIDs to add to the fleet. Each must be in the project and not also in `removeDevices`.
 	AddDevices            []string                           `json:"addDevices,omitempty"`
 	ConnectivityAssurance NullableFleetConnectivityAssurance `json:"connectivity_assurance,omitempty"`
-	// The label for the Fleet.
+	// New fleet name. Empty keeps the current name; a fleet must have one, so `-` returns 400.
 	Label *string `json:"label,omitempty"`
-	// List of DeviceUIDs to remove from fleet
+	// DeviceUIDs to remove from the fleet. Each must be in the project and not also in `addDevices`.
 	RemoveDevices []string `json:"removeDevices,omitempty"`
-	// JSONata expression that will be evaluated to determine device membership into this fleet, if the expression evaluates to a 1, the device will be included, if it evaluates to -1 it will be removed, and if it evaluates to 0 or errors it will be left unchanged.
-	SmartRule        *string `json:"smart_rule,omitempty"`
-	SmartRuleEnabled *bool   `json:"smart_rule_enabled,omitempty"`
-	// A watchdog timer is used to generate an event every N minutes of inactivity. 0 means no watchdog
+	// JSONata expression for smart fleet membership: `1` adds the device, `-1` removes it, and `0` or an error leaves it unchanged.
+	SmartRule *string `json:"smart_rule,omitempty"`
+	// Whether `smart_rule` adds and removes devices. Always send it; omitting it sets `false`.
+	SmartRuleEnabled *bool `json:"smart_rule_enabled,omitempty"`
+	// Minutes of inactivity before Notehub generates a watchdog event. Omit or `0` to keep the current value; a negative value turns it off.
 	WatchdogMins         *int64 `json:"watchdog_mins,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

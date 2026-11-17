@@ -20,7 +20,7 @@ var _ MappedNullable = &DfuActionRequest{}
 
 // DfuActionRequest struct for DfuActionRequest
 type DfuActionRequest struct {
-	// The name of the firmware file
+	// Stored firmware filename to install, as listed by `GetFirmwareInfo`. Required for `update`; ignored for `cancel`.
 	Filename             *string `json:"filename,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

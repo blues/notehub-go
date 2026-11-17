@@ -22,7 +22,7 @@ var _ MappedNullable = &DataSetField{}
 type DataSetField struct {
 	// The datatype of the field
 	Datatype *int32 `json:"datatype,omitempty"`
-	// The JSONata expression that populates this field from the event. Required for a dataset with no rows expression. Must be omitted when the dataset has one: the column is then taken from the row object key matching this field's name, and supplying an expression here is rejected rather than silently ignored.
+	// JSONata expression for this column. Required without the dataset's `rows` expression; must be omitted with it.
 	Jsonata *string `json:"jsonata,omitempty"`
 	// The name of the field
 	Name                 *string `json:"name,omitempty"`

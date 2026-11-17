@@ -19,18 +19,21 @@ import (
 // checks if the NotehubRoute type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &NotehubRoute{}
 
-// NotehubRoute Route resource as stored/returned by the server.
+// NotehubRoute A route, which sends a project's events to a destination. Only the object named by `type` is used.
 type NotehubRoute struct {
 	Aws      *AwsRoute      `json:"aws,omitempty"`
 	Azure    *AzureRoute    `json:"azure,omitempty"`
 	Blynk    *BlynkRoute    `json:"blynk,omitempty"`
 	Datacake *DatacakeRoute `json:"datacake,omitempty"`
-	Disabled *bool          `json:"disabled,omitempty"`
-	Google   *GoogleRoute   `json:"google,omitempty"`
-	Http     *HttpRoute     `json:"http,omitempty"`
-	Label    *string        `json:"label,omitempty"`
-	Modified *time.Time     `json:"modified,omitempty"`
-	Mqtt     *MqttRoute     `json:"mqtt,omitempty"`
+	// If true, the route sends no events.
+	Disabled *bool        `json:"disabled,omitempty"`
+	Google   *GoogleRoute `json:"google,omitempty"`
+	Http     *HttpRoute   `json:"http,omitempty"`
+	// Route name. Required.
+	Label *string `json:"label,omitempty"`
+	// When the route was last changed.
+	Modified *time.Time `json:"modified,omitempty"`
+	Mqtt     *MqttRoute `json:"mqtt,omitempty"`
 	// Optional free-form text for annotating the route.
 	Notes             *string                 `json:"notes,omitempty"`
 	Proxy             *ProxyRoute             `json:"proxy,omitempty"`
@@ -42,9 +45,10 @@ type NotehubRoute struct {
 	SnowpipeStreaming *SnowpipeStreamingRoute `json:"snowpipe_streaming,omitempty"`
 	Thingworx         *ThingworxRoute         `json:"thingworx,omitempty"`
 	Twilio            *TwilioRoute            `json:"twilio,omitempty"`
-	// Mirrors hublib.RouteType.
+	// Route type. Fill in the object named in parentheses. - `http`: send each event to a URL (`http`) - `proxy`: let Notecards make `web.*` requests through Notehub (`proxy`) - `mqtt`: publish to an MQTT broker (`mqtt`) - `google-function`: call a Google Cloud Function (`google`) - `aws-lambda`, `aws-lambda-with-access-key`, `aws-sqs`, `aws-sqs-with-access-key`, `aws-sqs-fifo`, `aws-sqs-fifo-with-access-key`, `aws-sqs-with-role`, `aws-iot-analytics` (`aws`) - `azure-function`, `azure-function-with-key`, `azure-service-bus-with-sas-token` (`azure`) - `snowflake` (`snowflake`); `snowpipe-streaming` (`snowpipe_streaming`) - `s3-archive` (`s3archive`) - `slack-bearer`, `slack-webhook` (`slack`) - `radnote-radresp-fixed-survey`, `radnote-radresp-field-survey`, `radnote-radresp-mobile-survey`, `radnote-radresp-mobile-equipment-survey`, `radnote-missionedge-fixed-survey` (`radnote`) - `thingworx`, `twilio`, `datacake`, `blynk`, `qubitro` (object of the same name)
 	Type *string `json:"type,omitempty"`
-	Uid  *string `json:"uid,omitempty"`
+	// RouteUID, e.g. `route:cbd20093cba58392c9f9bbdd0cdeb1a0`.
+	Uid *string `json:"uid,omitempty"`
 }
 
 // NewNotehubRoute instantiates a new NotehubRoute object

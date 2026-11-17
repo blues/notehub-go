@@ -23,12 +23,15 @@ var _ MappedNullable = &Project{}
 // Project struct for Project
 type Project struct {
 	AdministrativeContact NullableContact `json:"administrative_contact,omitempty"`
-	Created               time.Time       `json:"created"`
-	Label                 string          `json:"label"`
-	Role                  NullableRole    `json:"role,omitempty"`
-	TechnicalContact      NullableContact `json:"technical_contact,omitempty"`
-	Uid                   string          `json:"uid"`
-	AdditionalProperties  map[string]interface{}
+	// When the project was created.
+	Created time.Time `json:"created"`
+	// Project name shown in Notehub.
+	Label            string          `json:"label"`
+	Role             NullableRole    `json:"role,omitempty"`
+	TechnicalContact NullableContact `json:"technical_contact,omitempty"`
+	// ProjectUID, e.g. `app:2606f411-dea6-44a0-9743-1130f57d77d8`.
+	Uid                  string `json:"uid"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Project Project

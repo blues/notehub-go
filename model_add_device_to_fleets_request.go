@@ -21,7 +21,7 @@ var _ MappedNullable = &AddDeviceToFleetsRequest{}
 
 // AddDeviceToFleetsRequest struct for AddDeviceToFleetsRequest
 type AddDeviceToFleetsRequest struct {
-	// The fleetUIDs to add to the device.
+	// FleetUIDs to add the device to.
 	FleetUids            []string `json:"fleet_uids"`
 	AdditionalProperties map[string]interface{}
 }

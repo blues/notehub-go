@@ -20,7 +20,7 @@ var _ MappedNullable = &DeleteNotefilesRequest{}
 
 // DeleteNotefilesRequest struct for DeleteNotefilesRequest
 type DeleteNotefilesRequest struct {
-	// Name of notefiles to delete
+	// Names of the notefiles to delete, e.g. `config.db`.
 	Files                []string `json:"files,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

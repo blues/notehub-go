@@ -20,37 +20,57 @@ import (
 // checks if the Device type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Device{}
 
-// Device struct for Device
+// Device A device in a project. `best_location` is the best of `gps_location`, `triangulated_location` and `tower_location`; each is null when unknown.
 type Device struct {
-	// The best ID for the device, preference for the serial number over device UID
-	BestId               *string                 `json:"best_id,omitempty"`
-	BestLocation         NullableLocation        `json:"best_location,omitempty"`
-	CellularUsage        []SimUsage              `json:"cellular_usage,omitempty"`
-	Contact              NullableContact         `json:"contact,omitempty"`
-	Dfu                  NullableDFUEnv          `json:"dfu,omitempty"`
-	Disabled             *bool                   `json:"disabled,omitempty"`
-	FirmwareHost         *string                 `json:"firmware_host,omitempty"`
-	FirmwareNotecard     *string                 `json:"firmware_notecard,omitempty"`
-	FleetUids            []string                `json:"fleet_uids"`
-	GpsLocation          NullableLocation        `json:"gps_location,omitempty"`
-	HealthLog            []HealthLog             `json:"health_log,omitempty"`
-	LastActivity         NullableTime            `json:"last_activity,omitempty"`
-	ProductUid           string                  `json:"product_uid"`
-	Provisioned          time.Time               `json:"provisioned"`
-	RecentEventCount     []int32                 `json:"recent_event_count,omitempty"`
-	RecentSessionCount   []int32                 `json:"recent_session_count,omitempty"`
-	RecentSessionSeconds []int32                 `json:"recent_session_seconds,omitempty"`
-	RecentWhen           NullableTime            `json:"recent_when,omitempty"`
-	Sensors              []DeviceSensor          `json:"sensors,omitempty"`
-	SerialNumber         *string                 `json:"serial_number,omitempty"`
-	Sku                  *string                 `json:"sku,omitempty"`
-	Tags                 *string                 `json:"tags,omitempty"`
+	// The serial number if set, otherwise the DeviceUID. Use it as a display name.
+	BestId        *string          `json:"best_id,omitempty"`
+	BestLocation  NullableLocation `json:"best_location,omitempty"`
+	CellularUsage []SimUsage       `json:"cellular_usage,omitempty"`
+	Contact       NullableContact  `json:"contact,omitempty"`
+	// True if this device has been deleted. Only present when reading with a `cursor`.
+	Deleted *bool          `json:"deleted,omitempty"`
+	Dfu     NullableDFUEnv `json:"dfu,omitempty"`
+	// True if the device was disabled with `DisableDevice` and can't connect.
+	Disabled *bool `json:"disabled,omitempty"`
+	// Host firmware version, as reported by the device. Usually a JSON string.
+	FirmwareHost *string `json:"firmware_host,omitempty"`
+	// Notecard firmware version, as reported by the device.
+	FirmwareNotecard *string `json:"firmware_notecard,omitempty"`
+	// FleetUIDs of the fleets the device is in.
+	FleetUids   []string         `json:"fleet_uids"`
+	GpsLocation NullableLocation `json:"gps_location,omitempty"`
+	// Not returned by `GetDevice`, `GetDevices` or `GetFleetDevices`; use `GetDeviceHealthLog`.
+	HealthLog []HealthLog `json:"health_log,omitempty"`
+	// When the device was last active in a session. Null if it has never connected.
+	LastActivity NullableTime `json:"last_activity,omitempty"`
+	// ProductUID the device uses, e.g. `com.blues.bridge:sensors`.
+	ProductUid string `json:"product_uid"`
+	// When the device was added to the project.
+	Provisioned time.Time `json:"provisioned"`
+	// Not returned by `GetDevice`, `GetDevices` or `GetFleetDevices`.
+	RecentEventCount []int32 `json:"recent_event_count,omitempty"`
+	// Not returned by `GetDevice`, `GetDevices` or `GetFleetDevices`.
+	RecentSessionCount []int32 `json:"recent_session_count,omitempty"`
+	// Not returned by `GetDevice`, `GetDevices` or `GetFleetDevices`.
+	RecentSessionSeconds []int32 `json:"recent_session_seconds,omitempty"`
+	// Not returned by `GetDevice`, `GetDevices` or `GetFleetDevices`.
+	RecentWhen NullableTime   `json:"recent_when,omitempty"`
+	Sensors    []DeviceSensor `json:"sensors,omitempty"`
+	// Serial number, from the `_sn` environment variable if set. Empty if none.
+	SerialNumber *string `json:"serial_number,omitempty"`
+	// Notecard SKU, e.g. `NOTE-WBNAW`.
+	Sku *string `json:"sku,omitempty"`
+	// Comma-separated tags, from the `_tags` environment variable. Empty if none.
+	Tags *string `json:"tags,omitempty"`
+	// Last reported Notecard temperature, in degrees Celsius.
 	Temperature          float64                 `json:"temperature"`
 	TowerInfo            NullableDeviceTowerInfo `json:"tower_info,omitempty"`
 	TowerLocation        NullableLocation        `json:"tower_location,omitempty"`
 	TriangulatedLocation NullableLocation        `json:"triangulated_location,omitempty"`
-	Uid                  string                  `json:"uid"`
-	Voltage              float64                 `json:"voltage"`
+	// DeviceUID, e.g. `dev:864475040509284`.
+	Uid string `json:"uid"`
+	// Last reported supply voltage, in volts.
+	Voltage              float64 `json:"voltage"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -227,6 +247,38 @@ func (o *Device) SetContactNil() {
 // UnsetContact ensures that no value is present for Contact, not even an explicit nil
 func (o *Device) UnsetContact() {
 	o.Contact.Unset()
+}
+
+// GetDeleted returns the Deleted field value if set, zero value otherwise.
+func (o *Device) GetDeleted() bool {
+	if o == nil || IsNil(o.Deleted) {
+		var ret bool
+		return ret
+	}
+	return *o.Deleted
+}
+
+// GetDeletedOk returns a tuple with the Deleted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Device) GetDeletedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Deleted) {
+		return nil, false
+	}
+	return o.Deleted, true
+}
+
+// HasDeleted returns a boolean if a field has been set.
+func (o *Device) HasDeleted() bool {
+	if o != nil && !IsNil(o.Deleted) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
+func (o *Device) SetDeleted(v bool) {
+	o.Deleted = &v
 }
 
 // GetDfu returns the Dfu field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1048,6 +1100,9 @@ func (o Device) ToMap() (map[string]interface{}, error) {
 	if o.Contact.IsSet() {
 		toSerialize["contact"] = o.Contact.Get()
 	}
+	if !IsNil(o.Deleted) {
+		toSerialize["deleted"] = o.Deleted
+	}
 	if o.Dfu.IsSet() {
 		toSerialize["dfu"] = o.Dfu.Get()
 	}
@@ -1160,6 +1215,7 @@ func (o *Device) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "best_location")
 		delete(additionalProperties, "cellular_usage")
 		delete(additionalProperties, "contact")
+		delete(additionalProperties, "deleted")
 		delete(additionalProperties, "dfu")
 		delete(additionalProperties, "disabled")
 		delete(additionalProperties, "firmware_host")

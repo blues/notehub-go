@@ -21,12 +21,13 @@ var _ MappedNullable = &CreateProductRequest{}
 
 // CreateProductRequest struct for CreateProductRequest
 type CreateProductRequest struct {
+	// FleetUIDs that devices are added to when first provisioned with this ProductUID.
 	AutoProvisionFleets []string `json:"auto_provision_fleets,omitempty"`
-	// If `true`, devices provisioned to this product will be automatically disabled by default.
+	// If `true`, devices provisioned with this ProductUID start out disabled.
 	DisableDevicesByDefault *bool `json:"disable_devices_by_default,omitempty"`
-	// The label for the Product.
+	// Product name shown in Notehub.
 	Label string `json:"label"`
-	// The requested uid for the Product. Will be prefixed with the user's reversed email.
+	// Suffix of the new ProductUID. Must start with a lowercase letter and contain only lowercase letters, digits, `.`, `_` or `-`.
 	ProductUid           string `json:"product_uid"`
 	AdditionalProperties map[string]interface{}
 }

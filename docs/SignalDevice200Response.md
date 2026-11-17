@@ -2,9 +2,9 @@
 
 ## Properties
 
-| Name          | Type                | Description                                   | Notes      |
-| ------------- | ------------------- | --------------------------------------------- | ---------- |
-| **Connected** | Pointer to **bool** | true if the Notecard is connected to Notehub. | [optional] |
+| Name          | Type                | Description                                                                                  | Notes      |
+| ------------- | ------------------- | -------------------------------------------------------------------------------------------- | ---------- |
+| **Connected** | Pointer to **bool** | True if the Notecard was connected and the signal was delivered. False means it was dropped. | [optional] |
 
 ## Methods
 

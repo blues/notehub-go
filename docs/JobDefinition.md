@@ -2,13 +2,13 @@
 
 ## Properties
 
-| Name                | Type                                                                       | Description                                            | Notes      |
-| ------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------ | ---------- |
-| **Comment**         | Pointer to **string**                                                      | Human-readable description of the job                  | [optional] |
-| **DefaultRequests** | Pointer to [**BatchJobRequests**](BatchJobRequests.md)                     |                                                        | [optional] |
-| **DeviceRequests**  | Pointer to [**map[string]BatchJobRequests**](BatchJobRequests.md)          | Device-specific request overrides, keyed by device UID | [optional] |
-| **ReportOptions**   | Pointer to [**JobDefinitionReportOptions**](JobDefinitionReportOptions.md) |                                                        | [optional] |
-| **Select**          | Pointer to [**JobDefinitionSelect**](JobDefinitionSelect.md)               |                                                        | [optional] |
+| Name                | Type                                                                       | Description                                           | Notes      |
+| ------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------- | ---------- |
+| **Comment**         | Pointer to **string**                                                      | Human-readable description of the job                 | [optional] |
+| **DefaultRequests** | Pointer to [**BatchJobRequests**](BatchJobRequests.md)                     |                                                       | [optional] |
+| **DeviceRequests**  | Pointer to [**map[string]BatchJobRequests**](BatchJobRequests.md)          | Device-specific request overrides, keyed by DeviceUID | [optional] |
+| **ReportOptions**   | Pointer to [**JobDefinitionReportOptions**](JobDefinitionReportOptions.md) |                                                       | [optional] |
+| **Select**          | Pointer to [**JobDefinitionSelect**](JobDefinitionSelect.md)               |                                                       | [optional] |
 
 ## Methods
 

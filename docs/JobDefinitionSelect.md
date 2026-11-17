@@ -6,9 +6,9 @@
 | ------------------- | ----------------------- | --------------------------------------------------------------------- | ---------- |
 | **AllDevices**      | Pointer to **bool**     | Select all devices in the project                                     | [optional] |
 | **Comment**         | Pointer to **string**   |                                                                       | [optional] |
-| **Devices**         | Pointer to **[]string** | Specific device UIDs to include                                       | [optional] |
+| **Devices**         | Pointer to **[]string** | Specific DeviceUIDs to include                                        | [optional] |
 | **DevicesBySn**     | Pointer to **[]string** | Serial number patterns to match (supports glob wildcards *, ?, [...]) | [optional] |
-| **DevicesInFleets** | Pointer to **[]string** | Fleet UIDs whose devices should be included                           | [optional] |
+| **DevicesInFleets** | Pointer to **[]string** | FleetUIDs whose devices should be included                            | [optional] |
 
 ## Methods
 

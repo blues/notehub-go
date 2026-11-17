@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// Role the model 'Role'
+// Role A role in a project; `null` when the caller has no role in it. - `owner`: full access, including members and billing - `developer`: manage devices, fleets, routes and settings - `viewer`: read-only - `support`: temporary access granted to Blues support
 type Role string
 
 // List of Role

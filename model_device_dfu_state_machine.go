@@ -25,7 +25,8 @@ type DeviceDfuStateMachine struct {
 	// RFC3339 datetime of when this update was requested
 	Initiated *string `json:"initiated,omitempty"`
 	// Version of the firmware that was requested to be installed
-	RequestedVersion     *string                     `json:"requested_version,omitempty"`
+	RequestedVersion *string `json:"requested_version,omitempty"`
+	// Status updates reported for this firmware update.
 	Updates              []DeviceDfuStateMachineNode `json:"updates,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

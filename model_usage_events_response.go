@@ -22,7 +22,7 @@ var _ MappedNullable = &UsageEventsResponse{}
 // UsageEventsResponse struct for UsageEventsResponse
 type UsageEventsResponse struct {
 	Data []UsageEventsData `json:"data"`
-	// If the data is truncated that means that the parameters selected resulted in a response of over | the requested limit of data points, in order to ensure
+	// True if there were more data points than `limit`; only the first `limit` are returned.
 	Truncated            *bool `json:"truncated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

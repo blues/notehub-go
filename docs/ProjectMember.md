@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name      | Type                        | Description                                                                                                             | Notes |
-| --------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----- |
-| **Email** | **string**                  | The email address of the project member. This property will only be populated if the viewer is an owner of the project. |
-| **Name**  | **string**                  |                                                                                                                         |
-| **Role**  | [**NullableRole**](Role.md) |                                                                                                                         |
+| Name      | Type                        | Description                                                                         | Notes |
+| --------- | --------------------------- | ----------------------------------------------------------------------------------- | ----- |
+| **Email** | **string**                  | The member&#39;s email address. Empty unless the caller is an Owner of the project. |
+| **Name**  | **string**                  | The member&#39;s display name.                                                      |
+| **Role**  | [**NullableRole**](Role.md) |                                                                                     |
 
 ## Methods
 

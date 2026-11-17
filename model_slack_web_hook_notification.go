@@ -20,9 +20,9 @@ var _ MappedNullable = &SlackWebHookNotification{}
 
 // SlackWebHookNotification struct for SlackWebHookNotification
 type SlackWebHookNotification struct {
-	// text or blocks
+	// How `text` is read. - `text`: plain message text - `blocks`: a Slack Block Kit JSON definition
 	MessageType *string `json:"message_type,omitempty"`
-	// The text of the message, or the blocks definition
+	// The message, or Block Kit JSON. Event placeholders such as `[.body.temp]` aren't allowed.
 	Text *string `json:"text,omitempty"`
 	// The URL of the Slack webhook.
 	Url                  *string `json:"url,omitempty"`

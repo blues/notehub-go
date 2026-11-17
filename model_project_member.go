@@ -21,8 +21,9 @@ var _ MappedNullable = &ProjectMember{}
 
 // ProjectMember struct for ProjectMember
 type ProjectMember struct {
-	// The email address of the project member. This property will only be populated if the viewer is an owner of the project.
-	Email                string       `json:"email"`
+	// The member's email address. Empty unless the caller is an Owner of the project.
+	Email string `json:"email"`
+	// The member's display name.
 	Name                 string       `json:"name"`
 	Role                 NullableRole `json:"role"`
 	AdditionalProperties map[string]interface{}

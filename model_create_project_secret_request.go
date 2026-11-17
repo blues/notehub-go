@@ -21,9 +21,9 @@ var _ MappedNullable = &CreateProjectSecretRequest{}
 
 // CreateProjectSecretRequest struct for CreateProjectSecretRequest
 type CreateProjectSecretRequest struct {
-	// The secret name (alphanumeric and underscores only).
+	// 1 to 64 letters, digits or underscores. Routes and alerts reference the secret as `[$$name]`.
 	Name string `json:"name"`
-	// The secret value (encrypted at rest, never returned after creation).
+	// The secret value. Encrypted at rest and never returned.
 	Value                string `json:"value"`
 	AdditionalProperties map[string]interface{}
 }

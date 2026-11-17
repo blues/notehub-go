@@ -2,16 +2,16 @@
 
 ## Properties
 
-| Name             | Type                                     | Description                                                                            | Notes      |
-| ---------------- | ---------------------------------------- | -------------------------------------------------------------------------------------- | ---------- |
-| **Activated**    | Pointer to **int64**                     | Unix timestamp of when the SIM was activated                                           | [optional] |
-| **DataUsage**    | Pointer to [**DataUsage**](DataUsage.md) |                                                                                        | [optional] |
-| **ExpiresAt**    | Pointer to **int64**                     |                                                                                        | [optional] |
-| **Iccid**        | Pointer to **string**                    | The Integrated Circuit Card Identifier of the SIM card                                 | [optional] |
-| **Imsi**         | Pointer to **string**                    | IMSI of the SIM card                                                                   | [optional] |
-| **LastUpdated**  | Pointer to **int64**                     | Time this plan information was last updated                                            | [optional] |
-| **LifetimeUsed** | Pointer to **int64**                     | Total bytes used by this SIM                                                           | [optional] |
-| **PlanType**     | Pointer to **string**                    | Description of the SIM plan type including data allowance, region, and validity period | [optional] |
+| Name             | Type                                     | Description                                                                                    | Notes      |
+| ---------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------- |
+| **Activated**    | Pointer to **int64**                     | Unix timestamp of when the SIM was activated                                                   | [optional] |
+| **DataUsage**    | Pointer to [**DataUsage**](DataUsage.md) |                                                                                                | [optional] |
+| **ExpiresAt**    | Pointer to **int64**                     | When the current plan expires, as a Unix timestamp in seconds. Omitted on the Essentials plan. | [optional] |
+| **Iccid**        | Pointer to **string**                    | The Integrated Circuit Card Identifier of the SIM card                                         | [optional] |
+| **Imsi**         | Pointer to **string**                    | IMSI of the SIM card                                                                           | [optional] |
+| **LastUpdated**  | Pointer to **int64**                     | When this plan information was last updated, as a Unix timestamp in seconds.                   | [optional] |
+| **LifetimeUsed** | Pointer to **int64**                     | Total bytes used by this SIM                                                                   | [optional] |
+| **PlanType**     | Pointer to **string**                    | Description of the SIM plan type including data allowance, region, and validity period         | [optional] |
 
 ## Methods
 

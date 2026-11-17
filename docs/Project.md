@@ -2,14 +2,14 @@
 
 ## Properties
 
-| Name                      | Type                                         | Description | Notes      |
-| ------------------------- | -------------------------------------------- | ----------- | ---------- |
-| **AdministrativeContact** | Pointer to [**NullableContact**](Contact.md) |             | [optional] |
-| **Created**               | **time.Time**                                |             |
-| **Label**                 | **string**                                   |             |
-| **Role**                  | Pointer to [**NullableRole**](Role.md)       |             | [optional] |
-| **TechnicalContact**      | Pointer to [**NullableContact**](Contact.md) |             | [optional] |
-| **Uid**                   | **string**                                   |             |
+| Name                      | Type                                         | Description                                                            | Notes      |
+| ------------------------- | -------------------------------------------- | ---------------------------------------------------------------------- | ---------- |
+| **AdministrativeContact** | Pointer to [**NullableContact**](Contact.md) |                                                                        | [optional] |
+| **Created**               | **time.Time**                                | When the project was created.                                          |
+| **Label**                 | **string**                                   | Project name shown in Notehub.                                         |
+| **Role**                  | Pointer to [**NullableRole**](Role.md)       |                                                                        | [optional] |
+| **TechnicalContact**      | Pointer to [**NullableContact**](Contact.md) |                                                                        | [optional] |
+| **Uid**                   | **string**                                   | ProjectUID, e.g. &#x60;app:2606f411-dea6-44a0-9743-1130f57d77d8&#x60;. |
 
 ## Methods
 

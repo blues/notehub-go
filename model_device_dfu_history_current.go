@@ -30,7 +30,7 @@ type DeviceDfuHistoryCurrent struct {
 	Organization *string `json:"organization,omitempty"`
 	// Firmware product
 	Product *string `json:"product,omitempty"`
-	// Firmware version
+	// Firmware version the device runs, or `Unknown (device has not fully sync'd)`.
 	Version              *string `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

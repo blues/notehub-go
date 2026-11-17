@@ -20,8 +20,10 @@ var _ MappedNullable = &CreateUpdateRepository{}
 
 // CreateUpdateRepository struct for CreateUpdateRepository
 type CreateUpdateRepository struct {
-	FleetUids            []string `json:"fleet_uids,omitempty"`
-	Name                 *string  `json:"name,omitempty"`
+	FleetUids []string `json:"fleet_uids,omitempty"`
+	// Repository name.
+	Name *string `json:"name,omitempty"`
+	// The project whose events the repository holds. A repository can reference at most one project.
 	ProjectUids          []string `json:"project_uids,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

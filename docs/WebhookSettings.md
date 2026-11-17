@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name          | Type                  | Description                                | Notes      |
-| ------------- | --------------------- | ------------------------------------------ | ---------- |
-| **Disabled**  | Pointer to **bool**   | Flag indicating if the webhook is disabled | [optional] |
-| **Id**        | Pointer to **string** | Webhook ID                                 | [optional] |
-| **Transform** | Pointer to **string** | Transformation to be applied to the event  | [optional] |
+| Name          | Type                  | Description                                                                                                                                                                     | Notes      |
+| ------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Disabled**  | Pointer to **bool**   | If true, posts to the webhook return an error and create no events.                                                                                                             | [optional] |
+| **Id**        | Pointer to **string** | Webhook ID, also the default notefile name (&#x60;&lt;id&gt;.qo&#x60;). Letters, digits, &#x60;-&#x60; and &#x60;_&#x60;.                                                       | [optional] |
+| **Transform** | Pointer to **string** | JSONata expression applied to the event, with the post under &#x60;body&#x60;. Its output replaces the event and must set &#x60;body&#x60;. &#x60;$doNotRoute()&#x60; drops it. | [optional] |
 
 ## Methods
 

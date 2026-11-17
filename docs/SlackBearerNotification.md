@@ -2,12 +2,12 @@
 
 ## Properties
 
-| Name            | Type                  | Description                                       | Notes      |
-| --------------- | --------------------- | ------------------------------------------------- | ---------- |
-| **Channel**     | Pointer to **string** | The channel to send the message to.               | [optional] |
-| **MessageType** | Pointer to **string** | text or blocks                                    | [optional] |
-| **Text**        | Pointer to **string** | The text of the message, or the blocks definition | [optional] |
-| **Token**       | Pointer to **string** | The bearer token for the Slack app.               | [optional] |
+| Name            | Type                  | Description                                                                                                                  | Notes      |
+| --------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Channel**     | Pointer to **string** | The channel to send the message to.                                                                                          | [optional] |
+| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition | [optional] |
+| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                      | [optional] |
+| **Token**       | Pointer to **string** | The bearer token for the Slack app.                                                                                          | [optional] |
 
 ## Methods
 
