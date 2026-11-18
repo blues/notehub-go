@@ -23,6 +23,7 @@ type MonitorAlertRoutesInner struct {
 	EmailNotification        *EmailNotification
 	SlackBearerNotification  *SlackBearerNotification
 	SlackWebHookNotification *SlackWebHookNotification
+	TwilioNotification       *TwilioNotification
 }
 
 // EmailNotificationAsMonitorAlertRoutesInner is a convenience function that returns EmailNotification wrapped in MonitorAlertRoutesInner
@@ -43,6 +44,13 @@ func SlackBearerNotificationAsMonitorAlertRoutesInner(v *SlackBearerNotification
 func SlackWebHookNotificationAsMonitorAlertRoutesInner(v *SlackWebHookNotification) MonitorAlertRoutesInner {
 	return MonitorAlertRoutesInner{
 		SlackWebHookNotification: v,
+	}
+}
+
+// TwilioNotificationAsMonitorAlertRoutesInner is a convenience function that returns TwilioNotification wrapped in MonitorAlertRoutesInner
+func TwilioNotificationAsMonitorAlertRoutesInner(v *TwilioNotification) MonitorAlertRoutesInner {
+	return MonitorAlertRoutesInner{
+		TwilioNotification: v,
 	}
 }
 
@@ -101,11 +109,29 @@ func (dst *MonitorAlertRoutesInner) UnmarshalJSON(data []byte) error {
 		dst.SlackWebHookNotification = nil
 	}
 
+	// try to unmarshal data into TwilioNotification
+	err = newStrictDecoder(data).Decode(&dst.TwilioNotification)
+	if err == nil {
+		jsonTwilioNotification, _ := json.Marshal(dst.TwilioNotification)
+		if string(jsonTwilioNotification) == "{}" { // empty struct
+			dst.TwilioNotification = nil
+		} else {
+			if err = validator.Validate(dst.TwilioNotification); err != nil {
+				dst.TwilioNotification = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.TwilioNotification = nil
+	}
+
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.EmailNotification = nil
 		dst.SlackBearerNotification = nil
 		dst.SlackWebHookNotification = nil
+		dst.TwilioNotification = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(MonitorAlertRoutesInner)")
 	} else if match == 1 {
@@ -129,6 +155,10 @@ func (src MonitorAlertRoutesInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.SlackWebHookNotification)
 	}
 
+	if src.TwilioNotification != nil {
+		return json.Marshal(&src.TwilioNotification)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -149,6 +179,10 @@ func (obj *MonitorAlertRoutesInner) GetActualInstance() interface{} {
 		return obj.SlackWebHookNotification
 	}
 
+	if obj.TwilioNotification != nil {
+		return obj.TwilioNotification
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -165,6 +199,10 @@ func (obj MonitorAlertRoutesInner) GetActualInstanceValue() interface{} {
 
 	if obj.SlackWebHookNotification != nil {
 		return *obj.SlackWebHookNotification
+	}
+
+	if obj.TwilioNotification != nil {
+		return *obj.TwilioNotification
 	}
 
 	// all schemas are nil

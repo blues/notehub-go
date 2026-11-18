@@ -20,7 +20,7 @@ var _ MappedNullable = &AlertNotificationsInner{}
 
 // AlertNotificationsInner struct for AlertNotificationsInner
 type AlertNotificationsInner struct {
-	// The type of notification
+	// How the notification was sent. - `email`: by email - `slack-webhook`: to a Slack webhook - `slack-bearer`: through a Slack app, with a bearer token - `twilio`: by SMS, through Twilio
 	NotificationType *string `json:"notification_type,omitempty"`
 	// The recipients of the notification
 	Recipients *string `json:"recipients,omitempty"`

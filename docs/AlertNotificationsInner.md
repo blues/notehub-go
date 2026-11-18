@@ -2,11 +2,11 @@
 
 ## Properties
 
-| Name                 | Type                   | Description                        | Notes      |
-| -------------------- | ---------------------- | ---------------------------------- | ---------- |
-| **NotificationType** | Pointer to **string**  | The type of notification           | [optional] |
-| **Recipients**       | Pointer to **string**  | The recipients of the notification | [optional] |
-| **Status**           | Pointer to **float32** | The status of the notification     | [optional] |
+| Name                 | Type                   | Description                                                                                                                                                                                                                    | Notes      |
+| -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
+| **NotificationType** | Pointer to **string**  | How the notification was sent. - &#x60;email&#x60;: by email - &#x60;slack-webhook&#x60;: to a Slack webhook - &#x60;slack-bearer&#x60;: through a Slack app, with a bearer token - &#x60;twilio&#x60;: by SMS, through Twilio | [optional] |
+| **Recipients**       | Pointer to **string**  | The recipients of the notification                                                                                                                                                                                             | [optional] |
+| **Status**           | Pointer to **float32** | The status of the notification                                                                                                                                                                                                 | [optional] |
 
 ## Methods
 

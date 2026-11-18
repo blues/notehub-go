@@ -188,6 +188,7 @@ docs/SnowflakeRoute.md
 docs/SnowpipeStreamingRoute.md
 docs/ThingworxRoute.md
 docs/TowerLocation.md
+docs/TwilioNotification.md
 docs/TwilioRoute.md
 docs/UpdateFleetRequest.md
 docs/UpdateHostFirmwareRequest.md
@@ -368,6 +369,7 @@ model_snowflake_route.go
 model_snowpipe_streaming_route.go
 model_thingworx_route.go
 model_tower_location.go
+model_twilio_notification.go
 model_twilio_route.go
 model_update_fleet_request.go
 model_update_host_firmware_request.go

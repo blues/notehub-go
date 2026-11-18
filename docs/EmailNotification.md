@@ -2,15 +2,15 @@
 
 ## Properties
 
-| Name      | Type                  | Description                                    | Notes      |
-| --------- | --------------------- | ---------------------------------------------- | ---------- |
-| **Email** | Pointer to **string** | Email address, or several separated by commas. | [optional] |
+| Name      | Type       | Description                                    | Notes |
+| --------- | ---------- | ---------------------------------------------- | ----- |
+| **Email** | **string** | Email address, or several separated by commas. |
 
 ## Methods
 
 ### NewEmailNotification
 
-`func NewEmailNotification() *EmailNotification`
+`func NewEmailNotification(email string, ) *EmailNotification`
 
 NewEmailNotification instantiates a new EmailNotification object
 This constructor will assign default values to properties that have it defined,
@@ -43,11 +43,5 @@ and a boolean to check if the value has been set.
 `func (o *EmailNotification) SetEmail(v string)`
 
 SetEmail sets Email field to given value.
-
-### HasEmail
-
-`func (o *EmailNotification) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
