@@ -2,73 +2,116 @@
 
 ## Properties
 
-| Name                 | Type                                  | Description                                                                                                                                           | Notes      |
-| -------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **App**              | Pointer to **string**                 | AppUID (globally unique)                                                                                                                              | [optional] |
-| **Bars**             | Pointer to **int32**                  | Bars. Only available on _session.qo events.                                                                                                           | [optional] |
-| **BestCountry**      | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
-| **BestId**           | Pointer to **string**                 | The device serial number, or the DeviceUID if the serial number is not set                                                                            | [optional] |
-| **BestLat**          | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
-| **BestLocation**     | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
-| **BestLocationType** | Pointer to **string**                 | One of \&quot;gps\&quot;, \&quot;triangulated\&quot;, or \&quot;tower\&quot;                                                                          | [optional] |
-| **BestLocationWhen** | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
-| **BestLon**          | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
-| **BestTimezone**     | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
-| **Body**             | Pointer to **map[string]interface{}** | A JSON object containing event details                                                                                                                | [optional] |
-| **Bssid**            | Pointer to **string**                 | BSSID. Only available on _session.qo events.                                                                                                          | [optional] |
-| **Deleted**          | Pointer to **bool**                   | True if this event has been deleted. Only present when reading with a &#x60;cursor&#x60;.                                                             | [optional] |
-| **Device**           | Pointer to **string**                 | DeviceUID (globally unique)                                                                                                                           | [optional] |
-| **Environment**      | Pointer to **map[string]interface{}** | Routed environment variables beginning with \&quot;$\&quot;. Only available on _session.qo events.                                                    | [optional] |
-| **Event**            | Pointer to **string**                 | EventUID (globally unique)                                                                                                                            | [optional] |
-| **File**             | Pointer to **string**                 | The notefile associated with this event                                                                                                               | [optional] |
-| **Moved**            | Pointer to **int64**                  | The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.              | [optional] |
-| **Note**             | Pointer to **string**                 | The note ID in the notefile                                                                                                                           | [optional] |
-| **OrderingCode**     | Pointer to **string**                 | Ordering code. Only available on _session.qo events.                                                                                                  | [optional] |
-| **Orientation**      | Pointer to **string**                 | The orientation of the device. Only available on _session.qo events.                                                                                  | [optional] |
-| **Payload**          | Pointer to **string**                 | A base64-encoded binary payload                                                                                                                       | [optional] |
-| **Platform**         | Pointer to **bool**                   | Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data                                                 | [optional] |
-| **Product**          | Pointer to **string**                 | ProductUID (globally unique)                                                                                                                          | [optional] |
-| **Rat**              | Pointer to **string**                 | Rat. Only available on _session.qo events.                                                                                                            | [optional] |
-| **Received**         | Pointer to **float64**                | The unix timestamp when the event was received                                                                                                        | [optional] |
-| **Req**              | Pointer to **string**                 | The notecard request                                                                                                                                  | [optional] |
-| **Rsrp**             | Pointer to **int32**                  | RSRP. Only available on _session.qo events.                                                                                                           | [optional] |
-| **Rsrq**             | Pointer to **int32**                  | RSRQ. Only available on _session.qo events.                                                                                                           | [optional] |
-| **Rssi**             | Pointer to **int32**                  | Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events. | [optional] |
-| **Sensor**           | Pointer to **string**                 | SensorUID, for events originating from a sensor attached to the device                                                                                | [optional] |
-| **Session**          | Pointer to **string**                 | SessionUID (globally unique)                                                                                                                          | [optional] |
-| **Sinr**             | Pointer to **int32**                  | SINR. Only available on _session.qo events.                                                                                                           | [optional] |
-| **Sku**              | Pointer to **string**                 | SKU. Only available on _session.qo events.                                                                                                            | [optional] |
-| **Sn**               | Pointer to **string**                 | The device serial number                                                                                                                              | [optional] |
-| **Ssid**             | Pointer to **string**                 | SSID. Only available on _session.qo events.                                                                                                           | [optional] |
-| **Temp**             | Pointer to **float64**                | Device temperature. Only available on _session.qo events.                                                                                             | [optional] |
-| **Tls**              | Pointer to **bool**                   | Whether TLS was used on the connection between the device and notehub. Only available on _session.qo events.                                          | [optional] |
-| **TowerCountry**     | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
-| **TowerId**          | Pointer to **string**                 | Tower ID                                                                                                                                              | [optional] |
-| **TowerLat**         | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
-| **TowerLocation**    | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
-| **TowerLon**         | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
-| **TowerTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
-| **TowerWhen**        | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
-| **Transport**        | Pointer to **string**                 | The transport used for this event, e.g., \&quot;cellular\&quot;, \&quot;wifi\&quot;, \&quot;, etc.                                                    | [optional] |
-| **TriCountry**       | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
-| **TriLat**           | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
-| **TriLocation**      | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
-| **TriLon**           | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
-| **TriPoints**        | Pointer to **int32**                  | Triangulation points                                                                                                                                  | [optional] |
-| **TriTimezone**      | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
-| **TriWhen**          | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
-| **Updates**          | Pointer to **int32**                  |                                                                                                                                                       | [optional] |
-| **Voltage**          | Pointer to **float64**                | Device voltage. Only available on _session.qo events.                                                                                                 | [optional] |
-| **When**             | Pointer to **int64**                  | When the event was captured on the device                                                                                                             | [optional] |
-| **WhenMs**           | Pointer to **int64**                  | Millisecond-accurate Unix epoch timestamp for when the event was captured on the device                                                               | [optional] |
-| **WhereCountry**     | Pointer to **string**                 | Country                                                                                                                                               | [optional] |
-| **WhereLat**         | Pointer to **float64**                | Latitude                                                                                                                                              | [optional] |
-| **WhereLocation**    | Pointer to **string**                 | Location                                                                                                                                              | [optional] |
-| **WhereLon**         | Pointer to **float64**                | Longitude                                                                                                                                             | [optional] |
-| **WhereOlc**         | Pointer to **string**                 | Open Location Code                                                                                                                                    | [optional] |
-| **WhereTimezone**    | Pointer to **string**                 | Timezone                                                                                                                                              | [optional] |
-| **WhereWhen**        | Pointer to **int64**                  | Unix timestamp                                                                                                                                        | [optional] |
-| **WireLength**       | Pointer to **int64**                  | Approximate number of bytes that the note&#39;s body and payload occupied on the wire when transmitted from the device to Notehub                     | [optional] |
+| Name                       | Type                                                     | Description                                                                                                                                           | Notes      |
+| -------------------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Apn**                    | Pointer to **string**                                    | Cellular APN. Only available on _session.qo events.                                                                                                   | [optional] |
+| **App**                    | Pointer to **string**                                    | AppUID (globally unique)                                                                                                                              | [optional] |
+| **Bars**                   | Pointer to **int32**                                     | Bars. Only available on _session.qo events.                                                                                                           | [optional] |
+| **BatchNumber**            | Pointer to **int64**                                     | The 1-based position of this event within its batch                                                                                                   | [optional] |
+| **BatchReceived**          | Pointer to **float64**                                   | The unix timestamp when the enclosing batch was received                                                                                              | [optional] |
+| **BatchTotal**             | Pointer to **int64**                                     | The total number of events in the enclosing batch                                                                                                     | [optional] |
+| **Bearer**                 | Pointer to **string**                                    | Network bearer. Only available on _session.qo events.                                                                                                 | [optional] |
+| **BestCountry**            | Pointer to **string**                                    | Country                                                                                                                                               | [optional] |
+| **BestId**                 | Pointer to **string**                                    | The device serial number, or the DeviceUID if the serial number is not set                                                                            | [optional] |
+| **BestLat**                | Pointer to **float64**                                   | Latitude                                                                                                                                              | [optional] |
+| **BestLocation**           | Pointer to **string**                                    | Location                                                                                                                                              | [optional] |
+| **BestLocationType**       | Pointer to **string**                                    | One of \&quot;gps\&quot;, \&quot;triangulated\&quot;, or \&quot;tower\&quot;                                                                          | [optional] |
+| **BestLocationWhen**       | Pointer to **int64**                                     | Unix timestamp                                                                                                                                        | [optional] |
+| **BestLon**                | Pointer to **float64**                                   | Longitude                                                                                                                                             | [optional] |
+| **BestTimezone**           | Pointer to **string**                                    | Timezone                                                                                                                                              | [optional] |
+| **Body**                   | Pointer to **map[string]interface{}**                    | A JSON object containing event details                                                                                                                | [optional] |
+| **Bssid**                  | Pointer to **string**                                    | BSSID. Only available on _session.qo events.                                                                                                          | [optional] |
+| **Bulk**                   | Pointer to **bool**                                      | Whether the event originated from a bulk/binary data transfer. Not emitted by the events endpoints.                                                   | [optional] |
+| **CardRcvdBytes**          | Pointer to **int64**                                     | Bytes received by the Notecard during this session. Only available on _session.qo events.                                                             | [optional] |
+| **CardRcvdBytesSecondary** | Pointer to **int64**                                     | Bytes received by the Notecard over its secondary interface. Only available on _session.qo events.                                                    | [optional] |
+| **CardRcvdNotes**          | Pointer to **int64**                                     | Notes received by the Notecard during this session. Only available on _session.qo events.                                                             | [optional] |
+| **CardSentBytes**          | Pointer to **int64**                                     | Bytes sent by the Notecard during this session. Only available on _session.qo events.                                                                 | [optional] |
+| **CardSentBytesSecondary** | Pointer to **int64**                                     | Bytes sent by the Notecard over its secondary interface. Only available on _session.qo events.                                                        | [optional] |
+| **CardSentNotes**          | Pointer to **int64**                                     | Notes sent by the Notecard during this session. Only available on _session.qo events.                                                                 | [optional] |
+| **CardTcpSessions**        | Pointer to **int64**                                     | TCP sessions opened by the Notecard during this session. Only available on _session.qo events.                                                        | [optional] |
+| **CardTlsSessions**        | Pointer to **int64**                                     | TLS sessions opened by the Notecard during this session. Only available on _session.qo events.                                                        | [optional] |
+| **Cellid**                 | Pointer to **string**                                    | Cell ID where the session originated. Only available on _session.qo events.                                                                           | [optional] |
+| **Continuous**             | Pointer to **bool**                                      | Whether the device was using a continuous connection for this session                                                                                 | [optional] |
+| **Deleted**                | Pointer to **bool**                                      | True if this event has been deleted. Only present when reading with a &#x60;cursor&#x60;.                                                             | [optional] |
+| **Details**                | Pointer to **map[string]interface{}**                    | Additional structured detail about the event, e.g. the text lines carried by a _health.qo event                                                       | [optional] |
+| **Device**                 | Pointer to **string**                                    | DeviceUID (globally unique)                                                                                                                           | [optional] |
+| **Environment**            | Pointer to **map[string]string**                         | Routed environment variables beginning with \&quot;$\&quot;. Only available on _session.qo events.                                                    | [optional] |
+| **Err**                    | Pointer to **string**                                    | Error text associated with processing or routing this event, if any                                                                                   | [optional] |
+| **Event**                  | Pointer to **string**                                    | EventUID (globally unique)                                                                                                                            | [optional] |
+| **File**                   | Pointer to **string**                                    | The notefile associated with this event                                                                                                               | [optional] |
+| **Firmware**               | Pointer to **int64**                                     | Device firmware version as an integer. Only available on _session.qo events.                                                                          | [optional] |
+| **FirmwareHost**           | Pointer to **string**                                    | The host firmware version reported by the device                                                                                                      | [optional] |
+| **FirmwareNotecard**       | Pointer to **string**                                    | The Notecard firmware version reported by the device                                                                                                  | [optional] |
+| **Fleets**                 | Pointer to **[]string**                                  | Array of Fleet UIDs the device belonged to when the event was created                                                                                 | [optional] |
+| **HubDurationSecs**        | Pointer to **int64**                                     | Duration of the session in seconds. Only available on _session.qo events.                                                                             | [optional] |
+| **HubEventsRouted**        | Pointer to **int64**                                     | Number of events routed during this session. Only available on _session.qo events.                                                                    | [optional] |
+| **HubLastWorkDone**        | Pointer to **int64**                                     | Unix timestamp of the last time work was done for this session. Only available on _session.qo events.                                                 | [optional] |
+| **HubRcvdBytes**           | Pointer to **int64**                                     | Bytes received by Notehub during this session. Only available on _session.qo events.                                                                  | [optional] |
+| **HubRcvdNotes**           | Pointer to **int64**                                     | Notes received by Notehub during this session. Only available on _session.qo events.                                                                  | [optional] |
+| **HubSentBytes**           | Pointer to **int64**                                     | Bytes sent by Notehub during this session. Only available on _session.qo events.                                                                      | [optional] |
+| **HubSentNotes**           | Pointer to **int64**                                     | Notes sent by Notehub during this session. Only available on _session.qo events.                                                                      | [optional] |
+| **HubTcpSessions**         | Pointer to **int64**                                     | TCP sessions opened by Notehub during this session. Only available on _session.qo events.                                                             | [optional] |
+| **HubTlsSessions**         | Pointer to **int64**                                     | TLS sessions opened by Notehub during this session. Only available on _session.qo events.                                                             | [optional] |
+| **HubWireRcvdBytes**       | Pointer to **int64**                                     | Raw bytes received by Notehub on the session&#39;s TCP/TLS connection, as measured by Notehub. Only available on _session.qo events.                  | [optional] |
+| **HubWireSentBytes**       | Pointer to **int64**                                     | Raw bytes sent by Notehub on the session&#39;s TCP/TLS connection, as measured by Notehub. Only available on _session.qo events.                      | [optional] |
+| **Iccid**                  | Pointer to **string**                                    | SIM ICCID. Only available on _session.qo events.                                                                                                      | [optional] |
+| **Moved**                  | Pointer to **int64**                                     | The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.              | [optional] |
+| **Note**                   | Pointer to **string**                                    | The note ID in the notefile                                                                                                                           | [optional] |
+| **OrderingCode**           | Pointer to **string**                                    | Ordering code. Only available on _session.qo events.                                                                                                  | [optional] |
+| **Orientation**            | Pointer to **string**                                    | The orientation of the device. Only available on _session.qo events.                                                                                  | [optional] |
+| **Payload**                | Pointer to **string**                                    | A base64-encoded binary payload                                                                                                                       | [optional] |
+| **PayloadLength**          | Pointer to **int64**                                     | The size in bytes of the original payload. Set only when the payload was removed for storage reasons, in which case payload is absent.                | [optional] |
+| **Platform**               | Pointer to **bool**                                      | Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data                                                 | [optional] |
+| **PowerCharging**          | Pointer to **bool**                                      | Whether the device was charging. Only available on _session.qo events.                                                                                | [optional] |
+| **PowerMah**               | Pointer to **float64**                                   | Milliamp-hours consumed. Only available on _session.qo events.                                                                                        | [optional] |
+| **PowerPrimary**           | Pointer to **bool**                                      | Whether the device was on primary battery power. Only available on _session.qo events.                                                                | [optional] |
+| **PowerUsb**               | Pointer to **bool**                                      | Whether the device was on USB power. Only available on _session.qo events.                                                                            | [optional] |
+| **Product**                | Pointer to **string**                                    | ProductUID (globally unique)                                                                                                                          | [optional] |
+| **Queued**                 | Pointer to **bool**                                      | Whether the note was still queued on the device when the event was created. Not emitted by the events endpoints.                                      | [optional] |
+| **Rat**                    | Pointer to **string**                                    | Rat. Only available on _session.qo events.                                                                                                            | [optional] |
+| **Received**               | Pointer to **float64**                                   | The unix timestamp when the event was received                                                                                                        | [optional] |
+| **Req**                    | Pointer to **string**                                    | The notecard request                                                                                                                                  | [optional] |
+| **Rsrp**                   | Pointer to **int32**                                     | RSRP. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Rsrq**                   | Pointer to **int32**                                     | RSRQ. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Rssi**                   | Pointer to **int32**                                     | Received Signal Strength Indicator (RSSI) is an estimated measurement of how well a device can receive signals. Only available on _session.qo events. | [optional] |
+| **Sensor**                 | Pointer to **string**                                    | SensorUID, for events originating from a sensor attached to the device                                                                                | [optional] |
+| **Session**                | Pointer to **string**                                    | SessionUID (globally unique)                                                                                                                          | [optional] |
+| **SessionBegan**           | Pointer to **int64**                                     | Unix timestamp of when the session began                                                                                                              | [optional] |
+| **Sinr**                   | Pointer to **int32**                                     | SINR. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Sku**                    | Pointer to **string**                                    | SKU. Only available on _session.qo events.                                                                                                            | [optional] |
+| **Sn**                     | Pointer to **string**                                    | The device serial number                                                                                                                              | [optional] |
+| **Ssid**                   | Pointer to **string**                                    | SSID. Only available on _session.qo events.                                                                                                           | [optional] |
+| **Status**                 | Pointer to **string**                                    | Routing status of the event: \&quot;success\&quot;, \&quot;failure\&quot;, or \&quot;in_progress\&quot;. Not emitted by the events endpoints.         | [optional] |
+| **Temp**                   | Pointer to **float64**                                   | Device temperature. Only available on _session.qo events.                                                                                             | [optional] |
+| **Tls**                    | Pointer to **bool**                                      | Whether TLS was used on the connection between the device and notehub. Only available on _session.qo events.                                          | [optional] |
+| **TowerCountry**           | Pointer to **string**                                    | Country                                                                                                                                               | [optional] |
+| **TowerId**                | Pointer to **string**                                    | Tower ID                                                                                                                                              | [optional] |
+| **TowerLat**               | Pointer to **float64**                                   | Latitude                                                                                                                                              | [optional] |
+| **TowerLocation**          | Pointer to **string**                                    | Location                                                                                                                                              | [optional] |
+| **TowerLon**               | Pointer to **float64**                                   | Longitude                                                                                                                                             | [optional] |
+| **TowerTimezone**          | Pointer to **string**                                    | Timezone                                                                                                                                              | [optional] |
+| **TowerWhen**              | Pointer to **int64**                                     | Unix timestamp                                                                                                                                        | [optional] |
+| **Transport**              | Pointer to **string**                                    | The transport used for this event, e.g., \&quot;cellular\&quot;, \&quot;wifi\&quot;, \&quot;, etc.                                                    | [optional] |
+| **TriCountry**             | Pointer to **string**                                    | Country                                                                                                                                               | [optional] |
+| **TriLat**                 | Pointer to **float64**                                   | Latitude                                                                                                                                              | [optional] |
+| **TriLocation**            | Pointer to **string**                                    | Location                                                                                                                                              | [optional] |
+| **TriLon**                 | Pointer to **float64**                                   | Longitude                                                                                                                                             | [optional] |
+| **TriPoints**              | Pointer to **int32**                                     | Triangulation points                                                                                                                                  | [optional] |
+| **TriTimezone**            | Pointer to **string**                                    | Timezone                                                                                                                                              | [optional] |
+| **TriWhen**                | Pointer to **int64**                                     | Unix timestamp                                                                                                                                        | [optional] |
+| **Triangulate**            | Pointer to [**NullableTriangulation**](Triangulation.md) |                                                                                                                                                       | [optional] |
+| **Updates**                | Pointer to **int32**                                     |                                                                                                                                                       | [optional] |
+| **Voltage**                | Pointer to **float64**                                   | Device voltage. Only available on _session.qo events.                                                                                                 | [optional] |
+| **When**                   | Pointer to **int64**                                     | When the event was captured on the device                                                                                                             | [optional] |
+| **WhenMs**                 | Pointer to **int64**                                     | Millisecond-accurate Unix epoch timestamp for when the event was captured on the device                                                               | [optional] |
+| **WhereCountry**           | Pointer to **string**                                    | Country                                                                                                                                               | [optional] |
+| **WhereLat**               | Pointer to **float64**                                   | Latitude                                                                                                                                              | [optional] |
+| **WhereLocation**          | Pointer to **string**                                    | Location                                                                                                                                              | [optional] |
+| **WhereLon**               | Pointer to **float64**                                   | Longitude                                                                                                                                             | [optional] |
+| **WhereOlc**               | Pointer to **string**                                    | Open Location Code                                                                                                                                    | [optional] |
+| **WhereTimezone**          | Pointer to **string**                                    | Timezone                                                                                                                                              | [optional] |
+| **WhereWhen**              | Pointer to **int64**                                     | Unix timestamp                                                                                                                                        | [optional] |
+| **WireLength**             | Pointer to **int64**                                     | Approximate number of bytes that the note&#39;s body and payload occupied on the wire when transmitted from the device to Notehub                     | [optional] |
 
 ## Methods
 
@@ -88,6 +131,31 @@ will change when the set of required properties is changed
 NewEventWithDefaults instantiates a new Event object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetApn
+
+`func (o *Event) GetApn() string`
+
+GetApn returns the Apn field if non-nil, zero value otherwise.
+
+### GetApnOk
+
+`func (o *Event) GetApnOk() (*string, bool)`
+
+GetApnOk returns a tuple with the Apn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApn
+
+`func (o *Event) SetApn(v string)`
+
+SetApn sets Apn field to given value.
+
+### HasApn
+
+`func (o *Event) HasApn() bool`
+
+HasApn returns a boolean if a field has been set.
 
 ### GetApp
 
@@ -138,6 +206,106 @@ SetBars sets Bars field to given value.
 `func (o *Event) HasBars() bool`
 
 HasBars returns a boolean if a field has been set.
+
+### GetBatchNumber
+
+`func (o *Event) GetBatchNumber() int64`
+
+GetBatchNumber returns the BatchNumber field if non-nil, zero value otherwise.
+
+### GetBatchNumberOk
+
+`func (o *Event) GetBatchNumberOk() (*int64, bool)`
+
+GetBatchNumberOk returns a tuple with the BatchNumber field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBatchNumber
+
+`func (o *Event) SetBatchNumber(v int64)`
+
+SetBatchNumber sets BatchNumber field to given value.
+
+### HasBatchNumber
+
+`func (o *Event) HasBatchNumber() bool`
+
+HasBatchNumber returns a boolean if a field has been set.
+
+### GetBatchReceived
+
+`func (o *Event) GetBatchReceived() float64`
+
+GetBatchReceived returns the BatchReceived field if non-nil, zero value otherwise.
+
+### GetBatchReceivedOk
+
+`func (o *Event) GetBatchReceivedOk() (*float64, bool)`
+
+GetBatchReceivedOk returns a tuple with the BatchReceived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBatchReceived
+
+`func (o *Event) SetBatchReceived(v float64)`
+
+SetBatchReceived sets BatchReceived field to given value.
+
+### HasBatchReceived
+
+`func (o *Event) HasBatchReceived() bool`
+
+HasBatchReceived returns a boolean if a field has been set.
+
+### GetBatchTotal
+
+`func (o *Event) GetBatchTotal() int64`
+
+GetBatchTotal returns the BatchTotal field if non-nil, zero value otherwise.
+
+### GetBatchTotalOk
+
+`func (o *Event) GetBatchTotalOk() (*int64, bool)`
+
+GetBatchTotalOk returns a tuple with the BatchTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBatchTotal
+
+`func (o *Event) SetBatchTotal(v int64)`
+
+SetBatchTotal sets BatchTotal field to given value.
+
+### HasBatchTotal
+
+`func (o *Event) HasBatchTotal() bool`
+
+HasBatchTotal returns a boolean if a field has been set.
+
+### GetBearer
+
+`func (o *Event) GetBearer() string`
+
+GetBearer returns the Bearer field if non-nil, zero value otherwise.
+
+### GetBearerOk
+
+`func (o *Event) GetBearerOk() (*string, bool)`
+
+GetBearerOk returns a tuple with the Bearer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBearer
+
+`func (o *Event) SetBearer(v string)`
+
+SetBearer sets Bearer field to given value.
+
+### HasBearer
+
+`func (o *Event) HasBearer() bool`
+
+HasBearer returns a boolean if a field has been set.
 
 ### GetBestCountry
 
@@ -364,6 +532,18 @@ SetBody sets Body field to given value.
 
 HasBody returns a boolean if a field has been set.
 
+### SetBodyNil
+
+`func (o *Event) SetBodyNil(b bool)`
+
+SetBodyNil sets the value for Body to be an explicit nil
+
+### UnsetBody
+
+`func (o *Event) UnsetBody()`
+
+UnsetBody ensures that no value is present for Body, not even an explicit nil
+
 ### GetBssid
 
 `func (o *Event) GetBssid() string`
@@ -389,6 +569,281 @@ SetBssid sets Bssid field to given value.
 
 HasBssid returns a boolean if a field has been set.
 
+### GetBulk
+
+`func (o *Event) GetBulk() bool`
+
+GetBulk returns the Bulk field if non-nil, zero value otherwise.
+
+### GetBulkOk
+
+`func (o *Event) GetBulkOk() (*bool, bool)`
+
+GetBulkOk returns a tuple with the Bulk field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBulk
+
+`func (o *Event) SetBulk(v bool)`
+
+SetBulk sets Bulk field to given value.
+
+### HasBulk
+
+`func (o *Event) HasBulk() bool`
+
+HasBulk returns a boolean if a field has been set.
+
+### GetCardRcvdBytes
+
+`func (o *Event) GetCardRcvdBytes() int64`
+
+GetCardRcvdBytes returns the CardRcvdBytes field if non-nil, zero value otherwise.
+
+### GetCardRcvdBytesOk
+
+`func (o *Event) GetCardRcvdBytesOk() (*int64, bool)`
+
+GetCardRcvdBytesOk returns a tuple with the CardRcvdBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardRcvdBytes
+
+`func (o *Event) SetCardRcvdBytes(v int64)`
+
+SetCardRcvdBytes sets CardRcvdBytes field to given value.
+
+### HasCardRcvdBytes
+
+`func (o *Event) HasCardRcvdBytes() bool`
+
+HasCardRcvdBytes returns a boolean if a field has been set.
+
+### GetCardRcvdBytesSecondary
+
+`func (o *Event) GetCardRcvdBytesSecondary() int64`
+
+GetCardRcvdBytesSecondary returns the CardRcvdBytesSecondary field if non-nil, zero value otherwise.
+
+### GetCardRcvdBytesSecondaryOk
+
+`func (o *Event) GetCardRcvdBytesSecondaryOk() (*int64, bool)`
+
+GetCardRcvdBytesSecondaryOk returns a tuple with the CardRcvdBytesSecondary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardRcvdBytesSecondary
+
+`func (o *Event) SetCardRcvdBytesSecondary(v int64)`
+
+SetCardRcvdBytesSecondary sets CardRcvdBytesSecondary field to given value.
+
+### HasCardRcvdBytesSecondary
+
+`func (o *Event) HasCardRcvdBytesSecondary() bool`
+
+HasCardRcvdBytesSecondary returns a boolean if a field has been set.
+
+### GetCardRcvdNotes
+
+`func (o *Event) GetCardRcvdNotes() int64`
+
+GetCardRcvdNotes returns the CardRcvdNotes field if non-nil, zero value otherwise.
+
+### GetCardRcvdNotesOk
+
+`func (o *Event) GetCardRcvdNotesOk() (*int64, bool)`
+
+GetCardRcvdNotesOk returns a tuple with the CardRcvdNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardRcvdNotes
+
+`func (o *Event) SetCardRcvdNotes(v int64)`
+
+SetCardRcvdNotes sets CardRcvdNotes field to given value.
+
+### HasCardRcvdNotes
+
+`func (o *Event) HasCardRcvdNotes() bool`
+
+HasCardRcvdNotes returns a boolean if a field has been set.
+
+### GetCardSentBytes
+
+`func (o *Event) GetCardSentBytes() int64`
+
+GetCardSentBytes returns the CardSentBytes field if non-nil, zero value otherwise.
+
+### GetCardSentBytesOk
+
+`func (o *Event) GetCardSentBytesOk() (*int64, bool)`
+
+GetCardSentBytesOk returns a tuple with the CardSentBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardSentBytes
+
+`func (o *Event) SetCardSentBytes(v int64)`
+
+SetCardSentBytes sets CardSentBytes field to given value.
+
+### HasCardSentBytes
+
+`func (o *Event) HasCardSentBytes() bool`
+
+HasCardSentBytes returns a boolean if a field has been set.
+
+### GetCardSentBytesSecondary
+
+`func (o *Event) GetCardSentBytesSecondary() int64`
+
+GetCardSentBytesSecondary returns the CardSentBytesSecondary field if non-nil, zero value otherwise.
+
+### GetCardSentBytesSecondaryOk
+
+`func (o *Event) GetCardSentBytesSecondaryOk() (*int64, bool)`
+
+GetCardSentBytesSecondaryOk returns a tuple with the CardSentBytesSecondary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardSentBytesSecondary
+
+`func (o *Event) SetCardSentBytesSecondary(v int64)`
+
+SetCardSentBytesSecondary sets CardSentBytesSecondary field to given value.
+
+### HasCardSentBytesSecondary
+
+`func (o *Event) HasCardSentBytesSecondary() bool`
+
+HasCardSentBytesSecondary returns a boolean if a field has been set.
+
+### GetCardSentNotes
+
+`func (o *Event) GetCardSentNotes() int64`
+
+GetCardSentNotes returns the CardSentNotes field if non-nil, zero value otherwise.
+
+### GetCardSentNotesOk
+
+`func (o *Event) GetCardSentNotesOk() (*int64, bool)`
+
+GetCardSentNotesOk returns a tuple with the CardSentNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardSentNotes
+
+`func (o *Event) SetCardSentNotes(v int64)`
+
+SetCardSentNotes sets CardSentNotes field to given value.
+
+### HasCardSentNotes
+
+`func (o *Event) HasCardSentNotes() bool`
+
+HasCardSentNotes returns a boolean if a field has been set.
+
+### GetCardTcpSessions
+
+`func (o *Event) GetCardTcpSessions() int64`
+
+GetCardTcpSessions returns the CardTcpSessions field if non-nil, zero value otherwise.
+
+### GetCardTcpSessionsOk
+
+`func (o *Event) GetCardTcpSessionsOk() (*int64, bool)`
+
+GetCardTcpSessionsOk returns a tuple with the CardTcpSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardTcpSessions
+
+`func (o *Event) SetCardTcpSessions(v int64)`
+
+SetCardTcpSessions sets CardTcpSessions field to given value.
+
+### HasCardTcpSessions
+
+`func (o *Event) HasCardTcpSessions() bool`
+
+HasCardTcpSessions returns a boolean if a field has been set.
+
+### GetCardTlsSessions
+
+`func (o *Event) GetCardTlsSessions() int64`
+
+GetCardTlsSessions returns the CardTlsSessions field if non-nil, zero value otherwise.
+
+### GetCardTlsSessionsOk
+
+`func (o *Event) GetCardTlsSessionsOk() (*int64, bool)`
+
+GetCardTlsSessionsOk returns a tuple with the CardTlsSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCardTlsSessions
+
+`func (o *Event) SetCardTlsSessions(v int64)`
+
+SetCardTlsSessions sets CardTlsSessions field to given value.
+
+### HasCardTlsSessions
+
+`func (o *Event) HasCardTlsSessions() bool`
+
+HasCardTlsSessions returns a boolean if a field has been set.
+
+### GetCellid
+
+`func (o *Event) GetCellid() string`
+
+GetCellid returns the Cellid field if non-nil, zero value otherwise.
+
+### GetCellidOk
+
+`func (o *Event) GetCellidOk() (*string, bool)`
+
+GetCellidOk returns a tuple with the Cellid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCellid
+
+`func (o *Event) SetCellid(v string)`
+
+SetCellid sets Cellid field to given value.
+
+### HasCellid
+
+`func (o *Event) HasCellid() bool`
+
+HasCellid returns a boolean if a field has been set.
+
+### GetContinuous
+
+`func (o *Event) GetContinuous() bool`
+
+GetContinuous returns the Continuous field if non-nil, zero value otherwise.
+
+### GetContinuousOk
+
+`func (o *Event) GetContinuousOk() (*bool, bool)`
+
+GetContinuousOk returns a tuple with the Continuous field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContinuous
+
+`func (o *Event) SetContinuous(v bool)`
+
+SetContinuous sets Continuous field to given value.
+
+### HasContinuous
+
+`func (o *Event) HasContinuous() bool`
+
+HasContinuous returns a boolean if a field has been set.
+
 ### GetDeleted
 
 `func (o *Event) GetDeleted() bool`
@@ -413,6 +868,43 @@ SetDeleted sets Deleted field to given value.
 `func (o *Event) HasDeleted() bool`
 
 HasDeleted returns a boolean if a field has been set.
+
+### GetDetails
+
+`func (o *Event) GetDetails() map[string]interface{}`
+
+GetDetails returns the Details field if non-nil, zero value otherwise.
+
+### GetDetailsOk
+
+`func (o *Event) GetDetailsOk() (*map[string]interface{}, bool)`
+
+GetDetailsOk returns a tuple with the Details field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDetails
+
+`func (o *Event) SetDetails(v map[string]interface{})`
+
+SetDetails sets Details field to given value.
+
+### HasDetails
+
+`func (o *Event) HasDetails() bool`
+
+HasDetails returns a boolean if a field has been set.
+
+### SetDetailsNil
+
+`func (o *Event) SetDetailsNil(b bool)`
+
+SetDetailsNil sets the value for Details to be an explicit nil
+
+### UnsetDetails
+
+`func (o *Event) UnsetDetails()`
+
+UnsetDetails ensures that no value is present for Details, not even an explicit nil
 
 ### GetDevice
 
@@ -441,20 +933,20 @@ HasDevice returns a boolean if a field has been set.
 
 ### GetEnvironment
 
-`func (o *Event) GetEnvironment() map[string]interface{}`
+`func (o *Event) GetEnvironment() map[string]string`
 
 GetEnvironment returns the Environment field if non-nil, zero value otherwise.
 
 ### GetEnvironmentOk
 
-`func (o *Event) GetEnvironmentOk() (*map[string]interface{}, bool)`
+`func (o *Event) GetEnvironmentOk() (*map[string]string, bool)`
 
 GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironment
 
-`func (o *Event) SetEnvironment(v map[string]interface{})`
+`func (o *Event) SetEnvironment(v map[string]string)`
 
 SetEnvironment sets Environment field to given value.
 
@@ -463,6 +955,43 @@ SetEnvironment sets Environment field to given value.
 `func (o *Event) HasEnvironment() bool`
 
 HasEnvironment returns a boolean if a field has been set.
+
+### SetEnvironmentNil
+
+`func (o *Event) SetEnvironmentNil(b bool)`
+
+SetEnvironmentNil sets the value for Environment to be an explicit nil
+
+### UnsetEnvironment
+
+`func (o *Event) UnsetEnvironment()`
+
+UnsetEnvironment ensures that no value is present for Environment, not even an explicit nil
+
+### GetErr
+
+`func (o *Event) GetErr() string`
+
+GetErr returns the Err field if non-nil, zero value otherwise.
+
+### GetErrOk
+
+`func (o *Event) GetErrOk() (*string, bool)`
+
+GetErrOk returns a tuple with the Err field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErr
+
+`func (o *Event) SetErr(v string)`
+
+SetErr sets Err field to given value.
+
+### HasErr
+
+`func (o *Event) HasErr() bool`
+
+HasErr returns a boolean if a field has been set.
 
 ### GetEvent
 
@@ -513,6 +1042,418 @@ SetFile sets File field to given value.
 `func (o *Event) HasFile() bool`
 
 HasFile returns a boolean if a field has been set.
+
+### GetFirmware
+
+`func (o *Event) GetFirmware() int64`
+
+GetFirmware returns the Firmware field if non-nil, zero value otherwise.
+
+### GetFirmwareOk
+
+`func (o *Event) GetFirmwareOk() (*int64, bool)`
+
+GetFirmwareOk returns a tuple with the Firmware field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirmware
+
+`func (o *Event) SetFirmware(v int64)`
+
+SetFirmware sets Firmware field to given value.
+
+### HasFirmware
+
+`func (o *Event) HasFirmware() bool`
+
+HasFirmware returns a boolean if a field has been set.
+
+### GetFirmwareHost
+
+`func (o *Event) GetFirmwareHost() string`
+
+GetFirmwareHost returns the FirmwareHost field if non-nil, zero value otherwise.
+
+### GetFirmwareHostOk
+
+`func (o *Event) GetFirmwareHostOk() (*string, bool)`
+
+GetFirmwareHostOk returns a tuple with the FirmwareHost field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirmwareHost
+
+`func (o *Event) SetFirmwareHost(v string)`
+
+SetFirmwareHost sets FirmwareHost field to given value.
+
+### HasFirmwareHost
+
+`func (o *Event) HasFirmwareHost() bool`
+
+HasFirmwareHost returns a boolean if a field has been set.
+
+### GetFirmwareNotecard
+
+`func (o *Event) GetFirmwareNotecard() string`
+
+GetFirmwareNotecard returns the FirmwareNotecard field if non-nil, zero value otherwise.
+
+### GetFirmwareNotecardOk
+
+`func (o *Event) GetFirmwareNotecardOk() (*string, bool)`
+
+GetFirmwareNotecardOk returns a tuple with the FirmwareNotecard field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFirmwareNotecard
+
+`func (o *Event) SetFirmwareNotecard(v string)`
+
+SetFirmwareNotecard sets FirmwareNotecard field to given value.
+
+### HasFirmwareNotecard
+
+`func (o *Event) HasFirmwareNotecard() bool`
+
+HasFirmwareNotecard returns a boolean if a field has been set.
+
+### GetFleets
+
+`func (o *Event) GetFleets() []string`
+
+GetFleets returns the Fleets field if non-nil, zero value otherwise.
+
+### GetFleetsOk
+
+`func (o *Event) GetFleetsOk() (*[]string, bool)`
+
+GetFleetsOk returns a tuple with the Fleets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFleets
+
+`func (o *Event) SetFleets(v []string)`
+
+SetFleets sets Fleets field to given value.
+
+### HasFleets
+
+`func (o *Event) HasFleets() bool`
+
+HasFleets returns a boolean if a field has been set.
+
+### SetFleetsNil
+
+`func (o *Event) SetFleetsNil(b bool)`
+
+SetFleetsNil sets the value for Fleets to be an explicit nil
+
+### UnsetFleets
+
+`func (o *Event) UnsetFleets()`
+
+UnsetFleets ensures that no value is present for Fleets, not even an explicit nil
+
+### GetHubDurationSecs
+
+`func (o *Event) GetHubDurationSecs() int64`
+
+GetHubDurationSecs returns the HubDurationSecs field if non-nil, zero value otherwise.
+
+### GetHubDurationSecsOk
+
+`func (o *Event) GetHubDurationSecsOk() (*int64, bool)`
+
+GetHubDurationSecsOk returns a tuple with the HubDurationSecs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubDurationSecs
+
+`func (o *Event) SetHubDurationSecs(v int64)`
+
+SetHubDurationSecs sets HubDurationSecs field to given value.
+
+### HasHubDurationSecs
+
+`func (o *Event) HasHubDurationSecs() bool`
+
+HasHubDurationSecs returns a boolean if a field has been set.
+
+### GetHubEventsRouted
+
+`func (o *Event) GetHubEventsRouted() int64`
+
+GetHubEventsRouted returns the HubEventsRouted field if non-nil, zero value otherwise.
+
+### GetHubEventsRoutedOk
+
+`func (o *Event) GetHubEventsRoutedOk() (*int64, bool)`
+
+GetHubEventsRoutedOk returns a tuple with the HubEventsRouted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubEventsRouted
+
+`func (o *Event) SetHubEventsRouted(v int64)`
+
+SetHubEventsRouted sets HubEventsRouted field to given value.
+
+### HasHubEventsRouted
+
+`func (o *Event) HasHubEventsRouted() bool`
+
+HasHubEventsRouted returns a boolean if a field has been set.
+
+### GetHubLastWorkDone
+
+`func (o *Event) GetHubLastWorkDone() int64`
+
+GetHubLastWorkDone returns the HubLastWorkDone field if non-nil, zero value otherwise.
+
+### GetHubLastWorkDoneOk
+
+`func (o *Event) GetHubLastWorkDoneOk() (*int64, bool)`
+
+GetHubLastWorkDoneOk returns a tuple with the HubLastWorkDone field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubLastWorkDone
+
+`func (o *Event) SetHubLastWorkDone(v int64)`
+
+SetHubLastWorkDone sets HubLastWorkDone field to given value.
+
+### HasHubLastWorkDone
+
+`func (o *Event) HasHubLastWorkDone() bool`
+
+HasHubLastWorkDone returns a boolean if a field has been set.
+
+### GetHubRcvdBytes
+
+`func (o *Event) GetHubRcvdBytes() int64`
+
+GetHubRcvdBytes returns the HubRcvdBytes field if non-nil, zero value otherwise.
+
+### GetHubRcvdBytesOk
+
+`func (o *Event) GetHubRcvdBytesOk() (*int64, bool)`
+
+GetHubRcvdBytesOk returns a tuple with the HubRcvdBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubRcvdBytes
+
+`func (o *Event) SetHubRcvdBytes(v int64)`
+
+SetHubRcvdBytes sets HubRcvdBytes field to given value.
+
+### HasHubRcvdBytes
+
+`func (o *Event) HasHubRcvdBytes() bool`
+
+HasHubRcvdBytes returns a boolean if a field has been set.
+
+### GetHubRcvdNotes
+
+`func (o *Event) GetHubRcvdNotes() int64`
+
+GetHubRcvdNotes returns the HubRcvdNotes field if non-nil, zero value otherwise.
+
+### GetHubRcvdNotesOk
+
+`func (o *Event) GetHubRcvdNotesOk() (*int64, bool)`
+
+GetHubRcvdNotesOk returns a tuple with the HubRcvdNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubRcvdNotes
+
+`func (o *Event) SetHubRcvdNotes(v int64)`
+
+SetHubRcvdNotes sets HubRcvdNotes field to given value.
+
+### HasHubRcvdNotes
+
+`func (o *Event) HasHubRcvdNotes() bool`
+
+HasHubRcvdNotes returns a boolean if a field has been set.
+
+### GetHubSentBytes
+
+`func (o *Event) GetHubSentBytes() int64`
+
+GetHubSentBytes returns the HubSentBytes field if non-nil, zero value otherwise.
+
+### GetHubSentBytesOk
+
+`func (o *Event) GetHubSentBytesOk() (*int64, bool)`
+
+GetHubSentBytesOk returns a tuple with the HubSentBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubSentBytes
+
+`func (o *Event) SetHubSentBytes(v int64)`
+
+SetHubSentBytes sets HubSentBytes field to given value.
+
+### HasHubSentBytes
+
+`func (o *Event) HasHubSentBytes() bool`
+
+HasHubSentBytes returns a boolean if a field has been set.
+
+### GetHubSentNotes
+
+`func (o *Event) GetHubSentNotes() int64`
+
+GetHubSentNotes returns the HubSentNotes field if non-nil, zero value otherwise.
+
+### GetHubSentNotesOk
+
+`func (o *Event) GetHubSentNotesOk() (*int64, bool)`
+
+GetHubSentNotesOk returns a tuple with the HubSentNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubSentNotes
+
+`func (o *Event) SetHubSentNotes(v int64)`
+
+SetHubSentNotes sets HubSentNotes field to given value.
+
+### HasHubSentNotes
+
+`func (o *Event) HasHubSentNotes() bool`
+
+HasHubSentNotes returns a boolean if a field has been set.
+
+### GetHubTcpSessions
+
+`func (o *Event) GetHubTcpSessions() int64`
+
+GetHubTcpSessions returns the HubTcpSessions field if non-nil, zero value otherwise.
+
+### GetHubTcpSessionsOk
+
+`func (o *Event) GetHubTcpSessionsOk() (*int64, bool)`
+
+GetHubTcpSessionsOk returns a tuple with the HubTcpSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubTcpSessions
+
+`func (o *Event) SetHubTcpSessions(v int64)`
+
+SetHubTcpSessions sets HubTcpSessions field to given value.
+
+### HasHubTcpSessions
+
+`func (o *Event) HasHubTcpSessions() bool`
+
+HasHubTcpSessions returns a boolean if a field has been set.
+
+### GetHubTlsSessions
+
+`func (o *Event) GetHubTlsSessions() int64`
+
+GetHubTlsSessions returns the HubTlsSessions field if non-nil, zero value otherwise.
+
+### GetHubTlsSessionsOk
+
+`func (o *Event) GetHubTlsSessionsOk() (*int64, bool)`
+
+GetHubTlsSessionsOk returns a tuple with the HubTlsSessions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubTlsSessions
+
+`func (o *Event) SetHubTlsSessions(v int64)`
+
+SetHubTlsSessions sets HubTlsSessions field to given value.
+
+### HasHubTlsSessions
+
+`func (o *Event) HasHubTlsSessions() bool`
+
+HasHubTlsSessions returns a boolean if a field has been set.
+
+### GetHubWireRcvdBytes
+
+`func (o *Event) GetHubWireRcvdBytes() int64`
+
+GetHubWireRcvdBytes returns the HubWireRcvdBytes field if non-nil, zero value otherwise.
+
+### GetHubWireRcvdBytesOk
+
+`func (o *Event) GetHubWireRcvdBytesOk() (*int64, bool)`
+
+GetHubWireRcvdBytesOk returns a tuple with the HubWireRcvdBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubWireRcvdBytes
+
+`func (o *Event) SetHubWireRcvdBytes(v int64)`
+
+SetHubWireRcvdBytes sets HubWireRcvdBytes field to given value.
+
+### HasHubWireRcvdBytes
+
+`func (o *Event) HasHubWireRcvdBytes() bool`
+
+HasHubWireRcvdBytes returns a boolean if a field has been set.
+
+### GetHubWireSentBytes
+
+`func (o *Event) GetHubWireSentBytes() int64`
+
+GetHubWireSentBytes returns the HubWireSentBytes field if non-nil, zero value otherwise.
+
+### GetHubWireSentBytesOk
+
+`func (o *Event) GetHubWireSentBytesOk() (*int64, bool)`
+
+GetHubWireSentBytesOk returns a tuple with the HubWireSentBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHubWireSentBytes
+
+`func (o *Event) SetHubWireSentBytes(v int64)`
+
+SetHubWireSentBytes sets HubWireSentBytes field to given value.
+
+### HasHubWireSentBytes
+
+`func (o *Event) HasHubWireSentBytes() bool`
+
+HasHubWireSentBytes returns a boolean if a field has been set.
+
+### GetIccid
+
+`func (o *Event) GetIccid() string`
+
+GetIccid returns the Iccid field if non-nil, zero value otherwise.
+
+### GetIccidOk
+
+`func (o *Event) GetIccidOk() (*string, bool)`
+
+GetIccidOk returns a tuple with the Iccid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIccid
+
+`func (o *Event) SetIccid(v string)`
+
+SetIccid sets Iccid field to given value.
+
+### HasIccid
+
+`func (o *Event) HasIccid() bool`
+
+HasIccid returns a boolean if a field has been set.
 
 ### GetMoved
 
@@ -639,6 +1580,31 @@ SetPayload sets Payload field to given value.
 
 HasPayload returns a boolean if a field has been set.
 
+### GetPayloadLength
+
+`func (o *Event) GetPayloadLength() int64`
+
+GetPayloadLength returns the PayloadLength field if non-nil, zero value otherwise.
+
+### GetPayloadLengthOk
+
+`func (o *Event) GetPayloadLengthOk() (*int64, bool)`
+
+GetPayloadLengthOk returns a tuple with the PayloadLength field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPayloadLength
+
+`func (o *Event) SetPayloadLength(v int64)`
+
+SetPayloadLength sets PayloadLength field to given value.
+
+### HasPayloadLength
+
+`func (o *Event) HasPayloadLength() bool`
+
+HasPayloadLength returns a boolean if a field has been set.
+
 ### GetPlatform
 
 `func (o *Event) GetPlatform() bool`
@@ -664,6 +1630,106 @@ SetPlatform sets Platform field to given value.
 
 HasPlatform returns a boolean if a field has been set.
 
+### GetPowerCharging
+
+`func (o *Event) GetPowerCharging() bool`
+
+GetPowerCharging returns the PowerCharging field if non-nil, zero value otherwise.
+
+### GetPowerChargingOk
+
+`func (o *Event) GetPowerChargingOk() (*bool, bool)`
+
+GetPowerChargingOk returns a tuple with the PowerCharging field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPowerCharging
+
+`func (o *Event) SetPowerCharging(v bool)`
+
+SetPowerCharging sets PowerCharging field to given value.
+
+### HasPowerCharging
+
+`func (o *Event) HasPowerCharging() bool`
+
+HasPowerCharging returns a boolean if a field has been set.
+
+### GetPowerMah
+
+`func (o *Event) GetPowerMah() float64`
+
+GetPowerMah returns the PowerMah field if non-nil, zero value otherwise.
+
+### GetPowerMahOk
+
+`func (o *Event) GetPowerMahOk() (*float64, bool)`
+
+GetPowerMahOk returns a tuple with the PowerMah field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPowerMah
+
+`func (o *Event) SetPowerMah(v float64)`
+
+SetPowerMah sets PowerMah field to given value.
+
+### HasPowerMah
+
+`func (o *Event) HasPowerMah() bool`
+
+HasPowerMah returns a boolean if a field has been set.
+
+### GetPowerPrimary
+
+`func (o *Event) GetPowerPrimary() bool`
+
+GetPowerPrimary returns the PowerPrimary field if non-nil, zero value otherwise.
+
+### GetPowerPrimaryOk
+
+`func (o *Event) GetPowerPrimaryOk() (*bool, bool)`
+
+GetPowerPrimaryOk returns a tuple with the PowerPrimary field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPowerPrimary
+
+`func (o *Event) SetPowerPrimary(v bool)`
+
+SetPowerPrimary sets PowerPrimary field to given value.
+
+### HasPowerPrimary
+
+`func (o *Event) HasPowerPrimary() bool`
+
+HasPowerPrimary returns a boolean if a field has been set.
+
+### GetPowerUsb
+
+`func (o *Event) GetPowerUsb() bool`
+
+GetPowerUsb returns the PowerUsb field if non-nil, zero value otherwise.
+
+### GetPowerUsbOk
+
+`func (o *Event) GetPowerUsbOk() (*bool, bool)`
+
+GetPowerUsbOk returns a tuple with the PowerUsb field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPowerUsb
+
+`func (o *Event) SetPowerUsb(v bool)`
+
+SetPowerUsb sets PowerUsb field to given value.
+
+### HasPowerUsb
+
+`func (o *Event) HasPowerUsb() bool`
+
+HasPowerUsb returns a boolean if a field has been set.
+
 ### GetProduct
 
 `func (o *Event) GetProduct() string`
@@ -688,6 +1754,31 @@ SetProduct sets Product field to given value.
 `func (o *Event) HasProduct() bool`
 
 HasProduct returns a boolean if a field has been set.
+
+### GetQueued
+
+`func (o *Event) GetQueued() bool`
+
+GetQueued returns the Queued field if non-nil, zero value otherwise.
+
+### GetQueuedOk
+
+`func (o *Event) GetQueuedOk() (*bool, bool)`
+
+GetQueuedOk returns a tuple with the Queued field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueued
+
+`func (o *Event) SetQueued(v bool)`
+
+SetQueued sets Queued field to given value.
+
+### HasQueued
+
+`func (o *Event) HasQueued() bool`
+
+HasQueued returns a boolean if a field has been set.
 
 ### GetRat
 
@@ -889,6 +1980,31 @@ SetSession sets Session field to given value.
 
 HasSession returns a boolean if a field has been set.
 
+### GetSessionBegan
+
+`func (o *Event) GetSessionBegan() int64`
+
+GetSessionBegan returns the SessionBegan field if non-nil, zero value otherwise.
+
+### GetSessionBeganOk
+
+`func (o *Event) GetSessionBeganOk() (*int64, bool)`
+
+GetSessionBeganOk returns a tuple with the SessionBegan field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSessionBegan
+
+`func (o *Event) SetSessionBegan(v int64)`
+
+SetSessionBegan sets SessionBegan field to given value.
+
+### HasSessionBegan
+
+`func (o *Event) HasSessionBegan() bool`
+
+HasSessionBegan returns a boolean if a field has been set.
+
 ### GetSinr
 
 `func (o *Event) GetSinr() int32`
@@ -988,6 +2104,31 @@ SetSsid sets Ssid field to given value.
 `func (o *Event) HasSsid() bool`
 
 HasSsid returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *Event) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *Event) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *Event) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *Event) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
 
 ### GetTemp
 
@@ -1413,6 +2554,43 @@ SetTriWhen sets TriWhen field to given value.
 `func (o *Event) HasTriWhen() bool`
 
 HasTriWhen returns a boolean if a field has been set.
+
+### GetTriangulate
+
+`func (o *Event) GetTriangulate() Triangulation`
+
+GetTriangulate returns the Triangulate field if non-nil, zero value otherwise.
+
+### GetTriangulateOk
+
+`func (o *Event) GetTriangulateOk() (*Triangulation, bool)`
+
+GetTriangulateOk returns a tuple with the Triangulate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTriangulate
+
+`func (o *Event) SetTriangulate(v Triangulation)`
+
+SetTriangulate sets Triangulate field to given value.
+
+### HasTriangulate
+
+`func (o *Event) HasTriangulate() bool`
+
+HasTriangulate returns a boolean if a field has been set.
+
+### SetTriangulateNil
+
+`func (o *Event) SetTriangulateNil(b bool)`
+
+SetTriangulateNil sets the value for Triangulate to be an explicit nil
+
+### UnsetTriangulate
+
+`func (o *Event) UnsetTriangulate()`
+
+UnsetTriangulate ensures that no value is present for Triangulate, not even an explicit nil
 
 ### GetUpdates
 
