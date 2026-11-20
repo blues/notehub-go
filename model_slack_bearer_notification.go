@@ -13,6 +13,7 @@ package notehub
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SlackBearerNotification type satisfies the MappedNullable interface at compile time
@@ -26,8 +27,8 @@ type SlackBearerNotification struct {
 	MessageType *string `json:"message_type,omitempty"`
 	// The message, or Block Kit JSON. Event placeholders such as `[.body.temp]` aren't allowed.
 	Text *string `json:"text,omitempty"`
-	// The bearer token for the Slack app.
-	Token                *string `json:"token,omitempty"`
+	// The bearer token for the Slack app. Returned as `(omitted)`. Sending it back keeps the stored token if the monitor has only one Slack bearer route.
+	Token                string `json:"token"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -37,8 +38,9 @@ type _SlackBearerNotification SlackBearerNotification
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSlackBearerNotification() *SlackBearerNotification {
+func NewSlackBearerNotification(token string) *SlackBearerNotification {
 	this := SlackBearerNotification{}
+	this.Token = token
 	return &this
 }
 
@@ -146,36 +148,28 @@ func (o *SlackBearerNotification) SetText(v string) {
 	o.Text = &v
 }
 
-// GetToken returns the Token field value if set, zero value otherwise.
+// GetToken returns the Token field value
 func (o *SlackBearerNotification) GetToken() string {
-	if o == nil || IsNil(o.Token) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Token
+
+	return o.Token
 }
 
-// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// GetTokenOk returns a tuple with the Token field value
 // and a boolean to check if the value has been set.
 func (o *SlackBearerNotification) GetTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.Token) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Token, true
+	return &o.Token, true
 }
 
-// HasToken returns a boolean if a field has been set.
-func (o *SlackBearerNotification) HasToken() bool {
-	if o != nil && !IsNil(o.Token) {
-		return true
-	}
-
-	return false
-}
-
-// SetToken gets a reference to the given string and assigns it to the Token field.
+// SetToken sets field value
 func (o *SlackBearerNotification) SetToken(v string) {
-	o.Token = &v
+	o.Token = v
 }
 
 func (o SlackBearerNotification) MarshalJSON() ([]byte, error) {
@@ -197,9 +191,7 @@ func (o SlackBearerNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
-	if !IsNil(o.Token) {
-		toSerialize["token"] = o.Token
-	}
+	toSerialize["token"] = o.Token
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -209,6 +201,27 @@ func (o SlackBearerNotification) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SlackBearerNotification) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varSlackBearerNotification := _SlackBearerNotification{}
 
 	err = json.Unmarshal(data, &varSlackBearerNotification)

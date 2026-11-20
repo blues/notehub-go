@@ -2,20 +2,25 @@
 
 ## Properties
 
-| Name            | Type                  | Description                                                                                                                  | Notes      |
-| --------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition | [optional] |
-| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                      | [optional] |
-| **Url**         | Pointer to **string** | The URL of the Slack webhook.                                                                                                | [optional] |
-| **Channel**     | Pointer to **string** | The channel to send the message to.                                                                                          | [optional] |
-| **Token**       | Pointer to **string** | The bearer token for the Slack app.                                                                                          | [optional] |
-| **Email**       | Pointer to **string** | Email address, or several separated by commas.                                                                               | [optional] |
+| Name            | Type                  | Description                                                                                                                                                   | Notes      |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition                                  | [optional] |
+| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                                                       | [optional] |
+| **Url**         | **string**            | The URL of the Slack webhook. Returned as &#x60;(omitted)&#x60;. Sending it back keeps the stored URL if the monitor has only one Slack webhook route.        |
+| **Channel**     | Pointer to **string** | The channel to send the message to.                                                                                                                           | [optional] |
+| **Token**       | **string**            | The bearer token for the Slack app. Returned as &#x60;(omitted)&#x60;. Sending it back keeps the stored token if the monitor has only one Slack bearer route. |
+| **Email**       | **string**            | Email address, or several separated by commas.                                                                                                                |
+| **AccountSid**  | **string**            | The Twilio account SID.                                                                                                                                       |
+| **AuthToken**   | Pointer to **string** | The Twilio auth token. Returned as &#x60;(omitted)&#x60;. Sending it back keeps the stored token if the monitor has only one Twilio route.                    | [optional] |
+| **From**        | Pointer to **string** | The number to send the SMS from, in E.164 format, e.g. &#x60;+15551234567&#x60;.                                                                              | [optional] |
+| **Message**     | Pointer to **string** | The text of the SMS. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                                                                  | [optional] |
+| **To**          | Pointer to **string** | The number to send the SMS to, in E.164 format.                                                                                                               | [optional] |
 
 ## Methods
 
 ### NewMonitorAlertRoutesInner
 
-`func NewMonitorAlertRoutesInner() *MonitorAlertRoutesInner`
+`func NewMonitorAlertRoutesInner(url string, token string, email string, accountSid string, ) *MonitorAlertRoutesInner`
 
 NewMonitorAlertRoutesInner instantiates a new MonitorAlertRoutesInner object
 This constructor will assign default values to properties that have it defined,
@@ -99,12 +104,6 @@ and a boolean to check if the value has been set.
 
 SetUrl sets Url field to given value.
 
-### HasUrl
-
-`func (o *MonitorAlertRoutesInner) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
-
 ### GetChannel
 
 `func (o *MonitorAlertRoutesInner) GetChannel() string`
@@ -149,12 +148,6 @@ and a boolean to check if the value has been set.
 
 SetToken sets Token field to given value.
 
-### HasToken
-
-`func (o *MonitorAlertRoutesInner) HasToken() bool`
-
-HasToken returns a boolean if a field has been set.
-
 ### GetEmail
 
 `func (o *MonitorAlertRoutesInner) GetEmail() string`
@@ -174,10 +167,123 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
+### GetAccountSid
 
-`func (o *MonitorAlertRoutesInner) HasEmail() bool`
+`func (o *MonitorAlertRoutesInner) GetAccountSid() string`
 
-HasEmail returns a boolean if a field has been set.
+GetAccountSid returns the AccountSid field if non-nil, zero value otherwise.
+
+### GetAccountSidOk
+
+`func (o *MonitorAlertRoutesInner) GetAccountSidOk() (*string, bool)`
+
+GetAccountSidOk returns a tuple with the AccountSid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountSid
+
+`func (o *MonitorAlertRoutesInner) SetAccountSid(v string)`
+
+SetAccountSid sets AccountSid field to given value.
+
+### GetAuthToken
+
+`func (o *MonitorAlertRoutesInner) GetAuthToken() string`
+
+GetAuthToken returns the AuthToken field if non-nil, zero value otherwise.
+
+### GetAuthTokenOk
+
+`func (o *MonitorAlertRoutesInner) GetAuthTokenOk() (*string, bool)`
+
+GetAuthTokenOk returns a tuple with the AuthToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthToken
+
+`func (o *MonitorAlertRoutesInner) SetAuthToken(v string)`
+
+SetAuthToken sets AuthToken field to given value.
+
+### HasAuthToken
+
+`func (o *MonitorAlertRoutesInner) HasAuthToken() bool`
+
+HasAuthToken returns a boolean if a field has been set.
+
+### GetFrom
+
+`func (o *MonitorAlertRoutesInner) GetFrom() string`
+
+GetFrom returns the From field if non-nil, zero value otherwise.
+
+### GetFromOk
+
+`func (o *MonitorAlertRoutesInner) GetFromOk() (*string, bool)`
+
+GetFromOk returns a tuple with the From field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFrom
+
+`func (o *MonitorAlertRoutesInner) SetFrom(v string)`
+
+SetFrom sets From field to given value.
+
+### HasFrom
+
+`func (o *MonitorAlertRoutesInner) HasFrom() bool`
+
+HasFrom returns a boolean if a field has been set.
+
+### GetMessage
+
+`func (o *MonitorAlertRoutesInner) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *MonitorAlertRoutesInner) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *MonitorAlertRoutesInner) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+### HasMessage
+
+`func (o *MonitorAlertRoutesInner) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
+
+### GetTo
+
+`func (o *MonitorAlertRoutesInner) GetTo() string`
+
+GetTo returns the To field if non-nil, zero value otherwise.
+
+### GetToOk
+
+`func (o *MonitorAlertRoutesInner) GetToOk() (*string, bool)`
+
+GetToOk returns a tuple with the To field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTo
+
+`func (o *MonitorAlertRoutesInner) SetTo(v string)`
+
+SetTo sets To field to given value.
+
+### HasTo
+
+`func (o *MonitorAlertRoutesInner) HasTo() bool`
+
+HasTo returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

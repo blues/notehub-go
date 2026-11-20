@@ -43,9 +43,9 @@ func (r ApiCreateMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 /*
 CreateMonitor Create a monitor
 
-Create a monitor that raises an alert and notifies email or Slack when its condition holds.
-It can watch an event value (`event`, the default), devices going quiet (`heartbeat`), or
-data usage (`usage`).
+Create a monitor that raises an alert and notifies email, Slack or Twilio when its
+condition holds. It can watch an event value (`event`, the default), devices going quiet
+(`heartbeat`), or data usage (`usage`).
 
 Requires the Owner or Developer role. Returns 403 if the project's plan doesn't allow the
 monitor, and 400 for invalid settings.
@@ -286,8 +286,8 @@ func (r ApiGetMonitorRequest) Execute() (*Monitor, *http.Response, error) {
 /*
 GetMonitor Get a monitor
 
-Get one monitor's settings and whether it's in alert. Slack credentials in `alert_routes`
-come back as `(omitted)`.
+Get one monitor's settings and whether it's in alert. Slack and Twilio credentials in
+`alert_routes` come back as `(omitted)`.
 
 Returns 404 if the monitor never existed; a deleted monitor is still returned.
 
@@ -527,8 +527,8 @@ UpdateMonitor Update a monitor
 
 Replace a monitor's settings with the whole monitor, as `GetMonitor` returns it. Omitted
 fields are cleared or reset, except `source_type`, `fleet_filter`, `notefile_filter`,
-`condition_type`, `aggregate_window` and `alert_routes`. Slack credentials left as
-`(omitted)` are kept.
+`condition_type`, `aggregate_window` and `alert_routes`. Slack and Twilio credentials left
+as `(omitted)` are kept.
 
 Requires the Owner or Developer role. Returns 403 if the plan doesn't allow a new
 `source_type`.

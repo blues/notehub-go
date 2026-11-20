@@ -2,17 +2,17 @@
 
 ## Properties
 
-| Name            | Type                  | Description                                                                                                                  | Notes      |
-| --------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition | [optional] |
-| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                      | [optional] |
-| **Url**         | Pointer to **string** | The URL of the Slack webhook.                                                                                                | [optional] |
+| Name            | Type                  | Description                                                                                                                                            | Notes      |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
+| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition                           | [optional] |
+| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                                                | [optional] |
+| **Url**         | **string**            | The URL of the Slack webhook. Returned as &#x60;(omitted)&#x60;. Sending it back keeps the stored URL if the monitor has only one Slack webhook route. |
 
 ## Methods
 
 ### NewSlackWebHookNotification
 
-`func NewSlackWebHookNotification() *SlackWebHookNotification`
+`func NewSlackWebHookNotification(url string, ) *SlackWebHookNotification`
 
 NewSlackWebHookNotification instantiates a new SlackWebHookNotification object
 This constructor will assign default values to properties that have it defined,
@@ -95,11 +95,5 @@ and a boolean to check if the value has been set.
 `func (o *SlackWebHookNotification) SetUrl(v string)`
 
 SetUrl sets Url field to given value.
-
-### HasUrl
-
-`func (o *SlackWebHookNotification) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

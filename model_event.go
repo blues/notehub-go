@@ -20,10 +20,20 @@ var _ MappedNullable = &Event{}
 
 // Event struct for Event
 type Event struct {
+	// Cellular APN. Only available on _session.qo events.
+	Apn *string `json:"apn,omitempty"`
 	// AppUID (globally unique)
 	App *string `json:"app,omitempty"`
 	// Bars. Only available on _session.qo events.
 	Bars *int32 `json:"bars,omitempty"`
+	// The 1-based position of this event within its batch
+	BatchNumber *int64 `json:"batch_number,omitempty"`
+	// The unix timestamp when the enclosing batch was received
+	BatchReceived *float64 `json:"batch_received,omitempty"`
+	// The total number of events in the enclosing batch
+	BatchTotal *int64 `json:"batch_total,omitempty"`
+	// Network bearer. Only available on _session.qo events.
+	Bearer *string `json:"bearer,omitempty"`
 	// Country
 	BestCountry *string `json:"best_country,omitempty"`
 	// The device serial number, or the DeviceUID if the serial number is not set
@@ -44,16 +54,74 @@ type Event struct {
 	Body map[string]interface{} `json:"body,omitempty"`
 	// BSSID. Only available on _session.qo events.
 	Bssid *string `json:"bssid,omitempty"`
+	// Whether the event originated from a bulk/binary data transfer. Not emitted by the events endpoints.
+	Bulk *bool `json:"bulk,omitempty"`
+	// Bytes received by the Notecard during this session. Only available on _session.qo events.
+	CardRcvdBytes *int64 `json:"card_rcvd_bytes,omitempty"`
+	// Bytes received by the Notecard over its secondary interface. Only available on _session.qo events.
+	CardRcvdBytesSecondary *int64 `json:"card_rcvd_bytes_secondary,omitempty"`
+	// Notes received by the Notecard during this session. Only available on _session.qo events.
+	CardRcvdNotes *int64 `json:"card_rcvd_notes,omitempty"`
+	// Bytes sent by the Notecard during this session. Only available on _session.qo events.
+	CardSentBytes *int64 `json:"card_sent_bytes,omitempty"`
+	// Bytes sent by the Notecard over its secondary interface. Only available on _session.qo events.
+	CardSentBytesSecondary *int64 `json:"card_sent_bytes_secondary,omitempty"`
+	// Notes sent by the Notecard during this session. Only available on _session.qo events.
+	CardSentNotes *int64 `json:"card_sent_notes,omitempty"`
+	// TCP sessions opened by the Notecard during this session. Only available on _session.qo events.
+	CardTcpSessions *int64 `json:"card_tcp_sessions,omitempty"`
+	// TLS sessions opened by the Notecard during this session. Only available on _session.qo events.
+	CardTlsSessions *int64 `json:"card_tls_sessions,omitempty"`
+	// Cell ID where the session originated. Only available on _session.qo events.
+	Cellid *string `json:"cellid,omitempty"`
+	// Whether the device was using a continuous connection for this session
+	Continuous *bool `json:"continuous,omitempty"`
 	// True if this event has been deleted. Only present when reading with a `cursor`.
 	Deleted *bool `json:"deleted,omitempty"`
+	// Additional structured detail about the event, e.g. the text lines carried by a _health.qo event
+	Details map[string]interface{} `json:"details,omitempty"`
 	// DeviceUID (globally unique)
 	Device *string `json:"device,omitempty"`
 	// Routed environment variables beginning with \"$\". Only available on _session.qo events.
-	Environment map[string]interface{} `json:"environment,omitempty"`
+	Environment map[string]string `json:"environment,omitempty"`
+	// Error text associated with processing or routing this event, if any
+	Err *string `json:"err,omitempty"`
 	// EventUID (globally unique)
 	Event *string `json:"event,omitempty"`
 	// The notefile associated with this event
 	File *string `json:"file,omitempty"`
+	// Device firmware version as an integer. Only available on _session.qo events.
+	Firmware *int64 `json:"firmware,omitempty"`
+	// The host firmware version reported by the device
+	FirmwareHost *string `json:"firmware_host,omitempty"`
+	// The Notecard firmware version reported by the device
+	FirmwareNotecard *string `json:"firmware_notecard,omitempty"`
+	// Array of Fleet UIDs the device belonged to when the event was created
+	Fleets []string `json:"fleets,omitempty"`
+	// Duration of the session in seconds. Only available on _session.qo events.
+	HubDurationSecs *int64 `json:"hub_duration_secs,omitempty"`
+	// Number of events routed during this session. Only available on _session.qo events.
+	HubEventsRouted *int64 `json:"hub_events_routed,omitempty"`
+	// Unix timestamp of the last time work was done for this session. Only available on _session.qo events.
+	HubLastWorkDone *int64 `json:"hub_last_work_done,omitempty"`
+	// Bytes received by Notehub during this session. Only available on _session.qo events.
+	HubRcvdBytes *int64 `json:"hub_rcvd_bytes,omitempty"`
+	// Notes received by Notehub during this session. Only available on _session.qo events.
+	HubRcvdNotes *int64 `json:"hub_rcvd_notes,omitempty"`
+	// Bytes sent by Notehub during this session. Only available on _session.qo events.
+	HubSentBytes *int64 `json:"hub_sent_bytes,omitempty"`
+	// Notes sent by Notehub during this session. Only available on _session.qo events.
+	HubSentNotes *int64 `json:"hub_sent_notes,omitempty"`
+	// TCP sessions opened by Notehub during this session. Only available on _session.qo events.
+	HubTcpSessions *int64 `json:"hub_tcp_sessions,omitempty"`
+	// TLS sessions opened by Notehub during this session. Only available on _session.qo events.
+	HubTlsSessions *int64 `json:"hub_tls_sessions,omitempty"`
+	// Raw bytes received by Notehub on the session's TCP/TLS connection, as measured by Notehub. Only available on _session.qo events.
+	HubWireRcvdBytes *int64 `json:"hub_wire_rcvd_bytes,omitempty"`
+	// Raw bytes sent by Notehub on the session's TCP/TLS connection, as measured by Notehub. Only available on _session.qo events.
+	HubWireSentBytes *int64 `json:"hub_wire_sent_bytes,omitempty"`
+	// SIM ICCID. Only available on _session.qo events.
+	Iccid *string `json:"iccid,omitempty"`
 	// The number of times the device was sensed to have moved between the last session and this session. Only available on _session.qo events.
 	Moved *int64 `json:"moved,omitempty"`
 	// The note ID in the notefile
@@ -64,10 +132,22 @@ type Event struct {
 	Orientation *string `json:"orientation,omitempty"`
 	// A base64-encoded binary payload
 	Payload *string `json:"payload,omitempty"`
+	// The size in bytes of the original payload. Set only when the payload was removed for storage reasons, in which case payload is absent.
+	PayloadLength *int64 `json:"payload_length,omitempty"`
 	// Whether this is a platform event (administrative, e.g. _health.qo, _session.qo) rather than user data
 	Platform *bool `json:"platform,omitempty"`
+	// Whether the device was charging. Only available on _session.qo events.
+	PowerCharging *bool `json:"power_charging,omitempty"`
+	// Milliamp-hours consumed. Only available on _session.qo events.
+	PowerMah *float64 `json:"power_mah,omitempty"`
+	// Whether the device was on primary battery power. Only available on _session.qo events.
+	PowerPrimary *bool `json:"power_primary,omitempty"`
+	// Whether the device was on USB power. Only available on _session.qo events.
+	PowerUsb *bool `json:"power_usb,omitempty"`
 	// ProductUID (globally unique)
 	Product *string `json:"product,omitempty"`
+	// Whether the note was still queued on the device when the event was created. Not emitted by the events endpoints.
+	Queued *bool `json:"queued,omitempty"`
 	// Rat. Only available on _session.qo events.
 	Rat *string `json:"rat,omitempty"`
 	// The unix timestamp when the event was received
@@ -84,6 +164,8 @@ type Event struct {
 	Sensor *string `json:"sensor,omitempty"`
 	// SessionUID (globally unique)
 	Session *string `json:"session,omitempty"`
+	// Unix timestamp of when the session began
+	SessionBegan *int64 `json:"session_began,omitempty"`
 	// SINR. Only available on _session.qo events.
 	Sinr *int32 `json:"sinr,omitempty"`
 	// SKU. Only available on _session.qo events.
@@ -92,6 +174,8 @@ type Event struct {
 	Sn *string `json:"sn,omitempty"`
 	// SSID. Only available on _session.qo events.
 	Ssid *string `json:"ssid,omitempty"`
+	// Routing status of the event: \"success\", \"failure\", or \"in_progress\". Not emitted by the events endpoints.
+	Status *string `json:"status,omitempty"`
 	// Device temperature. Only available on _session.qo events.
 	Temp *float64 `json:"temp,omitempty"`
 	// Whether TLS was used on the connection between the device and notehub. Only available on _session.qo events.
@@ -125,8 +209,9 @@ type Event struct {
 	// Timezone
 	TriTimezone *string `json:"tri_timezone,omitempty"`
 	// Unix timestamp
-	TriWhen *int64 `json:"tri_when,omitempty"`
-	Updates *int32 `json:"updates,omitempty"`
+	TriWhen     *int64                `json:"tri_when,omitempty"`
+	Triangulate NullableTriangulation `json:"triangulate,omitempty"`
+	Updates     *int32                `json:"updates,omitempty"`
 	// Device voltage. Only available on _session.qo events.
 	Voltage *float64 `json:"voltage,omitempty"`
 	// When the event was captured on the device
@@ -169,6 +254,38 @@ func NewEvent() *Event {
 func NewEventWithDefaults() *Event {
 	this := Event{}
 	return &this
+}
+
+// GetApn returns the Apn field value if set, zero value otherwise.
+func (o *Event) GetApn() string {
+	if o == nil || IsNil(o.Apn) {
+		var ret string
+		return ret
+	}
+	return *o.Apn
+}
+
+// GetApnOk returns a tuple with the Apn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetApnOk() (*string, bool) {
+	if o == nil || IsNil(o.Apn) {
+		return nil, false
+	}
+	return o.Apn, true
+}
+
+// HasApn returns a boolean if a field has been set.
+func (o *Event) HasApn() bool {
+	if o != nil && !IsNil(o.Apn) {
+		return true
+	}
+
+	return false
+}
+
+// SetApn gets a reference to the given string and assigns it to the Apn field.
+func (o *Event) SetApn(v string) {
+	o.Apn = &v
 }
 
 // GetApp returns the App field value if set, zero value otherwise.
@@ -233,6 +350,134 @@ func (o *Event) HasBars() bool {
 // SetBars gets a reference to the given int32 and assigns it to the Bars field.
 func (o *Event) SetBars(v int32) {
 	o.Bars = &v
+}
+
+// GetBatchNumber returns the BatchNumber field value if set, zero value otherwise.
+func (o *Event) GetBatchNumber() int64 {
+	if o == nil || IsNil(o.BatchNumber) {
+		var ret int64
+		return ret
+	}
+	return *o.BatchNumber
+}
+
+// GetBatchNumberOk returns a tuple with the BatchNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetBatchNumberOk() (*int64, bool) {
+	if o == nil || IsNil(o.BatchNumber) {
+		return nil, false
+	}
+	return o.BatchNumber, true
+}
+
+// HasBatchNumber returns a boolean if a field has been set.
+func (o *Event) HasBatchNumber() bool {
+	if o != nil && !IsNil(o.BatchNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetBatchNumber gets a reference to the given int64 and assigns it to the BatchNumber field.
+func (o *Event) SetBatchNumber(v int64) {
+	o.BatchNumber = &v
+}
+
+// GetBatchReceived returns the BatchReceived field value if set, zero value otherwise.
+func (o *Event) GetBatchReceived() float64 {
+	if o == nil || IsNil(o.BatchReceived) {
+		var ret float64
+		return ret
+	}
+	return *o.BatchReceived
+}
+
+// GetBatchReceivedOk returns a tuple with the BatchReceived field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetBatchReceivedOk() (*float64, bool) {
+	if o == nil || IsNil(o.BatchReceived) {
+		return nil, false
+	}
+	return o.BatchReceived, true
+}
+
+// HasBatchReceived returns a boolean if a field has been set.
+func (o *Event) HasBatchReceived() bool {
+	if o != nil && !IsNil(o.BatchReceived) {
+		return true
+	}
+
+	return false
+}
+
+// SetBatchReceived gets a reference to the given float64 and assigns it to the BatchReceived field.
+func (o *Event) SetBatchReceived(v float64) {
+	o.BatchReceived = &v
+}
+
+// GetBatchTotal returns the BatchTotal field value if set, zero value otherwise.
+func (o *Event) GetBatchTotal() int64 {
+	if o == nil || IsNil(o.BatchTotal) {
+		var ret int64
+		return ret
+	}
+	return *o.BatchTotal
+}
+
+// GetBatchTotalOk returns a tuple with the BatchTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetBatchTotalOk() (*int64, bool) {
+	if o == nil || IsNil(o.BatchTotal) {
+		return nil, false
+	}
+	return o.BatchTotal, true
+}
+
+// HasBatchTotal returns a boolean if a field has been set.
+func (o *Event) HasBatchTotal() bool {
+	if o != nil && !IsNil(o.BatchTotal) {
+		return true
+	}
+
+	return false
+}
+
+// SetBatchTotal gets a reference to the given int64 and assigns it to the BatchTotal field.
+func (o *Event) SetBatchTotal(v int64) {
+	o.BatchTotal = &v
+}
+
+// GetBearer returns the Bearer field value if set, zero value otherwise.
+func (o *Event) GetBearer() string {
+	if o == nil || IsNil(o.Bearer) {
+		var ret string
+		return ret
+	}
+	return *o.Bearer
+}
+
+// GetBearerOk returns a tuple with the Bearer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetBearerOk() (*string, bool) {
+	if o == nil || IsNil(o.Bearer) {
+		return nil, false
+	}
+	return o.Bearer, true
+}
+
+// HasBearer returns a boolean if a field has been set.
+func (o *Event) HasBearer() bool {
+	if o != nil && !IsNil(o.Bearer) {
+		return true
+	}
+
+	return false
+}
+
+// SetBearer gets a reference to the given string and assigns it to the Bearer field.
+func (o *Event) SetBearer(v string) {
+	o.Bearer = &v
 }
 
 // GetBestCountry returns the BestCountry field value if set, zero value otherwise.
@@ -491,9 +736,9 @@ func (o *Event) SetBestTimezone(v string) {
 	o.BestTimezone = &v
 }
 
-// GetBody returns the Body field value if set, zero value otherwise.
+// GetBody returns the Body field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Event) GetBody() map[string]interface{} {
-	if o == nil || IsNil(o.Body) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -502,6 +747,7 @@ func (o *Event) GetBody() map[string]interface{} {
 
 // GetBodyOk returns a tuple with the Body field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Event) GetBodyOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Body) {
 		return map[string]interface{}{}, false
@@ -555,6 +801,358 @@ func (o *Event) SetBssid(v string) {
 	o.Bssid = &v
 }
 
+// GetBulk returns the Bulk field value if set, zero value otherwise.
+func (o *Event) GetBulk() bool {
+	if o == nil || IsNil(o.Bulk) {
+		var ret bool
+		return ret
+	}
+	return *o.Bulk
+}
+
+// GetBulkOk returns a tuple with the Bulk field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetBulkOk() (*bool, bool) {
+	if o == nil || IsNil(o.Bulk) {
+		return nil, false
+	}
+	return o.Bulk, true
+}
+
+// HasBulk returns a boolean if a field has been set.
+func (o *Event) HasBulk() bool {
+	if o != nil && !IsNil(o.Bulk) {
+		return true
+	}
+
+	return false
+}
+
+// SetBulk gets a reference to the given bool and assigns it to the Bulk field.
+func (o *Event) SetBulk(v bool) {
+	o.Bulk = &v
+}
+
+// GetCardRcvdBytes returns the CardRcvdBytes field value if set, zero value otherwise.
+func (o *Event) GetCardRcvdBytes() int64 {
+	if o == nil || IsNil(o.CardRcvdBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.CardRcvdBytes
+}
+
+// GetCardRcvdBytesOk returns a tuple with the CardRcvdBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardRcvdBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardRcvdBytes) {
+		return nil, false
+	}
+	return o.CardRcvdBytes, true
+}
+
+// HasCardRcvdBytes returns a boolean if a field has been set.
+func (o *Event) HasCardRcvdBytes() bool {
+	if o != nil && !IsNil(o.CardRcvdBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardRcvdBytes gets a reference to the given int64 and assigns it to the CardRcvdBytes field.
+func (o *Event) SetCardRcvdBytes(v int64) {
+	o.CardRcvdBytes = &v
+}
+
+// GetCardRcvdBytesSecondary returns the CardRcvdBytesSecondary field value if set, zero value otherwise.
+func (o *Event) GetCardRcvdBytesSecondary() int64 {
+	if o == nil || IsNil(o.CardRcvdBytesSecondary) {
+		var ret int64
+		return ret
+	}
+	return *o.CardRcvdBytesSecondary
+}
+
+// GetCardRcvdBytesSecondaryOk returns a tuple with the CardRcvdBytesSecondary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardRcvdBytesSecondaryOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardRcvdBytesSecondary) {
+		return nil, false
+	}
+	return o.CardRcvdBytesSecondary, true
+}
+
+// HasCardRcvdBytesSecondary returns a boolean if a field has been set.
+func (o *Event) HasCardRcvdBytesSecondary() bool {
+	if o != nil && !IsNil(o.CardRcvdBytesSecondary) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardRcvdBytesSecondary gets a reference to the given int64 and assigns it to the CardRcvdBytesSecondary field.
+func (o *Event) SetCardRcvdBytesSecondary(v int64) {
+	o.CardRcvdBytesSecondary = &v
+}
+
+// GetCardRcvdNotes returns the CardRcvdNotes field value if set, zero value otherwise.
+func (o *Event) GetCardRcvdNotes() int64 {
+	if o == nil || IsNil(o.CardRcvdNotes) {
+		var ret int64
+		return ret
+	}
+	return *o.CardRcvdNotes
+}
+
+// GetCardRcvdNotesOk returns a tuple with the CardRcvdNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardRcvdNotesOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardRcvdNotes) {
+		return nil, false
+	}
+	return o.CardRcvdNotes, true
+}
+
+// HasCardRcvdNotes returns a boolean if a field has been set.
+func (o *Event) HasCardRcvdNotes() bool {
+	if o != nil && !IsNil(o.CardRcvdNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardRcvdNotes gets a reference to the given int64 and assigns it to the CardRcvdNotes field.
+func (o *Event) SetCardRcvdNotes(v int64) {
+	o.CardRcvdNotes = &v
+}
+
+// GetCardSentBytes returns the CardSentBytes field value if set, zero value otherwise.
+func (o *Event) GetCardSentBytes() int64 {
+	if o == nil || IsNil(o.CardSentBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.CardSentBytes
+}
+
+// GetCardSentBytesOk returns a tuple with the CardSentBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardSentBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardSentBytes) {
+		return nil, false
+	}
+	return o.CardSentBytes, true
+}
+
+// HasCardSentBytes returns a boolean if a field has been set.
+func (o *Event) HasCardSentBytes() bool {
+	if o != nil && !IsNil(o.CardSentBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardSentBytes gets a reference to the given int64 and assigns it to the CardSentBytes field.
+func (o *Event) SetCardSentBytes(v int64) {
+	o.CardSentBytes = &v
+}
+
+// GetCardSentBytesSecondary returns the CardSentBytesSecondary field value if set, zero value otherwise.
+func (o *Event) GetCardSentBytesSecondary() int64 {
+	if o == nil || IsNil(o.CardSentBytesSecondary) {
+		var ret int64
+		return ret
+	}
+	return *o.CardSentBytesSecondary
+}
+
+// GetCardSentBytesSecondaryOk returns a tuple with the CardSentBytesSecondary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardSentBytesSecondaryOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardSentBytesSecondary) {
+		return nil, false
+	}
+	return o.CardSentBytesSecondary, true
+}
+
+// HasCardSentBytesSecondary returns a boolean if a field has been set.
+func (o *Event) HasCardSentBytesSecondary() bool {
+	if o != nil && !IsNil(o.CardSentBytesSecondary) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardSentBytesSecondary gets a reference to the given int64 and assigns it to the CardSentBytesSecondary field.
+func (o *Event) SetCardSentBytesSecondary(v int64) {
+	o.CardSentBytesSecondary = &v
+}
+
+// GetCardSentNotes returns the CardSentNotes field value if set, zero value otherwise.
+func (o *Event) GetCardSentNotes() int64 {
+	if o == nil || IsNil(o.CardSentNotes) {
+		var ret int64
+		return ret
+	}
+	return *o.CardSentNotes
+}
+
+// GetCardSentNotesOk returns a tuple with the CardSentNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardSentNotesOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardSentNotes) {
+		return nil, false
+	}
+	return o.CardSentNotes, true
+}
+
+// HasCardSentNotes returns a boolean if a field has been set.
+func (o *Event) HasCardSentNotes() bool {
+	if o != nil && !IsNil(o.CardSentNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardSentNotes gets a reference to the given int64 and assigns it to the CardSentNotes field.
+func (o *Event) SetCardSentNotes(v int64) {
+	o.CardSentNotes = &v
+}
+
+// GetCardTcpSessions returns the CardTcpSessions field value if set, zero value otherwise.
+func (o *Event) GetCardTcpSessions() int64 {
+	if o == nil || IsNil(o.CardTcpSessions) {
+		var ret int64
+		return ret
+	}
+	return *o.CardTcpSessions
+}
+
+// GetCardTcpSessionsOk returns a tuple with the CardTcpSessions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardTcpSessionsOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardTcpSessions) {
+		return nil, false
+	}
+	return o.CardTcpSessions, true
+}
+
+// HasCardTcpSessions returns a boolean if a field has been set.
+func (o *Event) HasCardTcpSessions() bool {
+	if o != nil && !IsNil(o.CardTcpSessions) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardTcpSessions gets a reference to the given int64 and assigns it to the CardTcpSessions field.
+func (o *Event) SetCardTcpSessions(v int64) {
+	o.CardTcpSessions = &v
+}
+
+// GetCardTlsSessions returns the CardTlsSessions field value if set, zero value otherwise.
+func (o *Event) GetCardTlsSessions() int64 {
+	if o == nil || IsNil(o.CardTlsSessions) {
+		var ret int64
+		return ret
+	}
+	return *o.CardTlsSessions
+}
+
+// GetCardTlsSessionsOk returns a tuple with the CardTlsSessions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCardTlsSessionsOk() (*int64, bool) {
+	if o == nil || IsNil(o.CardTlsSessions) {
+		return nil, false
+	}
+	return o.CardTlsSessions, true
+}
+
+// HasCardTlsSessions returns a boolean if a field has been set.
+func (o *Event) HasCardTlsSessions() bool {
+	if o != nil && !IsNil(o.CardTlsSessions) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardTlsSessions gets a reference to the given int64 and assigns it to the CardTlsSessions field.
+func (o *Event) SetCardTlsSessions(v int64) {
+	o.CardTlsSessions = &v
+}
+
+// GetCellid returns the Cellid field value if set, zero value otherwise.
+func (o *Event) GetCellid() string {
+	if o == nil || IsNil(o.Cellid) {
+		var ret string
+		return ret
+	}
+	return *o.Cellid
+}
+
+// GetCellidOk returns a tuple with the Cellid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetCellidOk() (*string, bool) {
+	if o == nil || IsNil(o.Cellid) {
+		return nil, false
+	}
+	return o.Cellid, true
+}
+
+// HasCellid returns a boolean if a field has been set.
+func (o *Event) HasCellid() bool {
+	if o != nil && !IsNil(o.Cellid) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellid gets a reference to the given string and assigns it to the Cellid field.
+func (o *Event) SetCellid(v string) {
+	o.Cellid = &v
+}
+
+// GetContinuous returns the Continuous field value if set, zero value otherwise.
+func (o *Event) GetContinuous() bool {
+	if o == nil || IsNil(o.Continuous) {
+		var ret bool
+		return ret
+	}
+	return *o.Continuous
+}
+
+// GetContinuousOk returns a tuple with the Continuous field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetContinuousOk() (*bool, bool) {
+	if o == nil || IsNil(o.Continuous) {
+		return nil, false
+	}
+	return o.Continuous, true
+}
+
+// HasContinuous returns a boolean if a field has been set.
+func (o *Event) HasContinuous() bool {
+	if o != nil && !IsNil(o.Continuous) {
+		return true
+	}
+
+	return false
+}
+
+// SetContinuous gets a reference to the given bool and assigns it to the Continuous field.
+func (o *Event) SetContinuous(v bool) {
+	o.Continuous = &v
+}
+
 // GetDeleted returns the Deleted field value if set, zero value otherwise.
 func (o *Event) GetDeleted() bool {
 	if o == nil || IsNil(o.Deleted) {
@@ -585,6 +1183,39 @@ func (o *Event) HasDeleted() bool {
 // SetDeleted gets a reference to the given bool and assigns it to the Deleted field.
 func (o *Event) SetDeleted(v bool) {
 	o.Deleted = &v
+}
+
+// GetDetails returns the Details field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Event) GetDetails() map[string]interface{} {
+	if o == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Details
+}
+
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetDetailsOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Details) {
+		return map[string]interface{}{}, false
+	}
+	return o.Details, true
+}
+
+// HasDetails returns a boolean if a field has been set.
+func (o *Event) HasDetails() bool {
+	if o != nil && !IsNil(o.Details) {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given map[string]interface{} and assigns it to the Details field.
+func (o *Event) SetDetails(v map[string]interface{}) {
+	o.Details = v
 }
 
 // GetDevice returns the Device field value if set, zero value otherwise.
@@ -619,10 +1250,10 @@ func (o *Event) SetDevice(v string) {
 	o.Device = &v
 }
 
-// GetEnvironment returns the Environment field value if set, zero value otherwise.
-func (o *Event) GetEnvironment() map[string]interface{} {
-	if o == nil || IsNil(o.Environment) {
-		var ret map[string]interface{}
+// GetEnvironment returns the Environment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Event) GetEnvironment() map[string]string {
+	if o == nil {
+		var ret map[string]string
 		return ret
 	}
 	return o.Environment
@@ -630,11 +1261,12 @@ func (o *Event) GetEnvironment() map[string]interface{} {
 
 // GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Event) GetEnvironmentOk() (map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetEnvironmentOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Environment) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Environment, true
+	return &o.Environment, true
 }
 
 // HasEnvironment returns a boolean if a field has been set.
@@ -646,9 +1278,41 @@ func (o *Event) HasEnvironment() bool {
 	return false
 }
 
-// SetEnvironment gets a reference to the given map[string]interface{} and assigns it to the Environment field.
-func (o *Event) SetEnvironment(v map[string]interface{}) {
+// SetEnvironment gets a reference to the given map[string]string and assigns it to the Environment field.
+func (o *Event) SetEnvironment(v map[string]string) {
 	o.Environment = v
+}
+
+// GetErr returns the Err field value if set, zero value otherwise.
+func (o *Event) GetErr() string {
+	if o == nil || IsNil(o.Err) {
+		var ret string
+		return ret
+	}
+	return *o.Err
+}
+
+// GetErrOk returns a tuple with the Err field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetErrOk() (*string, bool) {
+	if o == nil || IsNil(o.Err) {
+		return nil, false
+	}
+	return o.Err, true
+}
+
+// HasErr returns a boolean if a field has been set.
+func (o *Event) HasErr() bool {
+	if o != nil && !IsNil(o.Err) {
+		return true
+	}
+
+	return false
+}
+
+// SetErr gets a reference to the given string and assigns it to the Err field.
+func (o *Event) SetErr(v string) {
+	o.Err = &v
 }
 
 // GetEvent returns the Event field value if set, zero value otherwise.
@@ -713,6 +1377,519 @@ func (o *Event) HasFile() bool {
 // SetFile gets a reference to the given string and assigns it to the File field.
 func (o *Event) SetFile(v string) {
 	o.File = &v
+}
+
+// GetFirmware returns the Firmware field value if set, zero value otherwise.
+func (o *Event) GetFirmware() int64 {
+	if o == nil || IsNil(o.Firmware) {
+		var ret int64
+		return ret
+	}
+	return *o.Firmware
+}
+
+// GetFirmwareOk returns a tuple with the Firmware field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetFirmwareOk() (*int64, bool) {
+	if o == nil || IsNil(o.Firmware) {
+		return nil, false
+	}
+	return o.Firmware, true
+}
+
+// HasFirmware returns a boolean if a field has been set.
+func (o *Event) HasFirmware() bool {
+	if o != nil && !IsNil(o.Firmware) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirmware gets a reference to the given int64 and assigns it to the Firmware field.
+func (o *Event) SetFirmware(v int64) {
+	o.Firmware = &v
+}
+
+// GetFirmwareHost returns the FirmwareHost field value if set, zero value otherwise.
+func (o *Event) GetFirmwareHost() string {
+	if o == nil || IsNil(o.FirmwareHost) {
+		var ret string
+		return ret
+	}
+	return *o.FirmwareHost
+}
+
+// GetFirmwareHostOk returns a tuple with the FirmwareHost field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetFirmwareHostOk() (*string, bool) {
+	if o == nil || IsNil(o.FirmwareHost) {
+		return nil, false
+	}
+	return o.FirmwareHost, true
+}
+
+// HasFirmwareHost returns a boolean if a field has been set.
+func (o *Event) HasFirmwareHost() bool {
+	if o != nil && !IsNil(o.FirmwareHost) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirmwareHost gets a reference to the given string and assigns it to the FirmwareHost field.
+func (o *Event) SetFirmwareHost(v string) {
+	o.FirmwareHost = &v
+}
+
+// GetFirmwareNotecard returns the FirmwareNotecard field value if set, zero value otherwise.
+func (o *Event) GetFirmwareNotecard() string {
+	if o == nil || IsNil(o.FirmwareNotecard) {
+		var ret string
+		return ret
+	}
+	return *o.FirmwareNotecard
+}
+
+// GetFirmwareNotecardOk returns a tuple with the FirmwareNotecard field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetFirmwareNotecardOk() (*string, bool) {
+	if o == nil || IsNil(o.FirmwareNotecard) {
+		return nil, false
+	}
+	return o.FirmwareNotecard, true
+}
+
+// HasFirmwareNotecard returns a boolean if a field has been set.
+func (o *Event) HasFirmwareNotecard() bool {
+	if o != nil && !IsNil(o.FirmwareNotecard) {
+		return true
+	}
+
+	return false
+}
+
+// SetFirmwareNotecard gets a reference to the given string and assigns it to the FirmwareNotecard field.
+func (o *Event) SetFirmwareNotecard(v string) {
+	o.FirmwareNotecard = &v
+}
+
+// GetFleets returns the Fleets field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Event) GetFleets() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.Fleets
+}
+
+// GetFleetsOk returns a tuple with the Fleets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetFleetsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Fleets) {
+		return nil, false
+	}
+	return o.Fleets, true
+}
+
+// HasFleets returns a boolean if a field has been set.
+func (o *Event) HasFleets() bool {
+	if o != nil && !IsNil(o.Fleets) {
+		return true
+	}
+
+	return false
+}
+
+// SetFleets gets a reference to the given []string and assigns it to the Fleets field.
+func (o *Event) SetFleets(v []string) {
+	o.Fleets = v
+}
+
+// GetHubDurationSecs returns the HubDurationSecs field value if set, zero value otherwise.
+func (o *Event) GetHubDurationSecs() int64 {
+	if o == nil || IsNil(o.HubDurationSecs) {
+		var ret int64
+		return ret
+	}
+	return *o.HubDurationSecs
+}
+
+// GetHubDurationSecsOk returns a tuple with the HubDurationSecs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubDurationSecsOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubDurationSecs) {
+		return nil, false
+	}
+	return o.HubDurationSecs, true
+}
+
+// HasHubDurationSecs returns a boolean if a field has been set.
+func (o *Event) HasHubDurationSecs() bool {
+	if o != nil && !IsNil(o.HubDurationSecs) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubDurationSecs gets a reference to the given int64 and assigns it to the HubDurationSecs field.
+func (o *Event) SetHubDurationSecs(v int64) {
+	o.HubDurationSecs = &v
+}
+
+// GetHubEventsRouted returns the HubEventsRouted field value if set, zero value otherwise.
+func (o *Event) GetHubEventsRouted() int64 {
+	if o == nil || IsNil(o.HubEventsRouted) {
+		var ret int64
+		return ret
+	}
+	return *o.HubEventsRouted
+}
+
+// GetHubEventsRoutedOk returns a tuple with the HubEventsRouted field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubEventsRoutedOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubEventsRouted) {
+		return nil, false
+	}
+	return o.HubEventsRouted, true
+}
+
+// HasHubEventsRouted returns a boolean if a field has been set.
+func (o *Event) HasHubEventsRouted() bool {
+	if o != nil && !IsNil(o.HubEventsRouted) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubEventsRouted gets a reference to the given int64 and assigns it to the HubEventsRouted field.
+func (o *Event) SetHubEventsRouted(v int64) {
+	o.HubEventsRouted = &v
+}
+
+// GetHubLastWorkDone returns the HubLastWorkDone field value if set, zero value otherwise.
+func (o *Event) GetHubLastWorkDone() int64 {
+	if o == nil || IsNil(o.HubLastWorkDone) {
+		var ret int64
+		return ret
+	}
+	return *o.HubLastWorkDone
+}
+
+// GetHubLastWorkDoneOk returns a tuple with the HubLastWorkDone field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubLastWorkDoneOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubLastWorkDone) {
+		return nil, false
+	}
+	return o.HubLastWorkDone, true
+}
+
+// HasHubLastWorkDone returns a boolean if a field has been set.
+func (o *Event) HasHubLastWorkDone() bool {
+	if o != nil && !IsNil(o.HubLastWorkDone) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubLastWorkDone gets a reference to the given int64 and assigns it to the HubLastWorkDone field.
+func (o *Event) SetHubLastWorkDone(v int64) {
+	o.HubLastWorkDone = &v
+}
+
+// GetHubRcvdBytes returns the HubRcvdBytes field value if set, zero value otherwise.
+func (o *Event) GetHubRcvdBytes() int64 {
+	if o == nil || IsNil(o.HubRcvdBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubRcvdBytes
+}
+
+// GetHubRcvdBytesOk returns a tuple with the HubRcvdBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubRcvdBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubRcvdBytes) {
+		return nil, false
+	}
+	return o.HubRcvdBytes, true
+}
+
+// HasHubRcvdBytes returns a boolean if a field has been set.
+func (o *Event) HasHubRcvdBytes() bool {
+	if o != nil && !IsNil(o.HubRcvdBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubRcvdBytes gets a reference to the given int64 and assigns it to the HubRcvdBytes field.
+func (o *Event) SetHubRcvdBytes(v int64) {
+	o.HubRcvdBytes = &v
+}
+
+// GetHubRcvdNotes returns the HubRcvdNotes field value if set, zero value otherwise.
+func (o *Event) GetHubRcvdNotes() int64 {
+	if o == nil || IsNil(o.HubRcvdNotes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubRcvdNotes
+}
+
+// GetHubRcvdNotesOk returns a tuple with the HubRcvdNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubRcvdNotesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubRcvdNotes) {
+		return nil, false
+	}
+	return o.HubRcvdNotes, true
+}
+
+// HasHubRcvdNotes returns a boolean if a field has been set.
+func (o *Event) HasHubRcvdNotes() bool {
+	if o != nil && !IsNil(o.HubRcvdNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubRcvdNotes gets a reference to the given int64 and assigns it to the HubRcvdNotes field.
+func (o *Event) SetHubRcvdNotes(v int64) {
+	o.HubRcvdNotes = &v
+}
+
+// GetHubSentBytes returns the HubSentBytes field value if set, zero value otherwise.
+func (o *Event) GetHubSentBytes() int64 {
+	if o == nil || IsNil(o.HubSentBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubSentBytes
+}
+
+// GetHubSentBytesOk returns a tuple with the HubSentBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubSentBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubSentBytes) {
+		return nil, false
+	}
+	return o.HubSentBytes, true
+}
+
+// HasHubSentBytes returns a boolean if a field has been set.
+func (o *Event) HasHubSentBytes() bool {
+	if o != nil && !IsNil(o.HubSentBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubSentBytes gets a reference to the given int64 and assigns it to the HubSentBytes field.
+func (o *Event) SetHubSentBytes(v int64) {
+	o.HubSentBytes = &v
+}
+
+// GetHubSentNotes returns the HubSentNotes field value if set, zero value otherwise.
+func (o *Event) GetHubSentNotes() int64 {
+	if o == nil || IsNil(o.HubSentNotes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubSentNotes
+}
+
+// GetHubSentNotesOk returns a tuple with the HubSentNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubSentNotesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubSentNotes) {
+		return nil, false
+	}
+	return o.HubSentNotes, true
+}
+
+// HasHubSentNotes returns a boolean if a field has been set.
+func (o *Event) HasHubSentNotes() bool {
+	if o != nil && !IsNil(o.HubSentNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubSentNotes gets a reference to the given int64 and assigns it to the HubSentNotes field.
+func (o *Event) SetHubSentNotes(v int64) {
+	o.HubSentNotes = &v
+}
+
+// GetHubTcpSessions returns the HubTcpSessions field value if set, zero value otherwise.
+func (o *Event) GetHubTcpSessions() int64 {
+	if o == nil || IsNil(o.HubTcpSessions) {
+		var ret int64
+		return ret
+	}
+	return *o.HubTcpSessions
+}
+
+// GetHubTcpSessionsOk returns a tuple with the HubTcpSessions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubTcpSessionsOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubTcpSessions) {
+		return nil, false
+	}
+	return o.HubTcpSessions, true
+}
+
+// HasHubTcpSessions returns a boolean if a field has been set.
+func (o *Event) HasHubTcpSessions() bool {
+	if o != nil && !IsNil(o.HubTcpSessions) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubTcpSessions gets a reference to the given int64 and assigns it to the HubTcpSessions field.
+func (o *Event) SetHubTcpSessions(v int64) {
+	o.HubTcpSessions = &v
+}
+
+// GetHubTlsSessions returns the HubTlsSessions field value if set, zero value otherwise.
+func (o *Event) GetHubTlsSessions() int64 {
+	if o == nil || IsNil(o.HubTlsSessions) {
+		var ret int64
+		return ret
+	}
+	return *o.HubTlsSessions
+}
+
+// GetHubTlsSessionsOk returns a tuple with the HubTlsSessions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubTlsSessionsOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubTlsSessions) {
+		return nil, false
+	}
+	return o.HubTlsSessions, true
+}
+
+// HasHubTlsSessions returns a boolean if a field has been set.
+func (o *Event) HasHubTlsSessions() bool {
+	if o != nil && !IsNil(o.HubTlsSessions) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubTlsSessions gets a reference to the given int64 and assigns it to the HubTlsSessions field.
+func (o *Event) SetHubTlsSessions(v int64) {
+	o.HubTlsSessions = &v
+}
+
+// GetHubWireRcvdBytes returns the HubWireRcvdBytes field value if set, zero value otherwise.
+func (o *Event) GetHubWireRcvdBytes() int64 {
+	if o == nil || IsNil(o.HubWireRcvdBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubWireRcvdBytes
+}
+
+// GetHubWireRcvdBytesOk returns a tuple with the HubWireRcvdBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubWireRcvdBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubWireRcvdBytes) {
+		return nil, false
+	}
+	return o.HubWireRcvdBytes, true
+}
+
+// HasHubWireRcvdBytes returns a boolean if a field has been set.
+func (o *Event) HasHubWireRcvdBytes() bool {
+	if o != nil && !IsNil(o.HubWireRcvdBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubWireRcvdBytes gets a reference to the given int64 and assigns it to the HubWireRcvdBytes field.
+func (o *Event) SetHubWireRcvdBytes(v int64) {
+	o.HubWireRcvdBytes = &v
+}
+
+// GetHubWireSentBytes returns the HubWireSentBytes field value if set, zero value otherwise.
+func (o *Event) GetHubWireSentBytes() int64 {
+	if o == nil || IsNil(o.HubWireSentBytes) {
+		var ret int64
+		return ret
+	}
+	return *o.HubWireSentBytes
+}
+
+// GetHubWireSentBytesOk returns a tuple with the HubWireSentBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetHubWireSentBytesOk() (*int64, bool) {
+	if o == nil || IsNil(o.HubWireSentBytes) {
+		return nil, false
+	}
+	return o.HubWireSentBytes, true
+}
+
+// HasHubWireSentBytes returns a boolean if a field has been set.
+func (o *Event) HasHubWireSentBytes() bool {
+	if o != nil && !IsNil(o.HubWireSentBytes) {
+		return true
+	}
+
+	return false
+}
+
+// SetHubWireSentBytes gets a reference to the given int64 and assigns it to the HubWireSentBytes field.
+func (o *Event) SetHubWireSentBytes(v int64) {
+	o.HubWireSentBytes = &v
+}
+
+// GetIccid returns the Iccid field value if set, zero value otherwise.
+func (o *Event) GetIccid() string {
+	if o == nil || IsNil(o.Iccid) {
+		var ret string
+		return ret
+	}
+	return *o.Iccid
+}
+
+// GetIccidOk returns a tuple with the Iccid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetIccidOk() (*string, bool) {
+	if o == nil || IsNil(o.Iccid) {
+		return nil, false
+	}
+	return o.Iccid, true
+}
+
+// HasIccid returns a boolean if a field has been set.
+func (o *Event) HasIccid() bool {
+	if o != nil && !IsNil(o.Iccid) {
+		return true
+	}
+
+	return false
+}
+
+// SetIccid gets a reference to the given string and assigns it to the Iccid field.
+func (o *Event) SetIccid(v string) {
+	o.Iccid = &v
 }
 
 // GetMoved returns the Moved field value if set, zero value otherwise.
@@ -875,6 +2052,38 @@ func (o *Event) SetPayload(v string) {
 	o.Payload = &v
 }
 
+// GetPayloadLength returns the PayloadLength field value if set, zero value otherwise.
+func (o *Event) GetPayloadLength() int64 {
+	if o == nil || IsNil(o.PayloadLength) {
+		var ret int64
+		return ret
+	}
+	return *o.PayloadLength
+}
+
+// GetPayloadLengthOk returns a tuple with the PayloadLength field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPayloadLengthOk() (*int64, bool) {
+	if o == nil || IsNil(o.PayloadLength) {
+		return nil, false
+	}
+	return o.PayloadLength, true
+}
+
+// HasPayloadLength returns a boolean if a field has been set.
+func (o *Event) HasPayloadLength() bool {
+	if o != nil && !IsNil(o.PayloadLength) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayloadLength gets a reference to the given int64 and assigns it to the PayloadLength field.
+func (o *Event) SetPayloadLength(v int64) {
+	o.PayloadLength = &v
+}
+
 // GetPlatform returns the Platform field value if set, zero value otherwise.
 func (o *Event) GetPlatform() bool {
 	if o == nil || IsNil(o.Platform) {
@@ -907,6 +2116,134 @@ func (o *Event) SetPlatform(v bool) {
 	o.Platform = &v
 }
 
+// GetPowerCharging returns the PowerCharging field value if set, zero value otherwise.
+func (o *Event) GetPowerCharging() bool {
+	if o == nil || IsNil(o.PowerCharging) {
+		var ret bool
+		return ret
+	}
+	return *o.PowerCharging
+}
+
+// GetPowerChargingOk returns a tuple with the PowerCharging field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPowerChargingOk() (*bool, bool) {
+	if o == nil || IsNil(o.PowerCharging) {
+		return nil, false
+	}
+	return o.PowerCharging, true
+}
+
+// HasPowerCharging returns a boolean if a field has been set.
+func (o *Event) HasPowerCharging() bool {
+	if o != nil && !IsNil(o.PowerCharging) {
+		return true
+	}
+
+	return false
+}
+
+// SetPowerCharging gets a reference to the given bool and assigns it to the PowerCharging field.
+func (o *Event) SetPowerCharging(v bool) {
+	o.PowerCharging = &v
+}
+
+// GetPowerMah returns the PowerMah field value if set, zero value otherwise.
+func (o *Event) GetPowerMah() float64 {
+	if o == nil || IsNil(o.PowerMah) {
+		var ret float64
+		return ret
+	}
+	return *o.PowerMah
+}
+
+// GetPowerMahOk returns a tuple with the PowerMah field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPowerMahOk() (*float64, bool) {
+	if o == nil || IsNil(o.PowerMah) {
+		return nil, false
+	}
+	return o.PowerMah, true
+}
+
+// HasPowerMah returns a boolean if a field has been set.
+func (o *Event) HasPowerMah() bool {
+	if o != nil && !IsNil(o.PowerMah) {
+		return true
+	}
+
+	return false
+}
+
+// SetPowerMah gets a reference to the given float64 and assigns it to the PowerMah field.
+func (o *Event) SetPowerMah(v float64) {
+	o.PowerMah = &v
+}
+
+// GetPowerPrimary returns the PowerPrimary field value if set, zero value otherwise.
+func (o *Event) GetPowerPrimary() bool {
+	if o == nil || IsNil(o.PowerPrimary) {
+		var ret bool
+		return ret
+	}
+	return *o.PowerPrimary
+}
+
+// GetPowerPrimaryOk returns a tuple with the PowerPrimary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPowerPrimaryOk() (*bool, bool) {
+	if o == nil || IsNil(o.PowerPrimary) {
+		return nil, false
+	}
+	return o.PowerPrimary, true
+}
+
+// HasPowerPrimary returns a boolean if a field has been set.
+func (o *Event) HasPowerPrimary() bool {
+	if o != nil && !IsNil(o.PowerPrimary) {
+		return true
+	}
+
+	return false
+}
+
+// SetPowerPrimary gets a reference to the given bool and assigns it to the PowerPrimary field.
+func (o *Event) SetPowerPrimary(v bool) {
+	o.PowerPrimary = &v
+}
+
+// GetPowerUsb returns the PowerUsb field value if set, zero value otherwise.
+func (o *Event) GetPowerUsb() bool {
+	if o == nil || IsNil(o.PowerUsb) {
+		var ret bool
+		return ret
+	}
+	return *o.PowerUsb
+}
+
+// GetPowerUsbOk returns a tuple with the PowerUsb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetPowerUsbOk() (*bool, bool) {
+	if o == nil || IsNil(o.PowerUsb) {
+		return nil, false
+	}
+	return o.PowerUsb, true
+}
+
+// HasPowerUsb returns a boolean if a field has been set.
+func (o *Event) HasPowerUsb() bool {
+	if o != nil && !IsNil(o.PowerUsb) {
+		return true
+	}
+
+	return false
+}
+
+// SetPowerUsb gets a reference to the given bool and assigns it to the PowerUsb field.
+func (o *Event) SetPowerUsb(v bool) {
+	o.PowerUsb = &v
+}
+
 // GetProduct returns the Product field value if set, zero value otherwise.
 func (o *Event) GetProduct() string {
 	if o == nil || IsNil(o.Product) {
@@ -937,6 +2274,38 @@ func (o *Event) HasProduct() bool {
 // SetProduct gets a reference to the given string and assigns it to the Product field.
 func (o *Event) SetProduct(v string) {
 	o.Product = &v
+}
+
+// GetQueued returns the Queued field value if set, zero value otherwise.
+func (o *Event) GetQueued() bool {
+	if o == nil || IsNil(o.Queued) {
+		var ret bool
+		return ret
+	}
+	return *o.Queued
+}
+
+// GetQueuedOk returns a tuple with the Queued field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetQueuedOk() (*bool, bool) {
+	if o == nil || IsNil(o.Queued) {
+		return nil, false
+	}
+	return o.Queued, true
+}
+
+// HasQueued returns a boolean if a field has been set.
+func (o *Event) HasQueued() bool {
+	if o != nil && !IsNil(o.Queued) {
+		return true
+	}
+
+	return false
+}
+
+// SetQueued gets a reference to the given bool and assigns it to the Queued field.
+func (o *Event) SetQueued(v bool) {
+	o.Queued = &v
 }
 
 // GetRat returns the Rat field value if set, zero value otherwise.
@@ -1195,6 +2564,38 @@ func (o *Event) SetSession(v string) {
 	o.Session = &v
 }
 
+// GetSessionBegan returns the SessionBegan field value if set, zero value otherwise.
+func (o *Event) GetSessionBegan() int64 {
+	if o == nil || IsNil(o.SessionBegan) {
+		var ret int64
+		return ret
+	}
+	return *o.SessionBegan
+}
+
+// GetSessionBeganOk returns a tuple with the SessionBegan field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetSessionBeganOk() (*int64, bool) {
+	if o == nil || IsNil(o.SessionBegan) {
+		return nil, false
+	}
+	return o.SessionBegan, true
+}
+
+// HasSessionBegan returns a boolean if a field has been set.
+func (o *Event) HasSessionBegan() bool {
+	if o != nil && !IsNil(o.SessionBegan) {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionBegan gets a reference to the given int64 and assigns it to the SessionBegan field.
+func (o *Event) SetSessionBegan(v int64) {
+	o.SessionBegan = &v
+}
+
 // GetSinr returns the Sinr field value if set, zero value otherwise.
 func (o *Event) GetSinr() int32 {
 	if o == nil || IsNil(o.Sinr) {
@@ -1321,6 +2722,38 @@ func (o *Event) HasSsid() bool {
 // SetSsid gets a reference to the given string and assigns it to the Ssid field.
 func (o *Event) SetSsid(v string) {
 	o.Ssid = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Event) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Event) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Event) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *Event) SetStatus(v string) {
+	o.Status = &v
 }
 
 // GetTemp returns the Temp field value if set, zero value otherwise.
@@ -1867,6 +3300,49 @@ func (o *Event) SetTriWhen(v int64) {
 	o.TriWhen = &v
 }
 
+// GetTriangulate returns the Triangulate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Event) GetTriangulate() Triangulation {
+	if o == nil || IsNil(o.Triangulate.Get()) {
+		var ret Triangulation
+		return ret
+	}
+	return *o.Triangulate.Get()
+}
+
+// GetTriangulateOk returns a tuple with the Triangulate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Event) GetTriangulateOk() (*Triangulation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Triangulate.Get(), o.Triangulate.IsSet()
+}
+
+// HasTriangulate returns a boolean if a field has been set.
+func (o *Event) HasTriangulate() bool {
+	if o != nil && o.Triangulate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTriangulate gets a reference to the given NullableTriangulation and assigns it to the Triangulate field.
+func (o *Event) SetTriangulate(v Triangulation) {
+	o.Triangulate.Set(&v)
+}
+
+// SetTriangulateNil sets the value for Triangulate to be an explicit nil
+func (o *Event) SetTriangulateNil() {
+	o.Triangulate.Set(nil)
+}
+
+// UnsetTriangulate ensures that no value is present for Triangulate, not even an explicit nil
+func (o *Event) UnsetTriangulate() {
+	o.Triangulate.Unset()
+}
+
 // GetUpdates returns the Updates field value if set, zero value otherwise.
 func (o *Event) GetUpdates() int32 {
 	if o == nil || IsNil(o.Updates) {
@@ -2261,11 +3737,26 @@ func (o Event) MarshalJSON() ([]byte, error) {
 
 func (o Event) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Apn) {
+		toSerialize["apn"] = o.Apn
+	}
 	if !IsNil(o.App) {
 		toSerialize["app"] = o.App
 	}
 	if !IsNil(o.Bars) {
 		toSerialize["bars"] = o.Bars
+	}
+	if !IsNil(o.BatchNumber) {
+		toSerialize["batch_number"] = o.BatchNumber
+	}
+	if !IsNil(o.BatchReceived) {
+		toSerialize["batch_received"] = o.BatchReceived
+	}
+	if !IsNil(o.BatchTotal) {
+		toSerialize["batch_total"] = o.BatchTotal
+	}
+	if !IsNil(o.Bearer) {
+		toSerialize["bearer"] = o.Bearer
 	}
 	if !IsNil(o.BestCountry) {
 		toSerialize["best_country"] = o.BestCountry
@@ -2291,26 +3782,113 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BestTimezone) {
 		toSerialize["best_timezone"] = o.BestTimezone
 	}
-	if !IsNil(o.Body) {
+	if o.Body != nil {
 		toSerialize["body"] = o.Body
 	}
 	if !IsNil(o.Bssid) {
 		toSerialize["bssid"] = o.Bssid
 	}
+	if !IsNil(o.Bulk) {
+		toSerialize["bulk"] = o.Bulk
+	}
+	if !IsNil(o.CardRcvdBytes) {
+		toSerialize["card_rcvd_bytes"] = o.CardRcvdBytes
+	}
+	if !IsNil(o.CardRcvdBytesSecondary) {
+		toSerialize["card_rcvd_bytes_secondary"] = o.CardRcvdBytesSecondary
+	}
+	if !IsNil(o.CardRcvdNotes) {
+		toSerialize["card_rcvd_notes"] = o.CardRcvdNotes
+	}
+	if !IsNil(o.CardSentBytes) {
+		toSerialize["card_sent_bytes"] = o.CardSentBytes
+	}
+	if !IsNil(o.CardSentBytesSecondary) {
+		toSerialize["card_sent_bytes_secondary"] = o.CardSentBytesSecondary
+	}
+	if !IsNil(o.CardSentNotes) {
+		toSerialize["card_sent_notes"] = o.CardSentNotes
+	}
+	if !IsNil(o.CardTcpSessions) {
+		toSerialize["card_tcp_sessions"] = o.CardTcpSessions
+	}
+	if !IsNil(o.CardTlsSessions) {
+		toSerialize["card_tls_sessions"] = o.CardTlsSessions
+	}
+	if !IsNil(o.Cellid) {
+		toSerialize["cellid"] = o.Cellid
+	}
+	if !IsNil(o.Continuous) {
+		toSerialize["continuous"] = o.Continuous
+	}
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
+	}
+	if o.Details != nil {
+		toSerialize["details"] = o.Details
 	}
 	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if !IsNil(o.Environment) {
+	if o.Environment != nil {
 		toSerialize["environment"] = o.Environment
+	}
+	if !IsNil(o.Err) {
+		toSerialize["err"] = o.Err
 	}
 	if !IsNil(o.Event) {
 		toSerialize["event"] = o.Event
 	}
 	if !IsNil(o.File) {
 		toSerialize["file"] = o.File
+	}
+	if !IsNil(o.Firmware) {
+		toSerialize["firmware"] = o.Firmware
+	}
+	if !IsNil(o.FirmwareHost) {
+		toSerialize["firmware_host"] = o.FirmwareHost
+	}
+	if !IsNil(o.FirmwareNotecard) {
+		toSerialize["firmware_notecard"] = o.FirmwareNotecard
+	}
+	if o.Fleets != nil {
+		toSerialize["fleets"] = o.Fleets
+	}
+	if !IsNil(o.HubDurationSecs) {
+		toSerialize["hub_duration_secs"] = o.HubDurationSecs
+	}
+	if !IsNil(o.HubEventsRouted) {
+		toSerialize["hub_events_routed"] = o.HubEventsRouted
+	}
+	if !IsNil(o.HubLastWorkDone) {
+		toSerialize["hub_last_work_done"] = o.HubLastWorkDone
+	}
+	if !IsNil(o.HubRcvdBytes) {
+		toSerialize["hub_rcvd_bytes"] = o.HubRcvdBytes
+	}
+	if !IsNil(o.HubRcvdNotes) {
+		toSerialize["hub_rcvd_notes"] = o.HubRcvdNotes
+	}
+	if !IsNil(o.HubSentBytes) {
+		toSerialize["hub_sent_bytes"] = o.HubSentBytes
+	}
+	if !IsNil(o.HubSentNotes) {
+		toSerialize["hub_sent_notes"] = o.HubSentNotes
+	}
+	if !IsNil(o.HubTcpSessions) {
+		toSerialize["hub_tcp_sessions"] = o.HubTcpSessions
+	}
+	if !IsNil(o.HubTlsSessions) {
+		toSerialize["hub_tls_sessions"] = o.HubTlsSessions
+	}
+	if !IsNil(o.HubWireRcvdBytes) {
+		toSerialize["hub_wire_rcvd_bytes"] = o.HubWireRcvdBytes
+	}
+	if !IsNil(o.HubWireSentBytes) {
+		toSerialize["hub_wire_sent_bytes"] = o.HubWireSentBytes
+	}
+	if !IsNil(o.Iccid) {
+		toSerialize["iccid"] = o.Iccid
 	}
 	if !IsNil(o.Moved) {
 		toSerialize["moved"] = o.Moved
@@ -2327,11 +3905,29 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Payload) {
 		toSerialize["payload"] = o.Payload
 	}
+	if !IsNil(o.PayloadLength) {
+		toSerialize["payload_length"] = o.PayloadLength
+	}
 	if !IsNil(o.Platform) {
 		toSerialize["platform"] = o.Platform
 	}
+	if !IsNil(o.PowerCharging) {
+		toSerialize["power_charging"] = o.PowerCharging
+	}
+	if !IsNil(o.PowerMah) {
+		toSerialize["power_mah"] = o.PowerMah
+	}
+	if !IsNil(o.PowerPrimary) {
+		toSerialize["power_primary"] = o.PowerPrimary
+	}
+	if !IsNil(o.PowerUsb) {
+		toSerialize["power_usb"] = o.PowerUsb
+	}
 	if !IsNil(o.Product) {
 		toSerialize["product"] = o.Product
+	}
+	if !IsNil(o.Queued) {
+		toSerialize["queued"] = o.Queued
 	}
 	if !IsNil(o.Rat) {
 		toSerialize["rat"] = o.Rat
@@ -2357,6 +3953,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Session) {
 		toSerialize["session"] = o.Session
 	}
+	if !IsNil(o.SessionBegan) {
+		toSerialize["session_began"] = o.SessionBegan
+	}
 	if !IsNil(o.Sinr) {
 		toSerialize["sinr"] = o.Sinr
 	}
@@ -2368,6 +3967,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Ssid) {
 		toSerialize["ssid"] = o.Ssid
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
 	}
 	if !IsNil(o.Temp) {
 		toSerialize["temp"] = o.Temp
@@ -2419,6 +4021,9 @@ func (o Event) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TriWhen) {
 		toSerialize["tri_when"] = o.TriWhen
+	}
+	if o.Triangulate.IsSet() {
+		toSerialize["triangulate"] = o.Triangulate.Get()
 	}
 	if !IsNil(o.Updates) {
 		toSerialize["updates"] = o.Updates
@@ -2478,8 +4083,13 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apn")
 		delete(additionalProperties, "app")
 		delete(additionalProperties, "bars")
+		delete(additionalProperties, "batch_number")
+		delete(additionalProperties, "batch_received")
+		delete(additionalProperties, "batch_total")
+		delete(additionalProperties, "bearer")
 		delete(additionalProperties, "best_country")
 		delete(additionalProperties, "best_id")
 		delete(additionalProperties, "best_lat")
@@ -2490,18 +4100,53 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "best_timezone")
 		delete(additionalProperties, "body")
 		delete(additionalProperties, "bssid")
+		delete(additionalProperties, "bulk")
+		delete(additionalProperties, "card_rcvd_bytes")
+		delete(additionalProperties, "card_rcvd_bytes_secondary")
+		delete(additionalProperties, "card_rcvd_notes")
+		delete(additionalProperties, "card_sent_bytes")
+		delete(additionalProperties, "card_sent_bytes_secondary")
+		delete(additionalProperties, "card_sent_notes")
+		delete(additionalProperties, "card_tcp_sessions")
+		delete(additionalProperties, "card_tls_sessions")
+		delete(additionalProperties, "cellid")
+		delete(additionalProperties, "continuous")
 		delete(additionalProperties, "deleted")
+		delete(additionalProperties, "details")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "environment")
+		delete(additionalProperties, "err")
 		delete(additionalProperties, "event")
 		delete(additionalProperties, "file")
+		delete(additionalProperties, "firmware")
+		delete(additionalProperties, "firmware_host")
+		delete(additionalProperties, "firmware_notecard")
+		delete(additionalProperties, "fleets")
+		delete(additionalProperties, "hub_duration_secs")
+		delete(additionalProperties, "hub_events_routed")
+		delete(additionalProperties, "hub_last_work_done")
+		delete(additionalProperties, "hub_rcvd_bytes")
+		delete(additionalProperties, "hub_rcvd_notes")
+		delete(additionalProperties, "hub_sent_bytes")
+		delete(additionalProperties, "hub_sent_notes")
+		delete(additionalProperties, "hub_tcp_sessions")
+		delete(additionalProperties, "hub_tls_sessions")
+		delete(additionalProperties, "hub_wire_rcvd_bytes")
+		delete(additionalProperties, "hub_wire_sent_bytes")
+		delete(additionalProperties, "iccid")
 		delete(additionalProperties, "moved")
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "ordering_code")
 		delete(additionalProperties, "orientation")
 		delete(additionalProperties, "payload")
+		delete(additionalProperties, "payload_length")
 		delete(additionalProperties, "platform")
+		delete(additionalProperties, "power_charging")
+		delete(additionalProperties, "power_mah")
+		delete(additionalProperties, "power_primary")
+		delete(additionalProperties, "power_usb")
 		delete(additionalProperties, "product")
+		delete(additionalProperties, "queued")
 		delete(additionalProperties, "rat")
 		delete(additionalProperties, "received")
 		delete(additionalProperties, "req")
@@ -2510,10 +4155,12 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "rssi")
 		delete(additionalProperties, "sensor")
 		delete(additionalProperties, "session")
+		delete(additionalProperties, "session_began")
 		delete(additionalProperties, "sinr")
 		delete(additionalProperties, "sku")
 		delete(additionalProperties, "sn")
 		delete(additionalProperties, "ssid")
+		delete(additionalProperties, "status")
 		delete(additionalProperties, "temp")
 		delete(additionalProperties, "tls")
 		delete(additionalProperties, "tower_country")
@@ -2531,6 +4178,7 @@ func (o *Event) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "tri_points")
 		delete(additionalProperties, "tri_timezone")
 		delete(additionalProperties, "tri_when")
+		delete(additionalProperties, "triangulate")
 		delete(additionalProperties, "updates")
 		delete(additionalProperties, "voltage")
 		delete(additionalProperties, "when")

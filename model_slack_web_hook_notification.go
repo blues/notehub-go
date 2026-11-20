@@ -13,6 +13,7 @@ package notehub
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SlackWebHookNotification type satisfies the MappedNullable interface at compile time
@@ -24,8 +25,8 @@ type SlackWebHookNotification struct {
 	MessageType *string `json:"message_type,omitempty"`
 	// The message, or Block Kit JSON. Event placeholders such as `[.body.temp]` aren't allowed.
 	Text *string `json:"text,omitempty"`
-	// The URL of the Slack webhook.
-	Url                  *string `json:"url,omitempty"`
+	// The URL of the Slack webhook. Returned as `(omitted)`. Sending it back keeps the stored URL if the monitor has only one Slack webhook route.
+	Url                  string `json:"url"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,8 +36,9 @@ type _SlackWebHookNotification SlackWebHookNotification
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSlackWebHookNotification() *SlackWebHookNotification {
+func NewSlackWebHookNotification(url string) *SlackWebHookNotification {
 	this := SlackWebHookNotification{}
+	this.Url = url
 	return &this
 }
 
@@ -112,36 +114,28 @@ func (o *SlackWebHookNotification) SetText(v string) {
 	o.Text = &v
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// GetUrl returns the Url field value
 func (o *SlackWebHookNotification) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+
+	return o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *SlackWebHookNotification) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return &o.Url, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *SlackWebHookNotification) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl sets field value
 func (o *SlackWebHookNotification) SetUrl(v string) {
-	o.Url = &v
+	o.Url = v
 }
 
 func (o SlackWebHookNotification) MarshalJSON() ([]byte, error) {
@@ -160,9 +154,7 @@ func (o SlackWebHookNotification) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Text) {
 		toSerialize["text"] = o.Text
 	}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -172,6 +164,27 @@ func (o SlackWebHookNotification) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SlackWebHookNotification) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varSlackWebHookNotification := _SlackWebHookNotification{}
 
 	err = json.Unmarshal(data, &varSlackWebHookNotification)

@@ -26,7 +26,7 @@ type CreateMonitor struct {
 	AggregateWindow *string `json:"aggregate_window,omitempty" validate:"regexp=^(([0-9]+[.]?[0-9]*|[.][0-9]+)(ns|us|µs|ms|s|m|h))+$"`
 	// If true, the monitor is in alert state.
 	Alert *bool `json:"alert,omitempty"`
-	// Where to send notifications, by email or Slack. Required to create a monitor.
+	// Where to send notifications, by email, Slack or Twilio. Required to create a monitor.
 	AlertRoutes []MonitorAlertRoutesInner `json:"alert_routes,omitempty"`
 	// How the value is compared with `threshold`. Required for event and usage monitors; heartbeat monitors always use `greater_than_or_equal_to`.
 	ConditionType *string `json:"condition_type,omitempty"`

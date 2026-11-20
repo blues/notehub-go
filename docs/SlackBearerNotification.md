@@ -2,18 +2,18 @@
 
 ## Properties
 
-| Name            | Type                  | Description                                                                                                                  | Notes      |
-| --------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| **Channel**     | Pointer to **string** | The channel to send the message to.                                                                                          | [optional] |
-| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition | [optional] |
-| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                      | [optional] |
-| **Token**       | Pointer to **string** | The bearer token for the Slack app.                                                                                          | [optional] |
+| Name            | Type                  | Description                                                                                                                                                   | Notes      |
+| --------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Channel**     | Pointer to **string** | The channel to send the message to.                                                                                                                           | [optional] |
+| **MessageType** | Pointer to **string** | How &#x60;text&#x60; is read. - &#x60;text&#x60;: plain message text - &#x60;blocks&#x60;: a Slack Block Kit JSON definition                                  | [optional] |
+| **Text**        | Pointer to **string** | The message, or Block Kit JSON. Event placeholders such as &#x60;[.body.temp]&#x60; aren&#39;t allowed.                                                       | [optional] |
+| **Token**       | **string**            | The bearer token for the Slack app. Returned as &#x60;(omitted)&#x60;. Sending it back keeps the stored token if the monitor has only one Slack bearer route. |
 
 ## Methods
 
 ### NewSlackBearerNotification
 
-`func NewSlackBearerNotification() *SlackBearerNotification`
+`func NewSlackBearerNotification(token string, ) *SlackBearerNotification`
 
 NewSlackBearerNotification instantiates a new SlackBearerNotification object
 This constructor will assign default values to properties that have it defined,
@@ -121,11 +121,5 @@ and a boolean to check if the value has been set.
 `func (o *SlackBearerNotification) SetToken(v string)`
 
 SetToken sets Token field to given value.
-
-### HasToken
-
-`func (o *SlackBearerNotification) HasToken() bool`
-
-HasToken returns a boolean if a field has been set.
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
